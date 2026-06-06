@@ -1,8 +1,91 @@
-.page {
+.message-page {
+  height: 100vh;
+  background: #f5f5f5;
+}
+
+.empty-state {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  font-size: 32px;
+  height: 60vh;
+  font-size: 28px;
+  color: #999;
+}
+
+.thread-list {
+  background: #fff;
+}
+
+.thread-item {
+  display: flex;
+  padding: 24px 32px;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.thread-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 44px;
+  margin-right: 24px;
+  flex-shrink: 0;
+  background: #eee;
+}
+
+.thread-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.thread-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.thread-name {
+  font-size: 28px;
+  font-weight: 500;
   color: #333;
+}
+
+.thread-time {
+  font-size: 22px;
+  color: #999;
+  flex-shrink: 0;
+}
+
+.thread-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.thread-preview {
+  font-size: 24px;
+  color: #999;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.unread-badge {
+  min-width: 32px;
+  height: 32px;
+  line-height: 32px;
+  background: #ff4757;
+  border-radius: 16px;
+  padding: 0 8px;
+  margin-left: 12px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.unread-count {
+  font-size: 20px;
+  color: #fff;
+  display: block;
+  text-align: center;
 }
