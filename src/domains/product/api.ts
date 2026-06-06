@@ -39,5 +39,16 @@ export const productApi = {
   },
   getFavorites(page: number = 1) {
     return http.get<{ products: Product[]; hasMore: boolean }>('/user/favorites', { page })
+  },
+  create(data: {
+    title: string
+    description: string
+    price: number
+    condition: string
+    categoryId: string
+    images: string[]
+    isNegotiable: boolean
+  }) {
+    return http.post<Product>('/products', data)
   }
 }
