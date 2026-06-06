@@ -1,8 +1,131 @@
-.page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.edit-page {
   min-height: 100vh;
-  font-size: 32px;
-  color: #333;
+  background: $color-bg;
+}
+
+.loading-state {
+  @include flex-center;
+  min-height: 60vh;
+  font-size: $font-md;
+  color: $color-text-secondary;
+}
+
+// Form
+.form-section {
+  padding: $spacing-lg;
+}
+
+.form-group {
+  background: $color-white;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-sm;
+}
+
+.form-row {
+  display: flex;
+  gap: $spacing-md;
+
+  .form-group {
+    flex: 1;
+    margin-bottom: 0;
+
+    &:first-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.form-label {
+  display: block;
+  font-size: $font-sm;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-sm;
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  height: 44px;
+  font-size: $font-md;
+  color: $color-text;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+
+  &::placeholder {
+    color: $color-placeholder;
+  }
+
+  &.has-error {
+    color: $color-error;
+  }
+}
+
+.error-text {
+  display: block;
+  font-size: $font-xs;
+  color: $color-error;
+  margin-top: $spacing-xs;
+}
+
+.form-group-switch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .form-label {
+    margin-bottom: 0;
+  }
+}
+
+// Actions
+.form-actions {
+  padding: 0 $spacing-lg $spacing-xxl;
+
+  @include safe-area-bottom;
+}
+
+.save-btn {
+  width: 100%;
+  padding: $spacing-md 0;
+  background: $color-primary;
+  color: $color-white;
+  border-radius: $radius-md;
+  font-size: $font-lg;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: $spacing-md;
+
+  &:active {
+    opacity: 0.85;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+  }
+}
+
+.delete-btn {
+  width: 100%;
+  padding: $spacing-md 0;
+  background: $color-white;
+  color: $color-error;
+  border-radius: $radius-md;
+  font-size: $font-lg;
+  text-align: center;
+  border: 1px solid rgba($color-error, 0.2);
+
+  &:active {
+    background: rgba($color-error, 0.04);
+  }
 }
