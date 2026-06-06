@@ -1,0 +1,51 @@
+{
+  "app": {
+    "name": "RE Marketplace",
+    "loading": "Loading...",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "done": "Done",
+    "retry": "Retry",
+    "close": "Close",
+    "search": "Search",
+    "more": "More",
+    "noMore": "No more",
+    "empty": "No data",
+    "networkError": "Network error, please try again later",
+    "pageNotFound": "Page not found",
+    "updateAvailable": "New version available, update now?",
+    "confirmExit": "Are you sure you want to exit?"
+  },
+  "error": {
+    "unknown": "Unknown error",
+    "timeout": "Request timeout, please try again later",
+    "serverError": "Server error, please try again later",
+    "notFound": "Requested resource not found",
+    "unauthorized": "Session expired, please login again",
+    "forbidden": "Access denied",
+    "badRequest": "Invalid request parameters",
+    "networkError": "Network connection failed, please check your settings",
+    "validateError": "Invalid input, please check and try again",
+    "uploadFailed": "Upload failed",
+    "submitFailed": "Submission failed, please try again later"
+  },
+  "time": {
+    "justNow": "Just now",
+    "minutesAgo": "{minutes}m ago",
+    "hoursAgo": "{hours}h ago",
+    "yesterday": "Yesterday",
+    "daysAgo": "{days}d ago",
+    "weeksAgo": "{weeks}w ago",
+    "monthsAgo": "{months}mo ago",
+    "longTimeAgo": "Long time ago",
+    "today": "Today",
+    "thisWeek": "This week",
+    "thisMonth": "This month"
+  }
+}
