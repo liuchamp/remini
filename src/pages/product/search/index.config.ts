@@ -1,3 +1,4 @@
 export default definePageConfig({
-  navigationBarTitleText: '搜索'
+  navigationBarTitleText: '搜索',
+  navigationBarBackgroundColor: '#ffffff'
 })

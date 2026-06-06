@@ -1,8 +1,151 @@
-.page {
+.search-page {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #F5F6FA;
+}
+
+/* Search Header */
+.search-header {
+  display: flex;
   align-items: center;
-  min-height: 100vh;
+  padding: 16px 16px 16px 24px;
+  background-color: #ffffff;
+}
+
+.search-input {
+  flex: 1;
+  height: 64px;
+  padding: 0 24px;
+  font-size: 26px;
+  background-color: #F5F6FA;
+  border-radius: 32px;
+  border: none;
+  outline: none;
+}
+
+.search-cancel {
+  font-size: 28px;
+  color: #FF6B35;
+  margin-left: 16px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* Search History */
+.search-history {
+  padding: 24px 24px 0;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.history-title {
+  font-size: 28px;
+  color: #4E5969;
+  font-weight: 500;
+}
+
+.history-clear {
+  font-size: 24px;
+  color: #86909C;
+}
+
+.history-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.history-tag {
+  padding: 8px 20px;
+  font-size: 24px;
+  color: #4E5969;
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #E5E6EB;
+  line-height: 1.4;
+}
+
+/* Search Results */
+.search-results {
+  flex: 1;
+  overflow: scroll;
+  padding: 0 16px;
+}
+
+/* Product Grid (matching homepage) */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.product-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.product-image {
+  width: 100%;
+  height: 360px;
+  background-color: #F0F0F0;
+}
+
+.product-info {
+  padding: 12px;
+}
+
+.product-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: 26px;
+  color: #1D2129;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.product-price-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.product-price {
   font-size: 32px;
-  color: #333;
+  color: #FF6B35;
+  font-weight: 700;
+}
+
+.negotiable-tag {
+  display: inline;
+  font-size: 20px;
+  color: #FF6B35;
+  background-color: #FFF0E8;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.product-distance {
+  font-size: 22px;
+  color: #86909C;
+}
+
+/* Status Text */
+.status-text {
+  text-align: center;
+  padding: 48px 0;
+  font-size: 28px;
+  color: #B2BEC3;
 }
