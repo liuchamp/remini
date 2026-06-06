@@ -1,8 +1,180 @@
-.page {
+.order-list-page {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  font-size: 32px;
-  color: #333;
+  flex-direction: column;
+  height: 100vh;
+  background: #f5f5f5;
+
+  .tab-bar {
+    display: flex;
+    background: #fff;
+    padding: 0 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid #f0f0f0;
+
+    .tab-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 0 0;
+      position: relative;
+
+      .tab-label {
+        font-size: 28px;
+        color: #666;
+        padding-bottom: 20px;
+        transition: color 0.2s;
+      }
+
+      &.active {
+        .tab-label {
+          color: #333;
+          font-weight: 600;
+        }
+
+        .tab-indicator {
+          width: 40px;
+          height: 4px;
+          background: #FF6B35;
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+
+  .order-scroll {
+    flex: 1;
+    overflow-y: auto;
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 240px;
+
+      .empty-icon {
+        font-size: 96px;
+        margin-bottom: 24px;
+      }
+
+      .empty-text {
+        font-size: 30px;
+        color: #999;
+        margin-bottom: 12px;
+      }
+
+      .empty-hint {
+        font-size: 26px;
+        color: #ccc;
+      }
+    }
+
+    .order-card {
+      background: #fff;
+      margin: 16px 16px 0;
+      border-radius: 16px;
+      overflow: hidden;
+
+      .order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 24px 20px;
+        border-bottom: 1px solid #f5f5f5;
+
+        .order-no {
+          font-size: 24px;
+          color: #999;
+        }
+
+        .order-status {
+          font-size: 26px;
+          font-weight: 500;
+        }
+      }
+
+      .order-body {
+        display: flex;
+        padding: 24px;
+
+        .product-image {
+          width: 160px;
+          height: 160px;
+          border-radius: 12px;
+          background: #f9f9f9;
+          flex-shrink: 0;
+        }
+
+        .product-info {
+          flex: 1;
+          margin-left: 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          min-width: 0;
+
+          .product-title {
+            font-size: 28px;
+            color: #333;
+            line-height: 1.4;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+          }
+
+          .product-price {
+            font-size: 32px;
+            color: #E02020;
+            font-weight: 600;
+
+            .price-symbol {
+              font-size: 22px;
+            }
+          }
+        }
+      }
+
+      .order-actions {
+        display: flex;
+        justify-content: flex-end;
+        padding: 16px 24px 24px;
+        gap: 16px;
+
+        .action-btn {
+          padding: 12px 28px;
+          border-radius: 8px;
+          font-size: 26px;
+          line-height: 1;
+
+          &.primary {
+            background: #FF6B35;
+            color: #fff;
+          }
+
+          &.default {
+            border: 1px solid #ddd;
+            color: #666;
+          }
+        }
+      }
+    }
+
+    .loading-more {
+      text-align: center;
+      padding: 32px;
+      font-size: 24px;
+      color: #999;
+    }
+
+    .no-more {
+      text-align: center;
+      padding: 32px;
+      font-size: 24px;
+      color: #ccc;
+    }
+  }
 }

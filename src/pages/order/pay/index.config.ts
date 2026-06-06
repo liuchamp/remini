@@ -1,3 +1,4 @@
 export default definePageConfig({
-  navigationBarTitleText: '支付'
+  navigationBarTitleText: '支付',
+  navigationBarBackgroundColor: '#ffffff'
 })
