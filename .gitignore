@@ -18,3 +18,4 @@ ascf-project/.clang-format
 ascf-project/.clang-tidy
 ascf-project/**/.test
 ascf-project/.appanalyzer
+ascf-project/ascf/

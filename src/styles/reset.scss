@@ -1,0 +1,35 @@
+view,
+text,
+image,
+input,
+textarea,
+button,
+scroll-view,
+swiper,
+navigator {
+  box-sizing: border-box;
+}
+
+image {
+  display: block;
+}
+
+button {
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  line-height: inherit;
+
+  &::after {
+    border: none;
+  }
+}
+
+input,
+textarea {
+  outline: none;
+  border: none;
+  background: transparent;
+}
