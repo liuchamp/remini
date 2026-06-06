@@ -1,0 +1,31 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "oh-my-openagent@latest",
+    "superpowers@git+https://github.com/jnMetaCode/superpowers-zh.git"
+  ],
+  "model": "opencode/minimax-m3-free",
+  "agent": {
+    "build": {
+      "model": "opencode/mimo-v2.5-free"
+    },
+    "plan": {
+      "model": "opencode/nemotron-3-super-free"
+    },
+    "explore": {
+      "model": "opencode/big-pickle"
+    },
+    "scout": {
+      "model": "opencode/deepseek-v4-flash-free"
+    },
+    "compaction": {
+      "model": "opencode/deepseek-v4-flash-free"
+    },
+    "title": {
+      "model": "opencode/big-pickle"
+    },
+    "summary": {
+      "model": "deepseek/deepseek-v4-flash"
+    }
+  }
+}
