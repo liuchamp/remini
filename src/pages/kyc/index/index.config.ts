@@ -1,3 +1,4 @@
 export default definePageConfig({
-  navigationBarTitleText: '实名认证'
+  navigationBarTitleText: '身份认证',
+  navigationBarBackgroundColor: '#ffffff'
 })
