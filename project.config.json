@@ -1,7 +1,7 @@
 {
   "miniprogramRoot": "./dist",
-  "projectname": "myApp",
-  "description": "inisvp",
+  "projectname": "remx-marketplace",
+  "description": "Remix Marketplace - A Taro multi-platform e-commerce app",
   "appid": "touristappid",
   "setting": {
     "urlCheck": true,
