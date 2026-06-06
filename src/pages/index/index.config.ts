@@ -1,3 +1,6 @@
 export default definePageConfig({
-  navigationBarTitleText: '首页'
+  navigationBarTitleText: 'REMX',
+  navigationBarBackgroundColor: '#ffffff',
+  enablePullDownRefresh: true,
+  onReachBottomDistance: 100
 })
