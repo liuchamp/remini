@@ -72,17 +72,20 @@ export function resolveTemplate(template: string, vars: Record<string, string>):
 /**
  * ShareProvider HOC — wraps page components with share message registration.
  * Uses React Context (not Redux) for configuration propagation.
+ * overrides can be a static object or a function (props: P) => Partial<ShareConfig>
+ * for runtime data injection.
  */
 export function ShareProvider<P extends object>(
   Component: React.ComponentType<P>,
-  overrides?: Partial<ShareConfig>
+  overrides?: Partial<ShareConfig> | ((props: P) => Partial<ShareConfig>)
 ) {
   return function WrappedPage(props: P) {
     const router = useRouter()
     const path = router.path
     const contextConfig = useContext(ShareContext)
     const baseConfig = PAGE_SHARE_CONFIG[path] || DEFAULT_SHARE_CONFIG
-    const merged = mergeConfig(mergeConfig(baseConfig, contextConfig), overrides)
+    const resolvedOverrides = typeof overrides === 'function' ? overrides(props) : overrides
+    const merged = mergeConfig(mergeConfig(baseConfig, contextConfig), resolvedOverrides)
 
     useEffect(() => {
       Taro.useShareAppMessage?.(() => ({

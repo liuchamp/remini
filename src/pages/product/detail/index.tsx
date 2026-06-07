@@ -5,11 +5,13 @@ import { useTranslation } from 'react-i18next'
 import { useProductStore } from '@/domains/product/store'
 import { useAuthStore } from '@/domains/auth/store'
 import { offerApi } from '@/domains/trade/offer'
+import { ShareProvider } from '@/shared/utils/share'
+import { PosterGenerator } from '@/shared/components/share/PosterGenerator'
 import Loading from '@/shared/components/Loading'
 import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
 
-export default function Detail() {
+function Detail() {
   const { t } = useTranslation(['product', 'common'])
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   void t
@@ -20,6 +22,7 @@ export default function Detail() {
   const [offerNote, setOfferNote] = useState('')
   const [submittingOffer, setSubmittingOffer] = useState(false)
   const [favoriting, setFavoriting] = useState(false)
+  const [posterVisible, setPosterVisible] = useState(false)
 
   const { currentProduct, loading, loadDetail, toggleFavorite, isFavorited } = useProductStore()
   const { isLoggedIn } = useAuthStore()
@@ -110,7 +113,7 @@ export default function Detail() {
 
   const handleShare = useCallback(() => {
     if (!currentProduct) return
-    Taro.showToast({ title: '已复制分享链接', icon: 'success' })
+    setPosterVisible(true)
   }, [currentProduct])
 
   const formatDistance = (km: number | undefined): string => {
@@ -332,6 +335,15 @@ export default function Detail() {
           </View>
         </View>
       )}
+
+      <PosterGenerator
+        type='product'
+        visible={posterVisible}
+        data={product}
+        onClose={() => setPosterVisible(false)}
+      />
     </View>
   )
 }
+
+export default ShareProvider(Detail)
