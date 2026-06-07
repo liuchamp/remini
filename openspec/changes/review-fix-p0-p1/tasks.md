@@ -1,15 +1,15 @@
-- [ ] **Task 1: 修复提现上限逻辑 (P0)**
+- [x] **Task 1: 修复提现上限逻辑 (P0)**
   - 修改 `pages/wallet/withdraw/index.tsx`。
   - 获取当前用户的 KYC Tier，根据 Tier 计算 `maxWithdraw`。
   - 在 L1 用户尝试提现（或不满足条件时）提供升级 KYC 的引导 UI。
-- [ ] **Task 2: 实现风控挑战与支付拦截 UI (P0)**
+- [x] **Task 2: 实现风控挑战与支付拦截 UI (P0)**
   - 创建 `pages/auth/challenge/index.tsx` 用于输入短信验证码/TOTP。
   - 修改 `pages/order/pay/index.tsx`，处理支付 API 返回的 challenge 和 block 错误。
   - 拦截支付并引导至 Challenge 页面。
-- [ ] **Task 3: 完善商品发布与详情页的出价入口 (P1)**
+- [x] **Task 3: 完善商品发布与详情页的出价入口 (P1)**
   - 在 `pages/publish/index.tsx` 和 `pages/product/edit/index.tsx` 中增加"定价模式"表单项。
   - 在 `pages/product/detail/index.tsx` 中读取商品定价模式，展示"可议价"标签及出价入口按钮。
-- [ ] **Task 4: 补全出价详情页操作闭环 (P1)**
+- [x] **Task 4: 补全出价详情页操作闭环 (P1)**
   - 在 `pages/offer/detail/index.tsx` 中增加交互按钮区。
   - 支持：接受、拒绝、还价（卖家操作）。
   - 支持：接受还价、拒绝还价、再次出价（买家操作）。

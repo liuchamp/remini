@@ -1,7 +1,7 @@
 import { View, Text, Input, Button } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useState } from 'react'
-import { resolvePendingRequest, rejectPendingRequest } from '@/shared/api/request'
+import { resolvePendingRequest, rejectPendingRequest, getPendingRequest } from '@/shared/api/request'
 import { http } from '@/shared/api/request'
 import './index.scss'
 
