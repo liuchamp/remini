@@ -10,5 +10,7 @@ export const adminApi = {
   rejectProduct(id: string, reason?: string) { return http.post(`/admin/products/${id}/reject`, { reason }) },
   getWithdrawals(page?: number) { return http.get('/admin/withdrawals', { page }) },
   approveWithdrawal(id: string) { return http.post(`/admin/withdrawals/${id}/approve`) },
-  rejectWithdrawal(id: string) { return http.post(`/admin/withdrawals/${id}/reject`) }
+  rejectWithdrawal(id: string) { return http.post(`/admin/withdrawals/${id}/reject`) },
+  getDisputes(page?: number) { return http.get('/admin/disputes', { page }) },
+  resolveDispute(id: string, decision: 'buyer' | 'seller') { return http.post(`/admin/disputes/${id}/resolve`, { decision }) }
 }

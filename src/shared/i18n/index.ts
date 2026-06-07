@@ -4,14 +4,24 @@ import Taro from '@tarojs/taro'
 
 import zhCommon from './resources/zh-CN/common.json'
 import zhAuth from './resources/zh-CN/auth.json'
+import zhProduct from './resources/zh-CN/product.json'
+import zhTrade from './resources/zh-CN/trade.json'
+import zhChat from './resources/zh-CN/chat.json'
+import zhProfile from './resources/zh-CN/profile.json'
+import zhValidation from './resources/zh-CN/validation.json'
 import enCommon from './resources/en-US/common.json'
 import enAuth from './resources/en-US/auth.json'
+import enProduct from './resources/en-US/product.json'
+import enTrade from './resources/en-US/trade.json'
+import enChat from './resources/en-US/chat.json'
+import enProfile from './resources/en-US/profile.json'
+import enValidation from './resources/en-US/validation.json'
 
 const STORAGE_KEY = '@remx/locale'
 
 const resources = {
-  'zh-CN': { common: zhCommon, auth: zhAuth },
-  'en-US': { common: enCommon, auth: enAuth }
+  'zh-CN': { common: zhCommon, auth: zhAuth, product: zhProduct, trade: zhTrade, chat: zhChat, profile: zhProfile, validation: zhValidation },
+  'en-US': { common: enCommon, auth: enAuth, product: enProduct, trade: enTrade, chat: enChat, profile: enProfile, validation: enValidation }
 }
 
 const getSystemLanguage = (): string => {
@@ -34,7 +44,7 @@ i18n.use(initReactI18next).init({
   lng: initialLang,
   fallbackLng: 'zh-CN',
   interpolation: { escapeValue: false },
-  ns: ['common', 'auth'],
+  ns: ['common', 'auth', 'product', 'trade', 'chat', 'profile', 'validation'],
   defaultNS: 'common',
 })
 

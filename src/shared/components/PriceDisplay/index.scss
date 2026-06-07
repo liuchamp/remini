@@ -1,0 +1,38 @@
+@use '../../styles' as *;
+
+.price-display {
+  display: flex;
+  align-items: baseline;
+
+  .price-symbol {
+    color: $color-primary;
+    font-weight: 600;
+  }
+
+  .price-value {
+    color: $color-primary;
+    font-weight: 700;
+  }
+
+  .price-original {
+    color: $color-text-secondary;
+    text-decoration: line-through;
+    margin-left: 8px;
+    font-size: $font-sm;
+  }
+
+  &.price-small {
+    .price-symbol { font-size: 20px; }
+    .price-value { font-size: 24px; }
+  }
+
+  &.price-medium {
+    .price-symbol { font-size: 24px; }
+    .price-value { font-size: 32px; }
+  }
+
+  &.price-large {
+    .price-symbol { font-size: 28px; }
+    .price-value { font-size: 40px; }
+  }
+}

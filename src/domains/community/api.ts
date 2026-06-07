@@ -37,4 +37,7 @@ export const communityApi = {
   joinCircle(circleId: string) {
     return http.post<{ isMember: boolean }>(`/circles/${circleId}/join`)
   },
+  getCircleDetail(id: string) {
+    return http.get<{ circle: Circle; posts: Post[] }>(`/circles/${id}`)
+  },
 }

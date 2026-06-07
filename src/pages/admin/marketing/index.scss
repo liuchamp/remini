@@ -1,0 +1,30 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.admin-marketing-page {
+  min-height: 100vh;
+  background: $color-bg;
+  padding: $spacing-md;
+}
+
+.section {
+  background: $color-white;
+  border-radius: 12px;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+
+  .section-title {
+    font-size: $font-lg;
+    font-weight: 600;
+    color: $color-text;
+    margin-bottom: $spacing-md;
+    display: block;
+  }
+
+  .empty-hint {
+    text-align: center;
+    color: $color-text-secondary;
+    padding: $spacing-lg;
+    font-size: $font-md;
+  }
+}

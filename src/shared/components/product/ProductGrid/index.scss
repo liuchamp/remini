@@ -1,0 +1,21 @@
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 0 16px;
+
+  .product-grid-item {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &.grid-2 .product-grid-item {
+    width: calc(50% - 8px);
+    max-width: calc(50% - 8px);
+  }
+
+  &.grid-3 .product-grid-item {
+    width: calc(33.33% - 11px);
+    max-width: calc(33.33% - 11px);
+  }
+}

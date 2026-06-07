@@ -1,0 +1,23 @@
+{
+  "message": "Messages",
+  "chat": "Chat",
+  "conversation": "Conversation",
+  "inputPlaceholder": "Type a message...",
+  "send": "Send",
+  "image": "Image",
+  "camera": "Camera",
+  "productCard": "Product Card",
+  "blockUser": "Block User",
+  "unblockUser": "Unblock User",
+  "blockConfirm": "Block this user?",
+  "unblockConfirm": "Unblock this user?",
+  "read": "Read",
+  "unread": "Unread",
+  "noMessages": "No Messages",
+  "noConversations": "No Conversations",
+  "startChat": "Start Chat",
+  "endChat": "End Chat",
+  "chatHistory": "Chat History",
+  "clearHistory": "Clear History",
+  "clearHistoryConfirm": "Clear chat history?"
+}

@@ -1,0 +1,48 @@
+@use '../../../styles' as *;
+
+.transactions-page {
+  min-height: 100vh;
+  background: $color-bg;
+}
+
+.transaction-list {
+  padding: $spacing-md;
+}
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-md 0;
+  border-bottom: 1px solid #f0f0f0;
+
+  .transaction-info {
+    flex: 1;
+
+    .transaction-title {
+      font-size: $font-md;
+      color: $color-text;
+    }
+
+    .transaction-time {
+      font-size: $font-sm;
+      color: $color-text-secondary;
+      margin-top: 4px;
+    }
+  }
+
+  .transaction-amount {
+    font-size: $font-lg;
+    font-weight: 600;
+
+    &.positive { color: $color-success; }
+    &.negative { color: $color-text; }
+  }
+}
+
+.load-more {
+  text-align: center;
+  padding: $spacing-md;
+  color: $color-text-secondary;
+  font-size: $font-sm;
+}

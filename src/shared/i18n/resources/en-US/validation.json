@@ -1,0 +1,21 @@
+{
+  "required": "This field is required",
+  "phone": "Invalid phone number",
+  "phoneLength": "Phone number must be 11 digits",
+  "email": "Invalid email address",
+  "password": "Password is required",
+  "passwordLength": "Password must be at least 6 characters",
+  "passwordMatch": "Passwords do not match",
+  "code": "Verification code is required",
+  "codeLength": "Verification code must be 4-6 digits",
+  "price": "Invalid price",
+  "priceMin": "Price must be greater than 0",
+  "titleLength": "Title must be 2-50 characters",
+  "contentLength": "Content must be 1-500 characters",
+  "imageRequired": "Please upload at least one image",
+  "categoryRequired": "Please select a category",
+  "addressRequired": "Please enter a shipping address",
+  "nameRequired": "Please enter a name",
+  "idNumber": "Invalid ID number",
+  "bankCard": "Invalid bank card number"
+}

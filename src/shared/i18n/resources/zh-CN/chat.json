@@ -1,0 +1,23 @@
+{
+  "message": "消息",
+  "chat": "聊天",
+  "conversation": "对话",
+  "inputPlaceholder": "输入消息...",
+  "send": "发送",
+  "image": "图片",
+  "camera": "拍照",
+  "productCard": "商品卡片",
+  "blockUser": "屏蔽用户",
+  "unblockUser": "取消屏蔽",
+  "blockConfirm": "确定屏蔽该用户？",
+  "unblockConfirm": "确定取消屏蔽？",
+  "read": "已读",
+  "unread": "未读",
+  "noMessages": "暂无消息",
+  "noConversations": "暂无对话",
+  "startChat": "开始聊天",
+  "endChat": "结束聊天",
+  "chatHistory": "聊天记录",
+  "clearHistory": "清除记录",
+  "clearHistoryConfirm": "确定清除聊天记录？"
+}

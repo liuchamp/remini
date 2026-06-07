@@ -1,0 +1,48 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.circle-detail-page {
+  min-height: 100vh;
+  background: $color-bg;
+}
+
+.circle-header {
+  display: flex;
+  background: $color-white;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+
+  .circle-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-right: $spacing-md;
+  }
+
+  .circle-info {
+    flex: 1;
+  }
+
+  .circle-name {
+    font-size: $font-xl;
+    font-weight: 700;
+    color: $color-text;
+    display: block;
+  }
+
+  .circle-desc {
+    font-size: $font-md;
+    color: $color-text-secondary;
+    margin: 8px 0;
+    display: block;
+  }
+
+  .circle-members {
+    font-size: $font-sm;
+    color: $color-text-secondary;
+  }
+}
+
+.circle-posts {
+  padding: 0 $spacing-md;
+}

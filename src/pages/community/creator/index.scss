@@ -1,0 +1,72 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.creator-center-page {
+  min-height: 100vh;
+  background: $color-bg;
+}
+
+.stats-section {
+  display: flex;
+  background: $color-white;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+
+  .stat-item {
+    flex: 1;
+    text-align: center;
+
+    .stat-value {
+      font-size: 40px;
+      font-weight: 700;
+      color: $color-primary;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: $font-sm;
+      color: $color-text-secondary;
+      margin-top: 4px;
+    }
+  }
+}
+
+.section {
+  background: $color-white;
+  padding: $spacing-md;
+  margin: 0 $spacing-md $spacing-md;
+  border-radius: 12px;
+
+  .section-title {
+    font-size: $font-lg;
+    font-weight: 600;
+    color: $color-text;
+    margin-bottom: $spacing-md;
+    display: block;
+  }
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  padding: $spacing-sm 0;
+  border-bottom: 1px solid $color-border-light;
+
+  .rank {
+    width: 60px;
+    font-size: $font-md;
+    font-weight: 600;
+    color: $color-primary;
+  }
+
+  .name {
+    flex: 1;
+    font-size: $font-md;
+    color: $color-text;
+  }
+
+  .referrals {
+    font-size: $font-md;
+    color: $color-text-secondary;
+  }
+}

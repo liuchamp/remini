@@ -1,0 +1,13 @@
+.showcase-badge {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, #4CAF50, #8BC34A);
+  border-radius: 20px;
+  padding: 4px 12px;
+
+  .badge-text {
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+  }
+}

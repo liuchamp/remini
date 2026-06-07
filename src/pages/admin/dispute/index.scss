@@ -1,0 +1,72 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.admin-dispute-page {
+  min-height: 100vh;
+  background: $color-bg;
+}
+
+.dispute-list {
+  padding: $spacing-md;
+}
+
+.dispute-card {
+  background: $color-white;
+  border-radius: 12px;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+
+  .dispute-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $spacing-sm;
+  }
+
+  .dispute-id {
+    font-size: $font-md;
+    font-weight: 600;
+    color: $color-text;
+  }
+
+  .dispute-status {
+    font-size: $font-sm;
+    padding: 4px 12px;
+    border-radius: 20px;
+
+    &.pending {
+      background: #FFF3E0;
+      color: #FF9800;
+    }
+    &.resolved {
+      background: #E8F5E9;
+      color: #4CAF50;
+    }
+  }
+
+  .dispute-reason {
+    font-size: $font-md;
+    color: $color-text;
+    margin-bottom: $spacing-sm;
+  }
+
+  .dispute-parties {
+    font-size: $font-sm;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-md;
+  }
+
+  .dispute-actions {
+    display: flex;
+    gap: $spacing-sm;
+
+    .action-btn {
+      flex: 1;
+      height: 64px;
+      border-radius: 32px;
+      font-size: $font-md;
+
+      &.buyer { background: #2196F3; color: $color-white; }
+      &.seller { background: #FF9800; color: $color-white; }
+    }
+  }
+}

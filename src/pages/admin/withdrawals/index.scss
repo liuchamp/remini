@@ -1,0 +1,61 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.admin-withdrawals-page {
+  min-height: 100vh;
+  background: $color-bg;
+}
+
+.withdrawal-list {
+  padding: $spacing-md;
+}
+
+.withdrawal-card {
+  background: $color-white;
+  border-radius: 12px;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+
+  .withdrawal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .withdrawal-user {
+    font-size: $font-md;
+    font-weight: 600;
+    color: $color-text;
+  }
+
+  .withdrawal-amount {
+    font-size: $font-lg;
+    font-weight: 700;
+    color: $color-primary;
+  }
+
+  .withdrawal-info {
+    font-size: $font-sm;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-md;
+
+    .withdrawal-time {
+      margin-top: 4px;
+    }
+  }
+
+  .withdrawal-actions {
+    display: flex;
+    gap: $spacing-sm;
+
+    .action-btn {
+      flex: 1;
+      height: 64px;
+      border-radius: 32px;
+      font-size: $font-md;
+
+      &.approve { background: #4CAF50; color: $color-white; }
+      &.reject { background: #f5f5f5; color: $color-text; }
+    }
+  }
+}

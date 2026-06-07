@@ -1,0 +1,85 @@
+@use '../../../styles' as *;
+
+.post-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+
+  .post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-sm;
+  }
+
+  .post-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    margin-right: $spacing-sm;
+  }
+
+  .post-author-info {
+    flex: 1;
+  }
+
+  .post-author-name {
+    font-size: $font-md;
+    font-weight: 600;
+    color: $color-text;
+  }
+
+  .post-time {
+    font-size: $font-sm;
+    color: $color-text-secondary;
+  }
+
+  .creator-badge {
+    background: linear-gradient(135deg, #FF6B35, #FF9800);
+    border-radius: 20px;
+    padding: 4px 12px;
+
+    .badge-text {
+      font-size: 20px;
+      color: #fff;
+    }
+  }
+
+  .post-content {
+    font-size: $font-md;
+    color: $color-text;
+    line-height: 1.6;
+    margin-bottom: $spacing-sm;
+  }
+
+  .post-images {
+    display: flex;
+    gap: 8px;
+    margin-bottom: $spacing-sm;
+
+    .post-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 8px;
+    }
+  }
+
+  .post-footer {
+    display: flex;
+    gap: $spacing-lg;
+    padding-top: $spacing-sm;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .post-stat {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .stat-icon { font-size: 28px; }
+    .stat-count {
+      font-size: $font-sm;
+      color: $color-text-secondary;
+    }
+  }
+}

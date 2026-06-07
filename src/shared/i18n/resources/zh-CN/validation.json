@@ -1,0 +1,21 @@
+{
+  "required": "此项为必填",
+  "phone": "请输入正确的手机号",
+  "phoneLength": "手机号为11位",
+  "email": "请输入正确的邮箱",
+  "password": "密码不能为空",
+  "passwordLength": "密码至少6位",
+  "passwordMatch": "两次输入的密码不一致",
+  "code": "验证码不能为空",
+  "codeLength": "验证码为4-6位",
+  "price": "请输入正确的价格",
+  "priceMin": "价格不能小于0",
+  "titleLength": "标题长度为2-50字",
+  "contentLength": "内容长度为1-500字",
+  "imageRequired": "请至少上传一张图片",
+  "categoryRequired": "请选择分类",
+  "addressRequired": "请填写收货地址",
+  "nameRequired": "请填写姓名",
+  "idNumber": "请输入正确的身份证号",
+  "bankCard": "请输入正确的银行卡号"
+}

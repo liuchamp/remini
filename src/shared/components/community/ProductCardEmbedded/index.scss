@@ -1,0 +1,38 @@
+@use '../../../styles' as *;
+
+.product-embedded {
+  display: flex;
+  background: #f8f8f8;
+  border-radius: 8px;
+  padding: $spacing-sm;
+  margin-top: $spacing-sm;
+
+  .product-embedded-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    margin-right: $spacing-sm;
+  }
+
+  .product-embedded-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .product-embedded-title {
+    font-size: $font-md;
+    color: $color-text;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .product-embedded-price {
+    font-size: 28px;
+    font-weight: 700;
+    color: $color-primary;
+  }
+}
