@@ -4,6 +4,9 @@ import Taro from '@tarojs/taro'
 import { useLoad } from '@tarojs/taro'
 import { useTranslation } from 'react-i18next'
 import { tradeApi } from '@/domains/trade/api'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
+import Empty from '@/shared/components/Empty'
 import './index.scss'
 
 const TAB_KEYS = ['', 'pending_payment', 'paid', 'shipped', 'completed']
@@ -46,7 +49,16 @@ export default function List() {
   const [hasMore, setHasMore] = useState(true)
   const [loading, setLoading] = useState(false)
 
+  const [error, setError] = useState(false)
   const statusKey = TAB_KEYS[activeTab]
+
+  const refresh = useCallback(() => {
+    setError(false)
+    setOrders([])
+    setPage(1)
+    setHasMore(true)
+    fetchOrders(1, true)
+  }, [fetchOrders])
 
   const fetchOrders = useCallback(async (p: number, replace: boolean) => {
     if (loading) return
@@ -60,6 +72,7 @@ export default function List() {
         setPage(p)
       }
     } catch {
+      setError(true)
       Taro.showToast({ title: t('common:error.serverError'), icon: 'none' })
     } finally {
       setLoading(false)
@@ -161,15 +174,14 @@ export default function List() {
         onScrollToLower={handleScrollToLower}
         lowerThreshold={100}
       >
-        {orders.length === 0 && !loading && (
-          <View className='empty-state'>
-            <Text className='empty-icon'>📦</Text>
-            <Text className='empty-text'>{t('trade:noOrders')}</Text>
-            <Text className='empty-hint'>{t('trade:emptyOrderHint')}</Text>
-          </View>
-        )}
-
-        {orders.map(order => {
+        {loading ? (
+          <Skeleton type='list' rows={5} />
+        ) : error ? (
+          <RetryButton onRetry={refresh} />
+        ) : orders.length === 0 ? (
+          <Empty text={t('common:empty.list')} />
+        ) : (
+          orders.map(order => {
           const statusInfo = { label: t(STATUS_KEY_MAP[order.status] || 'trade:orderStatus.' + order.status), color: STATUS_COLORS[order.status] || '#999' }
           return (
             <View
