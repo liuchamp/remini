@@ -50,5 +50,16 @@ export const productApi = {
     isNegotiable: boolean
   }) {
     return http.post<Product>('/products', data)
+  },
+  update(id: string, data: {
+    title?: string
+    description?: string
+    price?: number
+    condition?: string
+    categoryId?: string
+    images?: string[]
+    isNegotiable?: boolean
+  }) {
+    return http.put<Product>(`/products/${id}`, data)
   }
 }

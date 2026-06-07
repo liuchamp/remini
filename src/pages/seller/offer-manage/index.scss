@@ -1,0 +1,336 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.offer-manage-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: $color-bg;
+}
+
+/* Tabs */
+.tab-bar {
+  display: flex;
+  background: #fff;
+  padding: 0 16px;
+  border-bottom: 1px solid $color-border-light;
+  flex-shrink: 0;
+}
+
+.tab-item {
+  flex: 1;
+  position: relative;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.tab-label {
+  font-size: $font-md;
+  color: $color-text-light;
+}
+
+.tab-item.active .tab-label {
+  color: $color-primary;
+  font-weight: 600;
+}
+
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: $color-primary;
+}
+
+/* Scroll area */
+.offer-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+/* Offer cards */
+.offer-card {
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: $shadow-sm;
+}
+
+.offer-header {
+  @include flex-between;
+  margin-bottom: 14px;
+}
+
+.offer-status {
+  font-size: $font-sm;
+  padding: 4px 12px;
+  border-radius: $radius-sm;
+}
+
+.offer-status.pending {
+  background: #FFF3E0;
+  color: #F57C00;
+}
+
+.offer-status.accepted {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+
+.offer-status.rejected {
+  background: #FFEBEE;
+  color: #C62828;
+}
+
+.offer-status.countered {
+  background: #E3F2FD;
+  color: #1565C0;
+}
+
+.offer-status.expired {
+  background: #F5F5F5;
+  color: #9E9E9E;
+}
+
+.offer-time {
+  font-size: $font-xs;
+  color: $color-text-light;
+}
+
+.offer-body {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.product-thumb {
+  width: 120px;
+  height: 120px;
+  border-radius: $radius-md;
+  flex-shrink: 0;
+  background: $color-bg;
+}
+
+.offer-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.product-title {
+  font-size: $font-md;
+  font-weight: 500;
+  color: $color-text;
+  @include line-clamp(2);
+}
+
+.buyer-info {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.buyer-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: $color-bg;
+  flex-shrink: 0;
+}
+
+.buyer-name {
+  font-size: $font-sm;
+  color: $color-text-secondary;
+}
+
+.offer-amount-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.offer-amount {
+  font-size: 36px;
+  font-weight: 700;
+  color: $color-primary;
+}
+
+.offer-amount .symbol {
+  font-size: 24px;
+}
+
+.original-price {
+  font-size: $font-sm;
+  color: $color-text-light;
+  text-decoration: line-through;
+}
+
+.counter-info {
+  font-size: $font-sm;
+  color: $color-info;
+  margin-top: 4px;
+}
+
+.offer-note {
+  font-size: $font-sm;
+  color: $color-text-light;
+  background: $color-bg;
+  padding: 10px 14px;
+  border-radius: $radius-sm;
+  margin-top: 10px;
+}
+
+.offer-note .label {
+  color: $color-text-secondary;
+  font-weight: 500;
+  margin-right: 6px;
+}
+
+/* Actions */
+.offer-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid $color-border-light;
+}
+
+.action-btn {
+  flex: 1;
+  text-align: center;
+  padding: 16px 0;
+  border-radius: $radius-md;
+  font-size: $font-md;
+  font-weight: 500;
+}
+
+.action-btn.reject {
+  background: $color-bg;
+  color: $color-text-secondary;
+}
+
+.action-btn.accept {
+  background: $color-success;
+  color: #fff;
+}
+
+.action-btn.counter {
+  background: $color-info;
+  color: #fff;
+}
+
+.action-btn.default {
+  background: $color-bg;
+  color: $color-text-secondary;
+}
+
+/* Counter dialog */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  @include flex-center;
+  z-index: 1000;
+}
+
+.dialog-box {
+  width: 580px;
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: 32px;
+}
+
+.dialog-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: $color-text;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.dialog-input {
+  width: 100%;
+  height: 80px;
+  padding: 0 20px;
+  font-size: 36px;
+  color: $color-text;
+  background: $color-bg;
+  border: 2px solid $color-border;
+  border-radius: $radius-md;
+  text-align: center;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: $color-primary;
+  }
+}
+
+.dialog-input-symbol {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 36px;
+  color: $color-text-secondary;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.dialog-btn {
+  flex: 1;
+  text-align: center;
+  padding: 18px 0;
+  border-radius: $radius-md;
+  font-size: $font-md;
+  font-weight: 500;
+}
+
+.dialog-btn.cancel {
+  background: $color-bg;
+  color: $color-text-secondary;
+}
+
+.dialog-btn.confirm {
+  background: $color-primary;
+  color: #fff;
+}
+
+/* Empty state */
+.empty-state {
+  @include flex-center;
+  flex-direction: column;
+  padding-top: 120px;
+}
+
+.empty-icon {
+  font-size: 80px;
+  margin-bottom: 16px;
+}
+
+.empty-text {
+  font-size: $font-md;
+  color: $color-text-light;
+}
+
+/* Loading */
+.loading-more,
+.no-more {
+  text-align: center;
+  padding: 24px 0;
+  font-size: $font-sm;
+  color: $color-text-light;
+}

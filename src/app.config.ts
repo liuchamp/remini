@@ -5,6 +5,9 @@ export default defineAppConfig({
     'pages/publish/index',
     'pages/message/index',
     'pages/profile/index',
+    'pages/profile/listings/index',
+    'pages/profile/favorites/index',
+    'pages/profile/follows/index',
   ],
   subPackages: [
     {
@@ -13,7 +16,7 @@ export default defineAppConfig({
     },
     {
       root: 'pages/product',
-      pages: ['detail/index', 'search/index']
+      pages: ['detail/index', 'search/index', 'edit/index']
     },
     {
       root: 'pages/order',
@@ -69,7 +72,7 @@ export default defineAppConfig({
     },
     {
       root: 'pages/seller',
-      pages: ['index/index']
+      pages: ['index/index', 'offer-manage/index', 'product-manage/index']
     },
     {
       root: 'pages/admin',
@@ -86,6 +89,10 @@ export default defineAppConfig({
     {
       root: 'pages/chat',
       pages: ['conversation/index']
+    },
+    {
+      root: 'pages/users',
+      pages: ['$id/index']
     }
   ],
   tabBar: {

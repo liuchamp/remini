@@ -1,0 +1,184 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.edit-page {
+  min-height: 100vh;
+  background: $color-bg;
+  padding: $spacing-xxl $spacing-xxl 140px;
+  overflow-y: auto;
+}
+
+.edit-loading {
+  @include flex-center;
+  height: 100vh;
+}
+
+.loading-text {
+  font-size: $font-md;
+  color: $color-text-light;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.form-group {
+  margin-bottom: $spacing-xl;
+  background: $color-white;
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.form-label {
+  display: block;
+  font-size: $font-md;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: $spacing-lg;
+}
+
+.form-input {
+  width: 100%;
+  height: 80px;
+  background: $color-bg-light;
+  border-radius: 12px;
+  padding: 0 20px;
+  font-size: $font-md;
+  color: $color-text;
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  width: 100%;
+  height: 160px;
+  background: $color-bg-light;
+  border-radius: 12px;
+  padding: 20px;
+  font-size: $font-md;
+  color: $color-text;
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+.price-input-wrap {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  background: $color-bg-light;
+  border-radius: 12px;
+  padding: 0 20px;
+}
+
+.price-currency {
+  font-size: $font-lg;
+  font-weight: 600;
+  color: $color-primary;
+  margin-right: $spacing-sm;
+}
+
+.price-input {
+  flex: 1;
+  height: 100%;
+  font-size: $font-lg;
+  color: $color-text;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.picker-value {
+  height: 80px;
+  line-height: 80px;
+  background: $color-bg-light;
+  border-radius: 12px;
+  padding: 0 20px;
+  font-size: $font-md;
+  color: $color-text;
+  position: relative;
+}
+
+.picker-value::after {
+  content: '›';
+  position: absolute;
+  right: 20px;
+  font-size: $font-xl;
+  color: $color-border;
+}
+
+.picker-value.placeholder {
+  color: $color-placeholder;
+}
+
+.pricing-toggle {
+  display: flex;
+  background: $color-bg-light;
+  border-radius: 12px;
+  padding: $spacing-xs;
+  gap: $spacing-xs;
+}
+
+.toggle-option {
+  flex: 1;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-md;
+  transition: all 0.2s ease;
+}
+
+.toggle-option.active {
+  background: $color-white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.toggle-option.active .toggle-text {
+  color: $color-primary;
+  font-weight: 600;
+}
+
+.toggle-text {
+  font-size: $font-md;
+  color: $color-text-light;
+}
+
+.submit-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: $spacing-lg $spacing-xxl;
+  padding-bottom: calc($spacing-lg + env(safe-area-inset-bottom));
+  background: $color-white;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+  z-index: 100;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 88px;
+  background: $color-primary;
+  color: $color-white;
+  font-size: $font-lg;
+  font-weight: 600;
+  border-radius: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  line-height: 88px;
+  text-align: center;
+}
+
+.submit-btn:active {
+  opacity: 0.9;
+}
+
+.submit-btn[disabled] {
+  background: #d9d9d9;
+  color: $color-white;
+}

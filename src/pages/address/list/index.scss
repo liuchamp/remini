@@ -207,6 +207,11 @@
     opacity: 0.85;
   }
 
+  &.disabled {
+    background: $color-border-light;
+    color: $color-text-light;
+  }
+
   .add-icon {
     font-size: $font-xxl;
     font-weight: 300;

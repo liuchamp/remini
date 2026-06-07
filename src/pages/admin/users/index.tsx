@@ -1,7 +1,8 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { View, Text, Input, ScrollView } from '@tarojs/components'
 import Taro, { useLoad, useReachBottom } from '@tarojs/taro'
 import { adminApi } from '@/domains/admin/api'
+import { useAuth } from '@/shared/hooks/useAuth'
 import './index.scss'
 
 interface UserItem {
@@ -18,6 +19,11 @@ interface UserItem {
 export default function AdminUsers() {
   const [users, setUsers] = useState<UserItem[]>([])
   const [keyword, setKeyword] = useState('')
+  const { requireAdmin } = useAuth()
+
+  useEffect(() => {
+    requireAdmin()
+  }, [])
   const [statusFilter, setStatusFilter] = useState('')
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)

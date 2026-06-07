@@ -7,6 +7,43 @@
   height: 100vh;
 }
 
+/* Blocked Banner */
+.blocked-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background-color: #FFF3E0;
+  border-bottom: 1px solid #FFE0B2;
+}
+
+.blocked-text {
+  font-size: 24px;
+  color: #E65100;
+}
+
+.blocked-undo {
+  font-size: 24px;
+  color: $color-primary;
+  font-weight: 500;
+}
+
+/* Chat Header */
+.chat-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 20px;
+  background: #fff;
+  border-bottom: 1px solid $color-border-light;
+}
+
+.header-action {
+  font-size: 24px;
+  color: $color-primary;
+  padding: 4px 12px;
+}
+
+/* Message List */
 .message-list {
   flex: 1;
   overflow-y: auto;
@@ -83,12 +120,30 @@
   line-height: 1.5;
 }
 
-.message-time {
-  font-size: $font-xs;
-  color: $color-text-light;
+/* Message Meta: Time + Read Status */
+.message-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-top: 6px;
 }
 
+.message-time {
+  font-size: $font-xs;
+  color: $color-text-light;
+}
+
+.message-read-status {
+  font-size: $font-xs;
+  color: $color-primary;
+}
+
+.message-sent-status {
+  font-size: $font-xs;
+  color: $color-text-light;
+}
+
+/* Input Bar */
 .input-bar {
   display: flex;
   align-items: center;

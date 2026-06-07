@@ -175,6 +175,7 @@ export default function List() {
                   className='product-image'
                   src={order.product.image}
                   mode='aspectFill'
+                  lazyLoad
                 />
                 <View className='product-info'>
                   <Text className='product-title' numberOfLines={2}>

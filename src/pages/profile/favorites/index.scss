@@ -1,0 +1,114 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.favorites-page {
+  min-height: 100vh;
+  background-color: $color-bg;
+}
+
+.favorites-scroll {
+  height: 100vh;
+  padding: $spacing-md;
+}
+
+.status-text {
+  @include flex-center;
+  height: 60vh;
+  font-size: $font-md;
+  color: $color-text-light;
+}
+
+.empty-state {
+  @include flex-center;
+  flex-direction: column;
+  height: 60vh;
+  gap: $spacing-lg;
+}
+
+.empty-icon {
+  font-size: 80px;
+}
+
+.empty-text {
+  font-size: $font-md;
+  color: $color-text-secondary;
+}
+
+.go-browse-btn {
+  padding: 12px 48px;
+  background: linear-gradient(135deg, $color-primary, $color-primary-light);
+  border-radius: $radius-full;
+  font-size: $font-md;
+  color: $color-white;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.favorite-card {
+  display: flex;
+  background: $color-white;
+  border-radius: $radius-lg;
+  padding: $spacing-md;
+  @include card-shadow;
+}
+
+.fav-image {
+  width: 160px;
+  height: 160px;
+  border-radius: $radius-md;
+  flex-shrink: 0;
+  background-color: $color-bg-light;
+}
+
+.fav-info {
+  flex: 1;
+  margin-left: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.fav-title {
+  font-size: $font-sm;
+  font-weight: 600;
+  color: $color-text;
+  @include line-clamp(2);
+}
+
+.fav-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fav-price {
+  font-size: 30px;
+  font-weight: 700;
+  color: $color-primary;
+}
+
+.unfavorite-btn {
+  padding: 6px 16px;
+  background-color: rgba($color-error, 0.08);
+  border-radius: $radius-md;
+  font-size: $font-xs;
+  color: $color-error;
+}
+
+.fav-seller {
+  font-size: $font-xs;
+  color: $color-text-light;
+}
+
+.loading-more,
+.no-more {
+  text-align: center;
+  padding: $spacing-lg 0;
+  font-size: $font-xs;
+  color: $color-text-light;
+}

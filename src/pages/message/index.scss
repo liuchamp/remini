@@ -53,6 +53,26 @@
   color: $color-text;
 }
 
+.thread-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.blocked-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 8px;
+  height: 28px;
+  border-radius: 4px;
+  background: #f0f0f0;
+}
+
+.blocked-badge-text {
+  font-size: 20px;
+  color: $color-text-light;
+}
+
 .thread-time {
   font-size: 22px;
   color: $color-text-light;

@@ -11,6 +11,7 @@ export interface User {
   trustScore: number
   currentKycTier: 'L0' | 'L1' | 'L2' | 'L3'
   isVerified: boolean
+  role?: 'user' | 'admin'
 }
 
 interface AuthState {

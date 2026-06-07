@@ -11,8 +11,8 @@ const DASHBOARD_CARDS = [
 
 const QUICK_ACTIONS = [
   { icon: '➕', label: '发布商品', url: '/pages/publish/index' },
-  { icon: '📦', label: '管理商品', url: '/pages/product/search/index?mine=1' },
-  { icon: '💬', label: '管理出价', url: '/pages/offer/list/index' },
+  { icon: '📦', label: '管理商品', url: '/pages/seller/product-manage/index' },
+  { icon: '💬', label: '管理出价', url: '/pages/seller/offer-manage/index' },
   { icon: '📋', label: '订单管理', url: '/pages/order/list/index' },
   { icon: '🚚', label: '发货管理', url: '/pages/logistics/track/index' },
   { icon: '📊', label: '数据统计', url: '' },

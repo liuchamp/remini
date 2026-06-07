@@ -35,7 +35,7 @@ export default function CircleList() {
               className='circle-card'
               onClick={() => Taro.navigateTo({ url: `/pages/community/circle/detail/index?id=${c.id}` })}
             >
-              <Image className='circle-avatar' src={c.avatar} mode='aspectFill' />
+              <Image className='circle-avatar' src={c.avatar} mode='aspectFill' lazyLoad />
               <View className='circle-info'>
                 <Text className='circle-name'>{c.name}</Text>
                 <Text className='circle-members'>{c.memberCount} 成员</Text>

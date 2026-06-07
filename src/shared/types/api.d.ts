@@ -25,6 +25,7 @@ interface User {
   trustScore: number
   currentKycTier: 'L0' | 'L1' | 'L2' | 'L3'
   isVerified: boolean
+  role?: 'user' | 'admin'
   sellerLevel?: string
   createdAt: string
 }
@@ -231,6 +232,7 @@ interface ChatThread {
   lastMessageAt: string
   unreadCount: number
   product?: ProductBrief
+  isBlocked?: boolean
 }
 
 interface ChatMessage {
@@ -239,6 +241,7 @@ interface ChatMessage {
   content: string
   type: 'text' | 'image' | 'product' | 'order' | 'system'
   isRead: boolean
+  readAt?: string
   createdAt: string
   product?: ProductBrief
   order?: Order

@@ -25,5 +25,15 @@ export function useAuth() {
     return true
   }
 
-  return { user, isLoggedIn, logout, requireAuth, requireKycTier }
+  const requireAdmin = (): boolean => {
+    if (!requireAuth()) return false
+    if (user?.role !== 'admin') {
+      Taro.showToast({ title: '无管理员权限', icon: 'none' })
+      Taro.switchTab({ url: '/pages/index/index' })
+      return false
+    }
+    return true
+  }
+
+  return { user, isLoggedIn, logout, requireAuth, requireKycTier, requireAdmin }
 }

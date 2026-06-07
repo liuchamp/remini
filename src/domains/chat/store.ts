@@ -7,12 +7,15 @@ interface ChatState {
   messages: ChatMessage[]
   unreadTotal: number
   loading: boolean
+  blocking: boolean
 
   loadThreads: () => Promise<void>
   loadMessages: (threadId: string) => Promise<void>
   sendMessage: (threadId: string, content: string, type?: string) => void
   connect: (url: string, token: string) => void
   disconnect: () => void
+  blockUser: (userId: string) => Promise<void>
+  unblockUser: (userId: string) => Promise<void>
 }
 
 export const useChatStore = create<ChatState>((set, get) => ({
@@ -20,6 +23,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
   messages: [],
   unreadTotal: 0,
   loading: false,
+  blocking: false,
 
   loadThreads: async () => {
     const res = await chatApi.getThreads()
@@ -50,5 +54,31 @@ export const useChatStore = create<ChatState>((set, get) => ({
     })
   },
 
-  disconnect: () => wsManager.disconnect()
+  disconnect: () => wsManager.disconnect(),
+
+  blockUser: async (userId) => {
+    set({ blocking: true })
+    try {
+      await chatApi.blockUser(userId)
+      const threads = get().threads.map(t =>
+        t.participant.id === userId ? { ...t, isBlocked: true } : t
+      )
+      set({ threads })
+    } finally {
+      set({ blocking: false })
+    }
+  },
+
+  unblockUser: async (userId) => {
+    set({ blocking: true })
+    try {
+      await chatApi.unblockUser(userId)
+      const threads = get().threads.map(t =>
+        t.participant.id === userId ? { ...t, isBlocked: false } : t
+      )
+      set({ threads })
+    } finally {
+      set({ blocking: false })
+    }
+  }
 }))

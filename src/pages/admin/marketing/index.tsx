@@ -1,8 +1,16 @@
 import { View, Text } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
+import { useEffect } from 'react'
+import { useAuth } from '@/shared/hooks/useAuth'
 import './index.scss'
 
 export default function AdminMarketing() {
+  const { requireAdmin } = useAuth()
+
+  useEffect(() => {
+    requireAdmin()
+  }, [])
+
   useLoad(() => {})
 
   return (

@@ -1,0 +1,152 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.listings-page {
+  min-height: 100vh;
+  background-color: $color-bg;
+}
+
+.listings-scroll {
+  height: 100vh;
+  padding: $spacing-md;
+}
+
+.status-text {
+  @include flex-center;
+  height: 60vh;
+  font-size: $font-md;
+  color: $color-text-light;
+}
+
+.empty-state {
+  @include flex-center;
+  flex-direction: column;
+  height: 60vh;
+  gap: $spacing-lg;
+}
+
+.empty-icon {
+  font-size: 80px;
+}
+
+.empty-text {
+  font-size: $font-md;
+  color: $color-text-secondary;
+}
+
+.go-publish-btn {
+  padding: 12px 48px;
+  background: linear-gradient(135deg, $color-primary, $color-primary-light);
+  border-radius: $radius-full;
+  font-size: $font-md;
+  color: $color-white;
+}
+
+.listing-card {
+  display: flex;
+  background: $color-white;
+  border-radius: $radius-lg;
+  padding: $spacing-md;
+  margin-bottom: $spacing-sm;
+  @include card-shadow;
+}
+
+.listing-image {
+  width: 140px;
+  height: 140px;
+  border-radius: $radius-md;
+  flex-shrink: 0;
+  background-color: $color-bg-light;
+}
+
+.listing-info {
+  flex: 1;
+  margin-left: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.listing-title {
+  font-size: $font-sm;
+  font-weight: 600;
+  color: $color-text;
+  @include line-clamp(2);
+}
+
+.listing-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.listing-price {
+  font-size: 30px;
+  font-weight: 700;
+  color: $color-primary;
+}
+
+.listing-status {
+  font-size: $font-xs;
+  padding: 2px 10px;
+  border-radius: $radius-full;
+
+  &.status-on_sale {
+    background-color: rgba($color-success, 0.1);
+    color: $color-success;
+  }
+
+  &.status-sold {
+    background-color: rgba($color-text-light, 0.15);
+    color: $color-text-light;
+  }
+
+  &.status-archived {
+    background-color: rgba($color-warning, 0.15);
+    color: darken($color-warning, 20%);
+  }
+}
+
+.listing-stats {
+  display: flex;
+  gap: $spacing-lg;
+}
+
+.stat-item {
+  font-size: $font-xs;
+  color: $color-text-light;
+}
+
+.listing-actions {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  margin-left: $spacing-md;
+  justify-content: center;
+}
+
+.action-btn {
+  padding: 8px 20px;
+  border-radius: $radius-md;
+  font-size: $font-xs;
+  text-align: center;
+
+  &.edit-btn {
+    background-color: rgba($color-primary, 0.08);
+    color: $color-primary;
+  }
+
+  &.delete-btn {
+    background-color: rgba($color-error, 0.08);
+    color: $color-error;
+  }
+}
+
+.loading-more,
+.no-more {
+  text-align: center;
+  padding: $spacing-lg 0;
+  font-size: $font-xs;
+  color: $color-text-light;
+}

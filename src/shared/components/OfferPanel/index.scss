@@ -1,0 +1,185 @@
+.offer-panel {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px;
+  margin: 16px 0;
+}
+
+.offer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.offer-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #333;
+}
+
+.offer-hint {
+  font-size: 24px;
+  color: #999;
+}
+
+.offer-readonly {
+  padding: 32px 0;
+  text-align: center;
+}
+
+.offer-readonly-text {
+  font-size: 26px;
+  color: #999;
+}
+
+.offer-form {
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.offer-amount-row {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  padding: 0 20px;
+  height: 88px;
+  margin-bottom: 16px;
+}
+
+.offer-label {
+  font-size: 36px;
+  font-weight: 600;
+  color: #ff6b35;
+  margin-right: 12px;
+}
+
+.offer-amount-input {
+  flex: 1;
+  font-size: 36px;
+  font-weight: 600;
+  color: #333;
+  height: 88px;
+  line-height: 88px;
+}
+
+.offer-placeholder {
+  font-size: 28px;
+  color: #ccc;
+  font-weight: 400;
+}
+
+.offer-note-row {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+
+.offer-note-input {
+  width: 100%;
+  font-size: 28px;
+  color: #333;
+  min-height: 80px;
+  line-height: 1.6;
+}
+
+.offer-note-count {
+  position: absolute;
+  right: 20px;
+  bottom: 12px;
+  font-size: 22px;
+  color: #ccc;
+}
+
+.offer-submit {
+  width: 100%;
+  height: 88px;
+  background: linear-gradient(135deg, #ff6b35, #ff8c5a);
+  border-radius: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &--disabled {
+    background: #ddd;
+  }
+}
+
+.offer-submit-text {
+  font-size: 32px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.offer-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.offer-footer-text {
+  font-size: 22px;
+  color: #999;
+}
+
+.offer-pending {
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.offer-pending-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+
+  & + & {
+    border-top: 1px solid #eee;
+  }
+}
+
+.offer-pending-label {
+  font-size: 26px;
+  color: #999;
+}
+
+.offer-pending-value {
+  font-size: 28px;
+  color: #333;
+  font-weight: 500;
+}
+
+.offer-status {
+  font-size: 26px;
+  font-weight: 500;
+
+  &--pending {
+    color: #ff6b35;
+  }
+}
+
+.offer-expired-badge {
+  font-size: 24px;
+  color: #ff4757;
+  background: #fff0f0;
+  padding: 4px 12px;
+  border-radius: 16px;
+}
+
+.offer-expired-hint {
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: #fff8f0;
+  border-radius: 8px;
+  border-left: 4px solid #ff6b35;
+}
+
+.offer-expired-hint-text {
+  font-size: 24px;
+  color: #ff6b35;
+  line-height: 1.6;
+}

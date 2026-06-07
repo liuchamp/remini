@@ -1,8 +1,12 @@
 import Taro from '@tarojs/taro'
 import { View, Text, ScrollView, Image } from '@tarojs/components'
-import { useEffect } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useProductStore } from '@/domains/product/store'
+import { productApi } from '@/domains/product/api'
+import { useLocation } from '@/shared/hooks/useLocation'
 import './index.scss'
+
+type FeedTab = 'recommend' | 'nearby' | 'following'
 
 export default function Index() {
   const {
@@ -15,10 +19,44 @@ export default function Index() {
     loadCategories
   } = useProductStore()
 
+  const { getLocation } = useLocation()
+  const [activeTab, setActiveTab] = useState<FeedTab>('recommend')
+  const [nearbyProducts, setNearbyProducts] = useState<Product[]>([])
+  const [nearbyPage, setNearbyPage] = useState(1)
+  const [nearbyHasMore, setNearbyHasMore] = useState(true)
+  const [nearbyLoading, setNearbyLoading] = useState(false)
+  const [nearbyRefreshing, setNearbyRefreshing] = useState(false)
+
   useEffect(() => {
     loadRecommendations(true)
     loadCategories()
   }, [])
+
+  const loadNearby = useCallback(async (refresh = false) => {
+    const page = refresh ? 1 : nearbyPage
+    setNearbyLoading(true)
+
+    try {
+      const loc = await getLocation()
+      const params: any = { page, limit: 20, tab: 'nearby' }
+      if (loc) {
+        params.latitude = loc.latitude
+        params.longitude = loc.longitude
+      }
+
+      const res = await productApi.getRecommendations(params)
+      if (res.code === 0) {
+        setNearbyProducts(refresh ? res.data.products : [...nearbyProducts, ...res.data.products])
+        setNearbyPage(page + 1)
+        setNearbyHasMore(res.data.hasMore)
+      }
+    } catch {
+      /* silent */
+    } finally {
+      setNearbyLoading(false)
+      setNearbyRefreshing(false)
+    }
+  }, [nearbyPage, nearbyProducts, getLocation])
 
   const handleSearchClick = () => {
     Taro.navigateTo({ url: '/pages/product/search/index' })
@@ -33,14 +71,36 @@ export default function Index() {
   }
 
   const handleRefresh = () => {
-    loadRecommendations(true)
+    if (activeTab === 'nearby') {
+      loadNearby(true)
+    } else {
+      loadRecommendations(true)
+    }
   }
 
   const handleLoadMore = () => {
-    if (recommendHasMore && !loading) {
-      loadRecommendations()
+    if (activeTab === 'nearby') {
+      if (nearbyHasMore && !nearbyLoading) {
+        loadNearby()
+      }
+    } else {
+      if (recommendHasMore && !loading) {
+        loadRecommendations()
+      }
     }
   }
+
+  const handleTabChange = (tab: FeedTab) => {
+    setActiveTab(tab)
+    if (tab === 'nearby' && nearbyProducts.length === 0) {
+      loadNearby(true)
+    }
+  }
+
+  const currentProducts = activeTab === 'nearby' ? nearbyProducts : recommendProducts
+  const currentHasMore = activeTab === 'nearby' ? nearbyHasMore : recommendHasMore
+  const currentLoading = activeTab === 'nearby' ? nearbyLoading : loading
+  const currentRefreshing = activeTab === 'nearby' ? nearbyRefreshing : refreshing
 
   return (
     <View className='home-page'>
@@ -69,17 +129,32 @@ export default function Index() {
         </View>
       )}
 
+      <View className='feed-tabs'>
+        {(['recommend', 'nearby', 'following'] as FeedTab[]).map((tab) => (
+          <View
+            key={tab}
+            className={`feed-tab ${activeTab === tab ? 'active' : ''}`}
+            onClick={() => handleTabChange(tab)}
+          >
+            <Text className='feed-tab-text'>
+              {tab === 'recommend' ? '推荐' : tab === 'nearby' ? '附近' : '关注'}
+            </Text>
+            {activeTab === tab && <View className='feed-tab-indicator' />}
+          </View>
+        ))}
+      </View>
+
       <ScrollView
         className='product-feed'
         scrollY
         refresherEnabled
-        refresherTriggered={refreshing}
+        refresherTriggered={currentRefreshing}
         onRefresherRefresh={handleRefresh}
         onScrollToLower={handleLoadMore}
         lowerThreshold={100}
       >
         <View className='product-grid'>
-          {recommendProducts.map((product) => (
+          {currentProducts.map((product) => (
             <View
               key={product.id}
               className='product-card'
@@ -111,8 +186,8 @@ export default function Index() {
           ))}
         </View>
 
-        {loading && <View className='loading-more'>加载中...</View>}
-        {!recommendHasMore && recommendProducts.length > 0 && (
+        {currentLoading && <View className='loading-more'>加载中...</View>}
+        {!currentHasMore && currentProducts.length > 0 && (
           <View className='no-more'>已经到底了</View>
         )}
       </ScrollView>

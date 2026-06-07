@@ -1,15 +1,333 @@
-import { View, Text } from '@tarojs/components'
-import { useLoad } from '@tarojs/taro'
+import Taro, { useLoad, useDidShow } from '@tarojs/taro'
+import { View, Text, Image, Swiper, SwiperItem, Input, Button } from '@tarojs/components'
+import { useState, useCallback } from 'react'
+import { useProductStore } from '@/domains/product/store'
+import { useAuthStore } from '@/domains/auth/store'
+import { offerApi } from '@/domains/trade/offer'
+import Loading from '@/shared/components/Loading'
+import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
 
 export default function Detail() {
-  useLoad(() => {
-    console.log('product/detail/index loaded')
+  const [id, setId] = useState('')
+  const [currentSwiperIndex, setCurrentSwiperIndex] = useState(0)
+  const [showOfferPanel, setShowOfferPanel] = useState(false)
+  const [offerAmount, setOfferAmount] = useState('')
+  const [offerNote, setOfferNote] = useState('')
+  const [submittingOffer, setSubmittingOffer] = useState(false)
+  const [favoriting, setFavoriting] = useState(false)
+
+  const { currentProduct, loading, loadDetail, toggleFavorite, isFavorited } = useProductStore()
+  const { isLoggedIn } = useAuthStore()
+
+  useLoad((options) => {
+    const productId = options?.id
+    if (productId) {
+      setId(productId)
+      loadDetail(productId)
+    }
   })
 
+  useDidShow(() => {
+    if (id && !currentProduct) {
+      loadDetail(id)
+    }
+  })
+
+  const handleSwiperChange = useCallback(
+    (e: { detail: { current: number } }) => {
+      setCurrentSwiperIndex(e.detail.current)
+    },
+    []
+  )
+
+  const handleFavorite = useCallback(async () => {
+    if (!isLoggedIn) {
+      Taro.navigateTo({ url: '/pages/auth/login/index' })
+      return
+    }
+    if (!id || favoriting) return
+    setFavoriting(true)
+    try {
+      await toggleFavorite(id)
+    } finally {
+      setFavoriting(false)
+    }
+  }, [id, isLoggedIn, favoriting, toggleFavorite])
+
+  const handleBuyNow = useCallback(async () => {
+    if (!isLoggedIn) {
+      Taro.navigateTo({ url: '/pages/auth/login/index' })
+      return
+    }
+    Taro.navigateTo({ url: `/pages/order/create/index?productId=${id}` })
+  }, [id, isLoggedIn])
+
+  const handleSubmitOffer = useCallback(async () => {
+    const amountNum = parseFloat(offerAmount)
+    if (isNaN(amountNum) || amountNum <= 0) {
+      Taro.showToast({ title: '请输入有效出价金额', icon: 'none' })
+      return
+    }
+    if (currentProduct && amountNum >= currentProduct.price) {
+      Taro.showToast({ title: '出价需低于商品售价', icon: 'none' })
+      return
+    }
+
+    setSubmittingOffer(true)
+    try {
+      const res = await offerApi.create({
+        productId: id,
+        amount: amountNum,
+        note: offerNote.trim() || undefined
+      })
+      if (res.code === 0) {
+        Taro.showToast({ title: '出价成功，等待卖家响应', icon: 'success' })
+        setShowOfferPanel(false)
+        setOfferAmount('')
+        setOfferNote('')
+      }
+    } catch {
+      /* handled by HttpClient interceptors */
+    } finally {
+      setSubmittingOffer(false)
+    }
+  }, [offerAmount, offerNote, id, currentProduct])
+
+  const handleChat = useCallback(() => {
+    if (!isLoggedIn) {
+      Taro.navigateTo({ url: '/pages/auth/login/index' })
+      return
+    }
+    if (currentProduct?.seller?.id) {
+      Taro.navigateTo({ url: `/pages/chat/conversation/index?userId=${currentProduct.seller.id}&productId=${id}` })
+    }
+  }, [id, currentProduct, isLoggedIn])
+
+  const handleShare = useCallback(() => {
+    if (!currentProduct) return
+    Taro.showToast({ title: '已复制分享链接', icon: 'success' })
+  }, [currentProduct])
+
+  const formatDistance = (km: number | undefined): string => {
+    if (km == null) return ''
+    return km < 1 ? `${Math.round(km * 1000)}m` : `${km.toFixed(1)}km`
+  }
+
+  const conditionLabel: Record<string, string> = {
+    new: '全新',
+    like_new: '几乎全新',
+    good: '良好',
+    fair: '一般',
+    poor: '较差'
+  }
+
+  const product = currentProduct
+  const productImages = product?.images || []
+  const hasFavorite = isFavorited
+
+  if (loading && !product) {
+    return <Loading type='skeleton' rows={4} />
+  }
+
+  if (!product) {
+    return (
+      <View className='detail-loading'>
+        <Text className='empty-text'>商品不存在或已下架</Text>
+      </View>
+    )
+  }
+
   return (
-    <View className='page'>
-      <Text>商品详情</Text>
+    <View className='detail-page'>
+      <View className='swiper-wrap'>
+        {productImages.length > 0 ? (
+          <Swiper
+            className='detail-swiper'
+            current={currentSwiperIndex}
+            indicatorDots={productImages.length > 1}
+            indicatorColor='rgba(255,255,255,0.5)'
+            indicatorActiveColor='#FF6B35'
+            autoplay={false}
+            circular
+            onChange={handleSwiperChange}
+          >
+            {productImages.map((img, idx) => (
+              <SwiperItem key={idx}>
+                <Image
+                  className='swiper-image'
+                  src={img}
+                  mode='aspectFill'
+                  onClick={() => {
+                    Taro.previewImage({
+                      current: img,
+                      urls: productImages
+                    })
+                  }}
+                />
+              </SwiperItem>
+            ))}
+          </Swiper>
+        ) : (
+          <View className='swiper-placeholder'>
+            <Text className='placeholder-icon'>📷</Text>
+          </View>
+        )}
+        {productImages.length > 1 && (
+          <View className='image-counter'>
+            {currentSwiperIndex + 1}/{productImages.length}
+          </View>
+        )}
+      </View>
+
+      <View className='info-section'>
+        <View className='price-row'>
+          <Text className='detail-price'>¥{product.price}</Text>
+          {product.originalPrice && product.originalPrice > product.price && (
+            <Text className='original-price'>¥{product.originalPrice}</Text>
+          )}
+          {product.isNegotiable && (
+            <Text className='negotiable-badge'>可议价</Text>
+          )}
+        </View>
+        <Text className='detail-title'>{product.title}</Text>
+        <View className='meta-row'>
+          <Text className='meta-item'>{conditionLabel[product.condition] || product.condition}</Text>
+          <Text className='meta-divider'>|</Text>
+          <Text className='meta-item'>{product.viewCount} 次浏览</Text>
+          <Text className='meta-divider'>|</Text>
+          <Text className='meta-item'>{product.favoriteCount} 人收藏</Text>
+        </View>
+        {product.distance != null && (
+          <View className='distance-row'>
+            <Text className='distance-icon'>📍</Text>
+            <Text className='distance-text'>
+              {product.location ? `${product.location} · ` : ''}{formatDistance(product.distance)}
+            </Text>
+          </View>
+        )}
+      </View>
+
+      {product.description && (
+        <View className='desc-section'>
+          <Text className='section-title'>商品描述</Text>
+          <Text className='desc-content'>{product.description}</Text>
+        </View>
+      )}
+
+      <View className='seller-section'>
+        <Text className='section-title'>卖家信息</Text>
+        <View className='seller-card' onClick={handleChat}>
+          <Image
+            className='seller-avatar'
+            src={product.seller?.avatar || ''}
+            mode='aspectFill'
+          />
+          <View className='seller-info'>
+            <Text className='seller-name'>{product.seller?.username || '匿名用户'}</Text>
+            <View className='seller-stats'>
+              <Text className='seller-stat'>
+                信用 {product.seller?.trustScore || 0}
+              </Text>
+              {product.seller?.isVerified && (
+                <Text className='verified-tag'>已认证</Text>
+              )}
+            </View>
+          </View>
+          <View className='chat-btn-c'>
+            <Text className='chat-btn-text'>联系卖家</Text>
+          </View>
+        </View>
+      </View>
+
+      <View className='action-bar'>
+        <View className='action-left'>
+          <View className='action-item' onClick={handleFavorite}>
+            <Text className={`action-icon ${hasFavorite ? 'favorited' : ''}`}>
+              {hasFavorite ? '❤️' : '🤍'}
+            </Text>
+            <Text className='action-label'>收藏</Text>
+          </View>
+          <View className='action-item' onClick={handleChat}>
+            <Text className='action-icon'>💬</Text>
+            <Text className='action-label'>聊天</Text>
+          </View>
+          <View className='action-item' onClick={handleShare}>
+            <Text className='action-icon'>↗️</Text>
+            <Text className='action-label'>分享</Text>
+          </View>
+        </View>
+        <View className='action-right'>
+          {product.isNegotiable && (
+            <Button
+              className='offer-btn'
+              onClick={() => {
+                if (!isLoggedIn) {
+                  Taro.navigateTo({ url: '/pages/auth/login/index' })
+                  return
+                }
+                setShowOfferPanel(true)
+                setOfferAmount('')
+                setOfferNote('')
+              }}
+            >
+              我要出价
+            </Button>
+          )}
+          <Button className='buy-btn' onClick={handleBuyNow}>
+            立即购买
+          </Button>
+        </View>
+      </View>
+
+      {showOfferPanel && (
+        <View className='offer-overlay' onClick={() => setShowOfferPanel(false)}>
+          <View className='offer-panel' onClick={(e) => e.stopPropagation()}>
+            <View className='offer-header'>
+              <Text className='offer-title'>出价</Text>
+              <Text
+                className='offer-close'
+                onClick={() => setShowOfferPanel(false)}
+              >
+                ✕
+              </Text>
+            </View>
+            <View className='offer-body'>
+              <View className='offer-price-hint'>
+                <Text className='hint-label'>卖家标价</Text>
+                <Text className='hint-value'>¥{product.price}</Text>
+              </View>
+              <View className='offer-input-row'>
+                <Text className='offer-currency'>¥</Text>
+                <Input
+                  className='offer-input'
+                  type='digit'
+                  placeholder='输入你的出价'
+                  value={offerAmount}
+                  onInput={(e) => setOfferAmount(e.detail.value)}
+                  focus
+                />
+              </View>
+              <Input
+                className='offer-note'
+                type='text'
+                placeholder='备注信息（选填）'
+                value={offerNote}
+                onInput={(e) => setOfferNote(e.detail.value)}
+                maxlength={100}
+              />
+              <Button
+                className='submit-offer-btn'
+                onClick={handleSubmitOffer}
+                loading={submittingOffer}
+                disabled={!offerAmount || submittingOffer}
+              >
+                {submittingOffer ? '提交中...' : '提交出价'}
+              </Button>
+            </View>
+          </View>
+        </View>
+      )}
     </View>
   )
 }

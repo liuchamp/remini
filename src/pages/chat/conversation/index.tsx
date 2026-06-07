@@ -1,6 +1,8 @@
-import { useState, useEffect, useMemo, useRef } from 'react'
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { useRouter } from '@tarojs/taro'
 import { View, Text, ScrollView, Input, Button } from '@tarojs/components'
+import Taro from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { useChatStore } from '@/domains/chat/store'
 import { chatApi } from '@/domains/chat/api'
 import { useAuthStore } from '@/domains/auth/store'
@@ -8,11 +10,17 @@ import './index.scss'
 
 export default function Conversation() {
   const router = useRouter()
-  const { threadId } = router.params
-  const { messages, loading, loadMessages, sendMessage } = useChatStore()
+  const { threadId, userId } = router.params
+  const { messages, loading, blocking, loadMessages, sendMessage, blockUser, unblockUser, threads } = useChatStore()
   const currentUserId = useAuthStore((s) => s.user?.id)
   const [inputValue, setInputValue] = useState('')
   const scrollRef = useRef<any>(null)
+  const { t } = useTranslation('chat')
+
+  const isBlocked = useMemo(() => {
+    const thread = threads.find(t => t.id === threadId)
+    return thread?.isBlocked ?? false
+  }, [threads, threadId])
 
   useEffect(() => {
     if (!threadId) return
@@ -35,6 +43,31 @@ export default function Conversation() {
     setInputValue(e.detail.value)
   }
 
+  const handleBlockUser = useCallback(() => {
+    if (!userId) return
+    const action = isBlocked ? 'unblock' : 'block'
+    const title = action === 'block' ? t('blockUser') : t('unblockUser')
+    const content = action === 'block' ? t('blockConfirmDesc') : t('unblockConfirmDesc')
+
+    Taro.showModal({
+      title,
+      content,
+      success: (res) => {
+        if (res.confirm) {
+          if (action === 'block') {
+            blockUser(userId).then(() => {
+              Taro.showToast({ title: t('blocked'), icon: 'none' })
+            })
+          } else {
+            unblockUser(userId).then(() => {
+              Taro.showToast({ title: t('unblockUser'), icon: 'none' })
+            })
+          }
+        }
+      }
+    })
+  }, [userId, isBlocked, blockUser, unblockUser, t])
+
   const formatTime = (timeStr: string) => {
     const date = new Date(timeStr)
     const now = new Date()
@@ -45,15 +78,22 @@ export default function Conversation() {
     return `${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${hh}:${mm}`
   }
 
+  const formatReadTime = (timeStr: string) => {
+    const date = new Date(timeStr)
+    const hh = String(date.getHours()).padStart(2, '0')
+    const mm = String(date.getMinutes()).padStart(2, '0')
+    return `${hh}:${mm}`
+  }
+
   const formatDateSeparator = (timeStr: string) => {
     const date = new Date(timeStr)
     const now = new Date()
     const todayStr = now.toDateString()
     const dateStr = date.toDateString()
-    if (dateStr === todayStr) return '今天'
+    if (dateStr === todayStr) return t('today')
     const yesterday = new Date(now)
     yesterday.setDate(yesterday.getDate() - 1)
-    if (dateStr === yesterday.toDateString()) return '昨天'
+    if (dateStr === yesterday.toDateString()) return t('yesterday')
     return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
   }
 
@@ -74,6 +114,19 @@ export default function Conversation() {
 
   return (
     <View className='conversation-page'>
+      {isBlocked && (
+        <View className='blocked-banner'>
+          <Text className='blocked-text'>{t('blockedBanner')}</Text>
+          <Text className='blocked-undo' onClick={handleBlockUser}>{t('blockedUndo')}</Text>
+        </View>
+      )}
+
+      <View className='chat-header'>
+        <Text className='header-action' onClick={handleBlockUser}>
+          {isBlocked ? t('unblockUser') : t('blockUser')}
+        </Text>
+      </View>
+
       <ScrollView
         className='message-list'
         scrollY
@@ -82,11 +135,11 @@ export default function Conversation() {
       >
         {loading && messages.length === 0 ? (
           <View className='loading-state'>
-            <Text>加载中...</Text>
+            <Text>{t('loading', { ns: 'common' })}</Text>
           </View>
         ) : messages.length === 0 ? (
           <View className='empty-state'>
-            <Text>暂无消息</Text>
+            <Text>{t('noMessages')}</Text>
           </View>
         ) : (
           messageGroups.map((group) => (
@@ -104,7 +157,17 @@ export default function Conversation() {
                     <View className='message-bubble'>
                       <Text className='message-content'>{msg.content}</Text>
                     </View>
-                    <Text className='message-time'>{formatTime(msg.createdAt)}</Text>
+                    <View className='message-meta'>
+                      <Text className='message-time'>{formatTime(msg.createdAt)}</Text>
+                      {isSelf && msg.isRead && (
+                        <Text className='message-read-status'>
+                          {t('readTime')}{msg.readAt ? ` ${formatReadTime(msg.readAt)}` : ''}
+                        </Text>
+                      )}
+                      {isSelf && !msg.isRead && (
+                        <Text className='message-sent-status'>{t('unread')}</Text>
+                      )}
+                    </View>
                   </View>
                 )
               })}
@@ -117,18 +180,19 @@ export default function Conversation() {
         <Input
           className='message-input'
           type='text'
-          placeholder='输入消息...'
+          placeholder={t('inputPlaceholder')}
           value={inputValue}
           onInput={handleInput}
           confirmType='send'
           onConfirm={handleSend}
+          disabled={isBlocked}
         />
         <Button
           className='send-button'
           onClick={handleSend}
-          disabled={!inputValue.trim()}
+          disabled={!inputValue.trim() || isBlocked || blocking}
         >
-          发送
+          {t('send')}
         </Button>
       </View>
     </View>

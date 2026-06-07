@@ -2,6 +2,7 @@ import { View, Text, Input, Switch } from '@tarojs/components'
 import Taro, { useLoad, useRouter } from '@tarojs/taro'
 import { useState } from 'react'
 import { addressApi } from '@/domains/address/api'
+import { useAddressStore } from '@/domains/address/store'
 import './index.scss'
 
 export default function Edit() {
@@ -10,6 +11,7 @@ export default function Edit() {
   const isEdit = !!id
   const [saving, setSaving] = useState(false)
   const [loadingDetail, setLoadingDetail] = useState(false)
+  const { loadList } = useAddressStore()
 
   const [form, setForm] = useState({
     recipient: '',
@@ -43,6 +45,14 @@ export default function Edit() {
         }
         setLoadingDetail(false)
       }).catch(() => setLoadingDetail(false))
+    } else {
+      loadList().then(() => {
+        const currentAddresses = useAddressStore.getState().addresses
+        const hasDefault = currentAddresses.some((addr) => addr.isDefault)
+        if (!hasDefault) {
+          setForm((prev) => ({ ...prev, isDefault: true }))
+        }
+      })
     }
   })
 

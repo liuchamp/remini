@@ -1,6 +1,6 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useRef } from 'react'
 import { View, Text, ScrollView } from '@tarojs/components'
-import Taro, { useDidShow, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { useDidShow, useDidHide, usePullDownRefresh } from '@tarojs/taro'
 import { useNotificationStore } from '@/domains/notification/store'
 import type { NotificationItem } from '@/domains/notification/api'
 import './index.scss'
@@ -11,28 +11,46 @@ const TYPE_ICON_MAP: Record<string, string> = {
   marketing: '\u{1F389}'
 }
 
+const POLL_INTERVAL = 30000
+
 export default function Notification() {
   const { list, unreadCount, loading, loadList, markRead, markAllRead, loadUnreadCount } =
     useNotificationStore()
+  const pollTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  const startPolling = useCallback(() => {
+    stopPolling()
+    pollTimerRef.current = setInterval(() => {
+      loadUnreadCount()
+    }, POLL_INTERVAL)
+  }, [loadUnreadCount])
+
+  const stopPolling = useCallback(() => {
+    if (pollTimerRef.current) {
+      clearInterval(pollTimerRef.current)
+      pollTimerRef.current = null
+    }
+  }, [])
 
   useDidShow(() => {
     loadList()
     loadUnreadCount()
+    startPolling()
   })
+
+  useDidHide(() => {
+    stopPolling()
+  })
+
+  useEffect(() => {
+    return () => stopPolling()
+  }, [stopPolling])
 
   usePullDownRefresh(() => {
     loadList().finally(() => {
       Taro.stopPullDownRefresh()
     })
   })
-
-  useEffect(() => {
-    if (unreadCount > 0) {
-      Taro.setTabBarBadge({ index: 2, text: String(Math.min(unreadCount, 99)) })
-    } else {
-      Taro.removeTabBarBadge({ index: 2 })
-    }
-  }, [unreadCount])
 
   const handleItemClick = useCallback(
     async (item: NotificationItem) => {

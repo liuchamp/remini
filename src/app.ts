@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react'
 import Taro, { useLaunch } from '@tarojs/taro'
 import { useAuthStore } from '@/domains/auth/store'
+import ErrorBoundary from '@/shared/components/ErrorBoundary'
 
 import './shared/i18n'
 import './app.scss'
@@ -15,10 +16,7 @@ function App({ children }: PropsWithChildren<any>) {
     }
   })
 
-  // children 是将要会渲染的页面
-  return children
+  return <ErrorBoundary>{children}</ErrorBoundary>
 }
-  
-
 
 export default App

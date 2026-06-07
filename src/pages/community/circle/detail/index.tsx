@@ -3,6 +3,9 @@ import { useLoad } from '@tarojs/taro'
 import { useState } from 'react'
 import { communityApi } from '@/domains/community/api'
 import PostCard from '@/shared/components/community/PostCard'
+import Loading from '@/shared/components/Loading'
+import Empty from '@/shared/components/Empty'
+import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
 
 interface PostCardPost {
@@ -30,6 +33,7 @@ function toPostCardPost(post: Post): PostCardPost {
 export default function CircleDetail() {
   const [circle, setCircle] = useState<Circle | null>(null)
   const [posts, setPosts] = useState<Post[]>([])
+  const [loading, setLoading] = useState(true)
 
   useLoad((params) => {
     if (params.id) {
@@ -38,30 +42,49 @@ export default function CircleDetail() {
   })
 
   const loadCircleDetail = async (id: string) => {
-    const res = await communityApi.getCircleDetail(id)
-    if (res.code === 0) {
-      setCircle(res.data.circle)
-      setPosts(res.data.posts || [])
+    setLoading(true)
+    try {
+      const res = await communityApi.getCircleDetail(id)
+      if (res.code === 0) {
+        setCircle(res.data.circle)
+        setPosts(res.data.posts || [])
+      }
+    } finally {
+      setLoading(false)
     }
   }
 
+  if (loading) {
+    return <Loading type='skeleton' rows={4} />
+  }
+
   return (
-    <View className='circle-detail-page'>
-      {circle && (
-        <View className='circle-header'>
-          <Image className='circle-avatar' src={circle.avatar} mode='aspectFill' />
-          <View className='circle-info'>
-            <Text className='circle-name'>{circle.name}</Text>
-            <Text className='circle-desc'>{circle.description}</Text>
-            <Text className='circle-members'>{circle.memberCount} 成员</Text>
-          </View>
-        </View>
-      )}
-      <View className='circle-posts'>
-        {posts.map((post) => (
-          <PostCard key={post.id} post={toPostCardPost(post)} />
-        ))}
+    <ErrorBoundary>
+      <View className='circle-detail-page'>
+        {circle ? (
+          <>
+            <View className='circle-header'>
+              <Image className='circle-avatar' src={circle.avatar} mode='aspectFill' />
+              <View className='circle-info'>
+                <Text className='circle-name'>{circle.name}</Text>
+                <Text className='circle-desc'>{circle.description}</Text>
+                <Text className='circle-members'>{circle.memberCount} 成员</Text>
+              </View>
+            </View>
+            <View className='circle-posts'>
+              {posts.length > 0 ? (
+                posts.map((post) => (
+                  <PostCard key={post.id} post={toPostCardPost(post)} />
+                ))
+              ) : (
+                <Empty text='暂无帖子' />
+              )}
+            </View>
+          </>
+        ) : (
+          <Empty text='圈子不存在' />
+        )}
       </View>
-    </View>
+    </ErrorBoundary>
   )
 }

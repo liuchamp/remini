@@ -1,8 +1,9 @@
 import { View, Text, Button } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { adminApi } from '@/domains/admin/api'
 import Empty from '@/shared/components/Empty'
+import { useAuth } from '@/shared/hooks/useAuth'
 import './index.scss'
 
 interface Withdrawal {
@@ -18,6 +19,11 @@ interface Withdrawal {
 export default function AdminWithdrawals() {
   const [withdrawals, setWithdrawals] = useState<Withdrawal[]>([])
   const [loading, setLoading] = useState(false)
+  const { requireAdmin } = useAuth()
+
+  useEffect(() => {
+    requireAdmin()
+  }, [])
 
   useLoad(() => {
     loadWithdrawals()

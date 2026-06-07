@@ -1,7 +1,8 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { View, Text, ScrollView } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
 import { adminApi } from '@/domains/admin/api'
+import { useAuth } from '@/shared/hooks/useAuth'
 import './index.scss'
 
 interface DashboardStats {
@@ -24,6 +25,11 @@ export default function AdminIndex() {
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [recentActivities, setRecentActivities] = useState<RecentActivity[]>([])
   const [loading, setLoading] = useState(true)
+  const { requireAdmin } = useAuth()
+
+  useEffect(() => {
+    requireAdmin()
+  }, [])
 
   useLoad(async () => {
     try {

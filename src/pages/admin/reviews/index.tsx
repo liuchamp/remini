@@ -1,7 +1,8 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { View, Text, Image, ScrollView } from '@tarojs/components'
 import Taro, { useLoad, useReachBottom } from '@tarojs/taro'
 import { adminApi } from '@/domains/admin/api'
+import { useAuth } from '@/shared/hooks/useAuth'
 import './index.scss'
 
 interface PendingProduct {
@@ -23,6 +24,11 @@ export default function AdminReviews() {
   const [hasMore, setHasMore] = useState(true)
   const [loading, setLoading] = useState(false)
   const [processingId, setProcessingId] = useState<string | null>(null)
+  const { requireAdmin } = useAuth()
+
+  useEffect(() => {
+    requireAdmin()
+  }, [])
 
   const loadProducts = useCallback(async (pageNum: number, reset: boolean = false) => {
     setLoading(true)
@@ -126,6 +132,7 @@ export default function AdminReviews() {
                     src={product.images[0]}
                     className='product-image'
                     mode='aspectFill'
+                    lazyLoad
                   />
                 ) : (
                   <View className='product-image-placeholder'>

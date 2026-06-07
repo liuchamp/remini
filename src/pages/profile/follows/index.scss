@@ -1,0 +1,137 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.follows-page {
+  min-height: 100vh;
+  background-color: $color-bg;
+}
+
+.tab-bar {
+  display: flex;
+  background: $color-white;
+  border-bottom: 1px solid $color-border-light;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: $spacing-md 0;
+  font-size: $font-md;
+  color: $color-text-secondary;
+  position: relative;
+
+  &.active {
+    color: $color-primary;
+    font-weight: 600;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 4px;
+      background: $color-primary;
+      border-radius: 2px;
+    }
+  }
+}
+
+.follows-scroll {
+  height: calc(100vh - 48px);
+  padding: $spacing-md;
+}
+
+.status-text {
+  @include flex-center;
+  height: 50vh;
+  font-size: $font-md;
+  color: $color-text-light;
+}
+
+.empty-state {
+  @include flex-center;
+  flex-direction: column;
+  height: 50vh;
+  gap: $spacing-lg;
+}
+
+.empty-icon {
+  font-size: 80px;
+}
+
+.empty-text {
+  font-size: $font-md;
+  color: $color-text-secondary;
+}
+
+.follow-card {
+  display: flex;
+  align-items: center;
+  background: $color-white;
+  border-radius: $radius-lg;
+  padding: $spacing-md;
+  margin-bottom: $spacing-sm;
+  @include card-shadow;
+}
+
+.follow-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background-color: $color-bg-light;
+}
+
+.follow-info {
+  flex: 1;
+  margin-left: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.follow-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.follow-name {
+  font-size: $font-md;
+  font-weight: 600;
+  color: $color-text;
+  @include line-clamp(1);
+}
+
+.verified-mark {
+  font-size: 22px;
+  color: $color-accent;
+  font-weight: 700;
+}
+
+.follow-score {
+  font-size: $font-xs;
+  color: $color-text-light;
+}
+
+.unfollow-btn {
+  padding: 10px 20px;
+  background-color: $color-border-light;
+  border-radius: $radius-full;
+  font-size: $font-sm;
+  color: $color-text-secondary;
+}
+
+.loading-more,
+.no-more {
+  text-align: center;
+  padding: $spacing-lg 0;
+  font-size: $font-xs;
+  color: $color-text-light;
+}

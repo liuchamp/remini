@@ -15,6 +15,10 @@ export default function List() {
   }
 
   const handleAdd = () => {
+    if (addresses.length >= 20) {
+      Taro.showToast({ title: '最多可添加20个地址', icon: 'none' })
+      return
+    }
     Taro.navigateTo({ url: '/pages/address/edit/index' })
   }
 
@@ -103,9 +107,12 @@ export default function List() {
           </ScrollView>
 
           <View className='bottom-bar'>
-            <View className='add-address-btn' onClick={handleAdd}>
+            <View
+              className={`add-address-btn ${addresses.length >= 20 ? 'disabled' : ''}`}
+              onClick={handleAdd}
+            >
               <Text className='add-icon'>+</Text>
-              <Text>添加新地址</Text>
+              <Text>{addresses.length >= 20 ? `地址数量已达上限（${addresses.length}/20）` : '添加新地址'}</Text>
             </View>
           </View>
         </>

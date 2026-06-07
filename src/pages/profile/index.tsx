@@ -1,6 +1,7 @@
 import { View, Text, Image, ScrollView } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useLoad } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '@/domains/auth/store'
 import './index.scss'
 
@@ -11,17 +12,18 @@ const KYC_TIER_MAP: Record<string, { label: string; color: string }> = {
   L3: { label: 'L3 已认证', color: '#FF6B35' },
 }
 
-const MENU_ITEMS = [
-  { icon: '📦', label: '我的商品', url: '/pages/product/search/index?mine=1' },
-  { icon: '❤️', label: '我的收藏', url: '/pages/product/search/index?fav=1' },
-  { icon: '👥', label: '我的关注', url: '/pages/user/profile/index?follows=1' },
-  { icon: '💬', label: '我的出价', url: '/pages/offer/list/index' },
-  { icon: '💰', label: '钱包', url: '/pages/wallet/index/index' },
-  { icon: '🪪', label: '实名认证', url: '/pages/kyc/index/index' },
-]
-
 export default function Profile() {
   const { user, isLoggedIn, logout } = useAuthStore()
+  const { t } = useTranslation('profile')
+
+  const menuItems = [
+    { icon: '📦', label: t('myListings'), url: '/pages/profile/listings/index' },
+    { icon: '❤️', label: t('myFavorites'), url: '/pages/profile/favorites/index' },
+    { icon: '👥', label: t('myFollows'), url: '/pages/profile/follows/index' },
+    { icon: '💬', label: '我的出价', url: '/pages/offer/list/index' },
+    { icon: '💰', label: '钱包', url: '/pages/wallet/index/index' },
+    { icon: '🪪', label: '实名认证', url: '/pages/kyc/index/index' },
+  ]
 
   useLoad(() => {
     console.log('profile/index loaded')
@@ -53,8 +55,8 @@ export default function Profile() {
 
   const handleLogout = () => {
     Taro.showModal({
-      title: '提示',
-      content: '确定要退出登录吗？',
+      title: t('logout'),
+      content: t('logoutConfirm'),
       success: (res) => {
         if (res.confirm) logout()
       }
@@ -72,9 +74,9 @@ export default function Profile() {
   const trustColor = trustPercent >= 80 ? '#00B894' : trustPercent >= 50 ? '#FDCB6E' : '#E17055'
 
   const stats = [
-    { label: '商品', value: '--' },
-    { label: '收藏', value: '--' },
-    { label: '关注', value: '--' },
+    { label: t('myListings'), value: '--' },
+    { label: t('myFavorites'), value: '--' },
+    { label: t('myFollows'), value: '--' },
   ]
 
   return (
@@ -97,7 +99,7 @@ export default function Profile() {
                   )}
                 </View>
                 <View className='trust-score-row'>
-                  <Text className='trust-label'>信用分</Text>
+                  <Text className='trust-label'>{t('trustScore')}</Text>
                   <View className='trust-bar-bg'>
                     <View
                       className='trust-bar-fill'
@@ -115,7 +117,7 @@ export default function Profile() {
               <Text className='avatar-placeholder-text'>R</Text>
             </View>
             <View className='user-meta'>
-              <Text className='user-name'>点击登录</Text>
+              <Text className='user-name'>{t('login')}</Text>
               <Text className='user-subtitle'>登录后享受更多功能</Text>
             </View>
           </View>
@@ -135,14 +137,14 @@ export default function Profile() {
         <View className='seller-entry' onClick={handleSellerCenter}>
           <View className='seller-entry-left'>
             <Text className='seller-icon'>🏪</Text>
-            <Text className='seller-text'>卖家中心</Text>
+            <Text className='seller-text'>{t('seller')}</Text>
           </View>
           <Text className='entry-arrow'>›</Text>
         </View>
       )}
 
       <View className='menu-grid'>
-        {MENU_ITEMS.map((item, idx) => (
+        {menuItems.map((item, idx) => (
           <View
             key={idx}
             className='menu-item'
@@ -157,13 +159,13 @@ export default function Profile() {
       <View className='bottom-actions'>
         <View className='action-item' onClick={handleSettings}>
           <Text className='action-icon'>⚙️</Text>
-          <Text className='action-label'>设置</Text>
+          <Text className='action-label'>{t('settings')}</Text>
           <Text className='action-arrow'>›</Text>
         </View>
         {isLoggedIn && (
           <View className='action-item logout' onClick={handleLogout}>
             <Text className='action-icon'>🚪</Text>
-            <Text className='action-label'>退出登录</Text>
+            <Text className='action-label'>{t('logout')}</Text>
             <Text className='action-arrow'>›</Text>
           </View>
         )}

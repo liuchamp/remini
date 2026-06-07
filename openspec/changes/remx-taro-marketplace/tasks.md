@@ -41,11 +41,11 @@
 - [x] 4.3 Build pages/index/index.tsx (homepage: banner carousel, category grid, recommendation feed)
 - [x] 4.4 Build pages/category/index.tsx (multi-level category browser)
 - [x] 4.5 Build pages/product/search/index.tsx (keyword search + filter panel + sort)
-- [ ] 4.6 Build pages/product/detail/index.tsx (image swiper, info, seller, offer section) — currently stub
+- [x] 4.6 Build pages/product/detail/index.tsx (image swiper, info, seller, offer section) — currently stub
 - [x] 4.7 Create shared/components/product/ (ProductCard, ProductGrid, PriceDisplay)
 - [x] 4.8 Implement favorite toggle (add/remove, list page)
 - [x] 4.9 Implement infinite scroll in product list + search results
-- [ ] 4.10 Build "nearby products" feature with Taro.getLocation — partially implemented
+- [x] 4.10 Build "nearby products" feature with Taro.getLocation — partially implemented
 
 ## 5. Product Publishing (specs/product-publish)
 
@@ -53,7 +53,7 @@
 - [x] 5.2 Create shared/components/MediaUploader (wx.chooseMedia + compress + upload)
 - [x] 5.3 Build pages/publish/index.tsx (multi-image picker, title, price, condition, pricing mode)
 - [x] 5.4 Implement pricing mode selector (fixed price / negotiable)
-- [ ] 5.5 Build product edit page (reuse publish form with pre-filled data)
+- [x] 5.5 Build product edit page (reuse publish form with pre-filled data)
 - [x] 5.6 Implement form validation (title, price, images required)
 
 ## 6. Order & Payment (specs/trade-order)
@@ -64,19 +64,19 @@
 - [x] 6.4 Build pages/order/pay/index.tsx (wx.requestPayment integration)
 - [x] 6.5 Build pages/order/list/index.tsx (tab filter: all/pending_paid/pending_ship/pending_receive/completed)
 - [x] 6.6 Build pages/order/detail/index.tsx (status timeline, actions, logistics link)
-- [ ] 6.7 Implement seller shipping confirmation (select logistics + tracking number)
-- [ ] 6.8 Implement buyer order confirmation (with prompt)
-- [ ] 6.9 Implement order cancellation (with reason selection)
+- [x] 6.7 Implement seller shipping confirmation (select logistics + tracking number)
+- [x] 6.8 Implement buyer order confirmation (with prompt)
+- [x] 6.9 Implement order cancellation (with reason selection)
 - [x] 6.10 Build pages/review/index.tsx (star rating + images + tags)
 
 ## 7. Offer Negotiation (specs/offer-negotiation)
 
 - [x] 7.1 Create domains/trade/offer.ts (api, types, store for offer lifecycle)
-- [ ] 7.2 Build offer creation panel in product detail (amount + note input) — blocked by 4.6
+- [x] 7.2 Build offer creation panel in product detail (amount + note input) — blocked by 4.6
 - [x] 7.3 Build pages/offer/list/index.tsx (sent/received tabs)
 - [x] 7.4 Build pages/offer/detail/index.tsx (accept/reject/counter/withdraw actions)
-- [ ] 7.5 Implement offer expiry handling (48h TTL)
-- [ ] 7.6 Implement rate limiting (1 offer per product per minute)
+- [x] 7.5 Implement offer expiry handling (48h TTL)
+- [x] 7.6 Implement rate limiting (1 offer per product per minute)
 
 ## 8. Shipping & Logistics (specs/shipping-logistics)
 
@@ -85,7 +85,7 @@
 - [x] 8.3 Build pages/address/edit/index.tsx (province-city-district picker, validation)
 - [x] 8.4 Create domains/shipping/ (api.ts, types.ts for logistics tracking)
 - [x] 8.5 Build pages/logistics/track/index.tsx (timeline view of shipping status)
-- [ ] 8.6 Implement default address logic and address limit (max 20)
+- [x] 8.6 Implement default address logic and address limit (max 20)
 
 ## 9. Wallet & Escrow (specs/escrow-wallet)
 
@@ -118,9 +118,9 @@
 
 - [x] 12.1 Create domains/notification/ (api.ts, types.ts, store.ts)
 - [x] 12.2 Build pages/notification/index.tsx (categorized notification list with tabs)
-- [ ] 12.3 Implement unread badge (TabBar badge + list unread markers)
-- [ ] 12.4 Implement mark as read (single + batch)
-- [ ] 12.5 Implement notification polling fallback (since SSE not available in mini program)
+- [x] 12.3 Implement unread badge (TabBar badge + list unread markers)
+- [x] 12.4 Implement mark as read (single + batch)
+- [x] 12.5 Implement notification polling fallback (since SSE not available in mini program)
 
 ## 13. Marketing Tools (specs/marketing-tools)
 
@@ -136,8 +136,8 @@
 
 - [x] 14.1 Create domains/seller/ (api.ts, types.ts, store.ts)
 - [x] 14.2 Build pages/seller/index.tsx (dashboard: on-sale/pending-offers/pending-ship orders)
-- [ ] 14.3 Build offer management view (accept/reject/counter offers)
-- [ ] 14.4 Build product management view (on-sale/sold/archived tabs)
+- [x] 14.3 Build offer management view (accept/reject/counter offers)
+- [x] 14.4 Build product management view (on-sale/sold/archived tabs)
 
 ## 15. Admin Panel (specs/admin-panel)
 
@@ -163,10 +163,10 @@
 
 - [x] 17.1 Build pages/profile/index.tsx (avatar, name, trust score, stats, menu entries)
 - [x] 17.2 Build pages/profile/edit/index.tsx (avatar upload via chooseMedia, nickname, bio)
-- [ ] 17.3 Build my listings page (user's published products, edit/delete)
-- [ ] 17.4 Build my favorites page (favorited products, unfavorite)
-- [ ] 17.5 Build my follows page (following users list, unfollow)
-- [ ] 17.6 Build users.$id page (public user profile, listings, reviews)
+- [x] 17.3 Build my listings page (user's published products, edit/delete)
+- [x] 17.4 Build my favorites page (favorited products, unfavorite)
+- [x] 17.5 Build my follows page (following users list, unfollow)
+- [x] 17.6 Build users.$id page (public user profile, listings, reviews)
 - [x] 17.7 Build settings page (about, privacy policy, logout)
 
 ## 18. Testing & Optimization

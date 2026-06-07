@@ -1,23 +1,28 @@
 import { useEffect, useCallback } from 'react'
 import { View, Text, Image } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { useChatStore } from '@/domains/chat/store'
 import './index.scss'
 
 export default function Message() {
   const { threads, unreadTotal, loadThreads } = useChatStore()
+  const { t } = useTranslation('chat')
+  const { unreadCount: notifUnread, loadUnreadCount } = useNotificationStore()
 
   useDidShow(() => {
     loadThreads()
+    loadUnreadCount()
   })
 
   useEffect(() => {
-    if (unreadTotal > 0) {
-      Taro.setTabBarBadge({ index: 3, text: String(Math.min(unreadTotal, 99)) })
+    const total = unreadTotal + notifUnread
+    if (total > 0) {
+      Taro.setTabBarBadge({ index: 3, text: String(Math.min(total, 99)) })
     } else {
       Taro.removeTabBarBadge({ index: 3 })
     }
-  }, [unreadTotal])
+  }, [unreadTotal, notifUnread])
 
   const handleThreadClick = useCallback((thread: ChatThread) => {
     Taro.navigateTo({
@@ -44,7 +49,7 @@ export default function Message() {
     <View className='message-page'>
       {threads.length === 0 ? (
         <View className='empty-state'>
-          <Text>暂无消息</Text>
+          <Text>{t('noMessages')}</Text>
         </View>
       ) : (
         <View className='thread-list'>
@@ -58,10 +63,18 @@ export default function Message() {
                 className='thread-avatar'
                 src={thread.participant.avatar}
                 mode='aspectFill'
+                lazyLoad
               />
               <View className='thread-info'>
                 <View className='thread-top'>
-                  <Text className='thread-name'>{thread.participant.username}</Text>
+                  <View className='thread-name-row'>
+                    <Text className='thread-name'>{thread.participant.username}</Text>
+                    {thread.isBlocked && (
+                      <View className='blocked-badge'>
+                        <Text className='blocked-badge-text'>{t('blocked')}</Text>
+                      </View>
+                    )}
+                  </View>
                   <Text className='thread-time'>{formatTime(thread.lastMessageAt)}</Text>
                 </View>
                 <View className='thread-bottom'>

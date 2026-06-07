@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, Input, ScrollView } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useLoad, useRouter } from '@tarojs/taro'
 import { tradeApi } from '@/domains/trade/api'
+import { shippingApi } from '@/domains/shipping/api'
+import Loading from '@/shared/components/Loading'
 import './index.scss'
 
 const STATUS_STEPS: { key: string; label: string; field: string }[] = [
@@ -25,10 +27,38 @@ const ORDER_STATUS_MAP: Record<string, string> = {
   disputed: '争议中',
 }
 
+const LOGISTICS_COMPANIES = [
+  '顺丰速运',
+  '中通快递',
+  '圆通速递',
+  '韵达快递',
+  '申通快递',
+  '极兔速递',
+  '京东物流',
+  '邮政EMS',
+]
+
+const CANCEL_REASONS = [
+  '不想要了',
+  '买错了',
+  '信息填写错误',
+  '卖家缺货',
+  '其他原因',
+]
+
 export default function Detail() {
   const router = useRouter()
   const [order, setOrder] = useState<Order | null>(null)
   const [loading, setLoading] = useState(true)
+
+  const [showShippingModal, setShowShippingModal] = useState(false)
+  const [selectedCompany, setSelectedCompany] = useState('')
+  const [trackingNumber, setTrackingNumber] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+
+  const [showCancelModal, setShowCancelModal] = useState(false)
+  const [cancelReason, setCancelReason] = useState('')
+  const [cancelCustomReason, setCancelCustomReason] = useState('')
 
   useLoad(() => {
     const id = router.params.id
@@ -56,25 +86,51 @@ export default function Detail() {
     Taro.navigateTo({ url: `/pages/order/pay/index?orderId=${order.id}` })
   }
 
-  const handleConfirm = async () => {
+  const handleConfirm = () => {
     if (!order) return
-    try {
-      const res = await tradeApi.confirmOrder(order.id)
-      if (res.code === 0) {
-        Taro.showToast({ title: '确认成功', icon: 'success' })
-        loadDetail(order.id)
+    Taro.showModal({
+      title: '确认收货',
+      content: '请确认已收到货物，确认后货款将打给卖家',
+      confirmText: '确认收货',
+      cancelText: '再等等',
+      success: async (res) => {
+        if (res.confirm) {
+          try {
+            const result = await tradeApi.confirmOrder(order.id)
+            if (result.code === 0) {
+              Taro.showToast({ title: '确认成功', icon: 'success' })
+              loadDetail(order.id)
+            }
+          } catch {
+            Taro.showToast({ title: '操作失败', icon: 'none' })
+          }
+        }
       }
-    } catch {
-      Taro.showToast({ title: '操作失败', icon: 'none' })
-    }
+    })
   }
 
-  const handleCancel = async () => {
+  const openCancelModal = () => {
+    setCancelReason('')
+    setCancelCustomReason('')
+    setShowCancelModal(true)
+  }
+
+  const handleCancelSubmit = async () => {
     if (!order) return
+    const reason = cancelReason === '其他原因' ? cancelCustomReason.trim() : cancelReason
+    if (!cancelReason) {
+      Taro.showToast({ title: '请选择取消原因', icon: 'none' })
+      return
+    }
+    if (cancelReason === '其他原因' && !reason) {
+      Taro.showToast({ title: '请输入取消原因', icon: 'none' })
+      return
+    }
     try {
-      const res = await tradeApi.cancelOrder(order.id)
+      const res = await tradeApi.cancelOrder(order.id, reason)
       if (res.code === 0) {
         Taro.showToast({ title: '已取消', icon: 'success' })
+        setShowCancelModal(false)
         loadDetail(order.id)
       }
     } catch {
@@ -103,6 +159,41 @@ export default function Detail() {
     })
   }
 
+  const openShippingModal = () => {
+    setSelectedCompany('')
+    setTrackingNumber('')
+    setShowShippingModal(true)
+  }
+
+  const handleShipSubmit = async () => {
+    if (!order) return
+    if (!selectedCompany) {
+      Taro.showToast({ title: '请选择物流公司', icon: 'none' })
+      return
+    }
+    if (!trackingNumber.trim()) {
+      Taro.showToast({ title: '请输入运单号', icon: 'none' })
+      return
+    }
+    setSubmitting(true)
+    try {
+      const res = await shippingApi.createShipping({
+        orderId: order.id,
+        company: selectedCompany,
+        trackingNumber: trackingNumber.trim(),
+      })
+      if (res.code === 0) {
+        Taro.showToast({ title: '发货成功', icon: 'success' })
+        setShowShippingModal(false)
+        loadDetail(order.id)
+      }
+    } catch {
+      Taro.showToast({ title: '操作失败', icon: 'none' })
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
   const getActiveSteps = () => {
     if (!order) return []
     const statusOrder = ['pending_payment', 'paid', 'shipped', 'delivered', 'completed']
@@ -119,10 +210,12 @@ export default function Detail() {
     const btns: { text: string; onClick: () => void; type: string }[] = []
     switch (order.status) {
       case 'pending_payment':
-        btns.push({ text: '取消订单', onClick: handleCancel, type: 'default' })
+        btns.push({ text: '取消订单', onClick: openCancelModal, type: 'default' })
         btns.push({ text: '去支付', onClick: handlePay, type: 'primary' })
         break
       case 'paid':
+        btns.push({ text: '确认发货', onClick: openShippingModal, type: 'primary' })
+        break
       case 'shipped':
       case 'delivered':
         btns.push({ text: '确认收货', onClick: handleConfirm, type: 'primary' })
@@ -138,9 +231,7 @@ export default function Detail() {
   if (loading || !order) {
     return (
       <View className='detail-page'>
-        <View className='loading-container'>
-          <Text>加载中...</Text>
-        </View>
+        <Loading type='skeleton' rows={4} />
       </View>
     )
   }
@@ -248,6 +339,114 @@ export default function Detail() {
               <Text>{btn.text}</Text>
             </View>
           ))}
+        </View>
+      )}
+
+      {showShippingModal && (
+        <View className='modal-overlay' onClick={() => setShowShippingModal(false)}>
+          <View className='modal-content' onClick={(e: any) => e.stopPropagation()}>
+            <View className='modal-header'>
+              <Text className='modal-title'>确认发货</Text>
+              <View className='modal-close' onClick={() => setShowShippingModal(false)}>
+                <Text>✕</Text>
+              </View>
+            </View>
+
+            <View className='modal-body'>
+              <View className='form-section'>
+                <Text className='form-label'>物流公司</Text>
+                <ScrollView className='company-list' scrollY>
+                  {LOGISTICS_COMPANIES.map((company) => (
+                    <View
+                      key={company}
+                      className={`company-item ${selectedCompany === company ? 'selected' : ''}`}
+                      onClick={() => setSelectedCompany(company)}
+                    >
+                      <Text className='company-name'>{company}</Text>
+                      {selectedCompany === company && (
+                        <View className='company-check'>✓</View>
+                      )}
+                    </View>
+                  ))}
+                </ScrollView>
+              </View>
+
+              <View className='form-section'>
+                <Text className='form-label'>运单号</Text>
+                <Input
+                  className='tracking-input'
+                  placeholder='请输入快递运单号'
+                  value={trackingNumber}
+                  onInput={(e) => setTrackingNumber(e.detail.value)}
+                />
+              </View>
+            </View>
+
+            <View className='modal-footer'>
+              <View
+                className={`modal-btn primary ${submitting ? 'disabled' : ''}`}
+                onClick={handleShipSubmit}
+              >
+                <Text>{submitting ? '提交中...' : '确认发货'}</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      )}
+
+      {showCancelModal && (
+        <View className='modal-overlay' onClick={() => setShowCancelModal(false)}>
+          <View className='modal-content' onClick={(e: any) => e.stopPropagation()}>
+            <View className='modal-header'>
+              <Text className='modal-title'>取消订单</Text>
+              <View className='modal-close' onClick={() => setShowCancelModal(false)}>
+                <Text>✕</Text>
+              </View>
+            </View>
+
+            <View className='modal-body'>
+              <View className='form-section'>
+                <Text className='form-label'>请选择取消原因</Text>
+                <View className='reason-list'>
+                  {CANCEL_REASONS.map((reason) => (
+                    <View
+                      key={reason}
+                      className={`reason-item ${cancelReason === reason ? 'selected' : ''}`}
+                      onClick={() => {
+                        setCancelReason(reason)
+                        if (reason !== '其他原因') {
+                          setCancelCustomReason('')
+                        }
+                      }}
+                    >
+                      <Text className='reason-text'>{reason}</Text>
+                      {cancelReason === reason && (
+                        <View className='reason-check'>✓</View>
+                      )}
+                    </View>
+                  ))}
+                </View>
+              </View>
+
+              {cancelReason === '其他原因' && (
+                <View className='form-section'>
+                  <Text className='form-label'>请填写具体原因</Text>
+                  <Input
+                    className='tracking-input'
+                    placeholder='请输入取消原因'
+                    value={cancelCustomReason}
+                    onInput={(e) => setCancelCustomReason(e.detail.value)}
+                  />
+                </View>
+              )}
+            </View>
+
+            <View className='modal-footer'>
+              <View className='modal-btn primary' onClick={handleCancelSubmit}>
+                <Text>确认取消</Text>
+              </View>
+            </View>
+          </View>
         </View>
       )}
     </View>

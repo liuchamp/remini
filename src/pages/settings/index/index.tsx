@@ -2,13 +2,16 @@ import { View, Text, Switch } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useState, useEffect } from 'react'
 import { useLoad } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '@/domains/auth/store'
 import { changeLanguage, getCurrentLanguage } from '@/shared/i18n'
+import { isAlipay } from '@/shared/utils/platform'
 import './index.scss'
 
 export default function SettingsIndex() {
   const { isLoggedIn, logout } = useAuthStore()
   const [langChecked, setLangChecked] = useState(getCurrentLanguage() === 'en-US')
+  const { t } = useTranslation('profile')
 
   useLoad(() => {
     console.log('settings/index loaded')
@@ -36,12 +39,12 @@ export default function SettingsIndex() {
 
   const handleLogout = () => {
     Taro.showModal({
-      title: '退出登录',
-      content: '确定要退出登录吗？',
+      title: t('logout'),
+      content: t('logoutConfirm'),
       success: (res) => {
         if (res.confirm) {
           logout()
-          Taro.showToast({ title: '已退出登录', icon: 'success' })
+          Taro.showToast({ title: t('logoutConfirm'), icon: 'success' })
         }
       }
     })
@@ -61,12 +64,17 @@ export default function SettingsIndex() {
               <Text className='row-desc'>当前：{langChecked ? 'English' : '简体中文'}</Text>
             </View>
           </View>
-          <Switch
-            className='lang-switch'
-            checked={langChecked}
-            onChange={handleLangChange}
-            color='#FF6B35'
-          />
+          {!isAlipay && (
+            <Switch
+              className='lang-switch'
+              checked={langChecked}
+              onChange={handleLangChange}
+              color='#FF6B35'
+            />
+          )}
+          {isAlipay && (
+            <Text className='row-value'>简体中文</Text>
+          )}
         </View>
       </View>
 
@@ -77,7 +85,7 @@ export default function SettingsIndex() {
         <View className='settings-row' onClick={handlePrivacy}>
           <View className='row-left'>
             <Text className='row-icon'>🔒</Text>
-            <Text className='row-label'>隐私政策</Text>
+            <Text className='row-label'>{t('privacyPolicy')}</Text>
           </View>
           <Text className='row-arrow'>›</Text>
         </View>
@@ -93,7 +101,7 @@ export default function SettingsIndex() {
       {isLoggedIn && (
         <View className='logout-section'>
           <View className='logout-btn' onClick={handleLogout}>
-            <Text>退出登录</Text>
+            <Text>{t('logout')}</Text>
           </View>
         </View>
       )}

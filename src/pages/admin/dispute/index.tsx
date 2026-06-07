@@ -1,8 +1,9 @@
 import { View, Text, Button } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { adminApi } from '@/domains/admin/api'
 import Empty from '@/shared/components/Empty'
+import { useAuth } from '@/shared/hooks/useAuth'
 import './index.scss'
 
 interface Dispute {
@@ -18,6 +19,11 @@ interface Dispute {
 export default function AdminDispute() {
   const [disputes, setDisputes] = useState<Dispute[]>([])
   const [loading, setLoading] = useState(false)
+  const { requireAdmin } = useAuth()
+
+  useEffect(() => {
+    requireAdmin()
+  }, [])
 
   useLoad(() => {
     loadDisputes()
