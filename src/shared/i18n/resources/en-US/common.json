@@ -26,11 +26,13 @@
     "unknown": "Unknown error",
     "timeout": "Request timeout, please try again later",
     "serverError": "Server error, please try again later",
+    "server": "Server error, please try again later",
     "notFound": "Requested resource not found",
     "unauthorized": "Session expired, please login again",
     "forbidden": "Access denied",
     "badRequest": "Invalid request parameters",
     "networkError": "Network connection failed, please check your settings",
+    "network": "Network error, please retry",
     "validateError": "Invalid input, please check and try again",
     "uploadFailed": "Upload failed",
     "submitFailed": "Submission failed, please try again later"
@@ -47,5 +49,21 @@
     "today": "Today",
     "thisWeek": "This week",
     "thisMonth": "This month"
-  }
+  },
+  "action": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "retry": "Retry",
+    "save": "Save",
+    "share": "Share",
+    "close": "Close",
+    "back": "Back"
+  },
+  "empty": {
+    "list": "No data",
+    "search": "No results",
+    "network": "Network failed",
+    "default": "Nothing here"
+  },
+  "loading": "Loading..."
 }

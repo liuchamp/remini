@@ -26,11 +26,13 @@
     "unknown": "未知错误",
     "timeout": "请求超时，请稍后重试",
     "serverError": "服务器异常，请稍后重试",
+    "server": "服务异常，请稍后重试",
     "notFound": "请求的资源不存在",
     "unauthorized": "登录已过期，请重新登录",
     "forbidden": "没有权限访问",
     "badRequest": "请求参数错误",
     "networkError": "网络连接失败，请检查网络设置",
+    "network": "网络异常，请稍后重试",
     "validateError": "输入信息有误，请检查后重试",
     "uploadFailed": "上传失败",
     "submitFailed": "提交失败，请稍后重试"
@@ -47,5 +49,21 @@
     "today": "今天",
     "thisWeek": "本周",
     "thisMonth": "本月"
-  }
+  },
+  "action": {
+    "confirm": "确认",
+    "cancel": "取消",
+    "retry": "重试",
+    "save": "保存",
+    "share": "分享",
+    "close": "关闭",
+    "back": "返回"
+  },
+  "empty": {
+    "list": "暂无数据",
+    "search": "暂无相关结果",
+    "network": "网络连接失败",
+    "default": "什么都没有"
+  },
+  "loading": "加载中..."
 }
