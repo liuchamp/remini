@@ -44,7 +44,7 @@ export default function WalletIndex() {
   }
 
   const handleBindCard = () => {
-    Taro.showToast({ title: '绑定收款账户功能开发中', icon: 'none' })
+    Taro.navigateTo({ url: '/pages/wallet/bind-card/index' })
   }
 
   const formatAmount = (amount: number) => {

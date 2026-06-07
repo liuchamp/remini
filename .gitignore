@@ -20,3 +20,4 @@ ascf-project/**/.test
 ascf-project/.appanalyzer
 ascf-project/ascf/
 .sisyphus/
+.idea/

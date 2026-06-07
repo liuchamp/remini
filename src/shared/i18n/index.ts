@@ -10,6 +10,9 @@ import zhChat from './resources/zh-CN/chat.json'
 import zhProfile from './resources/zh-CN/profile.json'
 import zhValidation from './resources/zh-CN/validation.json'
 import zhMarketing from './resources/zh-CN/marketing.json'
+import zhLogistics from './resources/zh-CN/logistics.json'
+import zhWallet from './resources/zh-CN/wallet.json'
+import zhKyc from './resources/zh-CN/kyc.json'
 import enCommon from './resources/en-US/common.json'
 import enAuth from './resources/en-US/auth.json'
 import enProduct from './resources/en-US/product.json'
@@ -18,12 +21,15 @@ import enChat from './resources/en-US/chat.json'
 import enProfile from './resources/en-US/profile.json'
 import enValidation from './resources/en-US/validation.json'
 import enMarketing from './resources/en-US/marketing.json'
+import enLogistics from './resources/en-US/logistics.json'
+import enWallet from './resources/en-US/wallet.json'
+import enKyc from './resources/en-US/kyc.json'
 
 const STORAGE_KEY = '@remx/locale'
 
 const resources = {
-  'zh-CN': { common: zhCommon, auth: zhAuth, product: zhProduct, trade: zhTrade, chat: zhChat, profile: zhProfile, validation: zhValidation, marketing: zhMarketing },
-  'en-US': { common: enCommon, auth: enAuth, product: enProduct, trade: enTrade, chat: enChat, profile: enProfile, validation: enValidation, marketing: enMarketing }
+  'zh-CN': { common: zhCommon, auth: zhAuth, product: zhProduct, trade: zhTrade, chat: zhChat, profile: zhProfile, validation: zhValidation, marketing: zhMarketing, logistics: zhLogistics, wallet: zhWallet, kyc: zhKyc },
+  'en-US': { common: enCommon, auth: enAuth, product: enProduct, trade: enTrade, chat: enChat, profile: enProfile, validation: enValidation, marketing: enMarketing, logistics: enLogistics, wallet: enWallet, kyc: enKyc }
 }
 
 const getSystemLanguage = (): string => {
@@ -46,7 +52,7 @@ i18n.use(initReactI18next).init({
   lng: initialLang,
   fallbackLng: 'zh-CN',
   interpolation: { escapeValue: false },
-  ns: ['common', 'auth', 'product', 'trade', 'chat', 'profile', 'validation', 'marketing'],
+  ns: ['common', 'auth', 'product', 'trade', 'chat', 'profile', 'validation', 'marketing', 'logistics', 'wallet', 'kyc'],
   defaultNS: 'common',
 })
 

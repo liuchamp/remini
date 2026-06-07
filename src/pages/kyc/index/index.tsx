@@ -18,7 +18,7 @@ const TIER_ORDER: KycTier[] = ['L0', 'L1', 'L2', 'L3']
 const TIER_TO_PATH: Record<string, string> = {
   phone: '/pages/kyc/phone/index',
   identity: '/pages/kyc/identity/index',
-  liveness: '/pages/kyc/identity/index'
+  liveness: '/pages/kyc/liveness/index'
 }
 
 export default function Index() {

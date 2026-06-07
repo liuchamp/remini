@@ -11,6 +11,8 @@ export interface PaymentAccount {
   type: 'alipay' | 'wechat' | 'bank'
   accountNo: string
   accountName: string
+  bankName?: string
+  phone?: string
   isDefault: boolean
 }
 
@@ -18,6 +20,8 @@ export interface BindPaymentAccountRequest {
   type: 'alipay' | 'wechat' | 'bank'
   accountNo: string
   accountName: string
+  bankName?: string
+  phone?: string
   setDefault?: boolean
 }
 
@@ -43,5 +47,9 @@ export const walletApi = {
 
   bindPaymentAccount(data: BindPaymentAccountRequest) {
     return http.post<PaymentAccount>('/payment-accounts', data)
+  },
+
+  deletePaymentAccount(id: string) {
+    return http.delete<void>(`/payment-accounts/${id}`)
   }
 }

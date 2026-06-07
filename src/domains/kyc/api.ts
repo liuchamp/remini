@@ -34,7 +34,7 @@ export const kycApi = {
   startLiveness() {
     return http.post<{ challengeId: string; challenges: string[] }>('/kyc/liveness/start')
   },
-  submitLiveness(challengeId: string, videoUrl: string) {
-    return http.post<{ newTier: 'L3' }>('/kyc/liveness/submit', { challengeId, videoUrl })
+  submitLiveness(data: { challengeId: string; videoUrl: string; challenges: string[] }) {
+    return http.post<{ newTier: 'L3' }>('/kyc/liveness/submit', data)
   }
 }

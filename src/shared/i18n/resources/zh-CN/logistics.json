@@ -1,0 +1,28 @@
+{
+  "tracking": "物流追踪",
+  "trackingNumber": "运单编号",
+  "copy": "复制",
+  "copied": "已复制",
+  "carrier": "物流公司",
+  "status": "物流状态",
+  "noTracking": "暂无物流轨迹",
+  "loadFailed": "物流信息加载失败",
+  "retry": "重新加载",
+  "loading": "加载中...",
+  "events": {
+    "status": "状态",
+    "location": "地点",
+    "description": "描述",
+    "time": "时间"
+  },
+  "statusMap": {
+    "pending": "待揽收",
+    "picked_up": "已揽收",
+    "in_transit": "运输中",
+    "arrived": "到达站点",
+    "out_for_delivery": "派送中",
+    "delivered": "已签收",
+    "exception": "异常",
+    "returned": "已退回"
+  }
+}

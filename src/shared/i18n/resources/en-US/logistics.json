@@ -1,0 +1,28 @@
+{
+  "tracking": "Tracking",
+  "trackingNumber": "Tracking Number",
+  "copy": "Copy",
+  "copied": "Copied",
+  "carrier": "Carrier",
+  "status": "Status",
+  "noTracking": "No tracking info",
+  "loadFailed": "Failed to load tracking",
+  "retry": "Retry",
+  "loading": "Loading...",
+  "events": {
+    "status": "Status",
+    "location": "Location",
+    "description": "Description",
+    "time": "Time"
+  },
+  "statusMap": {
+    "pending": "Pending Pickup",
+    "picked_up": "Picked Up",
+    "in_transit": "In Transit",
+    "arrived": "Arrived at Facility",
+    "out_for_delivery": "Out for Delivery",
+    "delivered": "Delivered",
+    "exception": "Exception",
+    "returned": "Returned"
+  }
+}

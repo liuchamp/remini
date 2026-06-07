@@ -4,6 +4,10 @@
 .track-page {
   min-height: 100vh;
   background-color: $color-bg;
+}
+
+.track-scroll {
+  min-height: 100vh;
   padding: $spacing-xl $spacing-xl 48px;
 }
 
@@ -59,6 +63,47 @@
   color: $color-white;
 }
 
+.track-status-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.track-status-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.track-status-icon-text {
+  font-size: $font-xl;
+  font-weight: bold;
+  color: $color-white;
+}
+
+.track-status-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.track-status-label {
+  display: block;
+  font-size: 34px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.track-status-sub {
+  display: block;
+  font-size: $font-sm;
+  opacity: 0.85;
+}
+
 .track-company-row {
   display: flex;
   align-items: center;
@@ -110,15 +155,39 @@
   padding: 18px 22px;
 }
 
+.track-number-left {
+  flex: 1;
+  min-width: 0;
+}
+
 .track-number-label {
+  display: block;
   font-size: $font-sm;
   opacity: 0.8;
+  margin-bottom: 4px;
 }
 
 .track-number-value {
+  display: block;
   font-size: $font-md;
   font-weight: 600;
   letter-spacing: 2px;
+  word-break: break-all;
+}
+
+.track-copy-hint {
+  display: flex;
+  align-items: center;
+  margin-left: $spacing-lg;
+  flex-shrink: 0;
+}
+
+.track-copy-text {
+  font-size: $font-sm;
+  opacity: 0.8;
+  padding: $spacing-xs $spacing-sm;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: $radius-sm;
 }
 
 // Timeline

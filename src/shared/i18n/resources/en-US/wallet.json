@@ -1,0 +1,42 @@
+{
+  "bindCard": {
+    "title": "Bind Bank Card",
+    "bankName": "Bank Name",
+    "bankNamePlaceholder": "Select Bank",
+    "cardNumber": "Card Number",
+    "cardNumberPlaceholder": "Enter Card Number",
+    "holderName": "Cardholder Name",
+    "holderNamePlaceholder": "Enter Cardholder Name",
+    "phone": "Reserved Phone",
+    "phonePlaceholder": "Enter Reserved Phone",
+    "nextStep": "Next",
+    "binding": "Binding...",
+    "bindSuccess": "Bound Successfully",
+    "bindFailed": "Binding Failed, Please Retry",
+    "pleaseFillAll": "Please Fill All Fields",
+    "invalidCardNumber": "Invalid Card Number",
+    "invalidPhone": "Invalid Phone Number",
+    "existingCards": "Bound Cards",
+    "noCards": "No Bound Cards",
+    "deleteCard": "Delete",
+    "deleteConfirm": "Delete This Card?",
+    "deleteSuccess": "Deleted Successfully",
+    "deleteFailed": "Delete Failed, Please Retry",
+    "setDefault": "Set as Default",
+    "defaultCard": "Default"
+  },
+  "wallet": {
+    "balance": "Balance",
+    "availableBalance": "Available Balance",
+    "heldBalance": "Held Balance",
+    "totalEarned": "Total Earned",
+    "withdraw": "Withdraw",
+    "bindAccount": "Bind Account",
+    "bill": "Bill",
+    "security": "Security",
+    "transactions": "Transactions",
+    "noTransactions": "No Transactions",
+    "loadingMore": "Loading...",
+    "noMore": "No More"
+  }
+}

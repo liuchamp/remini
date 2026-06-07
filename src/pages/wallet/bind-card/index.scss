@@ -3,48 +3,193 @@
 .bind-card-page {
   min-height: 100vh;
   background: $color-bg;
+  padding-bottom: 120px;
+  box-sizing: border-box;
 }
 
-.form-section {
+.section-card {
   background: #fff;
-  padding: $spacing-md;
   margin: $spacing-md;
-  border-radius: 12px;
+  padding: $spacing-lg;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
 }
 
-.form-group {
-  margin-bottom: $spacing-md;
-
-  .form-label {
-    font-size: $font-md;
-    color: $color-text;
-    margin-bottom: 8px;
-    display: block;
-  }
-
-  .form-input {
-    width: 100%;
-    height: 88px;
-    background: #f5f5f5;
-    border-radius: 8px;
-    padding: 0 $spacing-md;
-    font-size: $font-md;
-    box-sizing: border-box;
-  }
+.section-title {
+  font-size: $font-lg;
+  font-weight: 600;
+  color: $color-text;
+  margin-bottom: $spacing-lg;
+  display: block;
 }
 
-.submit-bar {
+.loading-state,
+.empty-state {
+  padding: $spacing-xl 0;
+  text-align: center;
+}
+
+.loading-text,
+.empty-text {
+  font-size: $font-sm;
+  color: $color-text-light;
+}
+
+/* Card List */
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.card-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: $spacing-md;
+  background: $color-bg-light;
+  border-radius: $radius-md;
+}
 
-  .submit-btn {
-    width: 100%;
-    height: 88px;
-    background: $color-primary;
-    color: #fff;
-    border-radius: 44px;
-    font-size: $font-lg;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-row {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.card-bank {
+  font-size: $font-md;
+  font-weight: 500;
+  color: $color-text;
+}
+
+.card-default-tag {
+  font-size: 20px;
+  color: $color-primary;
+  background: rgba($color-primary, 0.1);
+  padding: 2px 8px;
+  border-radius: $radius-sm;
+}
+
+.card-number {
+  font-size: $font-sm;
+  color: $color-text-secondary;
+  margin-top: 4px;
+  display: block;
+  font-family: monospace;
+}
+
+.card-name {
+  font-size: $font-sm;
+  color: $color-text-secondary;
+  margin-top: 2px;
+  display: block;
+}
+
+.card-delete-btn {
+  flex-shrink: 0;
+  margin-left: $spacing-md;
+  padding: 0 $spacing-lg;
+  height: 56px;
+  line-height: 56px;
+  font-size: $font-sm;
+  color: $color-error;
+  background: rgba($color-error, 0.08);
+  border-radius: $radius-full;
+  text-align: center;
+}
+
+/* Form */
+.form-group {
+  margin-bottom: $spacing-lg;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.form-label {
+  font-size: $font-md;
+  color: $color-text;
+  margin-bottom: $spacing-sm;
+  display: block;
+}
+
+.form-input {
+  width: 100%;
+  height: 88px;
+  background: $color-bg;
+  border-radius: $radius-md;
+  padding: 0 $spacing-lg;
+  font-size: $font-md;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+
+  &:focus {
+    border-color: $color-primary;
+  }
+}
+
+.form-picker {
+  width: 100%;
+  height: 88px;
+  background: $color-bg;
+  border-radius: $radius-md;
+  padding: 0 $spacing-lg;
+  font-size: $font-md;
+  line-height: 88px;
+  box-sizing: border-box;
+  color: $color-text;
+  border: 2px solid transparent;
+  position: relative;
+
+  &::after {
+    content: '▼';
+    position: absolute;
+    right: $spacing-lg;
+    font-size: 20px;
+    color: $color-text-light;
+  }
+
+  &.placeholder {
+    color: $color-placeholder;
+  }
+}
+
+/* Submit */
+.submit-bar {
+  padding: $spacing-md $spacing-lg;
+  padding-bottom: calc(#{$spacing-md} + env(safe-area-inset-bottom));
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $color-bg;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 88px;
+  background: $color-primary;
+  color: #fff;
+  border-radius: $radius-full;
+  font-size: $font-lg;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+
+  &:active {
+    background: $color-primary-dark;
+  }
+
+  &[disabled] {
+    opacity: 0.6;
   }
 }
