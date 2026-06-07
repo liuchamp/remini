@@ -1,23 +1,29 @@
 import Taro from '@tarojs/taro'
-import { View, Text, Input, ScrollView, Image } from '@tarojs/components'
-import { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
+import { View, Text, Input, ScrollView } from '@tarojs/components'
+import { useState, useEffect, useRef } from 'react'
 import { useDebounce } from '@/shared/hooks/useDebounce'
 import { productApi } from '@/domains/product/api'
+import { HotSearches } from '@/shared/components/product/HotSearches'
+import { FilterPanel, type FilterState } from '@/shared/components/product/FilterPanel'
 import './index.scss'
 
 const HISTORY_KEY = 'searchHistory'
 const MAX_HISTORY = 10
+const HOT_CACHE_MS = 5 * 60 * 1000
 
 export default function Search() {
-  const { t } = useTranslation(['product', 'common'])
   const [keyword, setKeyword] = useState('')
   const [results, setResults] = useState<Product[]>([])
+  const [suggestions, setSuggestions] = useState<string[]>([])
+  const [hotSearches, setHotSearches] = useState<string[]>([])
+  const [searchHistory, setSearchHistory] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [hasSearched, setHasSearched] = useState(false)
-  const [searchHistory, setSearchHistory] = useState<string[]>([])
+  const [filterVisible, setFilterVisible] = useState(false)
+  const [filters, setFilters] = useState<FilterState>({})
+  const lastHotFetch = useRef<number>(0)
 
-  const debouncedKeyword = useDebounce(keyword, 500)
+  const debouncedKeyword = useDebounce(keyword, 300)
 
   useEffect(() => {
     try {
@@ -26,38 +32,59 @@ export default function Search() {
     } catch {
       setSearchHistory([])
     }
+    fetchHotSearches()
   }, [])
 
   useEffect(() => {
     if (debouncedKeyword.trim()) {
-      performSearch(debouncedKeyword.trim())
+      fetchSuggest(debouncedKeyword.trim())
+      performSearch(debouncedKeyword.trim(), filters)
     } else {
+      setSuggestions([])
       setResults([])
       setHasSearched(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedKeyword])
 
-  const saveToHistory = (kw: string) => {
-    const updated = [kw, ...searchHistory.filter((h) => h !== kw)].slice(
-      0,
-      MAX_HISTORY
-    )
-    setSearchHistory(updated)
+  const fetchHotSearches = async () => {
+    if (Date.now() - lastHotFetch.current < HOT_CACHE_MS) return
     try {
-      Taro.setStorageSync(HISTORY_KEY, updated)
-    } catch {
-      // storage full or unavailable
-    }
+      const res = await productApi.getHotSearches()
+      if (res.code === 0) {
+        setHotSearches((res.data as { keywords: string[] }).keywords || [])
+        lastHotFetch.current = Date.now()
+      }
+    } catch { /* silent */ }
   }
 
-  const performSearch = async (kw: string) => {
+  const fetchSuggest = async (kw: string) => {
+    try {
+      const res = await productApi.searchSuggest(kw)
+      if (res.code === 0) {
+        setSuggestions((res.data as { suggestions: string[] }).suggestions || [])
+      }
+    } catch { setSuggestions([]) }
+  }
+
+  const saveToHistory = (kw: string) => {
+    const updated = [kw, ...searchHistory.filter((h) => h !== kw)].slice(0, MAX_HISTORY)
+    setSearchHistory(updated)
+    try { Taro.setStorageSync(HISTORY_KEY, updated) } catch { /* */ }
+  }
+
+  const performSearch = async (kw: string, f: FilterState) => {
     setLoading(true)
     setHasSearched(true)
     try {
-      const res = await productApi.search({ keyword: kw, page: 1, limit: 20 })
+      const res = await productApi.search({
+        keyword: kw,
+        page: 1,
+        limit: 20,
+        ...f
+      })
       if (res.code === 0) {
-        setResults(res.data.products)
+        setResults((res.data as { products: Product[] }).products || [])
       }
     } catch {
       setResults([])
@@ -70,25 +97,29 @@ export default function Search() {
     const trimmed = kw.trim()
     if (!trimmed) return
     saveToHistory(trimmed)
-    performSearch(trimmed)
+    setSuggestions([])
   }
 
   const handleConfirm = (e: { detail: { value: string } }) => {
     handleSearch(e.detail.value)
   }
 
-  const handleHistoryTagClick = (kw: string) => {
+  const handleSelect = (kw: string) => {
     setKeyword(kw)
     handleSearch(kw)
   }
 
+  const handleApplyFilter = (newFilters: FilterState) => {
+    setFilters(newFilters)
+    setFilterVisible(false)
+    if (debouncedKeyword.trim()) {
+      performSearch(debouncedKeyword.trim(), newFilters)
+    }
+  }
+
   const clearHistory = () => {
     setSearchHistory([])
-    try {
-      Taro.setStorageSync(HISTORY_KEY, [])
-    } catch {
-      /* empty */
-    }
+    try { Taro.setStorageSync(HISTORY_KEY, []) } catch { /* */ }
   }
 
   const handleProductClick = (id: string) => {
@@ -100,88 +131,75 @@ export default function Search() {
       <View className='search-header'>
         <Input
           className='search-input'
-          type='text'
-          placeholder={t('product:search')}
+          placeholder='搜索商品'
           value={keyword}
           onInput={(e) => setKeyword(e.detail.value)}
           onConfirm={handleConfirm}
-          focus
-          confirmType='search'
         />
-        <Text
-          className='search-cancel'
-          onClick={() => Taro.navigateBack()}
-        >
-          {t('common:action.cancel')}
-        </Text>
+        <View className='search-cancel' onClick={() => Taro.navigateBack()}>
+          <Text>取消</Text>
+        </View>
       </View>
 
-      {!hasSearched && searchHistory.length > 0 && (
-        <View className='search-history'>
-          <View className='history-header'>
-            <Text className='history-title'>{t('product:searchHistory')}</Text>
-            <Text className='history-clear' onClick={clearHistory}>
-              {t('product:searchClear')}
-            </Text>
-          </View>
-          <View className='history-tags'>
-            {searchHistory.map((item) => (
-              <Text
-                key={item}
-                className='history-tag'
-                onClick={() => handleHistoryTagClick(item)}
-              >
-                {item}
-              </Text>
-            ))}
-          </View>
+      {!hasSearched && (
+        <ScrollView scrollY className='search-suggestions-area'>
+          <HotSearches keywords={hotSearches} onSelect={handleSelect} />
+          {searchHistory.length > 0 && (
+            <View className='search-history'>
+              <View className='history-header'>
+                <Text className='history-title'>历史记录</Text>
+                <Text className='history-clear' onClick={clearHistory}>× 清空</Text>
+              </View>
+              <View className='history-chips'>
+                {searchHistory.map((h) => (
+                  <View key={h} className='history-chip' onClick={() => handleSelect(h)}>
+                    <Text>{h}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+          )}
+        </ScrollView>
+      )}
+
+      {hasSearched && suggestions.length > 0 && (
+        <View className='search-suggestions'>
+          {suggestions.map((s) => (
+            <View key={s} className='suggestion-item' onClick={() => handleSelect(s)}>
+              <Text>{s}</Text>
+            </View>
+          ))}
         </View>
       )}
 
       {hasSearched && (
-        <ScrollView className='search-results' scrollY>
-          {loading ? (
-            <View className='status-text'>{t('common:loading')}</View>
-          ) : results.length > 0 ? (
-            <View className='product-grid'>
-              {results.map((product) => (
-                <View
-                  key={product.id}
-                  className='product-card'
-                  onClick={() => handleProductClick(product.id)}
-                >
-                  <Image
-                    src={product.images?.[0] || ''}
-                    className='product-image'
-                    mode='aspectFill'
-                    lazyLoad
-                  />
-                  <View className='product-info'>
-                    <Text className='product-title'>{product.title}</Text>
-                    <View className='product-price-row'>
-                      <Text className='product-price'>
-                        ¥{product.price}
-                      </Text>
-                      {product.isNegotiable && (
-                        <Text className='negotiable-tag'>{t('product:negotiable')}</Text>
-                      )}
-                    </View>
-                    {product.distance != null && (
-                      <Text className='product-distance'>
-                        {product.distance < 1
-                          ? `${Math.round(product.distance * 1000)}m`
-                          : `${product.distance.toFixed(1)}km`}
-                      </Text>
-                    )}
-                  </View>
-                </View>
-              ))}
+        <View className='search-results'>
+          <View className='results-toolbar'>
+            <Text className='toolbar-text'>共 {results.length} 条结果</Text>
+            <View className='toolbar-filter' onClick={() => setFilterVisible(true)}>
+              <Text>筛选 ▼</Text>
             </View>
-          ) : (
-            <View className='status-text'>{t('common:empty.search')}</View>
-          )}
-        </ScrollView>
+          </View>
+          <ScrollView scrollY className='results-list'>
+            {results.map((p) => (
+              <View key={p.id} className='result-item' onClick={() => handleProductClick(p.id)}>
+                <Text className='result-title'>{p.title}</Text>
+                <Text className='result-price'>¥{p.price}</Text>
+              </View>
+            ))}
+            {results.length === 0 && !loading && (
+              <View className='result-empty'>暂无相关商品</View>
+            )}
+          </ScrollView>
+        </View>
       )}
+
+      <FilterPanel
+        visible={filterVisible}
+        value={filters}
+        onApply={handleApplyFilter}
+        onClose={() => setFilterVisible(false)}
+      />
     </View>
   )
 }
