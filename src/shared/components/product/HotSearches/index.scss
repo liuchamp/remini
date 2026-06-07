@@ -1,0 +1,21 @@
+.hot-searches {
+  padding: 24px 32px;
+  
+  .hot-title {
+    font-size: 26px;
+    color: #999;
+    margin-bottom: 16px;
+  }
+  .hot-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .hot-chip {
+    padding: 12px 24px;
+    background: #f5f5f5;
+    border-radius: 32px;
+    font-size: 26px;
+    color: #333;
+  }
+}
