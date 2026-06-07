@@ -3,6 +3,8 @@ import { useLoad } from '@tarojs/taro'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { walletApi, Transaction } from '@/domains/wallet/api'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
 import Empty from '@/shared/components/Empty'
 import './index.scss'
 
@@ -14,14 +16,12 @@ export default function Transactions() {
   const [loading, setLoading] = useState(false)
   const [hasMore, setHasMore] = useState(true)
   const [page, setPage] = useState(1)
-
-  useLoad(() => {
-    loadTransactions(true)
-  })
+  const [error, setError] = useState(false)
 
   const loadTransactions = async (reset = false) => {
     if (loading) return
     setLoading(true)
+    setError(false)
     try {
       const currentPage = reset ? 1 : page
       const res = await walletApi.getTransactions({ page: currentPage, pageSize: 20 })
@@ -31,9 +31,19 @@ export default function Transactions() {
         setHasMore(list.length >= 20)
         setPage(currentPage + 1)
       }
+    } catch {
+      setError(true)
     } finally {
       setLoading(false)
     }
+  }
+
+  const refresh = () => {
+    setError(false)
+    setTransactions([])
+    setPage(1)
+    setHasMore(true)
+    loadTransactions(true)
   }
 
   const handleLoadMore = () => {
@@ -42,8 +52,12 @@ export default function Transactions() {
 
   return (
     <View className='transactions-page'>
-      {transactions.length === 0 && !loading ? (
-        <Empty text='暂无交易记录' />
+      {loading && transactions.length === 0 ? (
+        <Skeleton type='list' rows={5} />
+      ) : error ? (
+        <RetryButton onRetry={refresh} />
+      ) : transactions.length === 0 ? (
+        <Empty text={t('common:empty.list')} />
       ) : (
         <View className='transaction-list'>
           {transactions.map((t) => (
