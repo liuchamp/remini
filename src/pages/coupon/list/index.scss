@@ -1,8 +1,51 @@
-.page {
+.coupon-page {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.tab-bar {
+  display: flex;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tab-item {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  font-size: 32px;
-  color: #333;
+  height: 88px;
+  position: relative;
+
+  &.active {
+    .tab-label {
+      color: #333;
+      font-weight: 600;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 48px;
+      height: 4px;
+      background-color: #ff6b35;
+      border-radius: 2px;
+    }
+  }
+}
+
+.tab-label {
+  font-size: 30px;
+  color: #999;
+}
+
+.coupon-list {
+  padding: 24px;
+  height: calc(100vh - 88px);
 }

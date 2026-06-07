@@ -1,6 +1,8 @@
 import { View, Text, ScrollView } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
-import { useState } from 'react'
+import Taro from '@tarojs/taro'
+import { useCouponStore } from '@/domains/marketing/store'
+import CouponCard from '@/shared/components/marketing/CouponCard'
 import Loading from '@/shared/components/Loading'
 import Empty from '@/shared/components/Empty'
 import ErrorBoundary from '@/shared/components/ErrorBoundary'
@@ -12,14 +14,31 @@ const TABS = [
   { key: 'expired', label: '过期' },
 ]
 
-export default function List() {
-  const [activeTab, setActiveTab] = useState(0)
-  const [coupons, setCoupons] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
+export default function CouponList() {
+  const { coupons, activeTab, loading, loadCoupons, useCoupon } = useCouponStore()
 
   useLoad(() => {
-    setLoading(false)
+    loadCoupons('active')
   })
+
+  const handleTabChange = (tab: string) => {
+    loadCoupons(tab)
+  }
+
+  const handleUse = async (couponId: string) => {
+    try {
+      await useCoupon(couponId)
+      Taro.showToast({
+        title: '使用成功',
+        icon: 'success'
+      })
+    } catch (error) {
+      Taro.showToast({
+        title: '使用失败',
+        icon: 'none'
+      })
+    }
+  }
 
   if (loading) {
     return <Loading type='skeleton' rows={3} />
@@ -27,24 +46,23 @@ export default function List() {
 
   return (
     <ErrorBoundary>
-      <View className='coupon-list-page'>
+      <View className='coupon-page'>
         <View className='tab-bar'>
-          {TABS.map((tab, idx) => (
+          {TABS.map((tab) => (
             <View
               key={tab.key}
-              className={`tab-item ${activeTab === idx ? 'active' : ''}`}
-              onClick={() => setActiveTab(idx)}
+              className={`tab-item ${activeTab === tab.key ? 'active' : ''}`}
+              onClick={() => handleTabChange(tab.key)}
             >
               <Text className='tab-label'>{tab.label}</Text>
             </View>
           ))}
         </View>
-        <ScrollView scrollY className='coupon-scroll'>
+
+        <ScrollView scrollY className='coupon-list'>
           {coupons.length > 0 ? (
             coupons.map((coupon) => (
-              <View key={coupon.id} className='coupon-card'>
-                <Text>{coupon.title}</Text>
-              </View>
+              <CouponCard key={coupon.id} coupon={coupon} onUse={handleUse} />
             ))
           ) : (
             <Empty text='暂无优惠券' />

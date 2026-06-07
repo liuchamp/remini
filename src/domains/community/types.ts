@@ -1,38 +1,28 @@
-export type FeedTab = 'recommend' | 'hot' | 'following'
-
-export type ShareType =
-  | 'normal'
-  | 'product_share'
-  | 'order_showcase'
-  | 'commission'
+export type FeedTab = 'recommended' | 'trending' | 'following'
 
 export interface Post {
   id: string
-  userId: string
   user: {
     id: string
     username: string
     avatar: string
-    trustScore: number
-    productCount: number
-    isVerified: boolean
     isCreator?: boolean
   }
   content: string
-  images: string[]
-  shareType: ShareType
+  images?: string[]
   product?: {
     id: string
     title: string
-    image: string
+    cover: string
     price: number
   }
-  circleId?: string
   likeCount: number
   commentCount: number
-  viewCount: number
-  isLiked: boolean
+  shareCount: number
+  isLiked?: boolean
+  isCollected?: boolean
   createdAt: string
+  updatedAt: string
 }
 
 export interface Comment {
@@ -44,30 +34,15 @@ export interface Comment {
   }
   content: string
   likeCount: number
-  isLiked: boolean
+  isLiked?: boolean
   parentId?: string
-  replyTo?: {
-    id: string
-    username: string
-  }
+  replies?: Comment[]
   createdAt: string
-}
-
-export interface Circle {
-  id: string
-  name: string
-  description: string
-  avatar: string
-  memberCount: number
-  postCount: number
-  isPrivate: boolean
-  isMember: boolean
 }
 
 export interface CreatePostData {
   content: string
-  images: string[]
-  shareType?: ShareType
+  images?: string[]
   productId?: string
   circleId?: string
 }
@@ -75,4 +50,5 @@ export interface CreatePostData {
 export interface FeedParams {
   tab: FeedTab
   page?: number
+  pageSize?: number
 }

@@ -131,7 +131,7 @@
     "prometheus": {
       "fallback_models": [
         {
-          "model": "deepseek/deepseek-v4-pro",
+          "model": "deepseek/deepseek-v4-flash",
           "variant": "max"
         },
         {
@@ -300,7 +300,7 @@
           "model": "opencode/kimi-k2.5"
         }
       ],
-      "model": "deepseek/deepseek-v4-pro",
+      "model": "deepseek/deepseek-v4-flash",
       "variant": "max"
     },
     "unspecified-low": {

@@ -1,3 +1,4 @@
 export default definePageConfig({
-  navigationBarTitleText: '社区动态'
+  navigationBarTitleText: '社区',
+  enablePullDownRefresh: true,
 })

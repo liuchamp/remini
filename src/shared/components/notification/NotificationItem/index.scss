@@ -1,0 +1,45 @@
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 24px;
+  background-color: #fff;
+  border-bottom: 1px solid #f0f0f0;
+
+  &.read {
+    opacity: 0.7;
+  }
+}
+
+.unread-dot {
+  width: 16px;
+  height: 16px;
+  background-color: #ff6b35;
+  border-radius: 50%;
+  margin-right: 16px;
+  margin-top: 8px;
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-title {
+  font-size: 28px;
+  font-weight: 500;
+  color: #333;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.notification-text {
+  font-size: 26px;
+  color: #666;
+  line-height: 1.6;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.notification-time {
+  font-size: 22px;
+  color: #ccc;
+}

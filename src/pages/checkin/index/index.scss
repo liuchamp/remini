@@ -1,8 +1,59 @@
-.page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.checkin-page {
   min-height: 100vh;
-  font-size: 32px;
+  background-color: #f5f5f5;
+  padding: 24px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: 600;
   color: #333;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 26px;
+  color: #999;
+}
+
+.rewards-section {
+  margin-top: 32px;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.section-title {
+  font-size: 30px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.rewards-grid {
+  display: flex;
+  justify-content: space-around;
+}
+
+.reward-item {
+  text-align: center;
+}
+
+.reward-value {
+  font-size: 36px;
+  font-weight: 600;
+  color: #ff6b35;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.reward-label {
+  font-size: 24px;
+  color: #999;
 }

@@ -1,40 +1,43 @@
 import { http } from '@/shared/api/request'
-import type { Post, Comment, Circle, CreatePostData } from './types'
+import type { Post, Comment, CreatePostData, FeedParams } from './types'
 
-export type { Post, Comment, Circle, CreatePostData }
+export type { Post, Comment, CreatePostData, FeedParams }
 
 export const communityApi = {
-  getFeed(tab?: string, page?: number) {
-    return http.get<{ posts: Post[]; hasMore: boolean }>('/posts', { tab, page })
+  getFeed(params: FeedParams) {
+    return http.get<{ posts: Post[]; hasMore: boolean }>('/community/feed', { params })
   },
+
   getPostDetail(id: string) {
-    return http.get<Post>(`/posts/${id}`)
+    return http.get<Post>(`/community/posts/${id}`)
   },
+
   createPost(data: CreatePostData) {
-    return http.post<Post>('/posts', data)
+    return http.post<Post>('/community/posts', data)
   },
+
   likePost(id: string) {
-    return http.post<{ isLiked: boolean; likeCount: number }>(`/posts/${id}/like`)
+    return http.post<{ isLiked: boolean; likeCount: number }>(`/community/posts/${id}/like`)
   },
-  getComments(postId: string, page?: number) {
-    return http.get<{ comments: Comment[]; hasMore: boolean }>(`/posts/${postId}/comments`, { page })
+
+  collectPost(id: string) {
+    return http.post<void>(`/community/posts/${id}/collect`)
   },
-  createComment(postId: string, content: string) {
-    return http.post<Comment>(`/posts/${postId}/comments`, { content })
+
+  getComments(postId: string, params: { page?: number; pageSize?: number } = { pageSize: 20 }) {
+    return http.get<{ comments: Comment[]; hasMore: boolean }>(
+      `/community/posts/${postId}/comments`,
+      { params },
+    )
   },
+
+  addComment(postId: string, content: string, parentId?: string) {
+    return http.post<Comment>(`/community/posts/${postId}/comments`, { content, parentId })
+  },
+
   likeComment(commentId: string) {
-    return http.post<{ isLiked: boolean; likeCount: number }>(`/comments/${commentId}/like`)
-  },
-  getCircles() {
-    return http.get<Circle[]>('/circles')
-  },
-  getCirclePosts(circleId: string, page?: number) {
-    return http.get<{ posts: Post[]; hasMore: boolean }>(`/circles/${circleId}/posts`, { page })
-  },
-  joinCircle(circleId: string) {
-    return http.post<{ isMember: boolean }>(`/circles/${circleId}/join`)
-  },
-  getCircleDetail(id: string) {
-    return http.get<{ circle: Circle; posts: Post[] }>(`/circles/${id}`)
+    return http.post<{ isLiked: boolean; likeCount: number }>(
+      `/community/comments/${commentId}/like`,
+    )
   },
 }

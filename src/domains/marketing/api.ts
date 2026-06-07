@@ -1,48 +1,36 @@
 import { http } from '@/shared/api/request'
-
-export interface CheckInRecord {
-  date: string
-  points: number
-  streak: number
-}
-
-export interface Coupon {
-  id: string
-  name: string
-  discount: number
-  minSpend: number
-  expiresAt: string
-  status: 'active' | 'used' | 'expired'
-}
-
-export interface ReferralInfo {
-  code: string
-  link: string
-  totalReferrals: number
-  totalRewards: number
-  leaderboard: { rank: number; name: string; avatar: string; referrals: number }[]
-}
+import type { CheckinData, CheckinResult, PointsData, PointsRecord, Coupon } from './types'
 
 export const marketingApi = {
-  checkIn() {
-    return http.post<CheckInRecord>('/marketing/checkin')
+  getCheckinData: () => {
+    return http.get<CheckinData>('/marketing/checkin')
   },
-  getCheckInStatus() {
-    return http.get<{ checked: boolean; streak: number; points: number }>('/marketing/checkin/status')
+
+  checkin: () => {
+    return http.post<CheckinResult>('/marketing/checkin')
   },
-  getPointsBalance() {
-    return http.get<{ balance: number; history: { date: string; amount: number; type: string }[] }>('/marketing/points')
+
+  getPointsData: () => {
+    return http.get<PointsData>('/marketing/points')
   },
-  exchangePointsForCoupon(points: number) {
-    return http.post('/marketing/points/exchange', { points })
+
+  getPointsRecords: (params?: { category?: string; page?: number }) => {
+    return http.get<PointsRecord[]>('/marketing/points/records', {
+      params: { ...params, pageSize: 20 }
+    })
   },
-  getCoupons(status?: string) {
-    return http.get<Coupon[]>('/marketing/coupons', { status })
+
+  getCoupons: (params: { status: string; page?: number }) => {
+    return http.get<Coupon[]>('/marketing/coupons', {
+      params: { ...params, pageSize: 20 }
+    })
   },
-  getReferralInfo() {
-    return http.get<ReferralInfo>('/marketing/referral')
+
+  useCoupon: (id: string) => {
+    return http.post(`/marketing/coupons/${id}/use`)
   },
-  generatePoster() {
-    return http.get<{ posterUrl: string }>('/marketing/referral/poster')
-  }
+
+  exchangeCoupon: (couponId: string) => {
+    return http.post(`/marketing/coupons/${couponId}/exchange`)
+  },
 }

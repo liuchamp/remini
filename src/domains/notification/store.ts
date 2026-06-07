@@ -1,59 +1,100 @@
 import { create } from 'zustand'
-import { notificationApi, NotificationItem } from './api'
+import { notificationApi } from './api'
+import type { Notification } from './types'
 
 interface NotificationState {
-  list: NotificationItem[]
+  notifications: Notification[]
+  activeTab: 'system' | 'transaction' | 'marketing'
   unreadCount: number
   loading: boolean
-  loadList: (page?: number) => Promise<void>
-  markRead: (id: string) => Promise<void>
-  markAllRead: () => Promise<void>
+  polling: boolean
+  loadNotifications: (tab: string) => Promise<void>
   loadUnreadCount: () => Promise<void>
+  markAsRead: (id: string) => Promise<void>
+  markAllAsRead: () => Promise<void>
+  startPolling: () => void
+  stopPolling: () => void
 }
 
-export const useNotificationStore = create<NotificationState>((set, get) => ({
-  list: [],
-  unreadCount: 0,
-  loading: false,
-
-  loadList: async (page?: number) => {
-    set({ loading: true })
-    const res = await notificationApi.getList(page)
-    if (res.code === 0) {
-      const list = res.data as NotificationItem[]
-      set({
-        list,
-        unreadCount: list.filter(n => !n.isRead).length,
-        loading: false
-      })
-    } else {
-      set({ loading: false })
+export const useNotificationStore = create<NotificationState>((set, get) => {
+  let pollingTimer: ReturnType<typeof setInterval> | null = null
+  
+  return {
+    notifications: [],
+    activeTab: 'system',
+    unreadCount: 0,
+    loading: false,
+    polling: false,
+    
+    loadNotifications: async (tab) => {
+      set({ loading: true, activeTab: tab as NotificationState['activeTab'] })
+      try {
+        const res = await notificationApi.getNotifications({ type: tab })
+        if (res.code === 0) {
+          set({ notifications: res.data as Notification[] })
+        }
+      } finally {
+        set({ loading: false })
+      }
+    },
+    
+    loadUnreadCount: async () => {
+      try {
+        const res = await notificationApi.getUnreadCount()
+        if (res.code === 0) {
+          set({ unreadCount: res.data as number })
+        }
+      } catch (error) {
+        console.error('Failed to load unread count:', error)
+      }
+    },
+    
+    markAsRead: async (id) => {
+      try {
+        await notificationApi.markAsRead(id)
+        set(state => ({
+          notifications: state.notifications.map(n =>
+            n.id === id ? { ...n, isRead: true } : n
+          ),
+          unreadCount: Math.max(0, state.unreadCount - 1)
+        }))
+      } catch (error) {
+        console.error('Failed to mark as read:', error)
+      }
+    },
+    
+    markAllAsRead: async () => {
+      try {
+        await notificationApi.markAllAsRead()
+        set(state => ({
+          notifications: state.notifications.map(n => ({ ...n, isRead: true })),
+          unreadCount: 0
+        }))
+      } catch (error) {
+        console.error('Failed to mark all as read:', error)
+      }
+    },
+    
+    startPolling: () => {
+      if (get().polling) return
+      
+      // Clear any existing timer before creating a new one
+      if (pollingTimer) {
+        clearInterval(pollingTimer)
+      }
+      
+      set({ polling: true })
+      pollingTimer = setInterval(() => {
+        get().loadUnreadCount()
+      }, 30000)
+    },
+    
+    stopPolling: () => {
+      if (pollingTimer) {
+        clearInterval(pollingTimer)
+        pollingTimer = null
+      }
+      set({ polling: false })
     }
-  },
-
-  markRead: async (id: string) => {
-    const res = await notificationApi.markRead(id)
-    if (res.code === 0) {
-      const list = get().list.map(n =>
-        n.id === id ? { ...n, isRead: true } : n
-      )
-      set({
-        list,
-        unreadCount: list.filter(n => !n.isRead).length
-      })
-    }
-  },
-
-  markAllRead: async () => {
-    const res = await notificationApi.markAllRead()
-    if (res.code === 0) {
-      const list = get().list.map(n => ({ ...n, isRead: true }))
-      set({ list, unreadCount: 0 })
-    }
-  },
-
-  loadUnreadCount: async () => {
-    const res = await notificationApi.getUnreadCount()
-    if (res.code === 0) set({ unreadCount: res.data as number })
   }
-}))
+})

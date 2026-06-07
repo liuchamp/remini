@@ -2,19 +2,19 @@ import { useEffect, useCallback, useRef } from 'react'
 import { View, Text, ScrollView } from '@tarojs/components'
 import Taro, { useDidShow, useDidHide, usePullDownRefresh } from '@tarojs/taro'
 import { useNotificationStore } from '@/domains/notification/store'
-import type { NotificationItem } from '@/domains/notification/api'
+import type { Notification } from '@/domains/notification/types'
 import './index.scss'
 
 const TYPE_ICON_MAP: Record<string, string> = {
   system: '\u{1F514}',
-  trade: '\u{1F4B0}',
+  transaction: '\u{1F4B0}',
   marketing: '\u{1F389}'
 }
 
 const POLL_INTERVAL = 30000
 
 export default function Notification() {
-  const { list, unreadCount, loading, loadList, markRead, markAllRead, loadUnreadCount } =
+  const { notifications, unreadCount, loading, loadNotifications, markAsRead, markAllAsRead, loadUnreadCount } =
     useNotificationStore()
   const pollTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
@@ -33,7 +33,7 @@ export default function Notification() {
   }, [])
 
   useDidShow(() => {
-    loadList()
+    loadNotifications('system')
     loadUnreadCount()
     startPolling()
   })
@@ -47,27 +47,27 @@ export default function Notification() {
   }, [stopPolling])
 
   usePullDownRefresh(() => {
-    loadList().finally(() => {
+    loadNotifications('system').finally(() => {
       Taro.stopPullDownRefresh()
     })
   })
 
   const handleItemClick = useCallback(
-    async (item: NotificationItem) => {
+    async (item: Notification) => {
       if (!item.isRead) {
-        await markRead(item.id)
+        await markAsRead(item.id)
       }
       if (item.link) {
         Taro.navigateTo({ url: item.link })
       }
     },
-    [markRead]
+    [markAsRead]
   )
 
   const handleMarkAllRead = useCallback(async () => {
-    await markAllRead()
+    await markAllAsRead()
     Taro.showToast({ title: '已全部标为已读', icon: 'success' })
-  }, [markAllRead])
+  }, [markAllAsRead])
 
   const formatTime = (timeStr: string) => {
     const date = new Date(timeStr)
@@ -84,8 +84,8 @@ export default function Notification() {
     return `${date.getMonth() + 1}月${date.getDate()}日`
   }
 
-  const groupByType = (items: NotificationItem[]) => {
-    const groups: Record<string, NotificationItem[]> = {}
+  const groupByType = (items: Notification[]) => {
+    const groups: Record<string, Notification[]> = {}
     items.forEach((item) => {
       if (!groups[item.type]) groups[item.type] = []
       groups[item.type].push(item)
@@ -96,13 +96,13 @@ export default function Notification() {
   const groupTitle = (type: string) => {
     switch (type) {
       case 'system': return '系统通知'
-      case 'trade': return '交易通知'
+      case 'transaction': return '交易通知'
       case 'marketing': return '营销活动'
       default: return '其他'
     }
   }
 
-  const groups = groupByType(list)
+  const groups = groupByType(notifications)
 
   return (
     <View className='notification-page'>
@@ -121,12 +121,12 @@ export default function Notification() {
         refresherEnabled
         refresherTriggered={loading}
         onRefresherRefresh={() => {
-          loadList().finally(() => {
+          loadNotifications('system').finally(() => {
             Taro.stopPullDownRefresh()
           })
         }}
       >
-        {list.length === 0 ? (
+        {notifications.length === 0 ? (
           <View className='empty-state'>
             <Text className='empty-icon'>📭</Text>
             <Text className='empty-text'>暂无消息</Text>
@@ -152,7 +152,7 @@ export default function Notification() {
                       <Text className='item-time'>{formatTime(item.createdAt)}</Text>
                     </View>
                     <Text className='item-preview' numberOfLines={2}>
-                      {item.preview || item.content}
+                      {item.content}
                     </Text>
                   </View>
                   {!item.isRead && <View className='unread-dot' />}

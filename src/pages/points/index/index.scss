@@ -1,8 +1,52 @@
-.page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.points-page {
   min-height: 100vh;
-  font-size: 32px;
-  color: #333;
+  background-color: #f5f5f5;
+  padding: 24px;
+}
+
+.points-header {
+  background: linear-gradient(135deg, #ff6b35, #ff8f65);
+  border-radius: 16px;
+  padding: 40px 24px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.points-total {
+  font-size: 64px;
+  font-weight: 700;
+  color: #fff;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.points-label {
+  font-size: 26px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.points-stats {
+  display: flex;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 600;
+  color: #ff6b35;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 24px;
+  color: #999;
 }
