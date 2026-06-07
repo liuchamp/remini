@@ -1,4 +1,7 @@
 import { http } from '@/shared/api/request'
+import type { Post, Comment, Circle, CreatePostData } from './types'
+
+export type { Post, Comment, Circle, CreatePostData }
 
 export const communityApi = {
   getFeed(tab?: string, page?: number) {
@@ -7,13 +10,7 @@ export const communityApi = {
   getPostDetail(id: string) {
     return http.get<Post>(`/posts/${id}`)
   },
-  createPost(data: {
-    content: string
-    images: string[]
-    shareType?: 'normal' | 'product_share' | 'order_showcase' | 'commission'
-    productId?: string
-    circleId?: string
-  }) {
+  createPost(data: CreatePostData) {
     return http.post<Post>('/posts', data)
   },
   likePost(id: string) {

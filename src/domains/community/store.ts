@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import { communityApi } from './api'
-
-type FeedTab = 'recommend' | 'hot' | 'following'
+import type { Post, Comment, Circle, FeedTab, CreatePostData } from './types'
 
 interface CommunityState {
   // Feed
@@ -42,13 +41,7 @@ interface CommunityState {
   createComment: (postId: string, content: string) => Promise<void>
 
   // Actions - Create
-  createPost: (data: {
-    content: string
-    images: string[]
-    shareType?: 'normal' | 'product_share' | 'order_showcase' | 'commission'
-    productId?: string
-    circleId?: string
-  }) => Promise<Post | null>
+  createPost: (data: CreatePostData) => Promise<Post | null>
 
   // Actions - Circles
   loadCircles: () => Promise<void>
