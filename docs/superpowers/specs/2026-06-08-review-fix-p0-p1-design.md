@@ -2,6 +2,8 @@
 comet_change: review-fix-p0-p1
 role: technical-design
 canonical_spec: openspec
+archived-with: 2026-06-08-review-fix-p0-p1
+status: final
 ---
 
 # 修复完整性评审报告 P0 & P1 缺口设计文档

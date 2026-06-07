@@ -2,6 +2,7 @@
 change: review-fix-p0-p1
 design-doc: docs/superpowers/specs/2026-06-08-review-fix-p0-p1-design.md
 base-ref: 1697526eea4c21c8115d9a5b25a8eea09a17bf86
+archived-with: 2026-06-08-review-fix-p0-p1
 ---
 
 # 修复完整性评审报告 P0 & P1 缺口 实施计划
@@ -17,6 +18,7 @@ base-ref: 1697526eea4c21c8115d9a5b25a8eea09a17bf86
 
 **Tech Stack:** Taro 4.2, React 18, TypeScript, Zustand 5
 
+archived-with: 2026-06-08-review-fix-p0-p1
 ---
 
 ### Task 1: 提现限额动态计算与 KYC 引导
@@ -85,6 +87,7 @@ base-ref: 1697526eea4c21c8115d9a5b25a8eea09a17bf86
   git commit -m "feat: implement dynamic withdraw limit and kyc upgrade prompt"
   ```
 
+archived-with: 2026-06-08-review-fix-p0-p1
 ---
 
 ### Task 2: 2FA 风控拦截、重放拦截器与验证页
@@ -306,6 +309,7 @@ base-ref: 1697526eea4c21c8115d9a5b25a8eea09a17bf86
   git commit -m "feat: implement 2FA risk interceptor, challenge route, and page UI"
   ```
 
+archived-with: 2026-06-08-review-fix-p0-p1
 ---
 
 ### Task 3: 完善出价详情页操作闭环

@@ -12,6 +12,6 @@ verification_report: docs/superpowers/reports/2026-06-08-review-fix-p0-p1-verify
 branch_status: handled
 created_at: 2026-06-08
 verified_at: 2026-06-08
-archived: false
+archived: true
 handoff_context: openspec/changes/review-fix-p0-p1/.comet/handoff/design-context.json
 handoff_hash: 271054088cd989419ca2af9e0169a0bd1be62157e0135b8ed50f28fb7f24f4b2
