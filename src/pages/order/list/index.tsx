@@ -181,9 +181,7 @@ export default function List() {
         ) : orders.length === 0 ? (
           <Empty text={t('common:empty.list')} />
         ) : (
-          orders.map(order => {
-          const statusInfo = { label: t(STATUS_KEY_MAP[order.status] || 'trade:orderStatus.' + order.status), color: STATUS_COLORS[order.status] || '#999' }
-          return (
+          orders.map(order => (
             <View
               key={order.id}
               className='order-card'
@@ -191,8 +189,8 @@ export default function List() {
             >
               <View className='order-header'>
                 <Text className='order-no'>{t('trade:orderNo')}{order.orderNo}</Text>
-                <Text className='order-status' style={{ color: statusInfo.color }}>
-                  {statusInfo.label}
+                <Text className='order-status' style={{ color: STATUS_COLORS[order.status] || '#999' }}>
+                  {t(STATUS_KEY_MAP[order.status] || 'trade:orderStatus.' + order.status)}
                 </Text>
               </View>
 
@@ -229,7 +227,7 @@ export default function List() {
               )}
             </View>
           )
-        })}
+        ))}
 
         {loading && (
           <View className='loading-more'>

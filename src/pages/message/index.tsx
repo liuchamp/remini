@@ -1,17 +1,34 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 import { View, Text, Image } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useTranslation } from 'react-i18next'
 import { useChatStore } from '@/domains/chat/store'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
+import Empty from '@/shared/components/Empty'
 import './index.scss'
 
 export default function Message() {
   const { threads, unreadTotal, loadThreads } = useChatStore()
   const { t } = useTranslation('chat')
   const { unreadCount: notifUnread, loadUnreadCount } = useNotificationStore()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+
+  const refresh = useCallback(async () => {
+    setLoading(true)
+    setError(false)
+    try {
+      await loadThreads()
+    } catch {
+      setError(true)
+    } finally {
+      setLoading(false)
+    }
+  }, [loadThreads])
 
   useDidShow(() => {
-    loadThreads()
+    refresh()
     loadUnreadCount()
   })
 
@@ -47,7 +64,11 @@ export default function Message() {
 
   return (
     <View className='message-page'>
-      {threads.length === 0 ? (
+      {loading && threads.length === 0 ? (
+        <Skeleton type='list' rows={5} avatar />
+      ) : error ? (
+        <RetryButton onRetry={refresh} />
+      ) : threads.length === 0 ? (
         <View className='empty-state'>
           <Text>{t('noMessages')}</Text>
         </View>

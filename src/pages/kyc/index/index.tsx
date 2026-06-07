@@ -4,6 +4,8 @@ import Taro, { useLoad } from '@tarojs/taro'
 import { useTranslation } from 'react-i18next'
 import { kycApi } from '@/domains/kyc/api'
 import { useAuthStore } from '@/domains/auth/store'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
 import type { KycTier } from '@/domains/kyc/types'
 import './index.scss'
 
@@ -27,6 +29,7 @@ export default function Index() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   void t
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
   const [currentTier, setCurrentTier] = useState<KycTier | null>(null)
   const [nextStep, setNextStep] = useState<string | null>(null)
 
@@ -38,6 +41,7 @@ export default function Index() {
 
   async function loadKycStatus() {
     setLoading(true)
+    setError(false)
     try {
       const res = await kycApi.getStatus()
       if (res.code === 0) {
@@ -46,10 +50,14 @@ export default function Index() {
         updateUser({ currentKycTier: res.data.currentTier })
       }
     } catch {
-      Taro.showToast({ title: '获取认证状态失败', icon: 'none' })
+      setError(true)
     } finally {
       setLoading(false)
     }
+  }
+
+  const refresh = () => {
+    loadKycStatus()
   }
 
   function getTierState(tier: KycTier): 'completed' | 'current' | 'locked' {
@@ -77,9 +85,15 @@ export default function Index() {
   if (loading) {
     return (
       <View className='kyc-page'>
-        <View className='loading-wrap'>
-          <Text className='loading-text'>加载中...</Text>
-        </View>
+        <Skeleton type='detail' rows={5} />
+      </View>
+    )
+  }
+
+  if (error) {
+    return (
+      <View className='kyc-page'>
+        <RetryButton onRetry={refresh} />
       </View>
     )
   }
