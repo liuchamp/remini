@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { View, Text, Image, ScrollView, Input } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { offerApi } from '@/domains/trade/offer'
 import './index.scss'
 
@@ -21,6 +22,9 @@ const STATUS_CONFIG: Record<string, { label: string; cls: string }> = {
 }
 
 export default function OfferManage() {
+  const { t } = useTranslation(['trade', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const [activeTab, setActiveTab] = useState(0)
   const [offers, setOffers] = useState<Offer[]>([])
   const [loading, setLoading] = useState(false)

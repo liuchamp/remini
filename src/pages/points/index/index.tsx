@@ -1,5 +1,6 @@
 import { View, Text } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { usePointsStore } from '@/domains/marketing/store'
 import PointsFlow from '@/shared/components/marketing/PointsFlow'
 import Loading from '@/shared/components/Loading'
@@ -7,6 +8,9 @@ import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
 
 export default function Points() {
+  const { t } = useTranslation(['marketing', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const { pointsData, records, loading, loadPointsData, loadRecords } = usePointsStore()
   
   useLoad(() => {

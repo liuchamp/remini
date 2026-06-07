@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { View, Text } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { kycApi } from '@/domains/kyc/api'
 import { useAuthStore } from '@/domains/auth/store'
 import type { KycTier } from '@/domains/kyc/types'
@@ -22,6 +23,9 @@ const TIER_TO_PATH: Record<string, string> = {
 }
 
 export default function Index() {
+  const { t } = useTranslation(['kyc', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const [loading, setLoading] = useState(true)
   const [currentTier, setCurrentTier] = useState<KycTier | null>(null)
   const [nextStep, setNextStep] = useState<string | null>(null)

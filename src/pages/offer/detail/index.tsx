@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { View, Text } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { offerApi, type Offer } from '@/domains/trade/offer'
 import Loading from '@/shared/components/Loading'
 import Empty from '@/shared/components/Empty'
@@ -17,6 +18,9 @@ const STATUS_MAP: Record<string, string> = {
 }
 
 export default function Detail() {
+  const { t } = useTranslation(['trade', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const [offer, setOffer] = useState<Offer | null>(null)
   const [loading, setLoading] = useState(true)
 

@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import Taro, { useRouter } from '@tarojs/taro'
 import { View, Text, ScrollView, Image } from '@tarojs/components'
+import { useTranslation } from 'react-i18next'
 import { productApi } from '@/domains/product/api'
 import './index.scss'
 
 export default function Category() {
+  const { t } = useTranslation(['product', 'common'])
   const router = useRouter()
   const { id } = router.params
 
@@ -86,7 +88,7 @@ export default function Category() {
       scrollWithAnimation
     >
       <View className='category-header'>
-        <Text>分类 - {categoryName || '加载中...'}</Text>
+        <Text>{t('product:category')} - {categoryName || t('common:loading')}</Text>
       </View>
 
       <View className='product-grid'>
@@ -107,7 +109,7 @@ export default function Category() {
               <View className='product-price-row'>
                 <Text className='product-price'>¥{product.price}</Text>
                 {product.isNegotiable && (
-                  <Text className='product-tag'>可议价</Text>
+                  <Text className='product-tag'>{t('product:negotiable')}</Text>
                 )}
               </View>
             </View>
@@ -117,13 +119,13 @@ export default function Category() {
 
       {loading && (
         <View className='loading-text'>
-          <Text>加载中...</Text>
+          <Text>{t('common:loading')}</Text>
         </View>
       )}
 
       {!loading && products.length === 0 && (
         <View className='loading-text'>
-          <Text>暂无商品</Text>
+          <Text>{t('product:noProducts')}</Text>
         </View>
       )}
     </ScrollView>

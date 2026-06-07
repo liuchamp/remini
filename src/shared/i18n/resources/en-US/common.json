@@ -20,7 +20,17 @@
     "networkError": "Network error, please try again later",
     "pageNotFound": "Page not found",
     "updateAvailable": "New version available, update now?",
-    "confirmExit": "Are you sure you want to exit?"
+    "confirmExit": "Are you sure you want to exit?",
+    "clear": "Clear",
+    "anonymous": "Anonymous",
+    "verified": "Verified",
+    "all": "All",
+    "noMore": "No more",
+    "comingSoon": "Coming soon",
+    "saveSuccess": "Saved successfully",
+    "clearSuccess": "Cleared successfully",
+    "versionLatest": "Already the latest version",
+    "saveFailed": "Save failed"
   },
   "error": {
     "unknown": "Unknown error",

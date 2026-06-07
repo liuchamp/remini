@@ -1,11 +1,15 @@
 import Taro, { navigateBack, chooseImage } from '@tarojs/taro'
 import { View, Text, Textarea, Image } from '@tarojs/components'
+import { useTranslation } from 'react-i18next'
 import { useCreateStore } from '@/domains/community/store'
 import Loading from '@/shared/components/Loading'
 import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
 
 export default function Create() {
+  const { t } = useTranslation(['community', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const {
     content,
     images,

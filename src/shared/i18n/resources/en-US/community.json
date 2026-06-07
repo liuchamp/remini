@@ -2,6 +2,7 @@
   "feed": {
     "tabRecommend": "Recommended",
     "tabFollow": "Following",
+    "tabTrending": "Trending",
     "tabCircle": "Circles",
     "emptyText": "No content yet",
     "pullRefresh": "Pull to refresh",
@@ -9,6 +10,11 @@
   },
   "post": {
     "title": "Post",
+    "notFound": "Post not found",
+    "like": "Like",
+    "collect": "Collect",
+    "comment": "Comment",
+    "share": "Share",
     "commentPlaceholder": "Say something...",
     "replyPlaceholder": "Reply to @{user}:",
     "likeCount": "{count} likes",
@@ -17,18 +23,24 @@
   },
   "create": {
     "title": "Create Post",
+    "contentRequired": "Please enter content",
     "contentPlaceholder": "Share your thoughts... (max 500 chars)",
     "addImage": "Add Image",
     "selectCircle": "Select Circle",
+    "linkProduct": "Link Product",
     "submit": "Post",
     "submitting": "Posting...",
     "success": "Posted successfully",
+    "failed": "Post failed",
     "sensitiveWord": "Content contains sensitive words"
   },
   "circle": {
     "join": "Join",
     "joined": "Joined",
-    "members": "{count} members"
+    "members": "{count} members",
+    "noPosts": "No posts yet",
+    "notFound": "Circle not found",
+    "noCircles": "No circles yet"
   },
   "comment": {
     "submit": "Send",

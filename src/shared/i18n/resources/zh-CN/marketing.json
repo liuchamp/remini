@@ -20,5 +20,22 @@
   "shareFailed": "分享失败",
   "albumPermission": "需要相册权限才能保存图片",
   "scanToDownload": "扫码下载 RE Marketplace",
-  "joinCommunity": "加入二手好物交易社区"
+  "joinCommunity": "加入二手好物交易社区",
+  "personCount": "{count} 人",
+  "checkinTitle": "每日签到",
+  "checkinSubtitle": "签到获取积分，连续签到更多奖励",
+  "checkinSuccess": "签到成功 +{points}积分",
+  "checkinFailed": "签到失败",
+  "checkinRewards": "签到奖励",
+  "checkinBasePoints": "基础积分",
+  "checkinContinuousReward": "连续奖励",
+  "pointsCurrent": "当前积分",
+  "pointsTodayEarned": "今日获取",
+  "pointsMonthEarned": "本月获取",
+  "couponTabActive": "可用",
+  "couponTabUsed": "已用",
+  "couponTabExpired": "过期",
+  "couponUseSuccess": "使用成功",
+  "couponUseFailed": "使用失败",
+  "couponEmpty": "暂无优惠券"
 }

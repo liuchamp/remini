@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
 import { View, Text, ScrollView } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { adminApi } from '@/domains/admin/api'
 import { useAuth } from '@/shared/hooks/useAuth'
 import './index.scss'
@@ -22,6 +23,9 @@ interface RecentActivity {
 }
 
 export default function AdminIndex() {
+  const { t } = useTranslation(['profile', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [recentActivities, setRecentActivities] = useState<RecentActivity[]>([])
   const [loading, setLoading] = useState(true)

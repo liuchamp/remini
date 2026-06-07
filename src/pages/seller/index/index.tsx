@@ -1,5 +1,6 @@
 import { View, Text, ScrollView } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '@/domains/auth/store'
 import './index.scss'
 
@@ -19,6 +20,9 @@ const QUICK_ACTIONS = [
 ]
 
 export default function SellerIndex() {
+  const { t } = useTranslation(['product', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const { user } = useAuthStore()
 
   useLoad(() => {

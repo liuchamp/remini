@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro'
 import { View, Text, Input, ScrollView, Image } from '@tarojs/components'
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDebounce } from '@/shared/hooks/useDebounce'
 import { productApi } from '@/domains/product/api'
 import './index.scss'
@@ -9,6 +10,7 @@ const HISTORY_KEY = 'searchHistory'
 const MAX_HISTORY = 10
 
 export default function Search() {
+  const { t } = useTranslation(['product', 'common'])
   const [keyword, setKeyword] = useState('')
   const [results, setResults] = useState<Product[]>([])
   const [loading, setLoading] = useState(false)
@@ -99,7 +101,7 @@ export default function Search() {
         <Input
           className='search-input'
           type='text'
-          placeholder='搜索商品'
+          placeholder={t('product:search')}
           value={keyword}
           onInput={(e) => setKeyword(e.detail.value)}
           onConfirm={handleConfirm}
@@ -110,16 +112,16 @@ export default function Search() {
           className='search-cancel'
           onClick={() => Taro.navigateBack()}
         >
-          取消
+          {t('common:action.cancel')}
         </Text>
       </View>
 
       {!hasSearched && searchHistory.length > 0 && (
         <View className='search-history'>
           <View className='history-header'>
-            <Text className='history-title'>搜索历史</Text>
+            <Text className='history-title'>{t('product:searchHistory')}</Text>
             <Text className='history-clear' onClick={clearHistory}>
-              清除
+              {t('product:searchClear')}
             </Text>
           </View>
           <View className='history-tags'>
@@ -139,7 +141,7 @@ export default function Search() {
       {hasSearched && (
         <ScrollView className='search-results' scrollY>
           {loading ? (
-            <View className='status-text'>加载中...</View>
+            <View className='status-text'>{t('common:loading')}</View>
           ) : results.length > 0 ? (
             <View className='product-grid'>
               {results.map((product) => (
@@ -161,7 +163,7 @@ export default function Search() {
                         ¥{product.price}
                       </Text>
                       {product.isNegotiable && (
-                        <Text className='negotiable-tag'>可议价</Text>
+                        <Text className='negotiable-tag'>{t('product:negotiable')}</Text>
                       )}
                     </View>
                     {product.distance != null && (
@@ -176,7 +178,7 @@ export default function Search() {
               ))}
             </View>
           ) : (
-            <View className='status-text'>暂无搜索结果</View>
+            <View className='status-text'>{t('common:empty.search')}</View>
           )}
         </ScrollView>
       )}

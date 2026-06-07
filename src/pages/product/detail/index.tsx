@@ -1,6 +1,7 @@
 import Taro, { useLoad, useDidShow } from '@tarojs/taro'
 import { View, Text, Image, Swiper, SwiperItem, Input, Button } from '@tarojs/components'
 import { useState, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useProductStore } from '@/domains/product/store'
 import { useAuthStore } from '@/domains/auth/store'
 import { offerApi } from '@/domains/trade/offer'
@@ -9,6 +10,9 @@ import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
 
 export default function Detail() {
+  const { t } = useTranslation(['product', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const [id, setId] = useState('')
   const [currentSwiperIndex, setCurrentSwiperIndex] = useState(0)
   const [showOfferPanel, setShowOfferPanel] = useState(false)

@@ -1,5 +1,6 @@
 import { View, Text, ScrollView } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { usePostStore } from '@/domains/community/store'
 import PostCard from '@/shared/components/community/PostCard'
 import CommentList from '@/shared/components/community/CommentList'
@@ -9,6 +10,9 @@ import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
 
 export default function Post() {
+  const { t } = useTranslation(['community', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const { currentPost: post, comments, loading, loadPost, loadComments, likePost, collectPost } = usePostStore()
 
   useLoad((options) => {

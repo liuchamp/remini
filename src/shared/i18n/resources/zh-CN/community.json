@@ -2,6 +2,7 @@
   "feed": {
     "tabRecommend": "推荐",
     "tabFollow": "关注",
+    "tabTrending": "热门",
     "tabCircle": "圈子",
     "emptyText": "还没有内容",
     "pullRefresh": "下拉刷新",
@@ -9,6 +10,11 @@
   },
   "post": {
     "title": "帖子详情",
+    "notFound": "帖子不存在或已删除",
+    "like": "点赞",
+    "collect": "收藏",
+    "comment": "评论",
+    "share": "分享",
     "commentPlaceholder": "说点什么吧...",
     "replyPlaceholder": "回复 @{user}:",
     "likeCount": "{count} 赞",
@@ -17,18 +23,24 @@
   },
   "create": {
     "title": "发布帖子",
+    "contentRequired": "请输入内容",
     "contentPlaceholder": "分享你的想法...（500字以内）",
     "addImage": "添加图片",
     "selectCircle": "选择圈子",
+    "linkProduct": "关联商品",
     "submit": "发布",
     "submitting": "发布中...",
     "success": "发布成功",
+    "failed": "发布失败",
     "sensitiveWord": "内容包含敏感词，请修改"
   },
   "circle": {
     "join": "加入",
     "joined": "已加入",
-    "members": "{count} 成员"
+    "members": "{count} 成员",
+    "noPosts": "暂无帖子",
+    "notFound": "圈子不存在",
+    "noCircles": "暂无圈子"
   },
   "comment": {
     "submit": "发送",

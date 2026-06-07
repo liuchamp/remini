@@ -2,17 +2,16 @@ import { useState, useCallback } from 'react'
 import { View, Text, ScrollView } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
 import { offerApi, type Offer } from '@/domains/trade/offer'
+import { useTranslation } from 'react-i18next'
 import Loading from '@/shared/components/Loading'
 import Empty from '@/shared/components/Empty'
 import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
 
-const TABS = [
-  { key: 'sent', label: '发出的' },
-  { key: 'received', label: '收到的' },
-]
+const TAB_KEYS = ['sent', 'received']
 
 export default function List() {
+  const { t } = useTranslation(['trade', 'common'])
   const [activeTab, setActiveTab] = useState(0)
   const [offers, setOffers] = useState<Offer[]>([])
   const [loading, setLoading] = useState(true)
@@ -24,7 +23,7 @@ export default function List() {
   const fetchOffers = useCallback(async () => {
     setLoading(true)
     try {
-      const res = await offerApi.getList({ type: TABS[activeTab].key as 'sent' | 'received' })
+      const res = await offerApi.getList({ type: TAB_KEYS[activeTab] as 'sent' | 'received' })
       if (res.code === 0) {
         const data = res.data as { list: Offer[]; total: number }
         setOffers(data.list || [])
@@ -42,13 +41,13 @@ export default function List() {
     <ErrorBoundary>
       <View className='offer-list-page'>
         <View className='tab-bar'>
-          {TABS.map((tab, idx) => (
+          {TAB_KEYS.map((key, idx) => (
             <View
-              key={tab.key}
+              key={key}
               className={`tab-item ${activeTab === idx ? 'active' : ''}`}
               onClick={() => { setActiveTab(idx); fetchOffers() }}
             >
-              <Text className='tab-label'>{tab.label}</Text>
+              <Text className='tab-label'>{key === 'sent' ? t('trade:offerSent') : t('trade:offerReceived')}</Text>
             </View>
           ))}
         </View>
@@ -61,7 +60,7 @@ export default function List() {
               </View>
             ))
           ) : (
-            <Empty text='暂无出价' />
+            <Empty text={t('trade:offerEmpty')} />
           )}
         </ScrollView>
       </View>

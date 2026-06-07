@@ -2,11 +2,15 @@ import Taro, { useLoad } from '@tarojs/taro'
 import { View, Text, ScrollView, Image } from '@tarojs/components'
 import { useState, useEffect } from 'react'
 import { useAuthStore } from '@/domains/auth/store'
+import { useTranslation } from 'react-i18next'
 import { userApi } from '@/domains/user/api'
 import type { FollowUser } from '@/domains/user/types'
 import './index.scss'
 
 export default function Follows() {
+  const { t } = useTranslation(['profile', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const { isLoggedIn } = useAuthStore()
   const [activeTab, setActiveTab] = useState<'following' | 'followers'>('following')
   const [users, setUsers] = useState<FollowUser[]>([])

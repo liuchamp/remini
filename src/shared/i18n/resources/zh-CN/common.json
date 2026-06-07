@@ -20,7 +20,17 @@
     "networkError": "网络异常，请稍后重试",
     "pageNotFound": "页面不存在",
     "updateAvailable": "发现新版本，是否更新？",
-    "confirmExit": "确定要退出吗？"
+    "confirmExit": "确定要退出吗？",
+    "clear": "清除",
+    "anonymous": "匿名用户",
+    "verified": "已认证",
+    "all": "全部",
+    "noMore": "没有更多了",
+    "comingSoon": "功能开发中",
+    "saveSuccess": "保存成功",
+    "clearSuccess": "清理成功",
+    "versionLatest": "已是最新版本",
+    "saveFailed": "保存失败"
   },
   "error": {
     "unknown": "未知错误",

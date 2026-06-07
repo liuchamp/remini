@@ -1,11 +1,15 @@
 import { View, Text } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { walletApi, Transaction } from '@/domains/wallet/api'
 import Empty from '@/shared/components/Empty'
 import './index.scss'
 
 export default function Transactions() {
+  const { t } = useTranslation(['wallet', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [loading, setLoading] = useState(false)
   const [hasMore, setHasMore] = useState(true)

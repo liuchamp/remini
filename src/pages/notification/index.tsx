@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useRef } from 'react'
 import { View, Text, ScrollView } from '@tarojs/components'
 import Taro, { useDidShow, useDidHide, usePullDownRefresh } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { useNotificationStore } from '@/domains/notification/store'
 import type { Notification } from '@/domains/notification/types'
 import './index.scss'
@@ -14,6 +15,9 @@ const TYPE_ICON_MAP: Record<string, string> = {
 const POLL_INTERVAL = 30000
 
 export default function Notification() {
+  const { t } = useTranslation(['notification', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const { notifications, unreadCount, loading, loadNotifications, markAsRead, markAllAsRead, loadUnreadCount } =
     useNotificationStore()
   const pollTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)

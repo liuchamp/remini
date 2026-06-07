@@ -1,6 +1,7 @@
 import { View, Text, ScrollView } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
 import Taro from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { useCouponStore } from '@/domains/marketing/store'
 import CouponCard from '@/shared/components/marketing/CouponCard'
 import Loading from '@/shared/components/Loading'
@@ -15,6 +16,9 @@ const TABS = [
 ]
 
 export default function CouponList() {
+  const { t } = useTranslation(['marketing', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const { coupons, activeTab, loading, loadCoupons, useCoupon } = useCouponStore()
 
   useLoad(() => {

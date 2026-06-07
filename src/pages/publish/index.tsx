@@ -2,6 +2,7 @@ import { View, Text, Input, Textarea, Picker, Button } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
 import { useState } from 'react'
 import { productApi } from '@/domains/product/api'
+import { useTranslation } from 'react-i18next'
 import MediaUploader from '@/shared/components/common/MediaUploader'
 import './index.scss'
 
@@ -14,6 +15,9 @@ const CONDITION_OPTIONS = [
 ]
 
 export default function Publish() {
+  const { t } = useTranslation(['product', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')

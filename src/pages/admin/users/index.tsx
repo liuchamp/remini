@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
 import { View, Text, Input, ScrollView } from '@tarojs/components'
 import Taro, { useLoad, useReachBottom } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { adminApi } from '@/domains/admin/api'
 import { useAuth } from '@/shared/hooks/useAuth'
 import './index.scss'
@@ -17,6 +18,9 @@ interface UserItem {
 }
 
 export default function AdminUsers() {
+  const { t } = useTranslation(['profile', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const [users, setUsers] = useState<UserItem[]>([])
   const [keyword, setKeyword] = useState('')
   const { requireAdmin } = useAuth()

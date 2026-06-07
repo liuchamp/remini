@@ -1,6 +1,7 @@
 import { View, Text, ScrollView } from '@tarojs/components'
 import { useLoad, useUnload } from '@tarojs/taro'
 import Taro from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { useNotificationStore } from '@/domains/notification/store'
 import NotificationItem from '@/shared/components/notification/NotificationItem'
 import Loading from '@/shared/components/Loading'
@@ -15,6 +16,9 @@ const TABS = [
 ]
 
 export default function Notification() {
+  const { t } = useTranslation(['notification', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const {
     notifications,
     activeTab,

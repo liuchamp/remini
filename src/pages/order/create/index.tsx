@@ -2,12 +2,16 @@ import { useState } from 'react'
 import { View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useLoad, useRouter } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { tradeApi } from '@/domains/trade/api'
 import { productApi } from '@/domains/product/api'
 import { addressApi } from '@/domains/address/api'
 import './index.scss'
 
 export default function Create() {
+  const { t } = useTranslation(['trade', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const router = useRouter()
   const [product, setProduct] = useState<Product | null>(null)
   const [addresses, setAddresses] = useState<Address[]>([])

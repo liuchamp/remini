@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro'
 import { View, Text, ScrollView, Image } from '@tarojs/components'
 import { useEffect, useState, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useProductStore } from '@/domains/product/store'
 import { productApi } from '@/domains/product/api'
 import { useLocation } from '@/shared/hooks/useLocation'
@@ -9,6 +10,7 @@ import './index.scss'
 type FeedTab = 'recommend' | 'nearby' | 'following'
 
 export default function Index() {
+  const { t } = useTranslation(['product', 'common'])
   const {
     recommendProducts,
     recommendHasMore,
@@ -105,7 +107,7 @@ export default function Index() {
   return (
     <View className='home-page'>
       <View className='search-bar' onClick={handleSearchClick}>
-        <Text className='search-placeholder'>搜索商品</Text>
+        <Text className='search-placeholder'>{t('product:search')}</Text>
       </View>
 
       {categories.length > 0 && (
@@ -137,7 +139,7 @@ export default function Index() {
             onClick={() => handleTabChange(tab)}
           >
             <Text className='feed-tab-text'>
-              {tab === 'recommend' ? '推荐' : tab === 'nearby' ? '附近' : '关注'}
+              {tab === 'recommend' ? t('product:tabRecommend') : tab === 'nearby' ? t('product:tabNearby') : t('product:tabFollowing')}
             </Text>
             {activeTab === tab && <View className='feed-tab-indicator' />}
           </View>
@@ -171,7 +173,7 @@ export default function Index() {
                 <View className='product-price-row'>
                   <Text className='product-price'>¥{product.price}</Text>
                   {product.isNegotiable && (
-                    <Text className='negotiable-tag'>可议价</Text>
+                    <Text className='negotiable-tag'>{t('product:negotiable')}</Text>
                   )}
                 </View>
                 {product.distance != null && (
@@ -186,9 +188,9 @@ export default function Index() {
           ))}
         </View>
 
-        {currentLoading && <View className='loading-more'>加载中...</View>}
+        {currentLoading && <View className='loading-more'>{t('common:loading')}</View>}
         {!currentHasMore && currentProducts.length > 0 && (
-          <View className='no-more'>已经到底了</View>
+          <View className='no-more'>{t('common:app.noMore')}</View>
         )}
       </ScrollView>
     </View>

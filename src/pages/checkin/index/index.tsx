@@ -1,6 +1,7 @@
 import { View, Text } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
 import Taro from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { useCheckinStore } from '@/domains/marketing/store'
 import CheckinCalendar from '@/shared/components/marketing/CheckinCalendar'
 import Loading from '@/shared/components/Loading'
@@ -8,6 +9,9 @@ import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
 
 export default function Checkin() {
+  const { t } = useTranslation(['marketing', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const { checkinData, loading, loadCheckinData, checkin } = useCheckinStore()
 
   useLoad(() => {
