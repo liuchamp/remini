@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '../../../styles/variables' as *;
 @use '../../../styles/mixins' as *;
 
@@ -104,7 +105,7 @@
 
   &.status-archived {
     background-color: rgba($color-warning, 0.15);
-    color: darken($color-warning, 20%);
+    color: color.adjust($color-warning, $lightness: -20%);
   }
 }
 
