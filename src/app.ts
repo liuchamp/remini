@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, createElement } from 'react'
 import Taro, { useLaunch } from '@tarojs/taro'
 import { useAuthStore } from '@/domains/auth/store'
 import ErrorBoundary from '@/shared/components/ErrorBoundary'
@@ -16,7 +16,7 @@ function App({ children }: PropsWithChildren<any>) {
     }
   })
 
-  return <ErrorBoundary>{children}</ErrorBoundary>
+  return createElement(ErrorBoundary, null, children)
 }
 
 export default App

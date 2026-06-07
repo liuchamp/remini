@@ -100,19 +100,17 @@ export default function ReferralPage() {
 
       ctx.setFontSize(48)
       ctx.setFillStyle('#FF6B35')
-      ctx.setFontWeight('bold')
       ctx.fillText(info.code, 300, 460)
 
       ctx.setStrokeStyle('#FF6B35')
       ctx.setLineWidth(2)
-      ctx.setLineDash([8, 4])
+      ctx.setLineDash([8, 4], 0)
       roundRect(ctx, 150, 430, 300, 55, 8)
       ctx.stroke()
-      ctx.setLineDash([])
+      ctx.setLineDash([], 0)
 
       ctx.setFontSize(22)
       ctx.setFillStyle('#999999')
-      ctx.setFontWeight('normal')
       ctx.fillText('邀请好友注册并完成首单', 300, 500)
       ctx.fillText('双方各得 100 积分 + 优惠券', 300, 528)
 
@@ -123,10 +121,8 @@ export default function ReferralPage() {
       ctx.fillText(t('totalRewards'), 380, statY)
       ctx.setFontSize(32)
       ctx.setFillStyle('#333333')
-      ctx.setFontWeight('bold')
       ctx.fillText(String(info.totalReferrals), 220, statY + 36)
       ctx.fillText(String(info.totalRewards), 380, statY + 36)
-      ctx.setFontWeight('normal')
 
       ctx.setStrokeStyle('#E5E5E5')
       ctx.setLineWidth(0.5)
@@ -216,7 +212,7 @@ export default function ReferralPage() {
     return (
       <View className='referral-page'>
         <View className='loading-state'>
-          <Text>加载中...</Text>
+          <Text>{t('common:app.loading')}</Text>
         </View>
       </View>
     )
@@ -242,13 +238,13 @@ export default function ReferralPage() {
           )}
           <View className='poster-actions'>
             <Button className='poster-btn save' onClick={handleSavePoster}>
-              保存到相册
+              {t('saveToAlbum')}
             </Button>
             <Button className='poster-btn share' onClick={handleSharePoster}>
-              分享给好友
+              {t('shareToFriend')}
             </Button>
             <Button className='poster-btn cancel' onClick={() => setShowPoster(false)}>
-              关闭
+              {t('close')}
             </Button>
           </View>
         </View>
@@ -260,46 +256,46 @@ export default function ReferralPage() {
     <View className='referral-page'>
       <View className='referral-header'>
         <Text className='header-icon'>🎁</Text>
-        <Text className='header-title'>邀请好友</Text>
-        <Text className='header-desc'>邀请好友注册并完成首单，双方各得 100 积分 + 优惠券</Text>
+        <Text className='header-title'>{t('referral')}</Text>
+        <Text className='header-desc'>{t('referralDesc')}</Text>
       </View>
 
       <View className='invite-code-section'>
-        <Text className='code-label'>我的邀请码</Text>
+        <Text className='code-label'>{t('myInviteCode')}</Text>
         <View className='code-box'>
           <Text className='code-value'>{info?.code ?? '--'}</Text>
           <View className='code-action' onClick={handleCopyCode}>
-            <Text className='code-action-text'>复制</Text>
+            <Text className='code-action-text'>{t('copy')}</Text>
           </View>
         </View>
         <View className='link-box' onClick={handleShareLink}>
-          <Text className='link-label'>邀请链接：{info?.link ?? ''}</Text>
-          <Text className='link-copy'>复制</Text>
+          <Text className='link-label'>{t('inviteLink')}{info?.link ?? ''}</Text>
+          <Text className='link-copy'>{t('copy')}</Text>
         </View>
       </View>
 
       <View className='stats-section'>
         <View className='stat-card'>
           <Text className='stat-num'>{info?.totalReferrals ?? 0}</Text>
-          <Text className='stat-label'>已邀请人数</Text>
+          <Text className='stat-label'>{t('totalInvited')}</Text>
         </View>
         <View className='stat-divider' />
         <View className='stat-card'>
           <Text className='stat-num'>{info?.totalRewards ?? 0}</Text>
-          <Text className='stat-label'>获得积分</Text>
+          <Text className='stat-label'>{t('totalRewards')}</Text>
         </View>
       </View>
 
       <View className='poster-section'>
         <View className='poster-generate-btn' onClick={drawPoster}>
           <Text className='poster-btn-icon'>🖼️</Text>
-          <Text className='poster-btn-text'>生成邀请海报</Text>
+          <Text className='poster-btn-text'>{t('generatePoster')}</Text>
         </View>
       </View>
 
       {info && info.leaderboard && info.leaderboard.length > 0 && (
         <View className='leaderboard-section'>
-          <Text className='section-title'>🏆 邀请排行榜</Text>
+          <Text className='section-title'>🏆 {t('leaderboard')}</Text>
           <View className='leaderboard-list'>
             {info.leaderboard.map((entry, idx) => (
               <View key={idx} className='leaderboard-item'>

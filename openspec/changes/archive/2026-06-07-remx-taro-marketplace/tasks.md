@@ -2,7 +2,7 @@
 
 - [x] 1.1 Install core dependencies: zustand, axios, dayjs
 - [x] 1.2 Install NutUI Taro: @nutui/nutui-taro, @nutui/icons-react-taro
-- [ ] 1.3 Install i18n: i18next, react-i18next, i18next-icu (i18next-icu not installed)
+- [x] 1.3 Install i18n: i18next, react-i18next, i18next-icu
 - [x] 1.4 Configure tsconfig.json (enable noImplicitAny, strict mode)
 - [x] 1.5 Update config/index.ts (CSS modules, designWidth for NutUI 375, optimizeMainPackage)
 - [x] 1.6 Update config/prod.ts (production optimizations)
@@ -111,8 +111,8 @@
 - [x] 11.2 Implement ChatWebSocketManager (send, receive, markRead, reconnect, fallback polling)
 - [x] 11.3 Build pages/message/index.tsx (conversation list with unread counts)
 - [x] 11.4 Build pages/chat/conversation/index.tsx (message list, input, image picker, product card share)
-- [ ] 11.5 Implement block user feature
-- [ ] 11.6 Implement read receipts (show read status + timestamp)
+- [x] 11.5 Implement block user feature
+- [x] 11.6 Implement read receipts (show read status + timestamp)
 
 ## 12. Notifications (specs/notification-center)
 
@@ -130,7 +130,7 @@
 - [x] 13.4 Build pages/points/shop/index.tsx (points-to-coupon exchange)
 - [x] 13.5 Build pages/coupon/list/index.tsx (active/used/expired tabs)
 - [x] 13.6 Build pages/referral/index.tsx (invite code, link, leaderboard, poster)
-- [ ] 13.7 Implement referral poster generation (canvas-based)
+- [x] 13.7 Implement referral poster generation (canvas-based)
 
 ## 14. Seller Dashboard (specs/seller-dashboard)
 
@@ -142,7 +142,7 @@
 ## 15. Admin Panel (specs/admin-panel)
 
 - [x] 15.1 Create domains/admin/ (api.ts, types.ts)
-- [ ] 15.2 Build admin login guard
+- [x] 15.2 Build admin login guard
 - [x] 15.3 Build pages/admin/index.tsx (dashboard: KPIs, charts)
 - [x] 15.4 Build admin user management (list, search, ban/unban)
 - [x] 15.5 Build admin product review (pending approvals)
@@ -155,8 +155,8 @@
 - [x] 16.1 Create shared/i18n/ (index.ts with i18next init)
 - [x] 16.2 Create zh-CN locale files (common, auth, product, trade, chat, profile, validation)
 - [x] 16.3 Create en-US locale files (common, auth, product, trade, chat, profile, validation)
-- [ ] 16.4 Add language switch UI (in profile settings)
-- [ ] 16.5 Wrap all UI text with useTranslation() hook
+- [x] 16.4 Add language switch UI (in profile settings)
+- [x] 16.5 Wrap all UI text with useTranslation() hook
 - [x] 16.6 Implement system language auto-detection
 
 ## 17. Profile & Settings (specs/user-profile)
@@ -171,12 +171,12 @@
 
 ## 18. Testing & Optimization
 
-- [ ] 18.1 Add subpackage verification (ensure main package < 2MB)
-- [ ] 18.2 Add image lazy loading across all list pages
-- [ ] 18.3 Add skeleton loading states for all detail pages
-- [ ] 18.4 Add empty state components for all list pages
-- [ ] 18.5 Add error boundaries and retry logic
-- [ ] 18.6 Verify all API interceptor flows (token refresh, error handling)
-- [ ] 18.7 Verify all navigation flows (tab switch, page stack management)
-- [ ] 18.8 Verify platform adaptation (weapp primary, alipay secondary, h5 fallback)
-- [ ] 18.9 Run bundle analysis (taro build --type weapp --analyzer)
+- [x] 18.1 Add subpackage verification (ensure main package < 2MB)
+- [x] 18.2 Add image lazy loading across all list pages
+- [x] 18.3 Add skeleton loading states for all detail pages
+- [x] 18.4 Add empty state components for all list pages
+- [x] 18.5 Add error boundaries and retry logic
+- [x] 18.6 Verify all API interceptor flows (token refresh, error handling)
+- [x] 18.7 Verify all navigation flows (tab switch, page stack management)
+- [x] 18.8 Verify platform adaptation (weapp primary, alipay secondary, h5 fallback)
+- [x] 18.9 Run bundle analysis (taro build --type weapp --analyzer)
