@@ -12,7 +12,7 @@ export default defineAppConfig({
   subPackages: [
     {
       root: 'pages/auth',
-      pages: ['login/index', 'register/index']
+      pages: ['login/index', 'register/index', 'challenge/index']
     },
     {
       root: 'pages/product',

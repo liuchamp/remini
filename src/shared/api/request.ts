@@ -23,6 +23,28 @@ interface ApiResponse<T = any> {
 type RequestInterceptor = (config: RequestConfig) => RequestConfig | Promise<RequestConfig>
 type ResponseInterceptor = (response: ApiResponse) => ApiResponse | Promise<ApiResponse>
 
+// 2FA 风控请求暂存与重放机制
+let pendingRequest: {
+  config: RequestConfig
+  resolve: (value: any) => void
+  reject: (reason: any) => void
+} | null = null
+
+export const getPendingRequest = () => pendingRequest
+export const clearPendingRequest = () => { pendingRequest = null }
+export const resolvePendingRequest = (res: any) => {
+  if (pendingRequest) {
+    pendingRequest.resolve(res)
+    clearPendingRequest()
+  }
+}
+export const rejectPendingRequest = (err: any) => {
+  if (pendingRequest) {
+    pendingRequest.reject(err)
+    clearPendingRequest()
+  }
+}
+
 class HttpClient {
   private requestInterceptors: RequestInterceptor[] = []
   private responseInterceptors: ResponseInterceptor[] = []
@@ -36,6 +58,7 @@ class HttpClient {
     // Default response interceptors
     this.responseInterceptors.push(this.tokenRefresher.bind(this))
     this.responseInterceptors.push(this.errorNormalizer.bind(this))
+    this.responseInterceptors.push(this.riskInterceptor.bind(this))
   }
 
   private tokenInjector(config: RequestConfig): RequestConfig {
@@ -75,6 +98,33 @@ class HttpClient {
   private errorNormalizer(response: ApiResponse): ApiResponse {
     if (response.code !== 0 && response.code !== 200) {
       Taro.showToast({ title: response.message || '请求失败', icon: 'none' })
+    }
+    return response
+  }
+
+  private async riskInterceptor(response: ApiResponse): Promise<ApiResponse> {
+    if (response.code === 412) {
+      // 412: 需要进行 2FA 挑战验证
+      Taro.showToast({ title: '安全验证', icon: 'none' })
+
+      // 返回一个未决的 Promise，在 2FA 成功后再 resolve
+      return new Promise((resolve, reject) => {
+        pendingRequest = {
+          config: (response as any).config || {},
+          resolve,
+          reject
+        }
+        Taro.navigateTo({ url: '/pages/auth/challenge/index' })
+      })
+    }
+    if (response.code === 403) {
+      // 403: 风控阻断
+      Taro.showModal({
+        title: '交易被拦截',
+        content: response.message || '由于账户或操作风险，交易已被风控系统拦截。',
+        showCancel: false
+      })
+      throw new Error(response.message || 'Blocked by risk engine')
     }
     return response
   }
@@ -148,6 +198,8 @@ class HttpClient {
       }
 
       let response = res.data as ApiResponse<T>
+      // 注入请求配置，供 riskInterceptor 重放用
+      ;(response as any).config = processedConfig
 
       // Process response interceptors
       for (const interceptor of this.responseInterceptors) {
