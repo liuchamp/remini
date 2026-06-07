@@ -1,0 +1,19 @@
+// NutUI Theme Overrides
+// Separated from design tokens per design spec requirement.
+// This file maps our design tokens to NutUI CSS variables.
+@use 'variables' as *;
+
+:root {
+  --nut-color-primary: #{$color-primary};
+  --nut-color-primary-stop-1: #{$color-primary};
+  --nut-color-primary-stop-2: #{$color-primary-light};
+  --nut-color-primary-light: #FFF0E8;
+  --nut-font-size-2: #{$font-sm};
+  --nut-font-size-3: #{$font-md};
+  --nut-font-size-4: #{$font-lg};
+  --nut-font-weight-bold: 600;
+  --nut-rate-active-color: #{$color-warning};
+  --nut-button-border-radius: #{$radius-md};
+  --nut-tag-border-radius: #{$radius-sm};
+  --nut-cell-title-font-size: #{$font-md};
+}

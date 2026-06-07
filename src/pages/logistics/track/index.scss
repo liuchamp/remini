@@ -1,7 +1,10 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
 .track-page {
   min-height: 100vh;
-  background-color: #f5f5f5;
-  padding: 24px 24px 48px;
+  background-color: $color-bg;
+  padding: $spacing-xl $spacing-xl 48px;
 }
 
 // Loading & Error states
@@ -15,8 +18,8 @@
 }
 
 .track-loading-text {
-  font-size: 28px;
-  color: #999;
+  font-size: $font-md;
+  color: $color-text-light;
 }
 
 .track-error-icon {
@@ -24,36 +27,36 @@
   height: 80px;
   border-radius: 50%;
   background-color: #FFE8E0;
-  color: #FF6B35;
+  color: $color-primary;
   font-size: 40px;
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 24px;
+  margin-bottom: $spacing-xl;
 }
 
 .track-error-text {
-  font-size: 28px;
-  color: #666;
-  margin-bottom: 32px;
+  font-size: $font-md;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-xxl;
 }
 
 .track-error-retry {
-  padding: 16px 48px;
-  background-color: #FF6B35;
+  padding: $spacing-lg 48px;
+  background-color: $color-primary;
   border-radius: 8px;
-  color: #fff;
-  font-size: 28px;
+  color: $color-white;
+  font-size: $font-md;
 }
 
 // Header card
 .track-header-card {
-  background: linear-gradient(135deg, #FF6B35, #FF8C5A);
-  border-radius: 16px;
-  padding: 32px;
-  margin-bottom: 24px;
-  color: #fff;
+  background: linear-gradient(135deg, $color-primary, #FF8C5A);
+  border-radius: $radius-lg;
+  padding: $spacing-xxl;
+  margin-bottom: $spacing-xl;
+  color: $color-white;
 }
 
 .track-company-row {
@@ -75,9 +78,9 @@
 }
 
 .track-icon-text {
-  font-size: 36px;
+  font-size: $font-xl;
   font-weight: bold;
-  color: #fff;
+  color: $color-white;
 }
 
 .track-company-info {
@@ -94,7 +97,7 @@
 
 .track-company-status {
   display: block;
-  font-size: 24px;
+  font-size: $font-sm;
   opacity: 0.85;
 }
 
@@ -103,17 +106,17 @@
   justify-content: space-between;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
+  border-radius: $radius-md;
   padding: 18px 22px;
 }
 
 .track-number-label {
-  font-size: 24px;
+  font-size: $font-sm;
   opacity: 0.8;
 }
 
 .track-number-value {
-  font-size: 28px;
+  font-size: $font-md;
   font-weight: 600;
   letter-spacing: 2px;
 }
@@ -142,15 +145,15 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background-color: #ccc;
-  border: 3px solid #f5f5f5;
+  background-color: $color-border;
+  border: 3px solid $color-bg;
   z-index: 1;
 
   &-latest {
     width: 22px;
     height: 22px;
     top: 4px;
-    background-color: #FF6B35;
+    background-color: $color-primary;
     border-color: #FFE8E0;
     box-shadow: 0 0 0 6px rgba(255, 107, 53, 0.15);
   }
@@ -174,13 +177,13 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 8px;
+  margin-bottom: $spacing-sm;
 }
 
 .track-event-status {
   font-size: 30px;
   font-weight: 500;
-  color: #666;
+  color: $color-text-secondary;
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -188,42 +191,42 @@
   white-space: nowrap;
 
   &-latest {
-    color: #FF6B35;
+    color: $color-primary;
     font-weight: 600;
   }
 }
 
 .track-event-time {
-  font-size: 24px;
-  color: #999;
+  font-size: $font-sm;
+  color: $color-text-light;
   flex-shrink: 0;
-  margin-left: 16px;
+  margin-left: $spacing-lg;
 
   &-latest {
-    color: #FF6B35;
+    color: $color-primary;
   }
 }
 
 .track-event-desc {
   display: block;
   font-size: 26px;
-  color: #666;
+  color: $color-text-secondary;
   line-height: 1.5;
   margin-bottom: 6px;
 
   &-latest {
-    color: #333;
+    color: $color-text;
     font-weight: 500;
   }
 }
 
 .track-event-location {
   display: block;
-  font-size: 24px;
-  color: #999;
+  font-size: $font-sm;
+  color: $color-text-light;
 
   &-latest {
-    color: #666;
+    color: $color-text-secondary;
   }
 }
 
@@ -234,6 +237,6 @@
 }
 
 .track-empty-text {
-  font-size: 28px;
-  color: #999;
+  font-size: $font-md;
+  color: $color-text-light;
 }

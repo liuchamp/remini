@@ -1,6 +1,9 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
 .message-page {
   height: 100vh;
-  background: #f5f5f5;
+  background: $color-bg;
 }
 
 .empty-state {
@@ -8,26 +11,26 @@
   justify-content: center;
   align-items: center;
   height: 60vh;
-  font-size: 28px;
-  color: #999;
+  font-size: $font-md;
+  color: $color-text-light;
 }
 
 .thread-list {
-  background: #fff;
+  background: $color-white;
 }
 
 .thread-item {
   display: flex;
-  padding: 24px 32px;
+  padding: $spacing-xl $spacing-xxl;
   align-items: center;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid $color-border-light;
 }
 
 .thread-avatar {
   width: 88px;
   height: 88px;
   border-radius: 44px;
-  margin-right: 24px;
+  margin-right: $spacing-xl;
   flex-shrink: 0;
   background: #eee;
 }
@@ -41,18 +44,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: $spacing-sm;
 }
 
 .thread-name {
-  font-size: 28px;
+  font-size: $font-md;
   font-weight: 500;
-  color: #333;
+  color: $color-text;
 }
 
 .thread-time {
   font-size: 22px;
-  color: #999;
+  color: $color-text-light;
   flex-shrink: 0;
 }
 
@@ -63,8 +66,8 @@
 }
 
 .thread-preview {
-  font-size: 24px;
-  color: #999;
+  font-size: $font-sm;
+  color: $color-text-light;
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -76,16 +79,16 @@
   height: 32px;
   line-height: 32px;
   background: #ff4757;
-  border-radius: 16px;
-  padding: 0 8px;
-  margin-left: 12px;
+  border-radius: $radius-lg;
+  padding: 0 $spacing-sm;
+  margin-left: $spacing-md;
   text-align: center;
   flex-shrink: 0;
 }
 
 .unread-count {
-  font-size: 20px;
-  color: #fff;
+  font-size: $font-xs;
+  color: $color-white;
   display: block;
   text-align: center;
 }

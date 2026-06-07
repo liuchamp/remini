@@ -51,18 +51,3 @@ $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
 $shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
 $shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
 
-// NutUI Theme Overrides
-:root {
-  --nut-color-primary: #{$color-primary};
-  --nut-color-primary-stop-1: #{$color-primary};
-  --nut-color-primary-stop-2: #{$color-primary-light};
-  --nut-color-primary-light: #FFF0E8;
-  --nut-font-size-2: #{$font-sm};
-  --nut-font-size-3: #{$font-md};
-  --nut-font-size-4: #{$font-lg};
-  --nut-font-weight-bold: 600;
-  --nut-rate-active-color: #{$color-warning};
-  --nut-button-border-radius: #{$radius-md};
-  --nut-tag-border-radius: #{$radius-sm};
-  --nut-cell-title-font-size: #{$font-md};
-}

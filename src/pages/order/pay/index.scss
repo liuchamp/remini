@@ -1,8 +1,11 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
 .pay-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: #f5f5f5;
+  background: $color-bg;
 
   .loading-container,
   .error-container {
@@ -10,8 +13,8 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-size: 28px;
-    color: #999;
+    font-size: $font-md;
+    color: $color-text-light;
   }
 
   .pay-content {
@@ -20,10 +23,10 @@
   }
 
   .amount-card {
-    background: linear-gradient(135deg, #FF6B35, #FF8F5E);
-    padding: 60px 32px;
+    background: linear-gradient(135deg, $color-primary, $color-primary-light);
+    padding: 60px $spacing-xxl;
     text-align: center;
-    color: #fff;
+    color: $color-white;
 
     .amount-label {
       font-size: 26px;
@@ -34,7 +37,7 @@
       display: block;
       font-size: 72px;
       font-weight: 700;
-      margin: 12px 0;
+      margin: $spacing-md 0;
       letter-spacing: -2px;
 
       .amount-symbol {
@@ -47,16 +50,16 @@
       display: block;
       font-size: 22px;
       opacity: 0.7;
-      margin-top: 8px;
+      margin-top: $spacing-sm;
     }
   }
 
   .product-card {
     display: flex;
-    background: #fff;
-    margin: 16px;
-    padding: 24px;
-    border-radius: 16px;
+    background: $color-white;
+    margin: $spacing-lg;
+    padding: $spacing-xl;
+    border-radius: $radius-lg;
 
     .product-image {
       width: 120px;
@@ -73,8 +76,8 @@
       align-items: center;
 
       .product-title {
-        font-size: 28px;
-        color: #333;
+        font-size: $font-md;
+        color: $color-text;
         line-height: 1.4;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -86,16 +89,16 @@
   }
 
   .pay-method-card {
-    background: #fff;
-    margin: 0 16px;
-    padding: 24px;
-    border-radius: 16px;
+    background: $color-white;
+    margin: 0 $spacing-lg;
+    padding: $spacing-xl;
+    border-radius: $radius-lg;
 
     .section-title {
       display: block;
       font-size: 26px;
-      color: #999;
-      margin-bottom: 16px;
+      color: $color-text-light;
+      margin-bottom: $spacing-lg;
     }
 
     .pay-method-item {
@@ -111,13 +114,13 @@
 
       .pay-method-label {
         flex: 1;
-        font-size: 28px;
-        color: #333;
-        margin-left: 16px;
+        font-size: $font-md;
+        color: $color-text;
+        margin-left: $spacing-lg;
       }
 
       .pay-check {
-        font-size: 32px;
+        font-size: $font-lg;
         color: #07C160;
         font-weight: 600;
       }
@@ -129,38 +132,38 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: #fff;
-    padding: 20px 24px;
+    background: $color-white;
+    padding: 20px $spacing-xl;
     padding-bottom: calc(20px + env(safe-area-inset-bottom));
     display: flex;
     align-items: center;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid $color-border-light;
 
     .pay-total {
       flex: 1;
 
       .total-label {
         font-size: 26px;
-        color: #666;
+        color: $color-text-secondary;
       }
 
       .total-amount {
-        font-size: 36px;
-        color: #E02020;
+        font-size: $font-xl;
+        color: $color-error;
         font-weight: 600;
       }
     }
 
     .pay-btn {
-      background: #FF6B35;
-      color: #fff;
+      background: $color-primary;
+      color: $color-white;
       padding: 20px 64px;
       border-radius: 44px;
       font-size: 30px;
       font-weight: 500;
 
       &.disabled {
-        background: #ccc;
+        background: $color-border;
       }
     }
   }

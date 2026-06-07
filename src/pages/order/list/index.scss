@@ -1,43 +1,46 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
 .order-list-page {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: #f5f5f5;
+  background: $color-bg;
 
   .tab-bar {
     display: flex;
-    background: #fff;
-    padding: 0 16px;
+    background: $color-white;
+    padding: 0 $spacing-lg;
     position: sticky;
     top: 0;
     z-index: 10;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid $color-border-light;
 
     .tab-item {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 24px 0 0;
+      padding: $spacing-xl 0 0;
       position: relative;
 
       .tab-label {
-        font-size: 28px;
-        color: #666;
+        font-size: $font-md;
+        color: $color-text-secondary;
         padding-bottom: 20px;
         transition: color 0.2s;
       }
 
       &.active {
         .tab-label {
-          color: #333;
+          color: $color-text;
           font-weight: 600;
         }
 
         .tab-indicator {
           width: 40px;
-          height: 4px;
-          background: #FF6B35;
+          height: $spacing-xs;
+          background: $color-primary;
           border-radius: 2px;
         }
       }
@@ -56,37 +59,37 @@
 
       .empty-icon {
         font-size: 96px;
-        margin-bottom: 24px;
+        margin-bottom: $spacing-xl;
       }
 
       .empty-text {
         font-size: 30px;
-        color: #999;
-        margin-bottom: 12px;
+        color: $color-text-light;
+        margin-bottom: $spacing-md;
       }
 
       .empty-hint {
         font-size: 26px;
-        color: #ccc;
+        color: $color-border;
       }
     }
 
     .order-card {
-      background: #fff;
-      margin: 16px 16px 0;
-      border-radius: 16px;
+      background: $color-white;
+      margin: $spacing-lg $spacing-lg 0;
+      border-radius: $radius-lg;
       overflow: hidden;
 
       .order-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 24px 24px 20px;
-        border-bottom: 1px solid #f5f5f5;
+        padding: $spacing-xl $spacing-xl 20px;
+        border-bottom: 1px solid $color-bg;
 
         .order-no {
-          font-size: 24px;
-          color: #999;
+          font-size: $font-sm;
+          color: $color-text-light;
         }
 
         .order-status {
@@ -97,7 +100,7 @@
 
       .order-body {
         display: flex;
-        padding: 24px;
+        padding: $spacing-xl;
 
         .product-image {
           width: 160px;
@@ -116,8 +119,8 @@
           min-width: 0;
 
           .product-title {
-            font-size: 28px;
-            color: #333;
+            font-size: $font-md;
+            color: $color-text;
             line-height: 1.4;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -127,8 +130,8 @@
           }
 
           .product-price {
-            font-size: 32px;
-            color: #E02020;
+            font-size: $font-lg;
+            color: $color-error;
             font-weight: 600;
 
             .price-symbol {
@@ -141,23 +144,23 @@
       .order-actions {
         display: flex;
         justify-content: flex-end;
-        padding: 16px 24px 24px;
-        gap: 16px;
+        padding: $spacing-lg $spacing-xl $spacing-xl;
+        gap: $spacing-lg;
 
         .action-btn {
-          padding: 12px 28px;
+          padding: $spacing-md $font-md;
           border-radius: 8px;
           font-size: 26px;
           line-height: 1;
 
           &.primary {
-            background: #FF6B35;
-            color: #fff;
+            background: $color-primary;
+            color: $color-white;
           }
 
           &.default {
             border: 1px solid #ddd;
-            color: #666;
+            color: $color-text-secondary;
           }
         }
       }
@@ -165,16 +168,16 @@
 
     .loading-more {
       text-align: center;
-      padding: 32px;
-      font-size: 24px;
-      color: #999;
+      padding: $spacing-xxl;
+      font-size: $font-sm;
+      color: $color-text-light;
     }
 
     .no-more {
       text-align: center;
-      padding: 32px;
-      font-size: 24px;
-      color: #ccc;
+      padding: $spacing-xxl;
+      font-size: $font-sm;
+      color: $color-border;
     }
   }
 }

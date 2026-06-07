@@ -1,17 +1,13 @@
-$color-primary: #FF6B35;
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
 $color-users: #4A90D9;
 $color-products: #07C160;
-$color-orders: #FF6B35;
 $color-revenue: #9B59B6;
-$bg-page: #f5f5f5;
-$card-bg: #ffffff;
-$text-primary: #333333;
-$text-secondary: #999999;
-$border-color: #e8e8e8;
 
 .admin-page {
   min-height: 100vh;
-  background: $bg-page;
+  background: $color-bg;
   padding-bottom: 20px;
 }
 
@@ -20,19 +16,19 @@ $border-color: #e8e8e8;
   justify-content: center;
   align-items: center;
   min-height: 60vh;
-  font-size: 28px;
-  color: $text-secondary;
+  font-size: $font-md;
+  color: $color-text-light;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  padding: 16px;
+  gap: $spacing-lg;
+  padding: $spacing-lg;
 }
 
 .stat-card {
-  background: $card-bg;
+  background: $color-white;
   border-radius: 12px;
   padding: 20px;
   display: flex;
@@ -52,26 +48,26 @@ $border-color: #e8e8e8;
 
   &.users::before { background: $color-users; }
   &.products::before { background: $color-products; }
-  &.orders::before { background: $color-orders; }
+  &.orders::before { background: $color-primary; }
   &.revenue::before { background: $color-revenue; }
 }
 
 .stat-value {
-  font-size: 36px;
+  font-size: $font-xl;
   font-weight: 700;
-  color: $text-primary;
+  color: $color-text;
   line-height: 1.2;
 }
 
 .stat-label {
-  font-size: 24px;
-  color: $text-secondary;
-  margin-top: 8px;
+  font-size: $font-sm;
+  color: $color-text-light;
+  margin-top: $spacing-sm;
 }
 
 .quick-links {
-  margin: 0 16px 16px;
-  background: $card-bg;
+  margin: 0 $spacing-lg $spacing-lg;
+  background: $color-white;
   border-radius: 12px;
   overflow: hidden;
 }
@@ -80,7 +76,7 @@ $border-color: #e8e8e8;
   display: flex;
   align-items: center;
   padding: 28px 20px;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid $color-border;
   position: relative;
 
   &:last-child {
@@ -88,7 +84,7 @@ $border-color: #e8e8e8;
   }
 
   &:active {
-    background: #f9f9f9;
+    background: $color-bg-light;
   }
 }
 
@@ -97,8 +93,8 @@ $border-color: #e8e8e8;
 }
 
 .ql-icon {
-  font-size: 36px;
-  margin-right: 16px;
+  font-size: $font-xl;
+  margin-right: $spacing-lg;
   width: 44px;
   text-align: center;
 }
@@ -107,41 +103,41 @@ $border-color: #e8e8e8;
   position: absolute;
   top: -6px;
   right: 6px;
-  background: #E02020;
-  color: #fff;
-  font-size: 20px;
+  background: $color-error;
+  color: $color-white;
+  font-size: $font-xs;
   min-width: 28px;
   height: 28px;
   border-radius: 14px;
   text-align: center;
   line-height: 28px;
-  padding: 0 4px;
+  padding: 0 $spacing-xs;
 }
 
 .ql-title {
   flex: 1;
-  font-size: 28px;
-  color: $text-primary;
+  font-size: $font-md;
+  color: $color-text;
 }
 
 .ql-arrow {
-  font-size: 32px;
-  color: #ccc;
+  font-size: $font-lg;
+  color: $color-border;
 }
 
 .activity-section {
-  margin: 0 16px;
-  background: $card-bg;
+  margin: 0 $spacing-lg;
+  background: $color-white;
   border-radius: 12px;
   padding: 20px;
 }
 
 .section-title {
   display: block;
-  font-size: 28px;
+  font-size: $font-md;
   font-weight: 600;
-  color: $text-primary;
-  margin-bottom: 16px;
+  color: $color-text;
+  margin-bottom: $spacing-lg;
 }
 
 .activity-list {
@@ -151,8 +147,8 @@ $border-color: #e8e8e8;
 .activity-item {
   display: flex;
   align-items: flex-start;
-  padding: 16px 0;
-  border-bottom: 1px solid $border-color;
+  padding: $spacing-lg 0;
+  border-bottom: 1px solid $color-border;
 
   &:last-child {
     border-bottom: none;
@@ -160,8 +156,8 @@ $border-color: #e8e8e8;
 }
 
 .activity-icon {
-  font-size: 32px;
-  margin-right: 12px;
+  font-size: $font-lg;
+  margin-right: $spacing-md;
   line-height: 1.4;
 }
 
@@ -173,15 +169,15 @@ $border-color: #e8e8e8;
 .activity-text {
   display: block;
   font-size: 26px;
-  color: $text-primary;
+  color: $color-text;
   line-height: 1.4;
 }
 
 .activity-time {
   display: block;
   font-size: 22px;
-  color: $text-secondary;
-  margin-top: 4px;
+  color: $color-text-light;
+  margin-top: $spacing-xs;
 }
 
 .empty-state {
@@ -190,5 +186,5 @@ $border-color: #e8e8e8;
   align-items: center;
   padding: 40px 0;
   font-size: 26px;
-  color: $text-secondary;
+  color: $color-text-light;
 }

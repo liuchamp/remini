@@ -1,16 +1,19 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
 .detail-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: #f5f5f5;
+  background: $color-bg;
 
   .loading-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-size: 28px;
-    color: #999;
+    font-size: $font-md;
+    color: $color-text-light;
   }
 
   .detail-scroll {
@@ -19,9 +22,9 @@
   }
 
   .status-banner {
-    background: linear-gradient(135deg, #FF6B35, #FF8F5E);
-    padding: 40px 32px;
-    color: #fff;
+    background: linear-gradient(135deg, $color-primary, $color-primary-light);
+    padding: 40px $spacing-xxl;
+    color: $color-white;
 
     .status-text {
       font-size: 40px;
@@ -30,75 +33,75 @@
 
     .status-sub {
       display: block;
-      font-size: 24px;
-      margin-top: 12px;
+      font-size: $font-sm;
+      margin-top: $spacing-md;
       opacity: 0.85;
     }
   }
 
   .timeline-card {
-    background: #fff;
-    margin: 16px;
-    padding: 32px 24px;
-    border-radius: 16px;
+    background: $color-white;
+    margin: $spacing-lg;
+    padding: $spacing-xxl $spacing-xl;
+    border-radius: $radius-lg;
 
     .timeline-item {
       display: flex;
       align-items: flex-start;
       position: relative;
-      padding-bottom: 32px;
+      padding-bottom: $spacing-xxl;
 
       &:last-child {
         padding-bottom: 0;
       }
 
       .timeline-dot {
-        width: 32px;
-        height: 32px;
+        width: $font-lg;
+        height: $font-lg;
         border-radius: 50%;
         background: #e0e0e0;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        margin-right: 24px;
+        margin-right: $spacing-xl;
         margin-top: 2px;
 
         .current-dot {
-          width: 16px;
-          height: 16px;
+          width: $spacing-lg;
+          height: $spacing-lg;
           border-radius: 50%;
-          background: #FF6B35;
+          background: $color-primary;
         }
       }
 
       &.active .timeline-dot {
-        background: #FF6B35;
+        background: $color-primary;
       }
 
       .timeline-content {
         flex: 1;
 
         .step-label {
-          font-size: 28px;
-          color: #999;
+          font-size: $font-md;
+          color: $color-text-light;
         }
 
         .step-time {
           display: block;
           font-size: 22px;
-          color: #ccc;
-          margin-top: 4px;
+          color: $color-border;
+          margin-top: $spacing-xs;
         }
       }
 
       &.active .step-label {
-        color: #333;
+        color: $color-text;
         font-weight: 500;
       }
 
       &.active .step-time {
-        color: #999;
+        color: $color-text-light;
       }
 
       .timeline-line {
@@ -110,49 +113,49 @@
         background: #e0e0e0;
 
         &.active {
-          background: #FF6B35;
+          background: $color-primary;
         }
       }
     }
   }
 
   .address-card {
-    background: #fff;
-    margin: 0 16px 16px;
-    padding: 28px 24px;
-    border-radius: 16px;
+    background: $color-white;
+    margin: 0 $spacing-lg $spacing-lg;
+    padding: 28px $spacing-xl;
+    border-radius: $radius-lg;
 
     .address-header {
       display: flex;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: $spacing-sm;
 
       .address-name {
         font-size: 30px;
         font-weight: 600;
-        color: #333;
+        color: $color-text;
       }
 
       .address-phone {
         font-size: 26px;
-        color: #666;
+        color: $color-text-secondary;
         margin-left: 20px;
       }
     }
 
     .address-detail {
       font-size: 26px;
-      color: #666;
+      color: $color-text-secondary;
       line-height: 1.5;
     }
   }
 
   .product-card {
     display: flex;
-    background: #fff;
-    margin: 0 16px 16px;
-    padding: 24px;
-    border-radius: 16px;
+    background: $color-white;
+    margin: 0 $spacing-lg $spacing-lg;
+    padding: $spacing-xl;
+    border-radius: $radius-lg;
 
     .product-image {
       width: 160px;
@@ -170,8 +173,8 @@
       justify-content: space-between;
 
       .product-title {
-        font-size: 28px;
-        color: #333;
+        font-size: $font-md;
+        color: $color-text;
         line-height: 1.4;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -181,42 +184,42 @@
       }
 
       .product-price {
-        font-size: 32px;
-        color: #E02020;
+        font-size: $font-lg;
+        color: $color-error;
         font-weight: 600;
       }
     }
   }
 
   .price-card {
-    background: #fff;
-    margin: 0 16px 16px;
-    padding: 24px;
-    border-radius: 16px;
+    background: $color-white;
+    margin: 0 $spacing-lg $spacing-lg;
+    padding: $spacing-xl;
+    border-radius: $radius-lg;
 
     .price-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 0;
+      padding: $spacing-sm 0;
 
       .price-label {
         font-size: 26px;
-        color: #666;
+        color: $color-text-secondary;
       }
 
       .price-value {
         font-size: 26px;
-        color: #333;
+        color: $color-text;
 
         &.discount {
-          color: #E02020;
+          color: $color-error;
         }
       }
 
       &.total .price-value {
-        font-size: 36px;
-        color: #E02020;
+        font-size: $font-xl;
+        color: $color-error;
         font-weight: 600;
       }
 
@@ -227,35 +230,35 @@
 
     .price-divider {
       height: 1px;
-      background: #f0f0f0;
-      margin: 8px 0;
+      background: $color-border-light;
+      margin: $spacing-sm 0;
     }
   }
 
   .info-card {
-    background: #fff;
-    margin: 0 16px 16px;
-    padding: 24px;
-    border-radius: 16px;
+    background: $color-white;
+    margin: 0 $spacing-lg $spacing-lg;
+    padding: $spacing-xl;
+    border-radius: $radius-lg;
 
     .info-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 0;
+      padding: $spacing-md 0;
 
       .info-label {
         font-size: 26px;
-        color: #999;
+        color: $color-text-light;
         flex-shrink: 0;
       }
 
       .info-value {
         font-size: 26px;
-        color: #333;
+        color: $color-text;
         text-align: right;
         flex: 1;
-        margin-left: 24px;
+        margin-left: $spacing-xl;
         word-break: break-all;
       }
     }
@@ -266,28 +269,28 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: #fff;
-    padding: 20px 24px;
+    background: $color-white;
+    padding: 20px $spacing-xl;
     padding-bottom: calc(20px + env(safe-area-inset-bottom));
     display: flex;
     justify-content: flex-end;
-    gap: 16px;
-    border-top: 1px solid #f0f0f0;
+    gap: $spacing-lg;
+    border-top: 1px solid $color-border-light;
 
     .bottom-btn {
-      padding: 16px 36px;
+      padding: $spacing-lg 36px;
       border-radius: 44px;
-      font-size: 28px;
+      font-size: $font-md;
       line-height: 1;
 
       &.primary {
-        background: #FF6B35;
-        color: #fff;
+        background: $color-primary;
+        color: $color-white;
       }
 
       &.default {
         border: 1px solid #ddd;
-        color: #666;
+        color: $color-text-secondary;
       }
     }
   }

@@ -62,7 +62,6 @@ export default defineConfig<'vite'>(async (merge, { command, mode }) => {
         preprocessorOptions: {
           scss: {
             implementation: 'sass-embedded',
-            api: 'modern-compiler',
             additionalData: `@use "src/styles" as *;`,
           },
         },
@@ -72,7 +71,6 @@ export default defineConfig<'vite'>(async (merge, { command, mode }) => {
           viteConfig.css.preprocessorOptions.scss = {
             ...viteConfig.css.preprocessorOptions.scss,
             implementation: 'sass-embedded',
-            api: 'modern-compiler',
             additionalData: `@use "src/styles" as *;`,
           }
         }
@@ -104,7 +102,6 @@ export default defineConfig<'vite'>(async (merge, { command, mode }) => {
         preprocessorOptions: {
           scss: {
             implementation: 'sass-embedded',
-            api: 'modern-compiler',
             additionalData: `@use "src/styles" as *;`,
           },
         },
@@ -114,7 +111,6 @@ export default defineConfig<'vite'>(async (merge, { command, mode }) => {
           viteConfig.css.preprocessorOptions.scss = {
             ...viteConfig.css.preprocessorOptions.scss,
             implementation: 'sass-embedded',
-            api: 'modern-compiler',
             additionalData: `@use "src/styles" as *;`,
           }
         }
