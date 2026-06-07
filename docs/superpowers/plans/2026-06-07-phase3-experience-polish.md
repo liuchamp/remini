@@ -1,3 +1,7 @@
+---
+archived-with: 2026-06-07-phase3-experience-polish
+status: final
+---
 # Phase 3: Experience Polish Implementation Plan
 
 ```yaml
