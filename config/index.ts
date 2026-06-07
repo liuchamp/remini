@@ -58,6 +58,25 @@ export default defineConfig<'vite'>(async (merge, { command, mode }) => {
           }
         }
       },
+      css: {
+        preprocessorOptions: {
+          scss: {
+            implementation: 'sass-embedded',
+            api: 'modern-compiler',
+            additionalData: `@use "src/styles" as *;`,
+          },
+        },
+      },
+      modifyViteConfig: (viteConfig) => {
+        if (viteConfig.css?.preprocessorOptions?.scss) {
+          viteConfig.css.preprocessorOptions.scss = {
+            ...viteConfig.css.preprocessorOptions.scss,
+            implementation: 'sass-embedded',
+            api: 'modern-compiler',
+            additionalData: `@use "src/styles" as *;`,
+          }
+        }
+      },
     },
     h5: {
       publicPath: '/',
@@ -81,12 +100,31 @@ export default defineConfig<'vite'>(async (merge, { command, mode }) => {
           }
         }
       },
+      css: {
+        preprocessorOptions: {
+          scss: {
+            implementation: 'sass-embedded',
+            api: 'modern-compiler',
+            additionalData: `@use "src/styles" as *;`,
+          },
+        },
+      },
+      modifyViteConfig: (viteConfig) => {
+        if (viteConfig.css?.preprocessorOptions?.scss) {
+          viteConfig.css.preprocessorOptions.scss = {
+            ...viteConfig.css.preprocessorOptions.scss,
+            implementation: 'sass-embedded',
+            api: 'modern-compiler',
+            additionalData: `@use "src/styles" as *;`,
+          }
+        }
+      },
     },
     rn: {
       appName: 'taroDemo',
       postcss: {
         cssModules: {
-          enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
+          enable: false,
         }
       }
     }

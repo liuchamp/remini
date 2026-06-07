@@ -1,0 +1,4 @@
+// Main entry point - forwards all shared styles as a single module
+@forward 'variables';
+@forward 'mixins';
+@forward 'reset';

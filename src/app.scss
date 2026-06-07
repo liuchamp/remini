@@ -1,5 +1,4 @@
-@import './styles/variables';
-@import './styles/reset';
+@use './styles' as *;
 
 page {
   background-color: $color-bg;
