@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import Taro, { useRouter } from '@tarojs/taro'
 import { View, Text, ScrollView, Image } from '@tarojs/components'
 import { useTranslation } from 'react-i18next'
@@ -43,19 +43,7 @@ export default function Category() {
     })
   }, [id])
 
-  useEffect(() => {
-    if (!id) return
-
-    setProducts([])
-    setPage(1)
-    setHasMore(true)
-    loadingRef.current = false
-
-    loadProducts(1, true)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
-
-  const loadProducts = async (pageNum: number, reset: boolean = false) => {
+  const loadProducts = useCallback(async (pageNum: number, reset: boolean = false) => {
     if (loadingRef.current) return
     loadingRef.current = true
     setLoading(true)
@@ -73,26 +61,35 @@ export default function Category() {
       loadingRef.current = false
       setLoading(false)
     }
-  }
+  }, [id])
 
-  const refresh = () => {
+  const refresh = useCallback(() => {
     setError(false)
     setProducts([])
     setPage(1)
     setHasMore(true)
     loadingRef.current = false
     loadProducts(1, true)
-  }
+  }, [loadProducts])
 
-  const handleScrollToLower = () => {
+  const handleScrollToLower = useCallback(() => {
     if (hasMore && !loadingRef.current) {
       loadProducts(page)
     }
-  }
+  }, [hasMore, loadProducts, page])
 
-  const handleProductClick = (productId: string) => {
+  const handleProductClick = useCallback((productId: string) => {
     Taro.navigateTo({ url: `/pages/product/detail/index?id=${productId}` })
-  }
+  }, [])
+
+  useEffect(() => {
+    if (!id) return
+    setProducts([])
+    setPage(1)
+    setHasMore(true)
+    loadingRef.current = false
+    loadProducts(1, true)
+  }, [id, loadProducts])
 
   if (loading && products.length === 0) {
     return (

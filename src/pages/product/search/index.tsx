@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
 import { View, Text, Input, ScrollView } from '@tarojs/components'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useDebounce } from '@/shared/hooks/useDebounce'
 import { productApi } from '@/domains/product/api'
 import { HotSearches } from '@/shared/components/product/HotSearches'
@@ -39,7 +39,7 @@ export default function Search() {
       setSearchHistory([])
     }
     fetchHotSearches()
-  }, [])
+  }, [fetchHotSearches])
 
   useEffect(() => {
     if (debouncedKeyword.trim()) {
@@ -53,7 +53,7 @@ export default function Search() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedKeyword])
 
-  const fetchHotSearches = async () => {
+  const fetchHotSearches = useCallback(async () => {
     if (Date.now() - lastHotFetch.current < HOT_CACHE_MS) return
     try {
       const res = await productApi.getHotSearches()
@@ -62,24 +62,26 @@ export default function Search() {
         lastHotFetch.current = Date.now()
       }
     } catch { /* silent */ }
-  }
+  }, [])
 
-  const fetchSuggest = async (kw: string) => {
+  const fetchSuggest = useCallback(async (kw: string) => {
     try {
       const res = await productApi.searchSuggest(kw)
       if (res.code === 0) {
         setSuggestions((res.data as { suggestions: string[] }).suggestions || [])
       }
     } catch { setSuggestions([]) }
-  }
+  }, [])
 
-  const saveToHistory = (kw: string) => {
-    const updated = [kw, ...searchHistory.filter((h) => h !== kw)].slice(0, MAX_HISTORY)
-    setSearchHistory(updated)
-    try { Taro.setStorageSync(HISTORY_KEY, updated) } catch { /* */ }
-  }
+  const saveToHistory = useCallback((kw: string) => {
+    setSearchHistory(prev => {
+      const updated = [kw, ...prev.filter((h) => h !== kw)].slice(0, MAX_HISTORY)
+      try { Taro.setStorageSync(HISTORY_KEY, updated) } catch { /* */ }
+      return updated
+    })
+  }, [])
 
-  const performSearch = async (kw: string, f: FilterState) => {
+  const performSearch = useCallback(async (kw: string, f: FilterState) => {
     setLoading(true)
     setHasSearched(true)
     setError(false)
@@ -99,40 +101,40 @@ export default function Search() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
 
-  const handleSearch = (kw: string) => {
+  const handleSearch = useCallback((kw: string) => {
     const trimmed = kw.trim()
     if (!trimmed) return
     saveToHistory(trimmed)
     setSuggestions([])
-  }
+  }, [saveToHistory])
 
-  const handleConfirm = (e: { detail: { value: string } }) => {
+  const handleConfirm = useCallback((e: { detail: { value: string } }) => {
     handleSearch(e.detail.value)
-  }
+  }, [handleSearch])
 
-  const handleSelect = (kw: string) => {
+  const handleSelect = useCallback((kw: string) => {
     setKeyword(kw)
     handleSearch(kw)
-  }
+  }, [handleSearch])
 
-  const handleApplyFilter = (newFilters: FilterState) => {
+  const handleApplyFilter = useCallback((newFilters: FilterState) => {
     setFilters(newFilters)
     setFilterVisible(false)
     if (debouncedKeyword.trim()) {
       performSearch(debouncedKeyword.trim(), newFilters)
     }
-  }
+  }, [debouncedKeyword, performSearch])
 
-  const clearHistory = () => {
+  const clearHistory = useCallback(() => {
     setSearchHistory([])
     try { Taro.setStorageSync(HISTORY_KEY, []) } catch { /* */ }
-  }
+  }, [])
 
-  const handleProductClick = (id: string) => {
+  const handleProductClick = useCallback((id: string) => {
     Taro.navigateTo({ url: `/pages/product/detail/index?id=${id}` })
-  }
+  }, [])
 
   return (
     <View className='search-page'>

@@ -60,27 +60,27 @@ export default function Index() {
     }
   }, [nearbyPage, nearbyProducts, getLocation])
 
-  const handleSearchClick = () => {
+  const handleSearchClick = useCallback(() => {
     Taro.navigateTo({ url: '/pages/product/search/index' })
-  }
+  }, [])
 
-  const handleProductClick = (id: string) => {
+  const handleProductClick = useCallback((id: string) => {
     Taro.navigateTo({ url: `/pages/product/detail/index?id=${id}` })
-  }
+  }, [])
 
-  const handleCategoryClick = (id: string) => {
+  const handleCategoryClick = useCallback((id: string) => {
     Taro.navigateTo({ url: `/pages/category/index?id=${id}` })
-  }
+  }, [])
 
-  const handleRefresh = () => {
+  const handleRefresh = useCallback(() => {
     if (activeTab === 'nearby') {
       loadNearby(true)
     } else {
       loadRecommendations(true)
     }
-  }
+  }, [activeTab, loadNearby, loadRecommendations])
 
-  const handleLoadMore = () => {
+  const handleLoadMore = useCallback(() => {
     if (activeTab === 'nearby') {
       if (nearbyHasMore && !nearbyLoading) {
         loadNearby()
@@ -90,14 +90,14 @@ export default function Index() {
         loadRecommendations()
       }
     }
-  }
+  }, [activeTab, nearbyHasMore, nearbyLoading, loadNearby, recommendHasMore, loading, loadRecommendations])
 
-  const handleTabChange = (tab: FeedTab) => {
+  const handleTabChange = useCallback((tab: FeedTab) => {
     setActiveTab(tab)
     if (tab === 'nearby' && nearbyProducts.length === 0) {
       loadNearby(true)
     }
-  }
+  }, [nearbyProducts.length, loadNearby])
 
   const currentProducts = activeTab === 'nearby' ? nearbyProducts : recommendProducts
   const currentHasMore = activeTab === 'nearby' ? nearbyHasMore : recommendHasMore
