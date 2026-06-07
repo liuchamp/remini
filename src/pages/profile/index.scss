@@ -1,8 +1,284 @@
-.page {
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.profile-page {
+  height: 100vh;
+  background-color: $color-bg;
+  padding-bottom: 24px;
+}
+
+/* User Card */
+.user-card {
+  margin: 16px;
+  padding: 24px 20px 20px;
+  background: linear-gradient(135deg, #2D3436 0%, #1a1e20 100%);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(255, 107, 53, 0.08);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    left: -40px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(0, 184, 148, 0.06);
+  }
+}
+
+.user-info-top {
   display: flex;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.user-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+  background-color: #3d3d3d;
+}
+
+.avatar-placeholder {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, $color-primary, $color-primary-light);
+  @include flex-center;
+  flex-shrink: 0;
+}
+
+.avatar-placeholder-text {
+  font-size: 40px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.user-meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.user-name {
+  font-size: 34px;
+  font-weight: 700;
+  color: #fff;
+  @include line-clamp(1);
+}
+
+.user-subtitle {
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.user-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.kyc-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 12px;
+  border-radius: $radius-full;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 12px;
+  border-radius: $radius-full;
+  background-color: rgba(0, 184, 148, 0.15);
+  color: #00B894;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.trust-score-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.trust-label {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.6);
+  flex-shrink: 0;
+}
+
+.trust-bar-bg {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.trust-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.trust-value {
+  font-size: 22px;
+  font-weight: 600;
+  flex-shrink: 0;
+  min-width: 32px;
+  text-align: right;
+}
+
+/* Stats Row */
+.stats-row {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-value {
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.stat-label {
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Seller Entry */
+.seller-entry {
+  margin: 0 16px 12px;
+  padding: 16px 20px;
+  background: #fff;
+  border-radius: 14px;
+  @include flex-between;
+  box-shadow: $shadow-sm;
+}
+
+.seller-entry-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.seller-icon {
   font-size: 32px;
-  color: #333;
+}
+
+.seller-text {
+  font-size: 28px;
+  font-weight: 600;
+  color: $color-text;
+}
+
+.entry-arrow {
+  font-size: 32px;
+  color: $color-text-light;
+}
+
+/* Menu Grid */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin: 0 16px 12px;
+  padding: 8px 0;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: $shadow-sm;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 8px;
+  gap: 8px;
+}
+
+.menu-icon {
+  font-size: 36px;
+  line-height: 1;
+}
+
+.menu-label {
+  font-size: 24px;
+  color: $color-text-secondary;
+}
+
+/* Bottom Actions */
+.bottom-actions {
+  margin: 0 16px;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid $color-border-light;
+  gap: 12px;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.action-icon {
+  font-size: 28px;
+}
+
+.action-label {
+  flex: 1;
+  font-size: 28px;
+  color: $color-text;
+}
+
+.action-arrow {
+  font-size: 28px;
+  color: $color-text-light;
+}
+
+.action-item.logout .action-label {
+  color: $color-error;
 }
