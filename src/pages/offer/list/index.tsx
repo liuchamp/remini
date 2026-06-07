@@ -3,7 +3,8 @@ import { View, Text, ScrollView } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
 import { offerApi, type Offer } from '@/domains/trade/offer'
 import { useTranslation } from 'react-i18next'
-import Loading from '@/shared/components/Loading'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
 import Empty from '@/shared/components/Empty'
 import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
@@ -15,26 +16,38 @@ export default function List() {
   const [activeTab, setActiveTab] = useState(0)
   const [offers, setOffers] = useState<Offer[]>([])
   const [loading, setLoading] = useState(true)
-
-  useLoad(() => {
-    fetchOffers()
-  })
+  const [error, setError] = useState(false)
 
   const fetchOffers = useCallback(async () => {
     setLoading(true)
+    setError(false)
     try {
       const res = await offerApi.getList({ type: TAB_KEYS[activeTab] as 'sent' | 'received' })
       if (res.code === 0) {
         const data = res.data as { list: Offer[]; total: number }
         setOffers(data.list || [])
       }
+    } catch {
+      setError(true)
     } finally {
       setLoading(false)
     }
   }, [activeTab])
 
+  const refresh = useCallback(() => {
+    fetchOffers()
+  }, [fetchOffers])
+
+  useLoad(() => {
+    fetchOffers()
+  })
+
   if (loading) {
-    return <Loading type='skeleton' rows={4} />
+    return <Skeleton type='list' rows={4} />
+  }
+
+  if (error) {
+    return <RetryButton onRetry={refresh} />
   }
 
   return (
@@ -45,7 +58,7 @@ export default function List() {
             <View
               key={key}
               className={`tab-item ${activeTab === idx ? 'active' : ''}`}
-              onClick={() => { setActiveTab(idx); fetchOffers() }}
+              onClick={() => { setActiveTab(idx); setError(false); fetchOffers() }}
             >
               <Text className='tab-label'>{key === 'sent' ? t('trade:offerSent') : t('trade:offerReceived')}</Text>
             </View>
