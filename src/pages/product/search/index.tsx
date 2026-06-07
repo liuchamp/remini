@@ -32,14 +32,26 @@ export default function Search() {
   const debouncedKeyword = useDebounce(keyword, 300)
 
   useEffect(() => {
-    try {
-      const history = Taro.getStorageSync(HISTORY_KEY)
-      setSearchHistory(Array.isArray(history) ? history : [])
-    } catch {
-      setSearchHistory([])
+    async function init() {
+      try {
+        const history = Taro.getStorageSync(HISTORY_KEY)
+        setSearchHistory(Array.isArray(history) ? history : [])
+      } catch {
+        setSearchHistory([])
+      }
+      if (Date.now() - lastHotFetch.current >= HOT_CACHE_MS) {
+        try {
+          const res = await productApi.getHotSearches()
+          if (res.code === 0) {
+            setHotSearches((res.data as { keywords: string[] }).keywords || [])
+            lastHotFetch.current = Date.now()
+          }
+        } catch { /* silent */ }
+      }
     }
-    fetchHotSearches()
-  }, [fetchHotSearches])
+    init()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (debouncedKeyword.trim()) {
@@ -52,17 +64,6 @@ export default function Search() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedKeyword])
-
-  const fetchHotSearches = useCallback(async () => {
-    if (Date.now() - lastHotFetch.current < HOT_CACHE_MS) return
-    try {
-      const res = await productApi.getHotSearches()
-      if (res.code === 0) {
-        setHotSearches((res.data as { keywords: string[] }).keywords || [])
-        lastHotFetch.current = Date.now()
-      }
-    } catch { /* silent */ }
-  }, [])
 
   const fetchSuggest = useCallback(async (kw: string) => {
     try {
@@ -141,13 +142,13 @@ export default function Search() {
       <View className='search-header'>
         <Input
           className='search-input'
-          placeholder='搜索商品'
+          placeholder={t('common:search.placeholder')}
           value={keyword}
           onInput={(e) => setKeyword(e.detail.value)}
           onConfirm={handleConfirm}
         />
         <View className='search-cancel' onClick={() => Taro.navigateBack()}>
-          <Text>取消</Text>
+          <Text>{t('common:action.cancel')}</Text>
         </View>
       </View>
 
@@ -157,8 +158,8 @@ export default function Search() {
           {searchHistory.length > 0 && (
             <View className='search-history'>
               <View className='history-header'>
-                <Text className='history-title'>历史记录</Text>
-                <Text className='history-clear' onClick={clearHistory}>× 清空</Text>
+                <Text className='history-title'>{t('common:search.historyTitle')}</Text>
+                <Text className='history-clear' onClick={clearHistory}>{t('common:search.clear')}</Text>
               </View>
               <View className='history-chips'>
                 {searchHistory.map((h) => (
@@ -185,9 +186,9 @@ export default function Search() {
       {hasSearched && (
         <View className='search-results'>
           <View className='results-toolbar'>
-            <Text className='toolbar-text'>共 {results.length} 条结果</Text>
+            <Text className='toolbar-text'>{t('common:search.resultCount', { count: results.length })}</Text>
             <View className='toolbar-filter' onClick={() => setFilterVisible(true)}>
-              <Text>筛选 ▼</Text>
+              <Text>{t('common:search.filter')}</Text>
             </View>
           </View>
           <ScrollView scrollY className='results-list'>

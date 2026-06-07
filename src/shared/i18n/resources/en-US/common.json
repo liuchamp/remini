@@ -75,5 +75,12 @@
     "network": "Network failed",
     "default": "Nothing here"
   },
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "search": {
+    "placeholder": "Search products",
+    "historyTitle": "History",
+    "clear": "× Clear",
+    "resultCount": "{count} result(s)",
+    "filter": "Filter ▼"
+  }
 }

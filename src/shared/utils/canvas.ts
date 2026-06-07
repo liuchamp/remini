@@ -32,6 +32,6 @@ export async function saveToAlbum(tempPath: string): Promise<void> {
   await Taro.saveImageToPhotosAlbum({ filePath: tempPath })
 }
 
-export async function generateWxacode(path: string): Promise<string> {
+export async function generateWxacode(_path: string): Promise<string> {
   return '/static/qrcode-placeholder.png'
 }

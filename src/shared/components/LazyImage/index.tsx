@@ -13,8 +13,6 @@ interface LazyImageProps {
   onClick?: () => void
 }
 
-const FALLBACK_IMAGE = '' // empty string lets us show the error placeholder
-
 export default function LazyImage({
   src,
   className = '',

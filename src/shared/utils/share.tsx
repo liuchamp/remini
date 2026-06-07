@@ -95,8 +95,7 @@ export function ShareProvider<P extends object>(
       }))
 
       Taro.showShareMenu?.({
-        withShareTicket: true,
-        menus: ['shareAppMessage', 'shareTimeline']
+        withShareTicket: true
       })
     }, [path, merged.title, merged.path, merged.imageUrl])
 

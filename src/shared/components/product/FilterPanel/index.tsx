@@ -1,4 +1,3 @@
-import Taro from '@tarojs/taro'
 import { View, Text, Switch, Slider, Button } from '@tarojs/components'
 import { useState, useEffect } from 'react'
 import './index.scss'
@@ -65,14 +64,22 @@ export function FilterPanel({ visible, value, onApply, onClose }: Props) {
 
         <View className='filter-section'>
           <Text className='filter-label'>价格区间</Text>
-          <Slider
-            range
-            min={0}
-            max={10000}
-            step={100}
-            value={priceRange}
-            onChange={(e) => setPriceRange(e.detail.value as [number, number])}
-          />
+          <View className='filter-price-row'>
+            <Slider
+              min={0}
+              max={10000}
+              step={100}
+              value={priceRange[0]}
+              onChange={(e) => setPriceRange([e.detail.value, priceRange[1]])}
+            />
+            <Slider
+              min={0}
+              max={10000}
+              step={100}
+              value={priceRange[1]}
+              onChange={(e) => setPriceRange([priceRange[0], e.detail.value])}
+            />
+          </View>
           <Text className='filter-hint'>¥{priceRange[0]} - ¥{priceRange[1]}</Text>
         </View>
 
@@ -115,10 +122,13 @@ export function FilterPanel({ visible, value, onApply, onClose }: Props) {
         </View>
 
         <View className='filter-footer'>
-          <Button className='btn-reset' onClick={() => {
-            setLocal({})
-            setPriceRange([0, 10000])
-          }}>重置</Button>
+          <Button
+            className='btn-reset'
+            onClick={() => {
+              setLocal({})
+              setPriceRange([0, 10000])
+            }}
+          >重置</Button>
           <Button className='btn-apply' onClick={handleApply}>应用</Button>
         </View>
       </View>

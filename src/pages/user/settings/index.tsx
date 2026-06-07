@@ -19,7 +19,7 @@ export default function Settings() {
   const calculateCacheSize = async () => {
     try {
       const res = await Taro.getStorageInfo()
-      const sizeKB = Math.round(res.currentSize / 1024 * 10) / 10
+      const sizeKB = Math.round((res as any).currentSize / 1024 * 10) / 10
       setCacheSize(sizeKB > 1024 ? `${(sizeKB / 1024).toFixed(1)} MB` : `${sizeKB} KB`)
     } catch {
       setCacheSize('0 KB')
@@ -54,7 +54,7 @@ export default function Settings() {
 
   const goPrivacy = () => Taro.navigateTo({ url: '/pages/static/webview/index?url=https://example.com/privacy' })
   const goTerms = () => Taro.navigateTo({ url: '/pages/static/webview/index?url=https://example.com/terms' })
-  const checkUpdate = () => Taro.showToast({ title: '已是最新版本', icon: 'none' })
+  const checkUpdate = () => Taro.showToast({ title: t('common:app.versionLatest'), icon: 'none' })
 
   return (
     <View className='settings-page'>

@@ -75,5 +75,12 @@
     "network": "网络连接失败",
     "default": "什么都没有"
   },
-  "loading": "加载中..."
+  "loading": "加载中...",
+  "search": {
+    "placeholder": "搜索商品",
+    "historyTitle": "历史记录",
+    "clear": "× 清空",
+    "resultCount": "共 {count} 条结果",
+    "filter": "筛选 ▼"
+  }
 }
