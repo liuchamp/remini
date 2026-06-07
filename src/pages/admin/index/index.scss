@@ -1,8 +1,194 @@
-.page {
+$color-primary: #FF6B35;
+$color-users: #4A90D9;
+$color-products: #07C160;
+$color-orders: #FF6B35;
+$color-revenue: #9B59B6;
+$bg-page: #f5f5f5;
+$card-bg: #ffffff;
+$text-primary: #333333;
+$text-secondary: #999999;
+$border-color: #e8e8e8;
+
+.admin-page {
+  min-height: 100vh;
+  background: $bg-page;
+  padding-bottom: 20px;
+}
+
+.loading-state {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 60vh;
+  font-size: 28px;
+  color: $text-secondary;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 16px;
+}
+
+.stat-card {
+  background: $card-bg;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+  }
+
+  &.users::before { background: $color-users; }
+  &.products::before { background: $color-products; }
+  &.orders::before { background: $color-orders; }
+  &.revenue::before { background: $color-revenue; }
+}
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: $text-primary;
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 24px;
+  color: $text-secondary;
+  margin-top: 8px;
+}
+
+.quick-links {
+  margin: 0 16px 16px;
+  background: $card-bg;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.quick-link-item {
+  display: flex;
+  align-items: center;
+  padding: 28px 20px;
+  border-bottom: 1px solid $border-color;
+  position: relative;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:active {
+    background: #f9f9f9;
+  }
+}
+
+.ql-icon-wrap {
+  position: relative;
+}
+
+.ql-icon {
+  font-size: 36px;
+  margin-right: 16px;
+  width: 44px;
+  text-align: center;
+}
+
+.ql-badge {
+  position: absolute;
+  top: -6px;
+  right: 6px;
+  background: #E02020;
+  color: #fff;
+  font-size: 20px;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  text-align: center;
+  line-height: 28px;
+  padding: 0 4px;
+}
+
+.ql-title {
+  flex: 1;
+  font-size: 28px;
+  color: $text-primary;
+}
+
+.ql-arrow {
   font-size: 32px;
-  color: #333;
+  color: #ccc;
+}
+
+.activity-section {
+  margin: 0 16px;
+  background: $card-bg;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.section-title {
+  display: block;
+  font-size: 28px;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 16px;
+}
+
+.activity-list {
+  max-height: 400px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px 0;
+  border-bottom: 1px solid $border-color;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.activity-icon {
+  font-size: 32px;
+  margin-right: 12px;
+  line-height: 1.4;
+}
+
+.activity-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-text {
+  display: block;
+  font-size: 26px;
+  color: $text-primary;
+  line-height: 1.4;
+}
+
+.activity-time {
+  display: block;
+  font-size: 22px;
+  color: $text-secondary;
+  margin-top: 4px;
+}
+
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  font-size: 26px;
+  color: $text-secondary;
 }

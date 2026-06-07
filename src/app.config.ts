@@ -73,7 +73,7 @@ export default defineAppConfig({
     },
     {
       root: 'pages/admin',
-      pages: ['index/index']
+      pages: ['index/index', 'users/index', 'reviews/index']
     },
     {
       root: 'pages/user',
