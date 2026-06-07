@@ -1,25 +1,49 @@
 import { View, Text } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
+import { useState } from 'react'
 import { usePointsStore } from '@/domains/marketing/store'
 import PointsFlow from '@/shared/components/marketing/PointsFlow'
-import Loading from '@/shared/components/Loading'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
 import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
 
 export default function Points() {
+  const { t } = useTranslation(['marketing', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const { pointsData, records, loading, loadPointsData, loadRecords } = usePointsStore()
+  const [error, setError] = useState(false)
   
   useLoad(() => {
-    loadPointsData()
-    loadRecords()
+    loadData()
   })
+
+  const loadData = async () => {
+    setError(false)
+    try {
+      await loadPointsData()
+      await loadRecords()
+    } catch {
+      setError(true)
+    }
+  }
+
+  const refresh = () => {
+    loadData()
+  }
   
   const handleCategoryChange = (category: string) => {
     loadRecords(category === 'all' ? undefined : category)
   }
   
   if (loading) {
-    return <Loading type='skeleton' rows={3} />
+    return <Skeleton type='card' rows={3} />
+  }
+
+  if (error) {
+    return <RetryButton onRetry={refresh} />
   }
   
   return (

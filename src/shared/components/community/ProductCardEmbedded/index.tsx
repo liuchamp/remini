@@ -25,6 +25,7 @@ export default function ProductCardEmbedded({ product }: ProductCardEmbeddedProp
         className='product-embedded-image'
         src={product.images?.[0] || ''}
         mode='aspectFill'
+        lazyLoad
       />
       <View className='product-embedded-info'>
         <Text className='product-embedded-title'>{product.title}</Text>

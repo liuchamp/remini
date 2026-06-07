@@ -4,10 +4,23 @@ import { useState, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWalletStore } from '@/domains/wallet/store'
 import { PaymentAccount } from '@/domains/wallet/api'
+import { useAuthStore } from '@/domains/auth/store'
 import './index.scss'
 
+const KYC_LIMITS: Record<'L0' | 'L1' | 'L2' | 'L3', number> = {
+  L0: 0,
+  L1: 0,
+  L2: 5000,
+  L3: 50000
+}
+
 export default function Withdraw() {
-  const { t } = useTranslation('wallet')
+  const { t, i18n } = useTranslation('wallet')
+  const isZh = i18n.language?.startsWith('zh')
+
+  const user = useAuthStore((s) => s.user)
+  const currentTier = user?.currentKycTier || 'L0'
+
   const {
     balance,
     paymentAccounts,
@@ -39,9 +52,13 @@ export default function Withdraw() {
   }, [withdrawSuccess, resetWithdraw, t])
 
   const availableBalance = balance?.availableBalance || 0
-  const maxWithdraw = Math.min(availableBalance, 5000)
+  const maxWithdraw = Math.min(availableBalance, KYC_LIMITS[currentTier])
 
   const validateAmount = useCallback((value: string) => {
+    if (KYC_LIMITS[currentTier] === 0) {
+      setAmountError(isZh ? '当前等级可提现额度为0，请先完成L2实名认证' : 'Current limit is 0. L2 verification required.')
+      return false
+    }
     const num = parseFloat(value)
     if (value === '' || isNaN(num)) {
       setAmountError('')
@@ -52,16 +69,20 @@ export default function Withdraw() {
       return false
     }
     if (num > maxWithdraw) {
-      if (availableBalance < 5000) {
+      if (availableBalance < KYC_LIMITS[currentTier]) {
         setAmountError(t('wallet.exceedBalance'))
       } else {
-        setAmountError(t('wallet.maxAmount'))
+        setAmountError(
+          isZh
+            ? `单笔最大提现限额为 ¥${KYC_LIMITS[currentTier]}`
+            : `Maximum withdraw limit is ¥${KYC_LIMITS[currentTier]}`
+        )
       }
       return false
     }
     setAmountError('')
     return true
-  }, [availableBalance, maxWithdraw, t])
+  }, [availableBalance, maxWithdraw, currentTier, t, isZh])
 
   const handleAmountChange = (e: any) => {
     const value = e.detail.value
@@ -95,11 +116,36 @@ export default function Withdraw() {
     return '**** **** **** ' + accountNo.slice(-4)
   }
 
-  const isSubmitDisabled = withdrawLoading || !amount || !!amountError || !selectedAccountId
+  const isSubmitDisabled = withdrawLoading || !amount || !!amountError || !selectedAccountId || maxWithdraw === 0
 
   return (
     <View className='withdraw-page'>
       <ScrollView className='withdraw-scroll' scrollY>
+        {/* KYC Upgrade Banner */}
+        {(currentTier === 'L0' || currentTier === 'L1') && (
+          <View className='kyc-warning-banner'>
+            <View className='banner-content'>
+              <Text className='banner-icon'>🔒</Text>
+              <View className='banner-text-group'>
+                <Text className='banner-title'>
+                  {isZh ? '提现功能受限' : 'Withdrawal Restricted'}
+                </Text>
+                <Text className='banner-desc'>
+                  {isZh
+                    ? '根据合规要求，您需要完成 L2 实名认证后才能进行提现。'
+                    : 'To comply with regulations, L2 verification is required to withdraw funds.'}
+                </Text>
+              </View>
+            </View>
+            <Button
+              className='banner-action-btn'
+              onClick={() => Taro.navigateTo({ url: '/pages/kyc/index/index' })}
+            >
+              {isZh ? '去认证' : 'Verify Now'}
+            </Button>
+          </View>
+        )}
+
         {/* Available Balance */}
         <View className='balance-section'>
           <View className='balance-card'>
@@ -124,13 +170,26 @@ export default function Withdraw() {
                 value={amount}
                 onInput={handleAmountChange}
                 maxlength={8}
-                disabled={withdrawLoading}
+                disabled={withdrawLoading || maxWithdraw === 0}
               />
             </View>
-            {amountError && <Text className='error-text'>{amountError}</Text>}
+            {maxWithdraw === 0 ? (
+              <Text className='error-text'>
+                {isZh ? '当前等级可提现额度为0，请先完成L2实名认证' : 'Current limit is 0. L2 verification required.'}
+              </Text>
+            ) : (
+              amountError && <Text className='error-text'>{amountError}</Text>
+            )}
             <View className='limit-hints'>
               <Text className='hint-item'>{t('wallet.minAmount')}</Text>
-              <Text className='hint-item'>{availableBalance < 5000 ? t('wallet.exceedBalance') : t('wallet.maxAmount')}</Text>
+              <Text className='hint-item'>
+                {availableBalance < KYC_LIMITS[currentTier]
+                  ? t('wallet.exceedBalance')
+                  : isZh
+                    ? `最大提现金额为 ¥${KYC_LIMITS[currentTier]}`
+                    : `Max withdraw limit is ¥${KYC_LIMITS[currentTier]}`
+                }
+              </Text>
             </View>
           </View>
         </View>

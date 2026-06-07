@@ -1,0 +1,24 @@
+.retry-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 32px;
+  
+  .retry-icon {
+    font-size: 80px;
+    margin-bottom: 24px;
+  }
+  .retry-message {
+    font-size: 28px;
+    color: #999;
+    margin-bottom: 32px;
+  }
+  .retry-action {
+    background: #1989fa;
+    color: #fff;
+    border-radius: 8px;
+    padding: 16px 48px;
+    font-size: 28px;
+  }
+}

@@ -3,10 +3,12 @@ import Taro from '@tarojs/taro'
 import { useState } from 'react'
 import { useAuthStore } from '@/domains/auth/store'
 import { PlatformAPI } from '@/shared/utils/platform'
+import { useTranslation } from 'react-i18next'
 import { http } from '@/shared/api/request'
 import './index.scss'
 
 export default function EditProfile() {
+  const { t } = useTranslation(['profile', 'common'])
   const { user, updateUser } = useAuthStore()
   const [nickname, setNickname] = useState(user?.username || '')
   const [bio, setBio] = useState(user?.bio || '')
@@ -26,7 +28,7 @@ export default function EditProfile() {
 
   const handleSave = async () => {
     if (!nickname.trim()) {
-      Taro.showToast({ title: '请输入昵称', icon: 'none' })
+      Taro.showToast({ title: t('profile:nicknamePlaceholder'), icon: 'none' })
       return
     }
     setSaving(true)
@@ -38,7 +40,7 @@ export default function EditProfile() {
       })
       if (res.code === 0) {
         updateUser({ username: nickname.trim(), avatar })
-        Taro.showToast({ title: '保存成功', icon: 'success' })
+        Taro.showToast({ title: t('common:app.saveSuccess'), icon: 'success' })
         Taro.navigateBack()
       }
     } catch {
@@ -52,25 +54,25 @@ export default function EditProfile() {
     <View className='edit-profile-page'>
       <View className='avatar-section' onClick={handleChooseAvatar}>
         <Image className='avatar' src={avatar || ''} mode='aspectFill' />
-        <Text className='avatar-hint'>点击更换头像</Text>
+        <Text className='avatar-hint'>{t('profile:avatarChangeHint')}</Text>
       </View>
 
       <View className='form-section'>
         <View className='form-group'>
-          <Text className='form-label'>昵称</Text>
+          <Text className='form-label'>{t('profile:nickname')}</Text>
           <Input
             className='form-input'
-            placeholder='请输入昵称'
+            placeholder={t('profile:nicknamePlaceholder')}
             value={nickname}
             onInput={(e) => setNickname(e.detail.value)}
             maxlength={20}
           />
         </View>
         <View className='form-group'>
-          <Text className='form-label'>简介</Text>
+          <Text className='form-label'>{t('profile:bio')}</Text>
           <Textarea
             className='form-textarea'
-            placeholder='写点什么介绍下自己...'
+            placeholder={t('profile:bioPlaceholder')}
             value={bio}
             onInput={(e) => setBio(e.detail.value)}
             maxlength={200}
@@ -85,7 +87,7 @@ export default function EditProfile() {
           loading={saving}
           disabled={saving}
         >
-          保存
+          {t('common:action.save')}
         </Button>
       </View>
     </View>

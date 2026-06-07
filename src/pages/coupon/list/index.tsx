@@ -1,9 +1,12 @@
 import { View, Text, ScrollView } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
 import Taro from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
+import { useState, useCallback } from 'react'
 import { useCouponStore } from '@/domains/marketing/store'
 import CouponCard from '@/shared/components/marketing/CouponCard'
-import Loading from '@/shared/components/Loading'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
 import Empty from '@/shared/components/Empty'
 import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
@@ -15,14 +18,31 @@ const TABS = [
 ]
 
 export default function CouponList() {
+  const { t } = useTranslation(['marketing', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const { coupons, activeTab, loading, loadCoupons, useCoupon } = useCouponStore()
+  const [error, setError] = useState(false)
+
+  const loadWithErrorHandling = useCallback(async (tab: string) => {
+    setError(false)
+    try {
+      await loadCoupons(tab)
+    } catch {
+      setError(true)
+    }
+  }, [loadCoupons])
+
+  const refresh = useCallback(() => {
+    loadWithErrorHandling(activeTab)
+  }, [activeTab, loadWithErrorHandling])
 
   useLoad(() => {
-    loadCoupons('active')
+    loadWithErrorHandling('active')
   })
 
   const handleTabChange = (tab: string) => {
-    loadCoupons(tab)
+    loadWithErrorHandling(tab)
   }
 
   const handleUse = async (couponId: string) => {
@@ -40,8 +60,12 @@ export default function CouponList() {
     }
   }
 
-  if (loading) {
-    return <Loading type='skeleton' rows={3} />
+  if (loading && coupons.length === 0) {
+    return <Skeleton type='card' rows={3} />
+  }
+
+  if (error) {
+    return <RetryButton onRetry={refresh} />
   }
 
   return (

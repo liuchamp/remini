@@ -52,7 +52,7 @@ export default function CommentList({ postId, comments }: CommentListProps) {
       <View className='comments'>
         {comments.map((comment) => (
           <View key={comment.id} className='comment-item'>
-            <Image className='comment-avatar' src={comment.user.avatar} mode='aspectFill' />
+            <Image className='comment-avatar' src={comment.user.avatar} mode='aspectFill' lazyLoad />
             <View className='comment-content'>
               <Text className='comment-author'>{comment.user.username}</Text>
               <Text className='comment-text'>{comment.content}</Text>
@@ -72,7 +72,7 @@ export default function CommentList({ postId, comments }: CommentListProps) {
                 <View className='replies'>
                   {comment.replies.map((reply) => (
                     <View key={reply.id} className='reply-item'>
-                      <Image className='reply-avatar' src={reply.user.avatar} mode='aspectFill' />
+                      <Image className='reply-avatar' src={reply.user.avatar} mode='aspectFill' lazyLoad />
                       <View className='reply-content'>
                         <Text className='reply-author'>{reply.user.username}</Text>
                         <Text className='reply-text'>{reply.content}</Text>

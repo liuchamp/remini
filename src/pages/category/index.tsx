@@ -1,10 +1,15 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import Taro, { useRouter } from '@tarojs/taro'
 import { View, Text, ScrollView, Image } from '@tarojs/components'
+import { useTranslation } from 'react-i18next'
 import { productApi } from '@/domains/product/api'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
+import Empty from '@/shared/components/Empty'
 import './index.scss'
 
 export default function Category() {
+  const { t } = useTranslation(['product', 'common'])
   const router = useRouter()
   const { id } = router.params
 
@@ -13,6 +18,7 @@ export default function Category() {
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const loadingRef = useRef(false)
 
   useEffect(() => {
@@ -37,19 +43,7 @@ export default function Category() {
     })
   }, [id])
 
-  useEffect(() => {
-    if (!id) return
-
-    setProducts([])
-    setPage(1)
-    setHasMore(true)
-    loadingRef.current = false
-
-    loadProducts(1, true)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
-
-  const loadProducts = async (pageNum: number, reset: boolean = false) => {
+  const loadProducts = useCallback(async (pageNum: number, reset: boolean = false) => {
     if (loadingRef.current) return
     loadingRef.current = true
     setLoading(true)
@@ -62,20 +56,63 @@ export default function Category() {
         setPage(pageNum + 1)
       }
     } catch {
+      if (reset) setError(true)
     } finally {
       loadingRef.current = false
       setLoading(false)
     }
-  }
+  }, [id])
 
-  const handleScrollToLower = () => {
+  const refresh = useCallback(() => {
+    setError(false)
+    setProducts([])
+    setPage(1)
+    setHasMore(true)
+    loadingRef.current = false
+    loadProducts(1, true)
+  }, [loadProducts])
+
+  const handleScrollToLower = useCallback(() => {
     if (hasMore && !loadingRef.current) {
       loadProducts(page)
     }
+  }, [hasMore, loadProducts, page])
+
+  const handleProductClick = useCallback((productId: string) => {
+    Taro.navigateTo({ url: `/pages/product/detail/index?id=${productId}` })
+  }, [])
+
+  useEffect(() => {
+    if (!id) return
+    setProducts([])
+    setPage(1)
+    setHasMore(true)
+    loadingRef.current = false
+    loadProducts(1, true)
+  }, [id, loadProducts])
+
+  if (loading && products.length === 0) {
+    return (
+      <ScrollView className='category-page' scrollY scrollWithAnimation>
+        <Skeleton type='card' rows={4} />
+      </ScrollView>
+    )
   }
 
-  const handleProductClick = (productId: string) => {
-    Taro.navigateTo({ url: `/pages/product/detail/index?id=${productId}` })
+  if (error) {
+    return (
+      <ScrollView className='category-page' scrollY scrollWithAnimation>
+        <RetryButton onRetry={refresh} />
+      </ScrollView>
+    )
+  }
+
+  if (!loading && products.length === 0) {
+    return (
+      <ScrollView className='category-page' scrollY scrollWithAnimation>
+        <Empty text={t('common:empty.list')} />
+      </ScrollView>
+    )
   }
 
   return (
@@ -86,7 +123,7 @@ export default function Category() {
       scrollWithAnimation
     >
       <View className='category-header'>
-        <Text>分类 - {categoryName || '加载中...'}</Text>
+        <Text>{t('product:category')} - {categoryName || t('common:loading')}</Text>
       </View>
 
       <View className='product-grid'>
@@ -107,7 +144,7 @@ export default function Category() {
               <View className='product-price-row'>
                 <Text className='product-price'>¥{product.price}</Text>
                 {product.isNegotiable && (
-                  <Text className='product-tag'>可议价</Text>
+                  <Text className='product-tag'>{t('product:negotiable')}</Text>
                 )}
               </View>
             </View>
@@ -117,13 +154,7 @@ export default function Category() {
 
       {loading && (
         <View className='loading-text'>
-          <Text>加载中...</Text>
-        </View>
-      )}
-
-      {!loading && products.length === 0 && (
-        <View className='loading-text'>
-          <Text>暂无商品</Text>
+          <Text>{t('common:loading')}</Text>
         </View>
       )}
     </ScrollView>

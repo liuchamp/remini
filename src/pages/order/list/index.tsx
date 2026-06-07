@@ -2,37 +2,63 @@ import { useState, useCallback } from 'react'
 import { View, Text, Image, ScrollView } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useLoad } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { tradeApi } from '@/domains/trade/api'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
+import Empty from '@/shared/components/Empty'
 import './index.scss'
 
-const TABS = [
-  { key: '', label: '全部' },
-  { key: 'pending_payment', label: '待付款' },
-  { key: 'paid', label: '已付款' },
-  { key: 'shipped', label: '待收货' },
-  { key: 'completed', label: '已完成' },
-]
+const TAB_KEYS = ['', 'pending_payment', 'paid', 'shipped', 'completed']
+const TAB_KEY_MAP: Record<string, string> = {
+  '': 'trade:orderStatus.all',
+  pending_payment: 'trade:orderStatus.pending',
+  paid: 'trade:orderStatus.paid',
+  shipped: 'trade:orderStatus.shipped',
+  completed: 'trade:orderStatus.completed',
+}
+const STATUS_KEY_MAP: Record<string, string> = {
+  pending_payment: 'trade:orderStatus.pending',
+  paid: 'trade:orderStatus.paid',
+  shipped: 'trade:orderStatus.shipped',
+  delivered: 'trade:orderStatus.delivered',
+  completed: 'trade:orderStatus.completed',
+  cancelled: 'trade:orderStatus.cancelled',
+  refunding: 'trade:orderStatus.refunding',
+  refunded: 'trade:orderStatus.refunded',
+  disputed: 'trade:orderStatus.disputed',
+}
 
-const STATUS_MAP: Record<string, { label: string; color: string }> = {
-  pending_payment: { label: '待付款', color: '#FF6B35' },
-  paid: { label: '已付款', color: '#07C160' },
-  shipped: { label: '待收货', color: '#4A90D9' },
-  delivered: { label: '已送达', color: '#07C160' },
-  completed: { label: '已完成', color: '#999' },
-  cancelled: { label: '已取消', color: '#999' },
-  refunding: { label: '退款中', color: '#FF6B35' },
-  refunded: { label: '已退款', color: '#999' },
-  disputed: { label: '争议中', color: '#E02020' },
+const STATUS_COLORS: Record<string, string> = {
+  pending_payment: '#FF6B35',
+  paid: '#07C160',
+  shipped: '#4A90D9',
+  delivered: '#07C160',
+  completed: '#999',
+  cancelled: '#999',
+  refunding: '#FF6B35',
+  refunded: '#999',
+  disputed: '#E02020',
 }
 
 export default function List() {
+  const { t } = useTranslation(['trade', 'common'])
   const [activeTab, setActiveTab] = useState(0)
   const [orders, setOrders] = useState<Order[]>([])
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const [loading, setLoading] = useState(false)
 
-  const statusKey = TABS[activeTab].key
+  const [error, setError] = useState(false)
+  const statusKey = TAB_KEYS[activeTab]
+
+  const refresh = useCallback(() => {
+    setError(false)
+    setOrders([])
+    setPage(1)
+    setHasMore(true)
+    fetchOrders(1, true)
+  }, [fetchOrders])
 
   const fetchOrders = useCallback(async (p: number, replace: boolean) => {
     if (loading) return
@@ -46,7 +72,8 @@ export default function List() {
         setPage(p)
       }
     } catch {
-      Taro.showToast({ title: '加载失败', icon: 'none' })
+      setError(true)
+      Taro.showToast({ title: t('common:error.serverError'), icon: 'none' })
     } finally {
       setLoading(false)
     }
@@ -85,11 +112,11 @@ export default function List() {
     try {
       const res = await tradeApi.confirmOrder(id)
       if (res.code === 0) {
-        Taro.showToast({ title: '确认成功', icon: 'success' })
+        Taro.showToast({ title: t('trade:confirmSuccess'), icon: 'success' })
         fetchOrders(1, true)
       }
     } catch {
-      Taro.showToast({ title: '操作失败', icon: 'none' })
+        Taro.showToast({ title: t('trade:operationFailed'), icon: 'none' })
     }
   }
 
@@ -98,11 +125,11 @@ export default function List() {
     try {
       const res = await tradeApi.cancelOrder(id)
       if (res.code === 0) {
-        Taro.showToast({ title: '已取消', icon: 'success' })
+        Taro.showToast({ title: t('trade:orderStatus.cancelled'), icon: 'success' })
         fetchOrders(1, true)
       }
     } catch {
-      Taro.showToast({ title: '操作失败', icon: 'none' })
+      Taro.showToast({ title: t('trade:operationFailed'), icon: 'none' })
     }
   }
 
@@ -110,17 +137,17 @@ export default function List() {
     const btns: { text: string; onClick: (e: any) => void; type: string }[] = []
     switch (order.status) {
       case 'pending_payment':
-        btns.push({ text: '取消订单', onClick: (e) => handleCancel(e, order.id), type: 'default' })
-        btns.push({ text: '去支付', onClick: (e) => handlePay(e, order.id), type: 'primary' })
+        btns.push({ text: t('trade:cancelOrder'), onClick: (e) => handleCancel(e, order.id), type: 'default' })
+        btns.push({ text: t('trade:goPay'), onClick: (e) => handlePay(e, order.id), type: 'primary' })
         break
       case 'paid':
-        btns.push({ text: '确认收货', onClick: (e) => handleConfirm(e, order.id), type: 'primary' })
+        btns.push({ text: t('trade:confirmReceipt'), onClick: (e) => handleConfirm(e, order.id), type: 'primary' })
         break
       case 'shipped':
-        btns.push({ text: '确认收货', onClick: (e) => handleConfirm(e, order.id), type: 'primary' })
+        btns.push({ text: t('trade:confirmReceipt'), onClick: (e) => handleConfirm(e, order.id), type: 'primary' })
         break
       case 'delivered':
-        btns.push({ text: '确认收货', onClick: (e) => handleConfirm(e, order.id), type: 'primary' })
+        btns.push({ text: t('trade:confirmReceipt'), onClick: (e) => handleConfirm(e, order.id), type: 'primary' })
         break
     }
     return btns
@@ -129,13 +156,13 @@ export default function List() {
   return (
     <View className='order-list-page'>
       <View className='tab-bar'>
-        {TABS.map((tab, index) => (
+        {TAB_KEYS.map((key, index) => (
           <View
-            key={tab.key}
+            key={key}
             className={`tab-item ${activeTab === index ? 'active' : ''}`}
             onClick={() => handleTabClick(index)}
           >
-            <Text className='tab-label'>{tab.label}</Text>
+            <Text className='tab-label'>{t(TAB_KEY_MAP[key] || 'trade:orderStatus.all')}</Text>
             {activeTab === index && <View className='tab-indicator' />}
           </View>
         ))}
@@ -147,26 +174,23 @@ export default function List() {
         onScrollToLower={handleScrollToLower}
         lowerThreshold={100}
       >
-        {orders.length === 0 && !loading && (
-          <View className='empty-state'>
-            <Text className='empty-icon'>📦</Text>
-            <Text className='empty-text'>暂无订单</Text>
-            <Text className='empty-hint'>去看看有什么值得买的吧</Text>
-          </View>
-        )}
-
-        {orders.map(order => {
-          const statusInfo = STATUS_MAP[order.status] || { label: order.status, color: '#999' }
-          return (
+        {loading ? (
+          <Skeleton type='list' rows={5} />
+        ) : error ? (
+          <RetryButton onRetry={refresh} />
+        ) : orders.length === 0 ? (
+          <Empty text={t('common:empty.list')} />
+        ) : (
+          orders.map(order => (
             <View
               key={order.id}
               className='order-card'
               onClick={() => handleOrderClick(order.id)}
             >
               <View className='order-header'>
-                <Text className='order-no'>订单号: {order.orderNo}</Text>
-                <Text className='order-status' style={{ color: statusInfo.color }}>
-                  {statusInfo.label}
+                <Text className='order-no'>{t('trade:orderNo')}{order.orderNo}</Text>
+                <Text className='order-status' style={{ color: STATUS_COLORS[order.status] || '#999' }}>
+                  {t(STATUS_KEY_MAP[order.status] || 'trade:orderStatus.' + order.status)}
                 </Text>
               </View>
 
@@ -203,17 +227,17 @@ export default function List() {
               )}
             </View>
           )
-        })}
+        ))}
 
         {loading && (
           <View className='loading-more'>
-            <Text>加载中...</Text>
+            <Text>{t('common:loading')}</Text>
           </View>
         )}
 
         {!hasMore && orders.length > 0 && (
           <View className='no-more'>
-            <Text>没有更多了</Text>
+            <Text>{t('common:app.noMore')}</Text>
           </View>
         )}
       </ScrollView>

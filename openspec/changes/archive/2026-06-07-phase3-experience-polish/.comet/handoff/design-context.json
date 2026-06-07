@@ -1,0 +1,18 @@
+{
+  "change": "phase3-experience-polish",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "d3fa33c0b191d2afbf9000ce800844bc8e5c198050a7a1a731a8193681d94afd",
+  "files": [
+    { "path": "openspec/changes/phase3-experience-polish/proposal.md", "sha256": "b6b8f4bbcb5dd652d28bb7541f9979fe7695343c1505909a2d632c8c205cf7f9" },
+    { "path": "openspec/changes/phase3-experience-polish/design.md", "sha256": "c5a5ea4fe28cd1c8a5b089f61f8ac75d5dc2b10127cc01dcc935460bd9b328ef" },
+    { "path": "openspec/changes/phase3-experience-polish/tasks.md", "sha256": "9bca16165d0f206c93874b8016f4f742fd3ce90806245c9c9bf48a22e49c94a2" },
+    { "path": "openspec/changes/phase3-experience-polish/specs/i18n-multi-lang/spec.md", "sha256": "2f66f71b99e3e6661e863e0fc21fdd0fc48a91e8ca3396e8f73fb36dcb9c7d45" },
+    { "path": "openspec/changes/phase3-experience-polish/specs/product-browse/spec.md", "sha256": "94f5de4db96b7f63d824654da6c0459ea442464d291feac8ac3702f0b69457e2" },
+    { "path": "openspec/changes/phase3-experience-polish/specs/share-poster/spec.md", "sha256": "ea3ef03b3db4312b5c0c1dd70e4a5064bfcf6b4618504bd0712e8617d9a543b7" },
+    { "path": "openspec/changes/phase3-experience-polish/specs/ui-feedback/spec.md", "sha256": "a845f821ac2666acb212674f7d9e9f6db2850762ab67990ad850eadb69fa277d" },
+    { "path": "openspec/changes/phase3-experience-polish/specs/user-profile/spec.md", "sha256": "0c632729f91e6437241daf07c0e9dedc68687d49ae1da1d8c77d81a4d6072b19" }
+  ]
+}

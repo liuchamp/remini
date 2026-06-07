@@ -13,6 +13,8 @@ import zhMarketing from './resources/zh-CN/marketing.json'
 import zhLogistics from './resources/zh-CN/logistics.json'
 import zhWallet from './resources/zh-CN/wallet.json'
 import zhKyc from './resources/zh-CN/kyc.json'
+import zhCommunity from './resources/zh-CN/community.json'
+import zhNotification from './resources/zh-CN/notification.json'
 import enCommon from './resources/en-US/common.json'
 import enAuth from './resources/en-US/auth.json'
 import enProduct from './resources/en-US/product.json'
@@ -24,12 +26,14 @@ import enMarketing from './resources/en-US/marketing.json'
 import enLogistics from './resources/en-US/logistics.json'
 import enWallet from './resources/en-US/wallet.json'
 import enKyc from './resources/en-US/kyc.json'
+import enCommunity from './resources/en-US/community.json'
+import enNotification from './resources/en-US/notification.json'
 
 const STORAGE_KEY = '@remx/locale'
 
 const resources = {
-  'zh-CN': { common: zhCommon, auth: zhAuth, product: zhProduct, trade: zhTrade, chat: zhChat, profile: zhProfile, validation: zhValidation, marketing: zhMarketing, logistics: zhLogistics, wallet: zhWallet, kyc: zhKyc },
-  'en-US': { common: enCommon, auth: enAuth, product: enProduct, trade: enTrade, chat: enChat, profile: enProfile, validation: enValidation, marketing: enMarketing, logistics: enLogistics, wallet: enWallet, kyc: enKyc }
+  'zh-CN': { common: zhCommon, auth: zhAuth, product: zhProduct, trade: zhTrade, chat: zhChat, profile: zhProfile, validation: zhValidation, marketing: zhMarketing, logistics: zhLogistics, wallet: zhWallet, kyc: zhKyc, community: zhCommunity, notification: zhNotification },
+  'en-US': { common: enCommon, auth: enAuth, product: enProduct, trade: enTrade, chat: enChat, profile: enProfile, validation: enValidation, marketing: enMarketing, logistics: enLogistics, wallet: enWallet, kyc: enKyc, community: enCommunity, notification: enNotification }
 }
 
 const getSystemLanguage = (): string => {
@@ -52,7 +56,7 @@ i18n.use(initReactI18next).init({
   lng: initialLang,
   fallbackLng: 'zh-CN',
   interpolation: { escapeValue: false },
-  ns: ['common', 'auth', 'product', 'trade', 'chat', 'profile', 'validation', 'marketing', 'logistics', 'wallet', 'kyc'],
+  ns: ['common', 'auth', 'product', 'trade', 'chat', 'profile', 'validation', 'marketing', 'logistics', 'wallet', 'kyc', 'community', 'notification'],
   defaultNS: 'common',
 })
 

@@ -2,10 +2,14 @@ import { View, Text, Input, Switch } from '@tarojs/components'
 import Taro, { useLoad, useRouter } from '@tarojs/taro'
 import { useState } from 'react'
 import { addressApi } from '@/domains/address/api'
+import { useTranslation } from 'react-i18next'
 import { useAddressStore } from '@/domains/address/store'
 import './index.scss'
 
 export default function Edit() {
+  const { t } = useTranslation(['logistics', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const router = useRouter()
   const id = router.params.id
   const isEdit = !!id

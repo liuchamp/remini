@@ -20,5 +20,22 @@
   "shareFailed": "Share failed",
   "albumPermission": "Album permission is required to save images",
   "scanToDownload": "Scan to download RE Marketplace",
-  "joinCommunity": "Join the pre-loved community"
+  "joinCommunity": "Join the pre-loved community",
+  "personCount": "{count} people",
+  "checkinTitle": "Daily Check-in",
+  "checkinSubtitle": "Earn points by checking in daily, more rewards for consecutive check-ins",
+  "checkinSuccess": "Checked in! +{points} points",
+  "checkinFailed": "Check-in failed",
+  "checkinRewards": "Check-in Rewards",
+  "checkinBasePoints": "Base Points",
+  "checkinContinuousReward": "Streak Bonus",
+  "pointsCurrent": "Current Points",
+  "pointsTodayEarned": "Today Earned",
+  "pointsMonthEarned": "This Month",
+  "couponTabActive": "Active",
+  "couponTabUsed": "Used",
+  "couponTabExpired": "Expired",
+  "couponUseSuccess": "Used successfully",
+  "couponUseFailed": "Use failed",
+  "couponEmpty": "No coupons"
 }

@@ -1,0 +1,27 @@
+{
+  "tab": {
+    "system": "System",
+    "transaction": "Transaction",
+    "marketing": "Marketing"
+  },
+  "status": {
+    "unread": "Unread",
+    "read": "Read"
+  },
+  "action": {
+    "markRead": "Mark as read",
+    "markAllRead": "Mark all as read",
+    "viewDetail": "View detail"
+  },
+  "empty": {
+    "system": "No system notifications",
+    "transaction": "No transaction notifications",
+    "marketing": "No marketing notifications"
+  },
+  "type": {
+    "order": "Order",
+    "offer": "Offer",
+    "promotion": "Promotion",
+    "system": "System"
+  }
+}

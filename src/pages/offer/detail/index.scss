@@ -1,8 +1,158 @@
-.page {
+.offer-action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 10px 20px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+
+  .btn-group {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .action-btn {
+    flex: 1;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+
+    &.accept {
+      background: #FF6B35;
+      color: #fff;
+    }
+
+    &.reject {
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    &.counter {
+      background: #ffe2d9;
+      color: #FF6B35;
+    }
+
+    &.withdraw {
+      background: #f5f5f5;
+      color: #666;
+    }
+  }
+}
+
+.counter-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
   align-items: center;
-  min-height: 100vh;
-  font-size: 32px;
+  justify-content: center;
+  z-index: 1000;
+
+  .counter-modal {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    Input {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 15px 0;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .modal-btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+
+      Button {
+        font-size: 14px;
+        height: 36px;
+        line-height: 36px;
+        padding: 0 20px;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+.offer-detail-page {
+  padding-bottom: 80px;
+}
+
+.offer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.offer-title {
+  font-size: 18px;
+  font-weight: bold;
   color: #333;
 }
+
+.offer-status {
+  background: #f5f5f5;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+.offer-status Text {
+  font-size: 13px;
+  color: #666;
+}
+
+.offer-info {
+  padding: 16px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.info-label {
+  font-size: 14px;
+  color: #999;
+}
+
+.info-value {
+  font-size: 14px;
+  color: #333;
+  max-width: 60%;
+  text-align: right;
+}
+
+.offer-price {
+  color: #FF6B35;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.counter-price {
+  color: #FF6B35;
+  font-weight: bold;
+}
+

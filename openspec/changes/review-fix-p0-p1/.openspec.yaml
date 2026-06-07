@@ -1,0 +1,4 @@
+name: review-fix-p0-p1
+version: 1.0.0
+description: 修复完整性评审报告中的 P0 (安全合规) 和 P1 (核心流程) 缺口
+status: draft

@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { View, Text, Image, ScrollView } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { sellerApi, type SellerProduct } from '@/domains/seller/api'
 import './index.scss'
 
@@ -17,6 +18,9 @@ const STATUS_LABELS: Record<string, string> = {
 }
 
 export default function ProductManage() {
+  const { t } = useTranslation(['product', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const [activeTab, setActiveTab] = useState(0)
   const [products, setProducts] = useState<SellerProduct[]>([])
   const [loading, setLoading] = useState(false)

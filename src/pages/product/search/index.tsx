@@ -1,185 +1,221 @@
 import Taro from '@tarojs/taro'
-import { View, Text, Input, ScrollView, Image } from '@tarojs/components'
-import { useState, useEffect } from 'react'
+import { View, Text, Input, ScrollView } from '@tarojs/components'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useDebounce } from '@/shared/hooks/useDebounce'
 import { productApi } from '@/domains/product/api'
+import { HotSearches } from '@/shared/components/product/HotSearches'
+import { FilterPanel, type FilterState } from '@/shared/components/product/FilterPanel'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
+import Empty from '@/shared/components/Empty'
+import { useTranslation } from 'react-i18next'
 import './index.scss'
 
 const HISTORY_KEY = 'searchHistory'
 const MAX_HISTORY = 10
+const HOT_CACHE_MS = 5 * 60 * 1000
 
 export default function Search() {
+  const { t } = useTranslation(['common'])
   const [keyword, setKeyword] = useState('')
   const [results, setResults] = useState<Product[]>([])
+  const [suggestions, setSuggestions] = useState<string[]>([])
+  const [hotSearches, setHotSearches] = useState<string[]>([])
+  const [searchHistory, setSearchHistory] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [hasSearched, setHasSearched] = useState(false)
-  const [searchHistory, setSearchHistory] = useState<string[]>([])
+  const [error, setError] = useState(false)
+  const [filterVisible, setFilterVisible] = useState(false)
+  const [filters, setFilters] = useState<FilterState>({})
+  const lastHotFetch = useRef<number>(0)
 
-  const debouncedKeyword = useDebounce(keyword, 500)
+  const debouncedKeyword = useDebounce(keyword, 300)
 
   useEffect(() => {
-    try {
-      const history = Taro.getStorageSync(HISTORY_KEY)
-      setSearchHistory(Array.isArray(history) ? history : [])
-    } catch {
-      setSearchHistory([])
+    async function init() {
+      try {
+        const history = Taro.getStorageSync(HISTORY_KEY)
+        setSearchHistory(Array.isArray(history) ? history : [])
+      } catch {
+        setSearchHistory([])
+      }
+      if (Date.now() - lastHotFetch.current >= HOT_CACHE_MS) {
+        try {
+          const res = await productApi.getHotSearches()
+          if (res.code === 0) {
+            setHotSearches((res.data as { keywords: string[] }).keywords || [])
+            lastHotFetch.current = Date.now()
+          }
+        } catch { /* silent */ }
+      }
     }
+    init()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     if (debouncedKeyword.trim()) {
-      performSearch(debouncedKeyword.trim())
+      fetchSuggest(debouncedKeyword.trim())
+      performSearch(debouncedKeyword.trim(), filters)
     } else {
+      setSuggestions([])
       setResults([])
       setHasSearched(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedKeyword])
 
-  const saveToHistory = (kw: string) => {
-    const updated = [kw, ...searchHistory.filter((h) => h !== kw)].slice(
-      0,
-      MAX_HISTORY
-    )
-    setSearchHistory(updated)
+  const fetchSuggest = useCallback(async (kw: string) => {
     try {
-      Taro.setStorageSync(HISTORY_KEY, updated)
-    } catch {
-      // storage full or unavailable
-    }
-  }
+      const res = await productApi.searchSuggest(kw)
+      if (res.code === 0) {
+        setSuggestions((res.data as { suggestions: string[] }).suggestions || [])
+      }
+    } catch { setSuggestions([]) }
+  }, [])
 
-  const performSearch = async (kw: string) => {
+  const saveToHistory = useCallback((kw: string) => {
+    setSearchHistory(prev => {
+      const updated = [kw, ...prev.filter((h) => h !== kw)].slice(0, MAX_HISTORY)
+      try { Taro.setStorageSync(HISTORY_KEY, updated) } catch { /* */ }
+      return updated
+    })
+  }, [])
+
+  const performSearch = useCallback(async (kw: string, f: FilterState) => {
     setLoading(true)
     setHasSearched(true)
+    setError(false)
     try {
-      const res = await productApi.search({ keyword: kw, page: 1, limit: 20 })
+      const res = await productApi.search({
+        keyword: kw,
+        page: 1,
+        limit: 20,
+        ...f
+      })
       if (res.code === 0) {
-        setResults(res.data.products)
+        setResults((res.data as { products: Product[] }).products || [])
       }
     } catch {
       setResults([])
+      setError(true)
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
 
-  const handleSearch = (kw: string) => {
+  const handleSearch = useCallback((kw: string) => {
     const trimmed = kw.trim()
     if (!trimmed) return
     saveToHistory(trimmed)
-    performSearch(trimmed)
-  }
+    setSuggestions([])
+  }, [saveToHistory])
 
-  const handleConfirm = (e: { detail: { value: string } }) => {
+  const handleConfirm = useCallback((e: { detail: { value: string } }) => {
     handleSearch(e.detail.value)
-  }
+  }, [handleSearch])
 
-  const handleHistoryTagClick = (kw: string) => {
+  const handleSelect = useCallback((kw: string) => {
     setKeyword(kw)
     handleSearch(kw)
-  }
+  }, [handleSearch])
 
-  const clearHistory = () => {
-    setSearchHistory([])
-    try {
-      Taro.setStorageSync(HISTORY_KEY, [])
-    } catch {
-      /* empty */
+  const handleApplyFilter = useCallback((newFilters: FilterState) => {
+    setFilters(newFilters)
+    setFilterVisible(false)
+    if (debouncedKeyword.trim()) {
+      performSearch(debouncedKeyword.trim(), newFilters)
     }
-  }
+  }, [debouncedKeyword, performSearch])
 
-  const handleProductClick = (id: string) => {
+  const clearHistory = useCallback(() => {
+    setSearchHistory([])
+    try { Taro.setStorageSync(HISTORY_KEY, []) } catch { /* */ }
+  }, [])
+
+  const handleProductClick = useCallback((id: string) => {
     Taro.navigateTo({ url: `/pages/product/detail/index?id=${id}` })
-  }
+  }, [])
 
   return (
     <View className='search-page'>
       <View className='search-header'>
         <Input
           className='search-input'
-          type='text'
-          placeholder='搜索商品'
+          placeholder={t('common:search.placeholder')}
           value={keyword}
           onInput={(e) => setKeyword(e.detail.value)}
           onConfirm={handleConfirm}
-          focus
-          confirmType='search'
         />
-        <Text
-          className='search-cancel'
-          onClick={() => Taro.navigateBack()}
-        >
-          取消
-        </Text>
+        <View className='search-cancel' onClick={() => Taro.navigateBack()}>
+          <Text>{t('common:action.cancel')}</Text>
+        </View>
       </View>
 
-      {!hasSearched && searchHistory.length > 0 && (
-        <View className='search-history'>
-          <View className='history-header'>
-            <Text className='history-title'>搜索历史</Text>
-            <Text className='history-clear' onClick={clearHistory}>
-              清除
-            </Text>
-          </View>
-          <View className='history-tags'>
-            {searchHistory.map((item) => (
-              <Text
-                key={item}
-                className='history-tag'
-                onClick={() => handleHistoryTagClick(item)}
-              >
-                {item}
-              </Text>
-            ))}
-          </View>
+      {!hasSearched && (
+        <ScrollView scrollY className='search-suggestions-area'>
+          <HotSearches keywords={hotSearches} onSelect={handleSelect} />
+          {searchHistory.length > 0 && (
+            <View className='search-history'>
+              <View className='history-header'>
+                <Text className='history-title'>{t('common:search.historyTitle')}</Text>
+                <Text className='history-clear' onClick={clearHistory}>{t('common:search.clear')}</Text>
+              </View>
+              <View className='history-chips'>
+                {searchHistory.map((h) => (
+                  <View key={h} className='history-chip' onClick={() => handleSelect(h)}>
+                    <Text>{h}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+          )}
+        </ScrollView>
+      )}
+
+      {hasSearched && suggestions.length > 0 && (
+        <View className='search-suggestions'>
+          {suggestions.map((s) => (
+            <View key={s} className='suggestion-item' onClick={() => handleSelect(s)}>
+              <Text>{s}</Text>
+            </View>
+          ))}
         </View>
       )}
 
       {hasSearched && (
-        <ScrollView className='search-results' scrollY>
-          {loading ? (
-            <View className='status-text'>加载中...</View>
-          ) : results.length > 0 ? (
-            <View className='product-grid'>
-              {results.map((product) => (
-                <View
-                  key={product.id}
-                  className='product-card'
-                  onClick={() => handleProductClick(product.id)}
-                >
-                  <Image
-                    src={product.images?.[0] || ''}
-                    className='product-image'
-                    mode='aspectFill'
-                    lazyLoad
-                  />
-                  <View className='product-info'>
-                    <Text className='product-title'>{product.title}</Text>
-                    <View className='product-price-row'>
-                      <Text className='product-price'>
-                        ¥{product.price}
-                      </Text>
-                      {product.isNegotiable && (
-                        <Text className='negotiable-tag'>可议价</Text>
-                      )}
-                    </View>
-                    {product.distance != null && (
-                      <Text className='product-distance'>
-                        {product.distance < 1
-                          ? `${Math.round(product.distance * 1000)}m`
-                          : `${product.distance.toFixed(1)}km`}
-                      </Text>
-                    )}
-                  </View>
-                </View>
-              ))}
+        <View className='search-results'>
+          <View className='results-toolbar'>
+            <Text className='toolbar-text'>{t('common:search.resultCount', { count: results.length })}</Text>
+            <View className='toolbar-filter' onClick={() => setFilterVisible(true)}>
+              <Text>{t('common:search.filter')}</Text>
             </View>
-          ) : (
-            <View className='status-text'>暂无搜索结果</View>
-          )}
-        </ScrollView>
+          </View>
+          <ScrollView scrollY className='results-list'>
+            {loading ? (
+              <Skeleton type='list' rows={5} />
+            ) : error ? (
+              <RetryButton onRetry={() => performSearch(keyword, filters)} />
+            ) : results.length === 0 ? (
+              <Empty text={t('common:empty.search')} />
+            ) : (
+              results.map((p) => (
+                <View key={p.id} className='result-item' onClick={() => handleProductClick(p.id)}>
+                  <Text className='result-title'>{p.title}</Text>
+                  <Text className='result-price'>¥{p.price}</Text>
+                </View>
+              ))
+            )}
+          </ScrollView>
+        </View>
       )}
+
+      <FilterPanel
+        visible={filterVisible}
+        value={filters}
+        onApply={handleApplyFilter}
+        onClose={() => setFilterVisible(false)}
+      />
     </View>
   )
 }

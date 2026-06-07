@@ -1,8 +1,11 @@
-import { useEffect, useCallback, useRef } from 'react'
+import { useEffect, useCallback, useRef, useState } from 'react'
 import { View, Text, ScrollView } from '@tarojs/components'
 import Taro, { useDidShow, useDidHide, usePullDownRefresh } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { useNotificationStore } from '@/domains/notification/store'
 import type { Notification } from '@/domains/notification/types'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
 import './index.scss'
 
 const TYPE_ICON_MAP: Record<string, string> = {
@@ -14,8 +17,21 @@ const TYPE_ICON_MAP: Record<string, string> = {
 const POLL_INTERVAL = 30000
 
 export default function Notification() {
+  const { t } = useTranslation(['notification', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const { notifications, unreadCount, loading, loadNotifications, markAsRead, markAllAsRead, loadUnreadCount } =
     useNotificationStore()
+  const [error, setError] = useState(false)
+
+  const refresh = useCallback(async () => {
+    setError(false)
+    try {
+      await loadNotifications('system')
+    } catch {
+      setError(true)
+    }
+  }, [loadNotifications])
   const pollTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const startPolling = useCallback(() => {
@@ -126,10 +142,14 @@ export default function Notification() {
           })
         }}
       >
-        {notifications.length === 0 ? (
+        {loading && notifications.length === 0 ? (
+          <Skeleton type='list' rows={5} />
+        ) : error ? (
+          <RetryButton onRetry={refresh} />
+        ) : notifications.length === 0 ? (
           <View className='empty-state'>
             <Text className='empty-icon'>📭</Text>
-            <Text className='empty-text'>暂无消息</Text>
+            <Text className='empty-text'>{t('common:empty.list')}</Text>
           </View>
         ) : (
           Object.entries(groups).map(([type, items]) => (

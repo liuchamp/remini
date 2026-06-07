@@ -1,4 +1,16 @@
 {
+  "currentTier": "Current Verification Level",
+  "completed": "Completed",
+  "goVerify": "Go Verify",
+  "statusFailed": "Failed to get verification status",
+  "tierL0Label": "L0-Basic",
+  "tierL0Desc": "Phone verification",
+  "tierL1Label": "L1-Primary",
+  "tierL1Desc": "ID card verification",
+  "tierL2Label": "L2-Intermediate",
+  "tierL2Desc": "Liveness detection",
+  "tierL3Label": "L3-Advanced",
+  "tierL3Desc": "Complete all verification",
   "identity": {
     "title": "Identity Verification",
     "subtitle": "Please upload front and back of your ID card for verification",

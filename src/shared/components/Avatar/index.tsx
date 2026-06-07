@@ -1,4 +1,5 @@
-import { View, Image, Text } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
+import LazyImage from '@/shared/components/LazyImage'
 import './index.scss'
 
 interface AvatarProps {
@@ -14,11 +15,13 @@ export default function Avatar({ src, name, size = 80 }: AvatarProps) {
 
   if (src) {
     return (
-      <Image
-        className='avatar'
+      <LazyImage
         src={src}
+        className='avatar'
         style={{ width: `${size}px`, height: `${size}px` }}
         mode='aspectFill'
+        round
+        showLoading={false}
       />
     )
   }

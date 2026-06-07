@@ -1,18 +1,38 @@
 import { View, Text } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
 import Taro from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
+import { useState } from 'react'
 import { useCheckinStore } from '@/domains/marketing/store'
 import CheckinCalendar from '@/shared/components/marketing/CheckinCalendar'
-import Loading from '@/shared/components/Loading'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
 import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
 
 export default function Checkin() {
+  const { t } = useTranslation(['marketing', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const { checkinData, loading, loadCheckinData, checkin } = useCheckinStore()
+  const [error, setError] = useState(false)
 
   useLoad(() => {
-    loadCheckinData()
+    loadData()
   })
+
+  const loadData = async () => {
+    setError(false)
+    try {
+      await loadCheckinData()
+    } catch {
+      setError(true)
+    }
+  }
+
+  const refresh = () => {
+    loadData()
+  }
 
   const handleCheckin = async () => {
     try {
@@ -32,7 +52,11 @@ export default function Checkin() {
   }
 
   if (loading) {
-    return <Loading type='skeleton' rows={3} />
+    return <Skeleton type='card' rows={3} />
+  }
+
+  if (error) {
+    return <RetryButton onRetry={refresh} />
   }
 
   return (

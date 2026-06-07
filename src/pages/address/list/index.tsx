@@ -1,9 +1,13 @@
 import { View, Text, ScrollView } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { useAddressStore } from '@/domains/address/store'
 import './index.scss'
 
 export default function List() {
+  const { t } = useTranslation(['logistics', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const { addresses, loading, loadList, remove, setDefault } = useAddressStore()
 
   useLoad(() => {

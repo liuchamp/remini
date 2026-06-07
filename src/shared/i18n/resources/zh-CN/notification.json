@@ -1,0 +1,27 @@
+{
+  "tab": {
+    "system": "系统",
+    "transaction": "交易",
+    "marketing": "营销"
+  },
+  "status": {
+    "unread": "未读",
+    "read": "已读"
+  },
+  "action": {
+    "markRead": "标记已读",
+    "markAllRead": "全部已读",
+    "viewDetail": "查看详情"
+  },
+  "empty": {
+    "system": "暂无系统通知",
+    "transaction": "暂无交易通知",
+    "marketing": "暂无营销通知"
+  },
+  "type": {
+    "order": "订单",
+    "offer": "出价",
+    "promotion": "活动",
+    "system": "系统"
+  }
+}

@@ -12,7 +12,7 @@ export default defineAppConfig({
   subPackages: [
     {
       root: 'pages/auth',
-      pages: ['login/index', 'register/index']
+      pages: ['login/index', 'register/index', 'challenge/index']
     },
     {
       root: 'pages/product',
@@ -80,7 +80,7 @@ export default defineAppConfig({
     },
     {
       root: 'pages/user',
-      pages: ['profile/index']
+      pages: ['profile/index', 'settings/index']
     },
     {
       root: 'pages/settings',
@@ -145,6 +145,10 @@ export default defineAppConfig({
     'pages/message/index': {
       network: 'all',
       packages: ['pages/chat']
+    },
+    'pages/profile/index': {
+      network: 'all',
+      packages: ['pages/order', 'pages/user']
     }
   },
   window: {

@@ -1,11 +1,15 @@
 import Taro, { useLoad } from '@tarojs/taro'
 import { View, Text, ScrollView, Image } from '@tarojs/components'
 import { useState, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '@/domains/auth/store'
 import { sellerApi, type SellerProduct } from '@/domains/seller/api'
 import './index.scss'
 
 export default function Listings() {
+  const { t } = useTranslation(['profile', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const { isLoggedIn } = useAuthStore()
   const [products, setProducts] = useState<SellerProduct[]>([])
   const [loading, setLoading] = useState(false)

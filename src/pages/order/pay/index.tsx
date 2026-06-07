@@ -2,10 +2,14 @@ import { useState } from 'react'
 import { View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useLoad, useRouter } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { tradeApi } from '@/domains/trade/api'
 import './index.scss'
 
 export default function Pay() {
+  const { t } = useTranslation(['trade', 'common'])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  void t
   const router = useRouter()
   const [order, setOrder] = useState<Order | null>(null)
   const [paying, setPaying] = useState(false)

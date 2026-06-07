@@ -1,0 +1,26 @@
+.lang-switcher-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  background: #fff;
+
+  .lang-label {
+    font-size: 28px;
+    color: #333;
+  }
+  .lang-value {
+    font-size: 28px;
+    color: #999;
+  }
+}
+
+.lang-switcher-inline {
+  display: inline-block;
+  padding: 8px 16px;
+
+  .lang-text {
+    font-size: 26px;
+    color: #1989fa;
+  }
+}

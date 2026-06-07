@@ -1,17 +1,19 @@
 import { useState, useEffect, useCallback } from 'react'
 import { View, Text, ScrollView } from '@tarojs/components'
 import Taro, { useLoad, useDidShow } from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
 import { useWalletStore } from '@/domains/wallet/store'
 import './index.scss'
 
-const TX_TYPE_MAP: Record<string, { label: string; color: string; prefix: string }> = {
-  hold: { label: '冻结', color: '#FF6B35', prefix: '-' },
-  release: { label: '解冻', color: '#07C160', prefix: '+' },
-  refund: { label: '退款', color: '#4A90D9', prefix: '+' },
-  withdraw: { label: '提现', color: '#E02020', prefix: '-' },
+const TX_TYPE_CONFIG: Record<string, { color: string; prefix: string }> = {
+  hold: { color: '#FF6B35', prefix: '-' },
+  release: { color: '#07C160', prefix: '+' },
+  refund: { color: '#4A90D9', prefix: '+' },
+  withdraw: { color: '#E02020', prefix: '-' },
 }
 
 export default function WalletIndex() {
+  const { t } = useTranslation(['wallet', 'common'])
   const {
     balance,
     transactions,
@@ -61,7 +63,9 @@ export default function WalletIndex() {
   }
 
   const getTxInfo = (record: TransactionRecord) => {
-    return TX_TYPE_MAP[record.type] || { label: record.type, color: '#999', prefix: '' }
+    const cfg = TX_TYPE_CONFIG[record.type] || { color: '#999', prefix: '' }
+    const labelMap: Record<string, string> = { hold: 'wallet:wallet.heldBalance', release: 'wallet:wallet.totalEarned', refund: 'wallet:wallet.totalEarned', withdraw: 'wallet:wallet.withdraw' }
+    const label = t(labelMap[record.type] || 'wallet:wallet.transactions')
   }
 
   return (
@@ -69,7 +73,7 @@ export default function WalletIndex() {
       {/* Balance Header */}
       <View className='balance-header'>
         <View className='balance-card'>
-          <Text className='balance-label'>可用余额(元)</Text>
+          <Text className='balance-label'>{t('wallet:wallet.availableBalanceLabel')}</Text>
           <View className='balance-amount'>
             <Text className='amount-symbol'>¥</Text>
             <Text className='amount-value'>
@@ -78,13 +82,13 @@ export default function WalletIndex() {
           </View>
           <View className='balance-details'>
             <View className='detail-item'>
-              <Text className='detail-label'>冻结金额</Text>
+              <Text className='detail-label'>{t('wallet:wallet.heldBalance')}</Text>
               <Text className='detail-value'>
                 ¥{balance ? formatAmount(balance.heldBalance) : '--'}
               </Text>
             </View>
             <View className='detail-item'>
-              <Text className='detail-label'>累计收益</Text>
+              <Text className='detail-label'>{t('wallet:wallet.totalEarned')}</Text>
               <Text className='detail-value'>
                 ¥{balance ? formatAmount(balance.totalEarned) : '--'}
               </Text>
@@ -97,26 +101,26 @@ export default function WalletIndex() {
       <View className='quick-actions'>
         <View className='action-btn primary' onClick={handleWithdraw}>
           <Text className='action-icon'>💳</Text>
-          <Text className='action-text'>提现</Text>
+          <Text className='action-text'>{t('wallet:wallet.withdraw')}</Text>
         </View>
         <View className='action-btn' onClick={handleBindCard}>
           <Text className='action-icon'>🔗</Text>
-          <Text className='action-text'>绑定账户</Text>
+          <Text className='action-text'>{t('wallet:wallet.bindAccount')}</Text>
         </View>
         <View className='action-btn'>
           <Text className='action-icon'>📊</Text>
-          <Text className='action-text'>账单</Text>
+          <Text className='action-text'>{t('wallet:wallet.bill')}</Text>
         </View>
         <View className='action-btn'>
           <Text className='action-icon'>🔒</Text>
-          <Text className='action-text'>安全</Text>
+          <Text className='action-text'>{t('wallet:wallet.security')}</Text>
         </View>
       </View>
 
       {/* Transaction List */}
       <View className='tx-section'>
         <View className='section-header'>
-          <Text className='section-title'>交易记录</Text>
+          <Text className='section-title'>{t('wallet:wallet.transactions')}</Text>
         </View>
 
         <ScrollView
@@ -128,7 +132,7 @@ export default function WalletIndex() {
           {transactions.length === 0 && !loading && (
             <View className='empty-state'>
               <Text className='empty-icon'>📭</Text>
-              <Text className='empty-text'>暂无交易记录</Text>
+              <Text className='empty-text'>{t('wallet:wallet.noTransactions')}</Text>
             </View>
           )}
 
@@ -154,13 +158,13 @@ export default function WalletIndex() {
 
           {loading && (
             <View className='loading-more'>
-              <Text>加载中...</Text>
+              <Text>{t('common:loading')}</Text>
             </View>
           )}
 
           {!transactionsHasMore && transactions.length > 0 && (
             <View className='no-more'>
-              <Text>没有更多了</Text>
+              <Text>{t('common:app.noMore')}</Text>
             </View>
           )}
         </ScrollView>

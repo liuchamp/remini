@@ -1,0 +1,59 @@
+.poster-mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poster-content {
+  width: 90%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+}
+
+.poster-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  .poster-title {
+    font-size: 32px;
+    font-weight: 600;
+  }
+  .poster-close {
+    font-size: 48px;
+    color: #999;
+    line-height: 1;
+  }
+}
+
+.poster-loading, .poster-error {
+  text-align: center;
+  padding: 80px 0;
+  font-size: 28px;
+  color: #666;
+}
+
+.poster-preview {
+  .poster-image {
+    width: 100%;
+    border-radius: 8px;
+  }
+  .poster-save-btn {
+    margin-top: 24px;
+    background: #1989fa;
+    color: #fff;
+    border-radius: 8px;
+  }
+}
+
+.poster-canvas {
+  visibility: hidden;
+}

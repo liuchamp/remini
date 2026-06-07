@@ -1,0 +1,40 @@
+.challenge-page {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .header {
+    margin-bottom: 40px;
+    text-align: center;
+
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #999;
+      margin-top: 10px;
+      display: block;
+    }
+  }
+
+  .code-input {
+    border-bottom: 2px solid #ccc;
+    font-size: 32px;
+    text-align: center;
+    width: 200px;
+    margin-bottom: 40px;
+    letter-spacing: 5px;
+  }
+
+  .verify-btn {
+    width: 100%;
+    background-color: #FF6B35;
+    color: white;
+    border-radius: 4px;
+  }
+}

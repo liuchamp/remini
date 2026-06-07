@@ -1,4 +1,16 @@
 {
+  "currentTier": "当前认证等级",
+  "completed": "已完成",
+  "goVerify": "去认证",
+  "statusFailed": "获取认证状态失败",
+  "tierL0Label": "L0-基础认证",
+  "tierL0Desc": "手机号验证",
+  "tierL1Label": "L1-初级认证",
+  "tierL1Desc": "身份证信息认证",
+  "tierL2Label": "L2-中级认证",
+  "tierL2Desc": "活体检测",
+  "tierL3Label": "L3-高级认证",
+  "tierL3Desc": "完成全部认证",
   "identity": {
     "title": "身份认证",
     "subtitle": "请上传身份证正反面照片进行实名认证",
