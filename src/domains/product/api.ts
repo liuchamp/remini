@@ -31,6 +31,14 @@ export const productApi = {
   search(params: ProductListParams) {
     return http.get<{ products: Product[]; total: number; hasMore: boolean }>('/products/search', params)
   },
+
+  searchSuggest(keyword: string) {
+    return http.get<{ suggestions: string[] }>('/product/search/suggest', { keyword })
+  },
+
+  getHotSearches() {
+    return http.get<{ keywords: string[] }>('/product/search/hot')
+  },
   getCategories() {
     return http.get<Category[]>('/categories')
   },
