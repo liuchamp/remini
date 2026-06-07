@@ -1,3 +1,4 @@
 export default definePageConfig({
-  navigationBarTitleText: '物流追踪'
+  navigationBarTitleText: '物流详情',
+  navigationBarBackgroundColor: '#ffffff'
 })
