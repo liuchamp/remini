@@ -145,6 +145,10 @@ export default defineAppConfig({
     'pages/message/index': {
       network: 'all',
       packages: ['pages/chat']
+    },
+    'pages/profile/index': {
+      network: 'all',
+      packages: ['pages/order', 'pages/user']
     }
   },
   window: {
