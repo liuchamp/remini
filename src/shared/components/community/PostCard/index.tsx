@@ -50,14 +50,14 @@ export default function PostCard({ post, onClick }: PostCardProps) {
       {post.images && post.images.length > 0 && (
         <View className='post-images'>
           {post.images.slice(0, 3).map((img, i) => (
-            <Image key={i} className='post-image' src={img} mode='aspectFill' />
+            <Image key={i} className='post-image' src={img} mode='aspectFill' lazyLoad />
           ))}
         </View>
       )}
 
       {post.product && (
         <View className='product-embed'>
-          <Image className='product-cover' src={post.product.cover} mode='aspectFill' />
+          <Image className='product-cover' src={post.product.cover} mode='aspectFill' lazyLoad />
           <View className='product-info'>
             <Text className='product-title'>{post.product.title}</Text>
             <Text className='product-price'>¥{post.product.price}</Text>
