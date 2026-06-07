@@ -3,6 +3,9 @@ import Taro, { useRouter } from '@tarojs/taro'
 import { View, Text, ScrollView, Image } from '@tarojs/components'
 import { useTranslation } from 'react-i18next'
 import { productApi } from '@/domains/product/api'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
+import Empty from '@/shared/components/Empty'
 import './index.scss'
 
 export default function Category() {
@@ -15,6 +18,7 @@ export default function Category() {
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const loadingRef = useRef(false)
 
   useEffect(() => {
@@ -64,10 +68,20 @@ export default function Category() {
         setPage(pageNum + 1)
       }
     } catch {
+      if (reset) setError(true)
     } finally {
       loadingRef.current = false
       setLoading(false)
     }
+  }
+
+  const refresh = () => {
+    setError(false)
+    setProducts([])
+    setPage(1)
+    setHasMore(true)
+    loadingRef.current = false
+    loadProducts(1, true)
   }
 
   const handleScrollToLower = () => {
@@ -78,6 +92,30 @@ export default function Category() {
 
   const handleProductClick = (productId: string) => {
     Taro.navigateTo({ url: `/pages/product/detail/index?id=${productId}` })
+  }
+
+  if (loading && products.length === 0) {
+    return (
+      <ScrollView className='category-page' scrollY scrollWithAnimation>
+        <Skeleton type='card' rows={4} />
+      </ScrollView>
+    )
+  }
+
+  if (error) {
+    return (
+      <ScrollView className='category-page' scrollY scrollWithAnimation>
+        <RetryButton onRetry={refresh} />
+      </ScrollView>
+    )
+  }
+
+  if (!loading && products.length === 0) {
+    return (
+      <ScrollView className='category-page' scrollY scrollWithAnimation>
+        <Empty text={t('common:empty.list')} />
+      </ScrollView>
+    )
   }
 
   return (
@@ -120,12 +158,6 @@ export default function Category() {
       {loading && (
         <View className='loading-text'>
           <Text>{t('common:loading')}</Text>
-        </View>
-      )}
-
-      {!loading && products.length === 0 && (
-        <View className='loading-text'>
-          <Text>{t('product:noProducts')}</Text>
         </View>
       )}
     </ScrollView>
