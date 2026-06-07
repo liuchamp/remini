@@ -1,10 +1,12 @@
 import { View, Text, ScrollView } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
 import { useTranslation } from 'react-i18next'
+import { useState, useRef } from 'react'
 import { usePostStore } from '@/domains/community/store'
 import PostCard from '@/shared/components/community/PostCard'
 import CommentList from '@/shared/components/community/CommentList'
-import Loading from '@/shared/components/Loading'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
 import Empty from '@/shared/components/Empty'
 import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
@@ -14,17 +16,37 @@ export default function Post() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   void t
   const { currentPost: post, comments, loading, loadPost, loadComments, likePost, collectPost } = usePostStore()
+  const [error, setError] = useState(false)
+  const postIdRef = useRef('')
 
   useLoad((options) => {
-    const id = options?.id
+    const id = options?.id || ''
     if (id) {
-      loadPost(id)
-      loadComments(id)
+      postIdRef.current = id
+      loadData(id)
     }
   })
 
+  const loadData = async (id: string) => {
+    setError(false)
+    try {
+      await loadPost(id)
+      await loadComments(id)
+    } catch {
+      setError(true)
+    }
+  }
+
+  const refresh = () => {
+    if (postIdRef.current) loadData(postIdRef.current)
+  }
+
   if (loading) {
-    return <Loading type='skeleton' rows={4} />
+    return <Skeleton type='detail' rows={4} />
+  }
+
+  if (error) {
+    return <RetryButton onRetry={refresh} />
   }
 
   if (!post) {
