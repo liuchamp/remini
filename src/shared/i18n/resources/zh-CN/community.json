@@ -1,0 +1,38 @@
+{
+  "feed": {
+    "tabRecommend": "推荐",
+    "tabFollow": "关注",
+    "tabCircle": "圈子",
+    "emptyText": "还没有内容",
+    "pullRefresh": "下拉刷新",
+    "release": "发布"
+  },
+  "post": {
+    "title": "帖子详情",
+    "commentPlaceholder": "说点什么吧...",
+    "replyPlaceholder": "回复 @{user}:",
+    "likeCount": "{count} 赞",
+    "commentCount": "{count} 评论",
+    "shareCount": "{count} 分享"
+  },
+  "create": {
+    "title": "发布帖子",
+    "contentPlaceholder": "分享你的想法...（500字以内）",
+    "addImage": "添加图片",
+    "selectCircle": "选择圈子",
+    "submit": "发布",
+    "submitting": "发布中...",
+    "success": "发布成功",
+    "sensitiveWord": "内容包含敏感词，请修改"
+  },
+  "circle": {
+    "join": "加入",
+    "joined": "已加入",
+    "members": "{count} 成员"
+  },
+  "comment": {
+    "submit": "发送",
+    "delete": "删除",
+    "confirmDelete": "确定删除此评论？"
+  }
+}
