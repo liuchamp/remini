@@ -5,6 +5,10 @@ import { useDebounce } from '@/shared/hooks/useDebounce'
 import { productApi } from '@/domains/product/api'
 import { HotSearches } from '@/shared/components/product/HotSearches'
 import { FilterPanel, type FilterState } from '@/shared/components/product/FilterPanel'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { RetryButton } from '@/shared/components/RetryButton'
+import Empty from '@/shared/components/Empty'
+import { useTranslation } from 'react-i18next'
 import './index.scss'
 
 const HISTORY_KEY = 'searchHistory'
@@ -12,6 +16,7 @@ const MAX_HISTORY = 10
 const HOT_CACHE_MS = 5 * 60 * 1000
 
 export default function Search() {
+  const { t } = useTranslation(['common'])
   const [keyword, setKeyword] = useState('')
   const [results, setResults] = useState<Product[]>([])
   const [suggestions, setSuggestions] = useState<string[]>([])
@@ -19,6 +24,7 @@ export default function Search() {
   const [searchHistory, setSearchHistory] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [hasSearched, setHasSearched] = useState(false)
+  const [error, setError] = useState(false)
   const [filterVisible, setFilterVisible] = useState(false)
   const [filters, setFilters] = useState<FilterState>({})
   const lastHotFetch = useRef<number>(0)
@@ -76,6 +82,7 @@ export default function Search() {
   const performSearch = async (kw: string, f: FilterState) => {
     setLoading(true)
     setHasSearched(true)
+    setError(false)
     try {
       const res = await productApi.search({
         keyword: kw,
@@ -88,6 +95,7 @@ export default function Search() {
       }
     } catch {
       setResults([])
+      setError(true)
     } finally {
       setLoading(false)
     }
@@ -181,14 +189,19 @@ export default function Search() {
             </View>
           </View>
           <ScrollView scrollY className='results-list'>
-            {results.map((p) => (
-              <View key={p.id} className='result-item' onClick={() => handleProductClick(p.id)}>
-                <Text className='result-title'>{p.title}</Text>
-                <Text className='result-price'>¥{p.price}</Text>
-              </View>
-            ))}
-            {results.length === 0 && !loading && (
-              <View className='result-empty'>暂无相关商品</View>
+            {loading ? (
+              <Skeleton type='list' rows={5} />
+            ) : error ? (
+              <RetryButton onRetry={() => performSearch(keyword, filters)} />
+            ) : results.length === 0 ? (
+              <Empty text={t('common:empty.search')} />
+            ) : (
+              results.map((p) => (
+                <View key={p.id} className='result-item' onClick={() => handleProductClick(p.id)}>
+                  <Text className='result-title'>{p.title}</Text>
+                  <Text className='result-price'>¥{p.price}</Text>
+                </View>
+              ))
             )}
           </ScrollView>
         </View>
