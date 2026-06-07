@@ -1,0 +1,38 @@
+{
+  "feed": {
+    "tabRecommend": "Recommended",
+    "tabFollow": "Following",
+    "tabCircle": "Circles",
+    "emptyText": "No content yet",
+    "pullRefresh": "Pull to refresh",
+    "release": "Post"
+  },
+  "post": {
+    "title": "Post",
+    "commentPlaceholder": "Say something...",
+    "replyPlaceholder": "Reply to @{user}:",
+    "likeCount": "{count} likes",
+    "commentCount": "{count} comments",
+    "shareCount": "{count} shares"
+  },
+  "create": {
+    "title": "Create Post",
+    "contentPlaceholder": "Share your thoughts... (max 500 chars)",
+    "addImage": "Add Image",
+    "selectCircle": "Select Circle",
+    "submit": "Post",
+    "submitting": "Posting...",
+    "success": "Posted successfully",
+    "sensitiveWord": "Content contains sensitive words"
+  },
+  "circle": {
+    "join": "Join",
+    "joined": "Joined",
+    "members": "{count} members"
+  },
+  "comment": {
+    "submit": "Send",
+    "delete": "Delete",
+    "confirmDelete": "Delete this comment?"
+  }
+}
