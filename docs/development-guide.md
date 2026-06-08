@@ -10,6 +10,17 @@ pnpm install
 pnpm prepare
 ```
 
+### 环境变量文件
+
+| 文件 | 用途 | 状态 |
+|------|------|------|
+| `.env.development` | 开发环境配置 | ✅ 已创建 |
+| `.env.production` | 生产环境配置 | ✅ 已创建 |
+| `.env.test` | 测试环境配置 | ✅ 已创建 |
+
+> 配置参考：[Taro 环境变量文档](https://taro-docs.jd.com/docs/next/env-mode-config)
+> 通过 `process.env.TARO_ENV` 获取当前编译平台。
+
 ## 开发命令
 
 ### 本地开发（带热更新）
@@ -179,13 +190,3 @@ Husky + lint-staged 自动执行：
 - 主题色通过 `src/styles/variables.scss` 的 CSS 变量控制
 - NutUI 组件覆盖写在 `src/styles/nutui-override.scss`
 - 页面样式遵循 BEM 命名风格
-
-## 环境变量
-
-| 文件 | 用途 |
-|------|------|
-| `.env.development` | 开发环境配置 |
-| `.env.production` | 生产环境配置 |
-| `.env.test` | 测试环境配置 |
-
-通过 `process.env.TARO_ENV` 获取当前编译平台。

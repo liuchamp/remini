@@ -1,5 +1,11 @@
 # REMX Mini App 页面详细规格
 
+> **⚠️ 参考文档：** 本文件详细描述了每个页面的交互流程和 API 调用，大多数内容与当前实现一致。
+>
+> 部分页面路由路径可能已调整，**最终路由以 `src/app.config.ts` 为准**。例如：
+> - `/pages/home/index` → 实际为 `pages/index/index`
+> - `/pages/message/chat` → 实际为 `pages/chat/conversation`
+
 > 每个页面的参数、交互流程、API 调用详细说明
 
 ---

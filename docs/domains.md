@@ -6,21 +6,23 @@
 
 ```
 src/domains/
-├── address/       # 地址管理
-├── admin/         # 管理后台
-├── auth/          # 用户认证
-├── chat/          # 即时通讯
-├── community/     # 社区社交
-├── kyc/           # 实名认证 (KYC)
-├── marketing/     # 营销工具
-├── notification/  # 通知中心
-├── product/       # 商品管理
-├── seller/        # 卖家中心
-├── shipping/      # 物流配送
-├── trade/         # 交易订单 + 支付策略
-├── user/          # 用户信息
-└── wallet/        # 钱包财务
+├── address/      # 地址管理
+├── admin/        # 管理后台
+├── auth/         # 用户认证
+├── chat/         # 即时通讯
+├── community/    # 社区社交
+├── kyc/          # 实名认证 (KYC)
+├── marketing/    # 营销工具
+├── notification/ # 通知中心
+├── product/      # 商品管理
+├── seller/       # 卖家中心
+├── shipping/     # 物流配送
+├── trade/        # 交易订单 + 支付策略 + 出价
+├── user/         # 用户信息
+└── wallet/       # 钱包财务
 ```
+
+> **注意：** `offer`（出价/议价）和 `payment`（支付策略）不是独立领域模块，而是 `trade/` 领域的子模块（`offer.ts`, `payment/` 目录）。
 
 ---
 
@@ -72,13 +74,6 @@ src/domains/
 | `types.ts` | 订单/出价类型定义 |
 | `payment/` | 支付策略（按平台隔离） |
 
-**支付策略：**
-| 文件 | 适用平台 |
-|------|----------|
-| `payment.weapp.ts` | 微信小程序支付 |
-| `payment.alipay.ts` | 支付宝小程序支付 |
-| `payment.h5.ts` | H5 支付 |
-
 ---
 
 ## 5. address — 地址管理
@@ -103,7 +98,7 @@ src/domains/
 | 文件 | 说明 |
 |------|------|
 | `api.ts` | 钱包余额/流水/提现 API |
-| `store.ts` | 钱包信息状态 |
+| `store.ts` | 钱包信息、交易记录状态 |
 
 ---
 
@@ -124,6 +119,7 @@ src/domains/
 |------|------|
 | `api.ts` | Feed 流/帖子/评论/点赞/收藏 API |
 | `store.ts` | Feed 列表、帖子详情状态 |
+| `types.ts` | 社区帖子、圈子类型定义 |
 
 ---
 
@@ -133,6 +129,7 @@ src/domains/
 |------|------|
 | `api.ts` | 通知列表/已读 API |
 | `store.ts` | 通知列表/未读数状态 |
+| `types.ts` | 通知类型定义（系统通知/交易通知/互动通知） |
 
 ---
 

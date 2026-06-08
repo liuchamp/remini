@@ -17,7 +17,7 @@
 
 ## 命名空间
 
-资源按领域划分为 8 个命名空间（namespace）：
+资源按领域划分为 **13 个命名空间**（namespace）：
 
 | 命名空间 | 包含内容 |
 |----------|----------|
@@ -29,6 +29,11 @@
 | `profile` | 个人中心相关 |
 | `validation` | 表单验证提示 |
 | `marketing` | 营销相关（签到/积分/优惠券） |
+| `logistics` | 物流相关 |
+| `wallet` | 钱包/财务相关 |
+| `kyc` | 实名认证相关 |
+| `community` | 社区社交相关 |
+| `notification` | 通知相关 |
 
 ## 使用方法
 
@@ -115,11 +120,28 @@ t('common:itemsCount', { count: items.length })
 
 ```typescript
 import jaCommon from './resources/ja-JP/common.json'
-// ... 其他命名空间
+import jaAuth from './resources/ja-JP/auth.json'
+import jaProduct from './resources/ja-JP/product.json'
+import jaTrade from './resources/ja-JP/trade.json'
+import jaChat from './resources/ja-JP/chat.json'
+import jaProfile from './resources/ja-JP/profile.json'
+import jaValidation from './resources/ja-JP/validation.json'
+import jaMarketing from './resources/ja-JP/marketing.json'
+import jaLogistics from './resources/ja-JP/logistics.json'
+import jaWallet from './resources/ja-JP/wallet.json'
+import jaKyc from './resources/ja-JP/kyc.json'
+import jaCommunity from './resources/ja-JP/community.json'
+import jaNotification from './resources/ja-JP/notification.json'
 
 const resources = {
   'zh-CN': { /* ... */ },
   'en-US': { /* ... */ },
-  'ja-JP': { common: jaCommon, /* ... */ }
+  'ja-JP': {
+    common: jaCommon, auth: jaAuth, product: jaProduct,
+    trade: jaTrade, chat: jaChat, profile: jaProfile,
+    validation: jaValidation, marketing: jaMarketing,
+    logistics: jaLogistics, wallet: jaWallet, kyc: jaKyc,
+    community: jaCommunity, notification: jaNotification,
+  }
 }
 ```

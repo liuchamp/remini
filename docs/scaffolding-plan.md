@@ -1,5 +1,9 @@
 # REMX Taro Mini App Scaffolding Plan
 
+> **⚠️ 历史文档：** 本文件是项目早期脚手架阶段（openspec `remx-taro-marketplace`）的规划文档。当时计划采用 `stores/` + `services/` + `components/` 的平铺结构。
+>
+> **当前项目实际采用** `domains/`（领域模块）+ `pages/`（页面层）+ `shared/`（共享层）的 **DDD 风格分层架构**，与本规划的结构有较大差异。此文档仅作为历史参考保留。
+
 > Based on openspec change `remx-taro-marketplace` - project structure to scaffold after specs complete.
 
 ## 1. Dependencies to Install

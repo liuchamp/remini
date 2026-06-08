@@ -24,6 +24,7 @@
 | 状态管理 | Zustand | 5.x |
 | HTTP 请求 | Axios + 自封装 HttpClient | ^1.17.0 |
 | 国际化 | i18next + react-i18next | ^26.x / ^17.x |
+| CSS 变量主题 | CSS Variables + Sass | — |
 | 日期处理 | dayjs | ^1.11.21 |
 | 实时通信 | WebSocket (自封装 Manager) | - |
 
@@ -35,7 +36,7 @@
 | 代码检查 | ESLint 8.x (taro 规则) |
 | 样式检查 | Stylelint 16.x |
 | 格式化 | EditorConfig |
-| 提交规范 | Commitlint (conventional) + Husky + lint-staged |
+| 提交规范 | Commitlint (conventional) + Husky v9 + lint-staged |
 | CSS 预处理器 | Sass / sass-embedded |
 
 ## 支持平台
@@ -68,23 +69,27 @@
 | 💬 聊天 | 2 | 会话列表/聊天详情 |
 | 👥 社区 | 3 | Feed/帖子详情/发帖 |
 | 🏪 卖家中心 | 3 | 卖家首页/出价管理/商品管理 |
-| 👑 管理后台 | 3 | 管理首页/用户管理/评价管理 |
-| 🔐 认证 | 3 | 登录/注册/KYC |
+| 👑 管理后台 | 5 | 管理首页/用户管理/评价管理/纠纷/营销审核 |
+| 🔐 认证 | 3 | 登录/注册/安全验证 |
 | 🎯 营销 | 5 | 签到/积分/优惠券/积分商城/邀请 |
-| 👤 用户 | 5+ | 个人中心/收藏/关注/列表/设置 |
+| 👤 用户 | 7+ | 个人中心/收藏/关注/列表/编辑/设置/他人主页 |
 | 🔔 通知 | 1 | 通知中心 |
 | ⭐ 评价 | 1 | 评价管理 |
+| ⚙️ 设置 | 1 | 系统设置 |
 
-**总计：约 40+ 个页面**，分布在主包和 19 个分包中。
+**总计：50 个页面**（路由注册），分布在主包（8 页）和 21 个分包（42 页）中。
 
 ## 项目规模
 
 ```
 src/
-├── domains/     → 16 个领域模块
-├── pages/       → 40+ 页面实现
-├── shared/      → 公共组件/工具/API
-├── styles/      → 全局样式
-├── assets/      → 静态资源
+├── domains/     → 14 个领域模块
+│   ├── address/ admin/ auth/ chat/ community/
+│   ├── kyc/ marketing/ notification/ product/
+│   ├── seller/ shipping/ trade/ user/ wallet/
+├── pages/       → 50+ 页面实现
+├── shared/      → 公共组件/工具/API/i18n/类型
+├── styles/      → 全局样式（variables, mixins, reset, nutui-override）
+├── assets/      → 静态资源（tab 图标）
 └── app.config   → 页面路由配置
 ```

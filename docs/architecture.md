@@ -41,19 +41,19 @@ domains/{module}/
 | `auth` | 用户认证、Token 管理 | auth store, types |
 | `user` | 用户信息管理 | user store, types |
 | `product` | 商品 CRUD、搜索 | product store, types |
-| `trade` | 订单、支付、出价 | trade store, types, payment/ 策略 |
-| `offer` | 议价管理 | — |
+| `trade` | 订单、支付、出价 | trade store, types, offer.ts, payment/ 策略 |
 | `shipping` | 物流查询 | — |
 | `address` | 地址管理 | address store |
 | `wallet` | 钱包、提现 | wallet store |
 | `chat` | 即时通讯 | chat store |
-| `community` | 社区 Feed、帖子 | community store |
-| `notification` | 通知中心 | notification store |
+| `community` | 社区 Feed、帖子 | community store, types |
+| `notification` | 通知中心 | notification store, types |
 | `marketing` | 签到、积分、优惠券 | marketing store, types |
 | `kyc` | 实名认证 | kyc store, types |
 | `seller` | 卖家中心 | seller store, types |
 | `admin` | 管理后台 | — |
-| `payment` | 支付策略（支付宝/微信/H5） | — |
+
+> **注意：** `offer`（出价/议价）和 `payment`（支付策略）不是独立领域，而是 `trade/` 领域的子模块。
 
 ### `src/pages/` — 页面层
 
