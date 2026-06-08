@@ -21,3 +21,6 @@ ascf-project/.appanalyzer
 ascf-project/ascf/
 .sisyphus/
 .idea/
+.atomcode/
+src/graphify-out/
+graphify-out/
