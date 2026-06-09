@@ -23,5 +23,19 @@
     "offer": "Offer",
     "promotion": "Promotion",
     "system": "System"
+  },
+  "settings": {
+    "title": "Notification Settings",
+    "system": "System",
+    "systemDesc": "Announcements, version updates, etc.",
+    "transaction": "Transaction",
+    "transactionDesc": "Orders, payments, refunds, etc.",
+    "marketing": "Marketing",
+    "marketingDesc": "Promotions, coupons, etc.",
+    "interaction": "Interaction",
+    "interactionDesc": "Comments, likes, follows, etc."
+  },
+  "detail": {
+    "title": "Notification Detail"
   }
 }

@@ -68,7 +68,7 @@ export default defineAppConfig({
     },
     {
       root: 'pages/notification',
-      pages: ['index/index']
+      pages: ['index/index', 'detail/index', 'settings/index']
     },
     {
       root: 'pages/seller',

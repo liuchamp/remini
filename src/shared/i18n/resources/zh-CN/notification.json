@@ -23,5 +23,19 @@
     "offer": "出价",
     "promotion": "活动",
     "system": "系统"
+  },
+  "settings": {
+    "title": "通知设置",
+    "system": "系统通知",
+    "systemDesc": "公告、版本更新等",
+    "transaction": "交易通知",
+    "transactionDesc": "订单、支付、退款等",
+    "marketing": "营销通知",
+    "marketingDesc": "活动、优惠券等",
+    "interaction": "互动通知",
+    "interactionDesc": "评论、点赞、关注等"
+  },
+  "detail": {
+    "title": "通知详情"
   }
 }

@@ -67,11 +67,19 @@ export default function Notification() {
       <View className='notification-page'>
         <View className='header'>
           <Text className='title'>通知中心</Text>
-          {unreadCount > 0 && (
-            <Text className='read-all' onClick={handleReadAll}>
-              全部已读 ({unreadCount})
+          <View className='header-actions'>
+            {unreadCount > 0 && (
+              <Text className='read-all' onClick={handleReadAll}>
+                全部已读 ({unreadCount})
+              </Text>
+            )}
+            <Text
+              className='settings-link'
+              onClick={() => Taro.navigateTo({ url: '/pages/notification/settings/index' })}
+            >
+              设置
             </Text>
-          )}
+          </View>
         </View>
 
         <View className='tab-bar'>

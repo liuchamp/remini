@@ -18,9 +18,20 @@
   color: #333;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
 .read-all {
   font-size: 26px;
   color: #ff6b35;
+}
+
+.settings-link {
+  font-size: 26px;
+  color: #666;
 }
 
 .tab-bar {

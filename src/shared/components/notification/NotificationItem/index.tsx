@@ -14,9 +14,7 @@ export default function NotificationItem({ notification, onRead }: NotificationI
       onRead?.(notification.id)
     }
 
-    if (notification.link) {
-      Taro.navigateTo({ url: notification.link })
-    }
+    Taro.navigateTo({ url: `/pages/notification/detail/index?id=${notification.id}` })
   }
 
   return (

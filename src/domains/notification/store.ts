@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import Taro from '@tarojs/taro'
 import { notificationApi } from './api'
 import type { Notification } from './types'
 
@@ -42,7 +43,13 @@ export const useNotificationStore = create<NotificationState>((set, get) => {
       try {
         const res = await notificationApi.getUnreadCount()
         if (res.code === 0) {
-          set({ unreadCount: res.data as number })
+          const count = res.data as number
+          set({ unreadCount: count })
+          if (count > 0) {
+            Taro.setTabBarBadge({ index: 3, text: count > 99 ? '99+' : String(count) })
+          } else {
+            Taro.removeTabBarBadge({ index: 3 })
+          }
         }
       } catch (error) {
         console.error('Failed to load unread count:', error)
