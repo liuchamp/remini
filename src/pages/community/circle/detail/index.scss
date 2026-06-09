@@ -41,6 +41,29 @@
     font-size: $font-sm;
     color: $color-text-secondary;
   }
+
+  .circle-join-btn {
+    align-self: center;
+    padding: 8px 24px;
+    border-radius: 20px;
+    background: $color-primary;
+    margin-left: $spacing-sm;
+
+    &.joined {
+      background: $color-bg;
+      border: 1px solid $color-border;
+    }
+
+    .circle-join-btn-text {
+      font-size: $font-md;
+      color: $color-white;
+      font-weight: 500;
+    }
+
+    &.joined .circle-join-btn-text {
+      color: $color-text-secondary;
+    }
+  }
 }
 
 .circle-posts {

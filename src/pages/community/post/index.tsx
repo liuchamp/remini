@@ -13,8 +13,6 @@ import './index.scss'
 
 export default function Post() {
   const { t } = useTranslation(['community', 'common'])
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  void t
   const { currentPost: post, comments, loading, loadPost, loadComments, likePost, collectPost } = usePostStore()
   const [error, setError] = useState(false)
   const postIdRef = useRef('')
@@ -50,7 +48,7 @@ export default function Post() {
   }
 
   if (!post) {
-    return <Empty text='帖子不存在或已删除' />
+    return <Empty text={t('community:post.notFound')} />
   }
 
   return (
@@ -65,27 +63,27 @@ export default function Post() {
               onClick={() => likePost(post.id)}
             >
               <Text className='action-icon'>{post.isLiked ? '❤️' : '👍'}</Text>
-              <Text className='action-text'>点赞</Text>
+              <Text className='action-text'>{t('community:post.like')}</Text>
             </View>
             <View
               className={`action-item ${post.isCollected ? 'active' : ''}`}
               onClick={() => collectPost(post.id)}
             >
               <Text className='action-icon'>{post.isCollected ? '⭐' : '☆'}</Text>
-              <Text className='action-text'>收藏</Text>
+              <Text className='action-text'>{t('community:post.collect')}</Text>
             </View>
             <View className='action-item'>
               <Text className='action-icon'>💬</Text>
-              <Text className='action-text'>评论</Text>
+              <Text className='action-text'>{t('community:post.comment')}</Text>
             </View>
             <View className='action-item'>
               <Text className='action-icon'>🔗</Text>
-              <Text className='action-text'>分享</Text>
+              <Text className='action-text'>{t('community:post.share')}</Text>
             </View>
           </View>
 
           <View className='post-comments'>
-            <Text className='section-title'>评论 ({comments.length})</Text>
+            <Text className='section-title'>{t('community:post.comment')} ({comments.length})</Text>
             <CommentList postId={post.id} comments={comments} />
           </View>
         </ScrollView>

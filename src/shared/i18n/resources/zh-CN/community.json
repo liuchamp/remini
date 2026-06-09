@@ -35,9 +35,12 @@
     "sensitiveWord": "内容包含敏感词，请修改"
   },
   "circle": {
-    "join": "加入",
+    "join": "加入圈子",
     "joined": "已加入",
+    "leave": "退出圈子",
+    "leaveConfirm": "确定退出圈子？",
     "members": "{count} 成员",
+    "todayPosts": "今日发帖",
     "noPosts": "暂无帖子",
     "notFound": "圈子不存在",
     "noCircles": "暂无圈子"
@@ -45,6 +48,8 @@
   "comment": {
     "submit": "发送",
     "delete": "删除",
+    "deleteConfirm": "确定删除评论？",
+    "deleteSuccess": "评论已删除",
     "confirmDelete": "确定删除此评论？"
   }
 }

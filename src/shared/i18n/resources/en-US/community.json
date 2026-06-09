@@ -35,9 +35,12 @@
     "sensitiveWord": "Content contains sensitive words"
   },
   "circle": {
-    "join": "Join",
+    "join": "Join Circle",
     "joined": "Joined",
+    "leave": "Leave Circle",
+    "leaveConfirm": "Are you sure you want to leave this circle?",
     "members": "{count} members",
+    "todayPosts": "Today's Posts",
     "noPosts": "No posts yet",
     "notFound": "Circle not found",
     "noCircles": "No circles yet"
@@ -45,6 +48,8 @@
   "comment": {
     "submit": "Send",
     "delete": "Delete",
+    "deleteConfirm": "Delete this comment?",
+    "deleteSuccess": "Comment deleted",
     "confirmDelete": "Delete this comment?"
   }
 }

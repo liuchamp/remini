@@ -1,7 +1,8 @@
 import { View, Text, Image } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
-import { useState } from 'react'
-import { communityApi } from '@/domains/community/api'
+import Taro from '@tarojs/taro'
+import { useTranslation } from 'react-i18next'
+import { useCircleStore } from '@/domains/community/store'
 import PostCard from '@/shared/components/community/PostCard'
 import Loading from '@/shared/components/Loading'
 import Empty from '@/shared/components/Empty'
@@ -18,39 +19,41 @@ interface PostCardPost {
   createdAt: string
 }
 
-function toPostCardPost(post: Post): PostCardPost {
+function toPostCardPost(post: any): PostCardPost {
   return {
     id: post.id,
     content: post.content,
     images: post.images,
-    author: { name: post.user.username, avatar: post.user.avatar },
-    likes: post.likeCount,
-    comments: post.commentCount,
-    createdAt: post.createdAt,
+    author: { name: post.user?.username || '', avatar: post.user?.avatar || '' },
+    likes: post.likeCount || 0,
+    comments: post.commentCount || 0,
+    createdAt: post.createdAt || '',
   }
 }
 
 export default function CircleDetail() {
-  const [circle, setCircle] = useState<Circle | null>(null)
-  const [posts, setPosts] = useState<Post[]>([])
-  const [loading, setLoading] = useState(true)
+  const { t } = useTranslation(['community'])
+  const { circle, posts, loading, loadDetail, joinCircle, leaveCircle } = useCircleStore()
 
   useLoad((params) => {
     if (params.id) {
-      loadCircleDetail(params.id)
+      loadDetail(params.id)
     }
   })
 
-  const loadCircleDetail = async (id: string) => {
-    setLoading(true)
-    try {
-      const res = await communityApi.getCircleDetail(id)
-      if (res.code === 0) {
-        setCircle(res.data.circle)
-        setPosts(res.data.posts || [])
+  const handleJoinLeave = async () => {
+    if (!circle) return
+
+    if (circle.isJoined) {
+      const res = await Taro.showModal({
+        title: '',
+        content: t('community:circle.leaveConfirm'),
+      })
+      if (res.confirm) {
+        await leaveCircle(circle.id)
       }
-    } finally {
-      setLoading(false)
+    } else {
+      await joinCircle(circle.id)
     }
   }
 
@@ -68,7 +71,17 @@ export default function CircleDetail() {
               <View className='circle-info'>
                 <Text className='circle-name'>{circle.name}</Text>
                 <Text className='circle-desc'>{circle.description}</Text>
-                <Text className='circle-members'>{circle.memberCount} 成员</Text>
+                <Text className='circle-members'>
+                  {t('community:circle.members', { count: circle.memberCount })}
+                </Text>
+              </View>
+              <View
+                className={`circle-join-btn ${circle.isJoined ? 'joined' : ''}`}
+                onClick={handleJoinLeave}
+              >
+                <Text className='circle-join-btn-text'>
+                  {circle.isJoined ? t('community:circle.joined') : t('community:circle.join')}
+                </Text>
               </View>
             </View>
             <View className='circle-posts'>
@@ -77,12 +90,12 @@ export default function CircleDetail() {
                   <PostCard key={post.id} post={toPostCardPost(post)} />
                 ))
               ) : (
-                <Empty text='暂无帖子' />
+                <Empty text={t('community:circle.noPosts')} />
               )}
             </View>
           </>
         ) : (
-          <Empty text='圈子不存在' />
+          <Empty text={t('community:circle.notFound')} />
         )}
       </View>
     </ErrorBoundary>

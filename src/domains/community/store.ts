@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { communityApi } from './api'
-import type { Post, Comment, FeedTab } from './types'
+import type { Post, Comment, FeedTab, Circle } from './types'
 
 interface FeedState {
   posts: Post[]
@@ -100,6 +100,7 @@ interface PostState {
   addComment: (postId: string, content: string, parentId?: string) => Promise<void>
   collectPost: (postId: string) => Promise<void>
   loadComments: (postId: string) => Promise<void>
+  deleteComment: (commentId: string) => Promise<void>
 }
 
 export const usePostStore = create<PostState>((set, get) => ({
@@ -239,6 +240,13 @@ export const usePostStore = create<PostState>((set, get) => ({
       set({ loading: false })
     }
   },
+
+  deleteComment: async (commentId) => {
+    await communityApi.deleteComment(commentId)
+    set((s) => ({
+      comments: s.comments.filter((c) => c.id !== commentId),
+    }))
+  },
 }))
 
 interface CreateState {
@@ -281,6 +289,49 @@ export const useCreateStore = create<CreateState>((set, get) => ({
     } catch (error) {
       set({ submitting: false })
       throw error
+    }
+  },
+}))
+
+interface CircleState {
+  circle: Circle | null
+  posts: Post[]
+  loading: boolean
+  loadDetail: (id: string) => Promise<void>
+  joinCircle: (id: string) => Promise<void>
+  leaveCircle: (id: string) => Promise<void>
+}
+
+export const useCircleStore = create<CircleState>((set, get) => ({
+  circle: null,
+  posts: [],
+  loading: false,
+
+  loadDetail: async (id) => {
+    set({ loading: true })
+    try {
+      const res = await communityApi.getCircleDetail(id)
+      if (res.code === 0) {
+        set({ circle: res.data.circle, posts: res.data.posts })
+      }
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  joinCircle: async (id) => {
+    await communityApi.joinCircle(id)
+    const circle = get().circle
+    if (circle) {
+      set({ circle: { ...circle, isJoined: true, memberCount: circle.memberCount + 1 } })
+    }
+  },
+
+  leaveCircle: async (id) => {
+    await communityApi.leaveCircle(id)
+    const circle = get().circle
+    if (circle) {
+      set({ circle: { ...circle, isJoined: false, memberCount: circle.memberCount - 1 } })
     }
   },
 }))
