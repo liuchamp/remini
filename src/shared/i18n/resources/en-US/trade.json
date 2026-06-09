@@ -135,5 +135,19 @@
   "offerCounterAmountTitle": "Enter counter offer amount",
   "offerAmountInput": "Enter amount",
   "offerEnterValidAmount": "Please enter a valid amount",
-  "offerNoteLabel2": "Message: "
+  "offerNoteLabel2": "Message: ",
+  "review": {
+    "title": "Write Review",
+    "ratingLabel": "Overall Rating",
+    "tagsLabel": "Product Tags",
+    "contentPlaceholder": "Share your experience (max 200 chars)",
+    "contentLimit": "{count}/200",
+    "addImage": "Add Photos",
+    "imageLimit": "Max 3 photos",
+    "submit": "Submit Review",
+    "submitSuccess": "Review submitted",
+    "appendTitle": "Follow-up Review",
+    "appendPlaceholder": "Add more about your experience",
+    "appendSubmit": "Submit Follow-up"
+  }
 }

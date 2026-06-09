@@ -135,5 +135,19 @@
   "offerCounterAmountTitle": "输入还价金额",
   "offerAmountInput": "请输入金额",
   "offerEnterValidAmount": "请输入有效的金额",
-  "offerNoteLabel2": "留言："
+  "offerNoteLabel2": "留言：",
+  "review": {
+    "title": "发表评价",
+    "ratingLabel": "总体评分",
+    "tagsLabel": "商品标签",
+    "contentPlaceholder": "分享你的使用体验（最多200字）",
+    "contentLimit": "{count}/200",
+    "addImage": "添加图片",
+    "imageLimit": "最多3张",
+    "submit": "发表评价",
+    "submitSuccess": "评价发表成功",
+    "appendTitle": "追加评价",
+    "appendPlaceholder": "追加你的使用感受",
+    "appendSubmit": "发表追评"
+  }
 }

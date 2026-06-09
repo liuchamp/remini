@@ -1,4 +1,5 @@
 import { http } from '@/shared/api/request'
+import type { ReviewData, AppendReviewData } from './types'
 
 export interface CreateOrderRequest {
   productId: string
@@ -38,5 +39,11 @@ export const tradeApi = {
   },
   requestRefund(orderId: string, reason: string) {
     return http.post(`/orders/${orderId}/refund`, { reason })
+  },
+  submitReview(orderId: string, data: ReviewData) {
+    return http.post<void>(`/orders/${orderId}/review`, data)
+  },
+  appendReview(orderId: string, data: AppendReviewData) {
+    return http.post<void>(`/orders/${orderId}/review/append`, data)
   }
 }
