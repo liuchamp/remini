@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { View, Text, Input, Button } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
 import { useTranslation } from 'react-i18next'
@@ -27,9 +27,33 @@ export default function Detail() {
   const [submitting, setSubmitting] = useState(false)
   const [counterOpen, setCounterOpen] = useState(false)
   const [counterPrice, setCounterPrice] = useState('')
+  const [timeLeft, setTimeLeft] = useState('')
+  const [urgency, setUrgency] = useState<'normal' | 'warning' | 'critical'>('normal')
 
   const user = useAuthStore(state => state.user)
   const currentUserId = user?.id
+
+  useEffect(() => {
+    if (!offer?.expiresAt) return
+    const update = () => {
+      const diff = new Date(offer.expiresAt).getTime() - Date.now()
+      if (diff <= 0) {
+        setTimeLeft(t('trade:offerStatusExpired'))
+        setUrgency('normal')
+        return
+      }
+      const hours = Math.floor(diff / 3600000)
+      const minutes = Math.floor((diff % 3600000) / 60000)
+      const seconds = Math.floor((diff % 60000) / 1000)
+      setTimeLeft(`${hours}h ${minutes}m ${seconds}s`)
+      if (diff < 3600000) setUrgency('critical')
+      else if (diff < 14400000) setUrgency('warning')
+      else setUrgency('normal')
+    }
+    update()
+    const timer = setInterval(update, 1000)
+    return () => clearInterval(timer)
+  }, [offer?.expiresAt, t])
 
   useLoad((options) => {
     const id = options?.id
@@ -104,6 +128,16 @@ export default function Detail() {
             <Text>{STATUS_MAP[offer.status] || offer.status}</Text>
           </View>
         </View>
+
+        {offer.status === 'pending' && timeLeft && (
+          <View className={`countdown-bar ${urgency}`}>
+            <Text className='countdown-icon'>⏱</Text>
+            <Text className='countdown-text'>
+              {t('trade:offerExpiresIn')}: {timeLeft}
+            </Text>
+          </View>
+        )}
+
         <View className='offer-info'>
           <View className='info-row'>
             <Text className='info-label'>商品</Text>

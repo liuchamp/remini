@@ -136,6 +136,7 @@
   "offerAmountInput": "Enter amount",
   "offerEnterValidAmount": "Please enter a valid amount",
   "offerNoteLabel2": "Message: ",
+  "offerExpiresIn": "Expires in",
   "review": {
     "title": "Write Review",
     "ratingLabel": "Overall Rating",

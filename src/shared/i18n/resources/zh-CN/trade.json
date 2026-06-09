@@ -136,6 +136,7 @@
   "offerAmountInput": "请输入金额",
   "offerEnterValidAmount": "请输入有效的金额",
   "offerNoteLabel2": "留言：",
+  "offerExpiresIn": "距过期",
   "review": {
     "title": "发表评价",
     "ratingLabel": "总体评分",

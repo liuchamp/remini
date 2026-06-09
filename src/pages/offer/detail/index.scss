@@ -156,3 +156,30 @@
   font-weight: bold;
 }
 
+.countdown-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  margin: 16px;
+
+  &.normal {
+    background: #f0f0f0;
+    .countdown-text { color: #666; }
+  }
+
+  &.warning {
+    background: #FFF8E1;
+    .countdown-text { color: #F57C00; font-weight: 500; }
+  }
+
+  &.critical {
+    background: #FFEBEE;
+    .countdown-text { color: #D32F2F; font-weight: 600; }
+  }
+
+  .countdown-icon { font-size: 24px; }
+  .countdown-text { font-size: 24px; }
+}
+
