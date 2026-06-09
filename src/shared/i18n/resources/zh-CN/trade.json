@@ -62,6 +62,8 @@
   "noCoupon": "不使用优惠券",
   "points": "积分",
   "usePoints": "使用积分",
+  "pointsRate": "{points} 积分可用（≈ ¥{amount}）",
+  "pointsDeduction": "积分抵扣",
   "orderNote": "订单备注",
   "orderTotal": "订单合计",
   "payment": "支付",

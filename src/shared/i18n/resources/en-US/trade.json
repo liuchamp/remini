@@ -62,6 +62,8 @@
   "noCoupon": "No Coupon",
   "points": "Points",
   "usePoints": "Use Points",
+  "pointsRate": "{points} points (≈ ¥{amount})",
+  "pointsDeduction": "Points Deduction",
   "orderNote": "Order Note",
   "orderTotal": "Order Total",
   "payment": "Payment",

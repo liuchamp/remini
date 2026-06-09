@@ -1,11 +1,12 @@
-import { useState } from 'react'
-import { View, Text, Image } from '@tarojs/components'
+import { useState, useMemo } from 'react'
+import { View, Text, Image, Switch } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useLoad, useRouter } from '@tarojs/taro'
 import { useTranslation } from 'react-i18next'
 import { tradeApi } from '@/domains/trade/api'
 import { productApi } from '@/domains/product/api'
 import { addressApi } from '@/domains/address/api'
+import { marketingApi } from '@/domains/marketing/api'
 import './index.scss'
 
 export default function Create() {
@@ -18,6 +19,8 @@ export default function Create() {
   const [selectedAddressId, setSelectedAddressId] = useState<string>('')
   const [note, setNote] = useState('')
   const [submitting, setSubmitting] = useState(false)
+  const [usePointsDeduction, setUsePointsDeduction] = useState(false)
+  const [pointsBalance, setPointsBalance] = useState(0)
 
   useLoad(() => {
     const productId = router.params.productId
@@ -27,7 +30,18 @@ export default function Create() {
       Taro.showToast({ title: '参数错误', icon: 'none' })
     }
     loadAddresses()
+    loadPoints()
   })
+
+  const loadPoints = async () => {
+    try {
+      const res = await marketingApi.getPointsData()
+      if (res.code === 0) {
+        const data = res.data as { totalPoints: number }
+        setPointsBalance(data.totalPoints)
+      }
+    } catch {}
+  }
 
   const loadProduct = async (id: string) => {
     try {
@@ -58,6 +72,17 @@ export default function Create() {
 
   const selectedAddress = addresses.find(a => a.id === selectedAddressId)
 
+  const orderAmount = product ? product.price : 0
+
+  const pointsDeductionAmount = useMemo(() => {
+    if (!usePointsDeduction || pointsBalance <= 0) return 0
+    const maxDeduction = orderAmount * 0.5
+    const pointsValue = pointsBalance / 100
+    return Math.min(pointsValue, maxDeduction)
+  }, [usePointsDeduction, orderAmount, pointsBalance])
+
+  const finalAmount = Math.max(0.01, orderAmount - pointsDeductionAmount)
+
   const handleSelectAddress = () => {
     Taro.navigateTo({
       url: '/pages/address/list/index',
@@ -84,6 +109,8 @@ export default function Create() {
       const res = await tradeApi.createOrder({
         productId: product.id,
         addressId: selectedAddressId,
+        pointsUsed: usePointsDeduction ? Math.round(pointsDeductionAmount * 100) : 0,
+        note: note || undefined,
       })
       if (res.code === 0) {
         const data = res.data as { id: string }
@@ -133,6 +160,30 @@ export default function Create() {
           </View>
         )}
 
+        {product && pointsBalance > 0 && (
+          <View className='section points-section'>
+            <View className='points-row'>
+              <View className='points-info'>
+                <Text className='points-label'>{t('trade:usePoints')}</Text>
+                <Text className='points-hint'>
+                  {t('trade:pointsRate', { points: pointsBalance, amount: (pointsBalance / 100).toFixed(2) })}
+                </Text>
+              </View>
+              <Switch
+                checked={usePointsDeduction}
+                onChange={(e) => setUsePointsDeduction(e.detail.value)}
+                color='#FF6B35'
+              />
+            </View>
+            {usePointsDeduction && pointsDeductionAmount > 0 && (
+              <View className='deduction-row'>
+                <Text>{t('trade:pointsDeduction')}</Text>
+                <Text className='deduction-amount'>-¥{pointsDeductionAmount.toFixed(2)}</Text>
+              </View>
+            )}
+          </View>
+        )}
+
         <View className='section summary-section'>
           <View className='summary-row'>
             <Text className='summary-label'>商品金额</Text>
@@ -142,11 +193,17 @@ export default function Create() {
             <Text className='summary-label'>运费</Text>
             <Text className='summary-value free'>免运费</Text>
           </View>
+          {usePointsDeduction && pointsDeductionAmount > 0 && (
+            <View className='summary-row'>
+              <Text className='summary-label'>{t('trade:pointsDeduction')}</Text>
+              <Text className='summary-value deduction'>-¥{pointsDeductionAmount.toFixed(2)}</Text>
+            </View>
+          )}
           <View className='summary-divider' />
           <View className='summary-row total'>
             <Text className='summary-label'>合计</Text>
             <Text className='summary-value total-amount'>
-              ¥{product ? product.price.toFixed(2) : '0.00'}
+              ¥{finalAmount.toFixed(2)}
             </Text>
           </View>
         </View>
@@ -179,7 +236,7 @@ export default function Create() {
       <View className='bottom-bar'>
         <View className='total-display'>
           <Text className='total-label'>合计: </Text>
-          <Text className='total-amount'>¥{product ? product.price.toFixed(2) : '0.00'}</Text>
+          <Text className='total-amount'>¥{finalAmount.toFixed(2)}</Text>
         </View>
         <View
           className={`submit-btn ${submitting || !selectedAddressId ? 'disabled' : ''}`}

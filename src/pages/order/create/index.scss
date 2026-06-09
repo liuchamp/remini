@@ -137,6 +137,10 @@
           color: #07C160;
         }
 
+        &.deduction {
+          color: #FF6B35;
+        }
+
         &.total-amount {
           font-size: $font-xl;
           color: $color-error;
@@ -177,6 +181,46 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+      }
+    }
+  }
+
+  .points-section {
+    padding: 0;
+
+    .points-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px $spacing-xl;
+
+      .points-info {
+        .points-label {
+          font-size: 28px;
+          color: $color-text;
+          display: block;
+        }
+
+        .points-hint {
+          font-size: 22px;
+          color: $color-text-light;
+          margin-top: 4px;
+          display: block;
+        }
+      }
+    }
+
+    .deduction-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px $spacing-xl;
+      font-size: 24px;
+      color: $color-text-secondary;
+      border-top: 1px solid $color-border-light;
+
+      .deduction-amount {
+        color: #FF6B35;
+        font-weight: 500;
       }
     }
   }
