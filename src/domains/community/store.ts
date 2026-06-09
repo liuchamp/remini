@@ -254,6 +254,7 @@ interface CreateState {
   images: string[]
   submitting: boolean
   setContent: (content: string) => void
+  setImages: (images: string[]) => void
   addImage: (path: string) => void
   removeImage: (index: number) => void
   submit: () => Promise<void>
@@ -266,6 +267,10 @@ export const useCreateStore = create<CreateState>((set, get) => ({
 
   setContent: (content) => {
     set({ content })
+  },
+
+  setImages: (images) => {
+    set({ images })
   },
 
   addImage: (path) => {

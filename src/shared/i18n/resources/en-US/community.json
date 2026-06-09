@@ -32,7 +32,10 @@
     "submitting": "Posting...",
     "success": "Posted successfully",
     "failed": "Post failed",
-    "draftRestored": "Draft restored from last edit",
+    "draft": {
+      "recoverTitle": "Recover Draft",
+      "recoverContent": "Found an unsaved draft from your last edit. Restore it?"
+    },
     "sensitiveWord": "Content contains sensitive words"
   },
   "circle": {

@@ -1,6 +1,6 @@
 import Taro, { navigateBack, chooseImage, useLoad } from '@tarojs/taro'
 import { View, Text, Textarea, Image } from '@tarojs/components'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useCreateStore } from '@/domains/community/store'
 import Loading from '@/shared/components/Loading'
@@ -40,38 +40,41 @@ export default function Create() {
     images,
     submitting,
     setContent,
+    setImages,
     addImage,
     removeImage,
     submit,
   } = useCreateStore()
 
-  const [draftRestored, setDraftRestored] = useState(false)
-
   // Restore draft on page load
   useLoad(() => {
-    if (!draftRestored) {
-      const draft = loadDraft()
-      if (draft && (draft.content || draft.images.length > 0)) {
-        setContent(draft.content)
-        draft.images.forEach((img) => addImage(img))
-        Taro.showToast({
-          title: t('create.draftRestored'),
-          icon: 'none',
-          duration: 2000,
-        })
-      }
-      setDraftRestored(true)
+    const draft = loadDraft()
+    if (draft && (draft.content || draft.images.length > 0)) {
+      Taro.showModal({
+        title: t('draft.recoverTitle'),
+        content: t('draft.recoverContent'),
+      }).then((res) => {
+        if (res.confirm) {
+          setContent(draft.content)
+          setImages(draft.images)
+        } else {
+          clearDraft()
+        }
+      })
     }
   })
 
   // Auto-save draft on content/image changes (debounced)
+  const prevContentRef = { current: '' }
   useEffect(() => {
-    if (!draftRestored) return
+    prevContentRef.current = content
     const timer = setTimeout(() => {
-      saveDraft(content, images)
+      if (content || images.length > 0) {
+        saveDraft(content, images)
+      }
     }, 1000)
     return () => clearTimeout(timer)
-  }, [content, images, draftRestored])
+  }, [content, images])
 
   const handleChooseImage = async () => {
     try {

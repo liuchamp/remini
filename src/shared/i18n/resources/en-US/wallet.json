@@ -27,6 +27,7 @@
   },
   "wallet": {
     "balance": "Balance",
+    "availableBalanceLabel": "Available Balance",
     "availableBalance": "Available Balance",
     "heldBalance": "Held Balance",
     "totalEarned": "Total Earned",

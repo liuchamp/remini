@@ -32,7 +32,10 @@
     "submitting": "发布中...",
     "success": "发布成功",
     "failed": "发布失败",
-    "draftRestored": "已恢复上次编辑的草稿",
+    "draft": {
+      "recoverTitle": "恢复草稿",
+      "recoverContent": "发现上次未发布的草稿，是否恢复？"
+    },
     "sensitiveWord": "内容包含敏感词，请修改"
   },
   "circle": {
