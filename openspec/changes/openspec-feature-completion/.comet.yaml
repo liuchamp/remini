@@ -1,9 +1,9 @@
 workflow: full
-phase: build
+phase: verify
 build_mode: subagent-driven-development
 build_pause: null
 isolation: branch
-verify_mode: null
+verify_mode: full
 base_ref: 8021b3a0b62403f80915b40cad012f0ab4f04469
 design_doc: docs/superpowers/specs/2026-06-10-feature-completion-design.md
 plan: docs/superpowers/plans/2026-06-10-feature-completion.md
