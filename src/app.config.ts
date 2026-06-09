@@ -36,11 +36,11 @@ export default defineAppConfig({
     },
     {
       root: 'pages/wallet',
-      pages: ['index/index', 'withdraw/index']
+      pages: ['index/index', 'withdraw/index', 'transactions/index', 'bind-card/index']
     },
     {
       root: 'pages/community',
-      pages: ['feed/index', 'post/index', 'create/index']
+      pages: ['feed/index', 'post/index', 'create/index', 'circle/list/index', 'circle/detail/index', 'creator/index']
     },
     {
       root: 'pages/coupon',
@@ -60,7 +60,7 @@ export default defineAppConfig({
     },
     {
       root: 'pages/kyc',
-      pages: ['index/index', 'phone/index', 'identity/index']
+      pages: ['index/index', 'phone/index', 'identity/index', 'liveness/index']
     },
     {
       root: 'pages/review',
@@ -76,7 +76,7 @@ export default defineAppConfig({
     },
     {
       root: 'pages/admin',
-      pages: ['index/index', 'users/index', 'reviews/index']
+      pages: ['index/index', 'users/index', 'reviews/index', 'dispute/index', 'withdrawals/index', 'marketing/index']
     },
     {
       root: 'pages/user',
