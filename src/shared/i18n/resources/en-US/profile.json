@@ -62,5 +62,7 @@
   "adminUserRegisteredAt": "Registered at",
   "adminUserProductCount": "Products",
   "adminUserOrderCount": "Orders",
-  "adminOperationFailed": "Operation failed"
+  "adminOperationFailed": "Operation failed",
+  "adminOrderTrend": "Order Trend (Last 7 Days)",
+  "adminRevenueTrend": "Revenue Trend (Last 7 Days)"
 }

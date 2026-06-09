@@ -1,0 +1,49 @@
+.trend-chart {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 0 16px 16px;
+
+  .trend-chart-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .trend-chart-bars {
+    display: flex;
+    align-items: flex-end;
+    height: 200px;
+    gap: 8px;
+  }
+
+  .trend-chart-bar-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+  }
+
+  .trend-chart-bar {
+    width: 100%;
+    min-height: 4px;
+    border-radius: 4px 4px 0 0;
+    transition: height 0.3s;
+  }
+
+  .trend-chart-label {
+    font-size: 18px;
+    color: #999;
+    margin-top: 8px;
+  }
+
+  .trend-chart-value {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+}

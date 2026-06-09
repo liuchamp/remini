@@ -4,6 +4,7 @@ import Taro, { useLoad } from '@tarojs/taro'
 import { useTranslation } from 'react-i18next'
 import { adminApi } from '@/domains/admin/api'
 import { useAuth } from '@/shared/hooks/useAuth'
+import TrendChart from '../components/TrendChart'
 import './index.scss'
 
 interface DashboardStats {
@@ -22,12 +23,19 @@ interface RecentActivity {
   createdAt: string
 }
 
+interface TrendPoint {
+  label: string
+  value: number
+}
+
 export default function AdminIndex() {
   const { t } = useTranslation(['profile', 'common'])
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   void t
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [recentActivities, setRecentActivities] = useState<RecentActivity[]>([])
+  const [orderTrend, setOrderTrend] = useState<TrendPoint[]>([])
+  const [revenueTrend, setRevenueTrend] = useState<TrendPoint[]>([])
   const [loading, setLoading] = useState(true)
   const { requireAdmin } = useAuth()
 
@@ -41,6 +49,8 @@ export default function AdminIndex() {
       if (res.code === 0 || res.code === 200) {
         setStats(res.data.stats)
         setRecentActivities(res.data.recentActivities || [])
+        setOrderTrend(res.data.orderTrend || [])
+        setRevenueTrend(res.data.revenueTrend || [])
       }
     } catch (err) {
       console.error('Failed to load dashboard:', err)
@@ -166,6 +176,13 @@ export default function AdminIndex() {
           </ScrollView>
         )}
       </View>
+
+      {orderTrend.length > 0 && (
+        <TrendChart title={t('adminOrderTrend')} data={orderTrend} />
+      )}
+      {revenueTrend.length > 0 && (
+        <TrendChart title={t('adminRevenueTrend')} data={revenueTrend} color='#4CAF50' />
+      )}
     </View>
   )
 }

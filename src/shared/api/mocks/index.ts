@@ -5,6 +5,7 @@ import { tradeMocks } from './trade'
 import { notificationMocks } from './notification'
 import { chatMocks } from './chat'
 import { authMocks } from './auth'
+import { adminMocks } from './admin'
 
 export function initAllMocks() {
   registerMocks(communityMocks)
@@ -13,4 +14,5 @@ export function initAllMocks() {
   registerMocks(notificationMocks)
   registerMocks(chatMocks)
   registerMocks(authMocks)
+  registerMocks(adminMocks)
 }
