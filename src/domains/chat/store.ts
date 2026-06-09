@@ -8,6 +8,7 @@ interface ChatState {
   unreadTotal: number
   loading: boolean
   blocking: boolean
+  pinnedThreads: string[]
 
   loadThreads: () => Promise<void>
   loadMessages: (threadId: string) => Promise<void>
@@ -16,6 +17,9 @@ interface ChatState {
   disconnect: () => void
   blockUser: (userId: string) => Promise<void>
   unblockUser: (userId: string) => Promise<void>
+  deleteThread: (id: string) => Promise<void>
+  pinThread: (id: string, pinned: boolean) => Promise<void>
+  sendReadReceipt: (threadId: string, messageIds: string[]) => Promise<void>
 }
 
 export const useChatStore = create<ChatState>((set, get) => ({
@@ -24,6 +28,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
   unreadTotal: 0,
   loading: false,
   blocking: false,
+  pinnedThreads: [],
 
   loadThreads: async () => {
     const res = await chatApi.getThreads()
@@ -80,5 +85,23 @@ export const useChatStore = create<ChatState>((set, get) => ({
     } finally {
       set({ blocking: false })
     }
+  },
+
+  deleteThread: async (id) => {
+    await chatApi.deleteThread(id)
+    set((s) => ({ threads: s.threads.filter((t) => t.id !== id) }))
+  },
+
+  pinThread: async (id, pinned) => {
+    await chatApi.pinThread(id, pinned)
+    set((s) => ({
+      pinnedThreads: pinned
+        ? [...s.pinnedThreads, id]
+        : s.pinnedThreads.filter((t) => t !== id),
+    }))
+  },
+
+  sendReadReceipt: async (threadId, messageIds) => {
+    await chatApi.sendReadReceipt(threadId, messageIds)
   }
 }))

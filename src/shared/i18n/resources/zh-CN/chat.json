@@ -33,5 +33,12 @@
   "justNow": "刚刚",
   "minutesAgo": "{{minutes}}分钟前",
   "hoursAgo": "{{hours}}小时前",
-  "daysAgo": "{{days}}天前"
+  "daysAgo": "{{days}}天前",
+  "action": {
+    "sendProduct": "发商品",
+    "sendOrder": "发订单",
+    "deleteThread": "删除会话",
+    "pinThread": "置顶",
+    "unpinThread": "取消置顶"
+  }
 }

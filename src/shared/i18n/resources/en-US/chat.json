@@ -33,5 +33,12 @@
   "justNow": "Just now",
   "minutesAgo": "{{minutes}}m ago",
   "hoursAgo": "{{hours}}h ago",
-  "daysAgo": "{{days}}d ago"
+  "daysAgo": "{{days}}d ago",
+  "action": {
+    "sendProduct": "Send Product",
+    "sendOrder": "Send Order",
+    "deleteThread": "Delete Thread",
+    "pinThread": "Pin",
+    "unpinThread": "Unpin"
+  }
 }

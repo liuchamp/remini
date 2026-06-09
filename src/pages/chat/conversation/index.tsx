@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { useRouter } from '@tarojs/taro'
-import { View, Text, ScrollView, Input, Button } from '@tarojs/components'
+import { View, Text, ScrollView, Input, Button, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useTranslation } from 'react-i18next'
 import { useChatStore } from '@/domains/chat/store'
@@ -11,7 +11,7 @@ import './index.scss'
 export default function Conversation() {
   const router = useRouter()
   const { threadId, userId } = router.params
-  const { messages, loading, blocking, loadMessages, sendMessage, blockUser, unblockUser, threads } = useChatStore()
+  const { messages, loading, blocking, loadMessages, sendMessage, blockUser, unblockUser, threads, sendReadReceipt } = useChatStore()
   const currentUserId = useAuthStore((s) => s.user?.id)
   const [inputValue, setInputValue] = useState('')
   const scrollRef = useRef<any>(null)
@@ -27,6 +27,16 @@ export default function Conversation() {
     loadMessages(threadId)
     chatApi.markRead(threadId)
   }, [threadId])
+
+  useEffect(() => {
+    if (!threadId || !currentUserId || messages.length === 0) return
+    const unreadIds = messages
+      .filter((m) => m.senderId !== currentUserId && !m.isRead)
+      .map((m) => m.id)
+    if (unreadIds.length > 0) {
+      sendReadReceipt(threadId, unreadIds)
+    }
+  }, [messages, threadId, currentUserId, sendReadReceipt])
 
   const handleSend = () => {
     const content = inputValue.trim()
@@ -155,7 +165,28 @@ export default function Conversation() {
                     className={`message-item ${isSelf ? 'self' : 'other'}`}
                   >
                     <View className='message-bubble'>
-                      <Text className='message-content'>{msg.content}</Text>
+                      {msg.type === 'product' && msg.product ? (
+                        <View
+                          className='product-card'
+                          onClick={() => Taro.navigateTo({ url: `/pages/product/detail/index?id=${msg.product!.id}` })}
+                        >
+                          <Image src={msg.product.image || ''} className='product-card-image' mode='aspectFill' />
+                          <View className='product-card-info'>
+                            <Text className='product-card-title'>{msg.product.title || ''}</Text>
+                            <Text className='product-card-price'>¥{msg.product.price || 0}</Text>
+                          </View>
+                        </View>
+                      ) : msg.type === 'order' && msg.order ? (
+                        <View
+                          className='order-card'
+                          onClick={() => Taro.navigateTo({ url: `/pages/order/detail/index?id=${msg.order!.id}` })}
+                        >
+                          <Text className='order-card-no'>{msg.order.orderNo || ''}</Text>
+                          <Text className='order-card-status'>{msg.order.status || ''}</Text>
+                        </View>
+                      ) : (
+                        <Text className='message-content'>{msg.content}</Text>
+                      )}
                     </View>
                     <View className='message-meta'>
                       <Text className='message-time'>{formatTime(msg.createdAt)}</Text>
@@ -175,6 +206,21 @@ export default function Conversation() {
           ))
         )}
       </ScrollView>
+
+      <View className='action-bar'>
+        <Text
+          className='action-button'
+          onClick={() => Taro.showToast({ title: t('common:app.comingSoon'), icon: 'none' })}
+        >
+          {t('action.sendProduct')}
+        </Text>
+        <Text
+          className='action-button'
+          onClick={() => Taro.showToast({ title: t('common:app.comingSoon'), icon: 'none' })}
+        >
+          {t('action.sendOrder')}
+        </Text>
+      </View>
 
       <View className='input-bar'>
         <Input
