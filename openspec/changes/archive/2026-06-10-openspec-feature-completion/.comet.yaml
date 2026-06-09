@@ -12,6 +12,6 @@ verification_report: docs/superpowers/reports/2026-06-10-openspec-feature-comple
 branch_status: handled
 created_at: 2026-06-10
 verified_at: 2026-06-10
-archived: false
+archived: true
 handoff_context: openspec/changes/openspec-feature-completion/.comet/handoff/design-context.json
 handoff_hash: 3ad676f4ad7b38102dd1ceb2d4641e3288086e44afb6882152a35043d2a13747

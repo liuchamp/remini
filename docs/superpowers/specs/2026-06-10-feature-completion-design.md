@@ -2,6 +2,8 @@
 comet_change: openspec-feature-completion
 role: technical-design
 canonical_spec: openspec
+archived-with: 2026-06-10-openspec-feature-completion
+status: final
 ---
 
 # OpenSpec Feature Completion — Technical Design

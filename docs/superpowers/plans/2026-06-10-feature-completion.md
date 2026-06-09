@@ -2,6 +2,7 @@
 change: openspec-feature-completion
 design-doc: docs/superpowers/specs/2026-06-10-feature-completion-design.md
 base-ref: 8021b3a0b62403f80915b40cad012f0ab4f04469
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 # OpenSpec Feature Completion — Implementation Plan
@@ -14,6 +15,7 @@ base-ref: 8021b3a0b62403f80915b40cad012f0ab4f04469
 
 **Tech Stack:** Taro 3.x, React 18, Zustand, SCSS, react-i18next, echarts-for-weixin
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ## File Structure
@@ -86,6 +88,7 @@ base-ref: 8021b3a0b62403f80915b40cad012f0ab4f04469
 | `src/shared/i18n/resources/zh-CN/*.json` | Add new keys inline per task |
 | `src/shared/i18n/resources/en-US/*.json` | Add new keys inline per task |
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ## Phase 0: Mock Infrastructure + Compile Fixes
@@ -186,6 +189,7 @@ git add src/shared/api/mock-interceptor.ts src/shared/api/mocks/index.ts src/sha
 git commit -m "feat: add mock interceptor infrastructure for offline development"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 0.1: Register Missing Pages in app.config.ts
@@ -247,6 +251,7 @@ git add src/app.config.ts
 git commit -m "fix: register 9 missing pages in app.config.ts"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 0.2: Add Missing Community API Methods + Types + Mocks
@@ -405,6 +410,7 @@ git add src/domains/community/api.ts src/domains/community/types.ts src/shared/a
 git commit -m "feat: add community circle API methods, types, and mocks"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 0.3: Add Missing Marketing API Methods + Types + Mocks
@@ -579,6 +585,7 @@ git add src/domains/marketing/api.ts src/domains/marketing/types.ts src/shared/a
 git commit -m "feat: add marketing referral, coupon claim, and commission API methods"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Phase 0 Verification
@@ -587,6 +594,7 @@ git commit -m "feat: add marketing referral, coupon claim, and commission API me
 
 Expected: Zero errors. If errors remain, investigate and fix before proceeding.
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ## Phase 1: Core Feature Completion
@@ -1014,6 +1022,7 @@ git add src/domains/trade/api.ts src/domains/trade/types.ts src/shared/api/mocks
 git commit -m "feat: implement order review page with star rating, tags, and image upload"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 1.2: Notification Center Enhancements
@@ -1412,6 +1421,7 @@ git add src/domains/notification/ src/shared/api/mocks/notification.ts src/share
 git commit -m "feat: add notification detail page, settings page, and TabBar badge"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 1.3: Instant Messaging Enhancements
@@ -1583,6 +1593,7 @@ git add src/domains/chat/ src/shared/api/mocks/chat.ts src/shared/api/mocks/inde
 git commit -m "feat: add chat read receipts, product/order cards, thread delete/pin"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 1.4: Community Circle Join/Leave + Comment Delete
@@ -1722,6 +1733,7 @@ git add src/pages/community/circle/detail/ src/pages/community/post/ src/domains
 git commit -m "feat: add circle join/leave and comment deletion"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 1.5: Multi-Device Login Management
@@ -1943,6 +1955,7 @@ git add src/domains/auth/ src/shared/api/mocks/auth.ts src/shared/api/mocks/inde
 git commit -m "feat: add multi-device login management page"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ## Phase 2: Enhanced Features
@@ -1959,6 +1972,7 @@ Read `src/pages/address/list/index.tsx` and confirm that:
 
 If confirmed, mark complete and skip to Task 2.2.
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 2.2: Logistics Enhancements
@@ -2057,6 +2071,7 @@ git add src/pages/logistics/track/ src/pages/seller/ src/shared/i18n/resources/z
 git commit -m "feat: add logistics anomaly alert, multi-package tabs, and scan button"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 2.3: Coupon Claim Center
@@ -2143,6 +2158,7 @@ git add src/pages/coupon/list/ src/domains/marketing/store.ts src/shared/i18n/re
 git commit -m "feat: add coupon claim center to coupon list page"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 2.4: Creator Center Enhancements
@@ -2233,6 +2249,7 @@ git add src/pages/community/creator/ src/shared/i18n/resources/zh-CN/community.j
 git commit -m "feat: add creator certification and commission data to creator center"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 2.5: Share Enhancements
@@ -2276,6 +2293,7 @@ git add src/shared/components/share/
 git commit -m "feat: add onShareTimeline and Canvas poster fallback"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 2.6: Admin Panel Trend Chart
@@ -2355,6 +2373,7 @@ git add src/pages/admin/ package.json
 git commit -m "feat: add echarts trend chart to admin dashboard"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 2.7: Offer Expiry Countdown
@@ -2425,6 +2444,7 @@ git add src/pages/offer/detail/ src/shared/i18n/resources/zh-CN/trade.json src/s
 git commit -m "feat: add offer expiry countdown with urgency indicators"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 2.8: Points Deduction UI
@@ -2501,6 +2521,7 @@ git add src/pages/order/create/ src/shared/i18n/resources/zh-CN/trade.json src/s
 git commit -m "feat: add points deduction toggle to order create page"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ## Phase 3: Quality
@@ -2530,6 +2551,7 @@ git add src/pages/ src/shared/i18n/
 git commit -m "refactor: extract remaining hardcoded Chinese strings to i18n"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 3.2: Balance Visibility Toggle
@@ -2572,6 +2594,7 @@ git add src/pages/wallet/index/
 git commit -m "feat: add balance visibility toggle and fix getTxInfo bug"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ### Task 3.3: Post Draft Auto-Save
@@ -2635,6 +2658,7 @@ git add src/pages/community/create/ src/shared/i18n/resources/zh-CN/community.js
 git commit -m "feat: add post draft auto-save and recovery"
 ```
 
+archived-with: 2026-06-10-openspec-feature-completion
 ---
 
 ## Final Verification
