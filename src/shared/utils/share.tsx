@@ -94,6 +94,11 @@ export function ShareProvider<P extends object>(
         imageUrl: merged.imageUrl
       }))
 
+      Taro.useShareTimeline?.(() => ({
+        title: merged.title || 'REMX 二手市场',
+        query: 'from=share_timeline'
+      }))
+
       Taro.showShareMenu?.({
         withShareTicket: true
       })

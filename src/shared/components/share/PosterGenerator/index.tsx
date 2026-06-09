@@ -49,6 +49,7 @@ export function PosterGenerator({ type, visible, data, onClose }: PosterGenerato
       setPhase('ready')
     } catch (err) {
       console.error('Canvas draw failed:', err)
+      Taro.showToast({ title: '海报生成失败，正在尝试服务端方案', icon: 'none' })
       await fallbackToServer()
     }
   }
@@ -95,15 +96,16 @@ export function PosterGenerator({ type, visible, data, onClose }: PosterGenerato
 
   const fallbackToServer = async () => {
     try {
-      const res = await http.post<{ imageUrl: string }>('/api/poster/generate', { type, data })
+      const res = await http.get<string>('/poster/generate')
       if (res.code === 0) {
-        setImagePath(res.data.imageUrl)
+        setImagePath(res.data)
         setPhase('ready')
-        Taro.showToast({ title: '已使用服务端图片', icon: 'none' })
+        Taro.previewImage({ urls: [res.data] })
       } else {
-        throw new Error('Server failed')
+        throw new Error('Server poster generate failed')
       }
     } catch (err) {
+      Taro.showToast({ title: '海报生成失败', icon: 'none' })
       setErrorMsg('海报生成失败')
       setPhase('error')
     }
