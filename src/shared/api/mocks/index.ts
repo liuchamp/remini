@@ -1,12 +1,6 @@
-// import { registerMocks } from '../mock-interceptor'
-
-// Domain mocks will be registered here as they are created
-// import { tradeMocks } from './trade'
-// import { communityMocks } from './community'
-// ... etc
+import { registerMocks } from '../mock-interceptor'
+import { communityMocks } from './community'
 
 export function initAllMocks() {
-  // registerMocks(tradeMocks)
-  // registerMocks(communityMocks)
-  // ... etc
+  registerMocks(communityMocks)
 }

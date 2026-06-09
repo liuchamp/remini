@@ -52,3 +52,17 @@ export interface FeedParams {
   page?: number
   pageSize?: number
 }
+
+export interface Circle {
+  id: string
+  name: string
+  avatar: string
+  description: string
+  memberCount: number
+  todayPostCount: number
+  isJoined: boolean
+}
+
+export interface CircleDetail extends Circle {
+  posts: Post[]
+}

@@ -1,7 +1,7 @@
 import { http } from '@/shared/api/request'
-import type { Post, Comment, CreatePostData, FeedParams } from './types'
+import type { Post, Comment, CreatePostData, FeedParams, Circle } from './types'
 
-export type { Post, Comment, CreatePostData, FeedParams }
+export type { Post, Comment, CreatePostData, FeedParams, Circle }
 
 export const communityApi = {
   getFeed(params: FeedParams) {
@@ -39,5 +39,29 @@ export const communityApi = {
     return http.post<{ isLiked: boolean; likeCount: number }>(
       `/community/comments/${commentId}/like`,
     )
+  },
+
+  getCircles() {
+    return http.get<Circle[]>('/community/circles')
+  },
+
+  getCircleDetail(id: string) {
+    return http.get<{ circle: Circle; posts: Post[] }>(`/community/circles/${id}`)
+  },
+
+  joinCircle(circleId: string) {
+    return http.post<void>(`/community/circles/${circleId}/join`)
+  },
+
+  leaveCircle(circleId: string) {
+    return http.delete<void>(`/community/circles/${circleId}/join`)
+  },
+
+  deleteComment(commentId: string) {
+    return http.delete<void>(`/community/comments/${commentId}`)
+  },
+
+  applyCreatorCertification(data: { reason: string; identityInfo?: string }) {
+    return http.post<void>('/community/creator/certification', data)
   },
 }
