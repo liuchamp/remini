@@ -49,3 +49,75 @@
   padding: 24px;
   height: calc(100vh - 88px);
 }
+
+.claim-section {
+  background-color: #fff;
+  padding: 24px;
+  margin-bottom: 16px;
+
+  .section-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+.claim-scroll {
+  white-space: nowrap;
+}
+
+.coupon-template-card {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, #ff6b35, #ff8f65);
+  border-radius: 16px;
+  padding: 24px;
+  margin-right: 20px;
+  min-width: 400px;
+  color: #fff;
+}
+
+.template-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.template-name {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.template-discount {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.template-condition {
+  font-size: 22px;
+  opacity: 0.85;
+}
+
+.template-remaining {
+  font-size: 22px;
+  opacity: 0.75;
+}
+
+.claim-btn {
+  margin-left: 24px;
+  padding: 16px 32px;
+  background-color: #fff;
+  color: #ff6b35;
+  border-radius: 32px;
+  font-size: 26px;
+  font-weight: 600;
+  flex-shrink: 0;
+
+  &.disabled {
+    background-color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.7);
+  }
+}

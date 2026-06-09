@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { marketingApi } from './api'
-import type { CheckinData, CheckinResult, PointsData, PointsRecord, Coupon } from './types'
+import type { CheckinData, CheckinResult, PointsData, PointsRecord, Coupon, CouponTemplate } from './types'
 
 interface CheckinState {
   checkinData: CheckinData | null
@@ -85,14 +85,18 @@ export const usePointsStore = create<PointsState>((set) => ({
 
 interface CouponState {
   coupons: Coupon[]
+  templates: CouponTemplate[]
   activeTab: 'active' | 'used' | 'expired'
   loading: boolean
   loadCoupons: (tab: string) => Promise<void>
+  loadTemplates: () => Promise<void>
   useCoupon: (couponId: string) => Promise<void>
+  claimCoupon: (templateId: string) => Promise<void>
 }
 
 export const useCouponStore = create<CouponState>((set) => ({
   coupons: [],
+  templates: [],
   activeTab: 'active',
   loading: false,
 
@@ -105,6 +109,17 @@ export const useCouponStore = create<CouponState>((set) => ({
       }
     } finally {
       set({ loading: false })
+    }
+  },
+
+  loadTemplates: async () => {
+    try {
+      const res = await marketingApi.getCouponTemplates()
+      if (res.code === 0) {
+        set({ templates: res.data as CouponTemplate[] })
+      }
+    } catch (error) {
+      console.error('Failed to load templates:', error)
     }
   },
 
@@ -122,5 +137,14 @@ export const useCouponStore = create<CouponState>((set) => ({
       console.error('Failed to use coupon:', error)
       throw error
     }
+  },
+
+  claimCoupon: async (templateId) => {
+    await marketingApi.claimCoupon(templateId)
+    set((s) => ({
+      templates: s.templates.map((t) =>
+        t.id === templateId ? { ...t, remaining: Math.max(0, t.remaining - 1) } : t
+      ),
+    }))
   }
 }))

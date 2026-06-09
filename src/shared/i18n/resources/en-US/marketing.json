@@ -37,5 +37,14 @@
   "couponTabExpired": "Expired",
   "couponUseSuccess": "Used successfully",
   "couponUseFailed": "Use failed",
-  "couponEmpty": "No coupons"
+  "couponEmpty": "No coupons",
+  "coupon": {
+    "claimCenter": "Coupon Center",
+    "claim": "Claim",
+    "soldOut": "Sold Out",
+    "claimSuccess": "Claimed!",
+    "claimed": "All claimed",
+    "remaining": "{count} remaining",
+    "minAmount": "Min. spend ¥{amount}"
+  }
 }

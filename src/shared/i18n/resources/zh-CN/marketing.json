@@ -37,5 +37,14 @@
   "couponTabExpired": "过期",
   "couponUseSuccess": "使用成功",
   "couponUseFailed": "使用失败",
-  "couponEmpty": "暂无优惠券"
+  "couponEmpty": "暂无优惠券",
+  "coupon": {
+    "claimCenter": "领券中心",
+    "claim": "领取",
+    "soldOut": "已抢完",
+    "claimSuccess": "领取成功",
+    "claimed": "已领完",
+    "remaining": "剩余 {count} 张",
+    "minAmount": "满 {amount} 元可用"
+  }
 }
