@@ -1,8 +1,11 @@
 import Taro from '@tarojs/taro'
+import { findMock } from './mock-interceptor'
 
 const API_BASE_URL = process.env.TARO_ENV === 'h5'
   ? '/api'
   : 'https://api.remx.com'
+
+const MOCK_ENABLED = process.env.MOCK_ENABLED !== 'false'
 
 interface RequestConfig {
   url: string
@@ -179,11 +182,24 @@ class HttpClient {
     }
 
     try {
+      const url = `${API_BASE_URL}${processedConfig.url}`
+      const method = processedConfig.method || 'GET'
+
+      if (MOCK_ENABLED) {
+        const mockResult = findMock(method, url, processedConfig.data || processedConfig.params)
+        if (mockResult) {
+          if (processedConfig.showLoading) {
+            Taro.hideLoading()
+          }
+          return Promise.resolve(mockResult as ApiResponse<T>)
+        }
+      }
+
       const token = Taro.getStorageSync('token')
 
       const res = await Taro.request({
-        url: `${API_BASE_URL}${processedConfig.url}`,
-        method: processedConfig.method || 'GET',
+        url,
+        method,
         data: processedConfig.method === 'GET' ? undefined : processedConfig.data,
         header: {
           'Authorization': token ? `Bearer ${token}` : '',
