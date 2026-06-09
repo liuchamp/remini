@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { View, Text, ScrollView } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useLoad, useRouter } from '@tarojs/taro'
@@ -27,6 +27,23 @@ export default function Track() {
   const [refreshing, setRefreshing] = useState(false)
 
   const orderId = router.params.orderId as string | undefined
+  const [activePackage, setActivePackage] = useState(0)
+
+  // Wrap tracking data as packages array for multi-package support
+  const packages = useMemo(() => {
+    if (!tracking) return []
+    return [tracking]
+  }, [tracking])
+
+  const activeTracking = packages[activePackage] || null
+
+  const isAnomaly = useMemo(() => {
+    if (!activeTracking || !activeTracking.events || !activeTracking.events.length) return false
+    const lastEvent = activeTracking.events[0]
+    const lastUpdate = new Date(lastEvent.time).getTime()
+    const threeDays = 3 * 24 * 60 * 60 * 1000
+    return Date.now() - lastUpdate > threeDays
+  }, [activeTracking])
 
   const loadTracking = useCallback(async (id: string, isRefresh = false) => {
     if (!isRefresh) setLoading(true)
@@ -63,9 +80,9 @@ export default function Track() {
   }
 
   const handleCopyTrackingNumber = () => {
-    if (!tracking) return
+    if (!activeTracking) return
     Taro.setClipboardData({
-      data: tracking.trackingNumber,
+      data: activeTracking.trackingNumber,
       success: () => {
         Taro.showToast({ title: t('copied'), icon: 'success' })
       },
@@ -103,7 +120,7 @@ export default function Track() {
     )
   }
 
-  if (error || !tracking) {
+  if (error || !activeTracking) {
     return (
       <View className='track-page'>
         <ScrollView
@@ -126,8 +143,8 @@ export default function Track() {
     )
   }
 
-  const statusInfo = getStatusInfo(tracking.status)
-  const statusLabel = getStatusLabel(tracking.status)
+  const statusInfo = getStatusInfo(activeTracking.status)
+  const statusLabel = getStatusLabel(activeTracking.status)
 
   return (
     <View className='track-page'>
@@ -139,6 +156,29 @@ export default function Track() {
         onRefresherRefresh={handleRefresh}
         refresherBackground='#f5f5f5'
       >
+        {isAnomaly && (
+          <View className='anomaly-alert'>
+            <Text className='anomaly-text'>{t('anomalyAlert')}</Text>
+            <Text className='contact-btn' onClick={() => Taro.makePhoneCall({ phoneNumber: '400-000-0000' })}>
+              {t('contactService')}
+            </Text>
+          </View>
+        )}
+
+        {packages.length > 1 && (
+          <View className='package-tabs'>
+            {packages.map((pkg, i) => (
+              <Text
+                key={pkg.shippingId || i}
+                className={`tab ${activePackage === i ? 'active' : ''}`}
+                onClick={() => setActivePackage(i)}
+              >
+                {t('package')} {i + 1}
+              </Text>
+            ))}
+          </View>
+        )}
+
         <View className='track-header-card'>
           <View className='track-status-row'>
             <View className='track-status-icon' style={{ backgroundColor: statusInfo.color }}>
@@ -155,7 +195,7 @@ export default function Track() {
               <Text className='track-icon-text'>{t('carrier').charAt(0)}</Text>
             </View>
             <View className='track-company-info'>
-              <Text className='track-company-name'>{tracking.company}</Text>
+              <Text className='track-company-name'>{activeTracking.company}</Text>
               <Text className='track-company-status'>{t('carrier')}</Text>
             </View>
           </View>
@@ -163,7 +203,7 @@ export default function Track() {
           <View className='track-number-row' onClick={handleCopyTrackingNumber}>
             <View className='track-number-left'>
               <Text className='track-number-label'>{t('trackingNumber')}</Text>
-              <Text className='track-number-value'>{tracking.trackingNumber}</Text>
+              <Text className='track-number-value'>{activeTracking.trackingNumber}</Text>
             </View>
             <View className='track-copy-hint'>
               <Text className='track-copy-text'>{t('copy')}</Text>
@@ -172,15 +212,15 @@ export default function Track() {
         </View>
 
         <View className='track-timeline'>
-          {tracking.events.length > 0 ? (
-            tracking.events.map((event: TrackingEvent, index: number) => {
+          {activeTracking.events.length > 0 ? (
+            activeTracking.events.map((event: TrackingEvent, index: number) => {
               const isLatest = index === 0
               const eventStatusInfo = getStatusInfo(event.status)
               const eventStatusLabel = getStatusLabel(event.status)
               return (
                 <View key={event.id} className={`track-event ${isLatest ? 'track-event-latest' : ''}`}>
                   <View className={`track-event-dot ${isLatest ? 'track-event-dot-latest' : ''}`} style={isLatest ? { backgroundColor: eventStatusInfo.color } : {}} />
-                  {index < tracking.events.length - 1 && (
+                  {index < activeTracking.events.length - 1 && (
                     <View className='track-event-line' />
                   )}
                   <View className='track-event-content'>

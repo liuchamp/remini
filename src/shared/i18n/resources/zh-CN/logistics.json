@@ -52,6 +52,10 @@
     "description": "描述",
     "time": "时间"
   },
+  "anomalyAlert": "物流信息超过3天未更新",
+  "contactService": "联系客服",
+  "package": "包裹",
+  "scanCode": "扫码",
   "statusMap": {
     "pending": "待揽收",
     "picked_up": "已揽收",

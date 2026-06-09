@@ -52,6 +52,10 @@
     "description": "Description",
     "time": "Time"
   },
+  "anomalyAlert": "Logistics not updated for 3+ days",
+  "contactService": "Contact Service",
+  "package": "Package",
+  "scanCode": "Scan",
   "statusMap": {
     "pending": "Pending Pickup",
     "picked_up": "Picked Up",

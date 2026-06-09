@@ -11,6 +11,48 @@
   padding: $spacing-xl $spacing-xl 48px;
 }
 
+// Anomaly alert
+.anomaly-alert {
+  background: #FFF8E1;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  margin-bottom: $spacing-xl;
+
+  .anomaly-text {
+    font-size: 24px;
+    color: #F57C00;
+  }
+
+  .contact-btn {
+    font-size: 24px;
+    color: #FF6B35;
+    font-weight: 500;
+  }
+}
+
+// Package tabs
+.package-tabs {
+  display: flex;
+  gap: 16px;
+  margin-bottom: $spacing-xl;
+
+  .tab {
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 24px;
+    background: #f0f0f0;
+    color: #666;
+
+    &.active {
+      background: #FF6B35;
+      color: #fff;
+    }
+  }
+}
+
 // Loading & Error states
 .track-loading,
 .track-error {

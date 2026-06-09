@@ -48,7 +48,7 @@ const CANCEL_REASONS = [
 ]
 
 export default function Detail() {
-  const { t } = useTranslation(['trade', 'common'])
+  const { t } = useTranslation(['trade', 'common', 'logistics'])
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   void t
   const router = useRouter()
@@ -377,12 +377,29 @@ export default function Detail() {
 
               <View className='form-section'>
                 <Text className='form-label'>运单号</Text>
-                <Input
-                  className='tracking-input'
-                  placeholder='请输入快递运单号'
-                  value={trackingNumber}
-                  onInput={(e) => setTrackingNumber(e.detail.value)}
-                />
+                <View className='tracking-row'>
+                  <Input
+                    className='tracking-input'
+                    placeholder='请输入快递运单号'
+                    value={trackingNumber}
+                    onInput={(e) => setTrackingNumber(e.detail.value)}
+                  />
+                  <Text
+                    className='scan-btn'
+                    onClick={async () => {
+                      try {
+                        const res = await Taro.scanCode({ scanType: ['barCode', 'qrCode'] })
+                        if (res.result) {
+                          setTrackingNumber(res.result)
+                        }
+                      } catch {
+                        Taro.showToast({ title: '扫码取消', icon: 'none' })
+                      }
+                    }}
+                  >
+                    {t('logistics:scanCode')}
+                  </Text>
+                </View>
               </View>
             </View>
 
