@@ -1,6 +1,6 @@
 import Taro, { navigateBack, chooseImage, useLoad } from '@tarojs/taro'
 import { View, Text, Textarea, Image } from '@tarojs/components'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useCreateStore } from '@/domains/community/store'
 import Loading from '@/shared/components/Loading'
