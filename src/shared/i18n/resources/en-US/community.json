@@ -51,5 +51,17 @@
     "deleteConfirm": "Delete this comment?",
     "deleteSuccess": "Comment deleted",
     "confirmDelete": "Delete this comment?"
+  },
+  "creator": {
+    "certification": "Creator Certification",
+    "conditionFans": "Followers",
+    "conditionPosts": "Posts",
+    "conditionSales": "Sales",
+    "applyCertification": "Apply",
+    "applySuccess": "Application submitted",
+    "commissionData": "Commission Data",
+    "totalCommission": "Total",
+    "availableCommission": "Available",
+    "monthlyEstimate": "This Month"
   }
 }

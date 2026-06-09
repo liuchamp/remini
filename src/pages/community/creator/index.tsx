@@ -1,14 +1,25 @@
 import { View, Text } from '@tarojs/components'
-import { useLoad } from '@tarojs/taro'
+import Taro, { useLoad } from '@tarojs/taro'
 import { useState } from 'react'
-import { marketingApi, ReferralInfo } from '@/domains/marketing/api'
+import { useTranslation } from 'react-i18next'
+import { marketingApi, type ReferralInfo, type CommissionData } from '@/domains/marketing/api'
+import { communityApi } from '@/domains/community/api'
 import './index.scss'
 
 export default function CreatorCenter() {
+  const { t } = useTranslation(['community'])
   const [referralInfo, setReferralInfo] = useState<ReferralInfo | null>(null)
+  const [commissionData, setCommissionData] = useState<CommissionData>({
+    totalCommission: 0,
+    availableCommission: 0,
+    monthlyEstimate: 0,
+    records: [],
+  })
 
-  useLoad(() => {
-    loadReferralInfo()
+  useLoad(async () => {
+    await loadReferralInfo()
+    const res = await marketingApi.getCommissionData()
+    if (res.code === 0) setCommissionData(res.data)
   })
 
   const loadReferralInfo = async () => {
@@ -38,6 +49,48 @@ export default function CreatorCenter() {
             <Text className='referrals'>{item.referrals} 人</Text>
           </View>
         ))}
+      </View>
+
+      <View className='certification-section'>
+        <Text className='section-title'>{t('community:creator.certification')}</Text>
+        <View className='condition-list'>
+          <View className='condition-item'>
+            <Text>{t('community:creator.conditionFans')}: ≥ 100</Text>
+          </View>
+          <View className='condition-item'>
+            <Text>{t('community:creator.conditionPosts')}: ≥ 20</Text>
+          </View>
+          <View className='condition-item'>
+            <Text>{t('community:creator.conditionSales')}: ≥ ¥1000</Text>
+          </View>
+        </View>
+        <View
+          className='apply-btn'
+          onClick={async () => {
+            await communityApi.applyCreatorCertification({ reason: '' })
+            Taro.showToast({ title: t('community:creator.applySuccess'), icon: 'success' })
+          }}
+        >
+          <Text>{t('community:creator.applyCertification')}</Text>
+        </View>
+      </View>
+
+      <View className='commission-section'>
+        <Text className='section-title'>{t('community:creator.commissionData')}</Text>
+        <View className='commission-summary'>
+          <View className='summary-item'>
+            <Text className='amount'>¥{commissionData.totalCommission.toFixed(2)}</Text>
+            <Text className='label'>{t('community:creator.totalCommission')}</Text>
+          </View>
+          <View className='summary-item'>
+            <Text className='amount'>¥{commissionData.availableCommission.toFixed(2)}</Text>
+            <Text className='label'>{t('community:creator.availableCommission')}</Text>
+          </View>
+          <View className='summary-item'>
+            <Text className='amount'>¥{commissionData.monthlyEstimate.toFixed(2)}</Text>
+            <Text className='label'>{t('community:creator.monthlyEstimate')}</Text>
+          </View>
+        </View>
       </View>
     </View>
   )

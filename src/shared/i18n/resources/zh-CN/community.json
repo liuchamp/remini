@@ -51,5 +51,17 @@
     "deleteConfirm": "确定删除评论？",
     "deleteSuccess": "评论已删除",
     "confirmDelete": "确定删除此评论？"
+  },
+  "creator": {
+    "certification": "达人认证",
+    "conditionFans": "粉丝数",
+    "conditionPosts": "发帖数",
+    "conditionSales": "交易额",
+    "applyCertification": "申请认证",
+    "applySuccess": "申请已提交",
+    "commissionData": "佣金数据",
+    "totalCommission": "累计佣金",
+    "availableCommission": "可提现",
+    "monthlyEstimate": "本月预估"
   }
 }
