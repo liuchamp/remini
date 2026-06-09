@@ -13,8 +13,6 @@ import './index.scss'
 
 function Detail() {
   const { t } = useTranslation(['product', 'common'])
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  void t
   const [id, setId] = useState('')
   const [currentSwiperIndex, setCurrentSwiperIndex] = useState(0)
   const [showOfferPanel, setShowOfferPanel] = useState(false)
@@ -73,11 +71,11 @@ function Detail() {
   const handleSubmitOffer = useCallback(async () => {
     const amountNum = parseFloat(offerAmount)
     if (isNaN(amountNum) || amountNum <= 0) {
-      Taro.showToast({ title: '请输入有效出价金额', icon: 'none' })
+      Taro.showToast({ title: t('offerAmountInvalid'), icon: 'none' })
       return
     }
     if (currentProduct && amountNum >= currentProduct.price) {
-      Taro.showToast({ title: '出价需低于商品售价', icon: 'none' })
+      Taro.showToast({ title: t('offerLessThanPrice'), icon: 'none' })
       return
     }
 
@@ -89,7 +87,7 @@ function Detail() {
         note: offerNote.trim() || undefined
       })
       if (res.code === 0) {
-        Taro.showToast({ title: '出价成功，等待卖家响应', icon: 'success' })
+        Taro.showToast({ title: t('offerSubmitSuccess'), icon: 'success' })
         setShowOfferPanel(false)
         setOfferAmount('')
         setOfferNote('')
@@ -122,11 +120,11 @@ function Detail() {
   }
 
   const conditionLabel: Record<string, string> = {
-    new: '全新',
-    like_new: '几乎全新',
-    good: '良好',
-    fair: '一般',
-    poor: '较差'
+    new: t('conditions.new'),
+    like_new: t('conditions.likeNew'),
+    good: t('conditions.good'),
+    fair: t('conditions.fair'),
+    poor: t('conditions.poor')
   }
 
   const product = currentProduct
@@ -140,7 +138,7 @@ function Detail() {
   if (!product) {
     return (
       <View className='detail-loading'>
-        <Text className='empty-text'>商品不存在或已下架</Text>
+        <Text className='empty-text'>{t('notFound')}</Text>
       </View>
     )
   }
@@ -194,16 +192,16 @@ function Detail() {
             <Text className='original-price'>¥{product.originalPrice}</Text>
           )}
           {product.isNegotiable && (
-            <Text className='negotiable-badge'>可议价</Text>
+            <Text className='negotiable-badge'>{t('negotiable')}</Text>
           )}
         </View>
         <Text className='detail-title'>{product.title}</Text>
         <View className='meta-row'>
           <Text className='meta-item'>{conditionLabel[product.condition] || product.condition}</Text>
           <Text className='meta-divider'>|</Text>
-          <Text className='meta-item'>{product.viewCount} 次浏览</Text>
+          <Text className='meta-item'>{t('viewCount', { count: product.viewCount })}</Text>
           <Text className='meta-divider'>|</Text>
-          <Text className='meta-item'>{product.favoriteCount} 人收藏</Text>
+          <Text className='meta-item'>{t('favoriteCount', { count: product.favoriteCount })}</Text>
         </View>
         {product.distance != null && (
           <View className='distance-row'>
@@ -217,13 +215,13 @@ function Detail() {
 
       {product.description && (
         <View className='desc-section'>
-          <Text className='section-title'>商品描述</Text>
+          <Text className='section-title'>{t('productDesc')}</Text>
           <Text className='desc-content'>{product.description}</Text>
         </View>
       )}
 
       <View className='seller-section'>
-        <Text className='section-title'>卖家信息</Text>
+        <Text className='section-title'>{t('sellerInfo')}</Text>
         <View className='seller-card' onClick={handleChat}>
           <Image
             className='seller-avatar'
@@ -231,10 +229,10 @@ function Detail() {
             mode='aspectFill'
           />
           <View className='seller-info'>
-            <Text className='seller-name'>{product.seller?.username || '匿名用户'}</Text>
+            <Text className='seller-name'>{product.seller?.username || t('anonymous')}</Text>
             <View className='seller-stats'>
               <Text className='seller-stat'>
-                信用 {product.seller?.trustScore || 0}
+                {t('common:trustScore', { ns: 'common' }) || t('common:app.name', { ns: 'common' })} {product.seller?.trustScore || 0}
               </Text>
               {product.seller?.isVerified && (
                 <Text className='verified-tag'>已认证</Text>

@@ -32,6 +32,7 @@
     "submitting": "Posting...",
     "success": "Posted successfully",
     "failed": "Post failed",
+    "draftRestored": "Draft restored from last edit",
     "sensitiveWord": "Content contains sensitive words"
   },
   "circle": {
@@ -62,6 +63,10 @@
     "commissionData": "Commission Data",
     "totalCommission": "Total",
     "availableCommission": "Available",
-    "monthlyEstimate": "This Month"
+    "monthlyEstimate": "This Month",
+    "totalInvited": "Total Invited",
+    "totalRewards": "Total Rewards",
+    "leaderboard": "Invite Leaderboard",
+    "personCount": "{count} people"
   }
 }

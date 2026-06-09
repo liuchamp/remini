@@ -20,8 +20,10 @@ export default function WalletIndex() {
     transactionsHasMore,
     loading,
     refreshing,
+    balanceVisible,
     loadBalance,
-    loadTransactions
+    loadTransactions,
+    toggleBalanceVisibility
   } = useWalletStore()
 
   const [transactionsPage, setTransactionsPage] = useState(1)
@@ -66,6 +68,11 @@ export default function WalletIndex() {
     const cfg = TX_TYPE_CONFIG[record.type] || { color: '#999', prefix: '' }
     const labelMap: Record<string, string> = { hold: 'wallet:wallet.heldBalance', release: 'wallet:wallet.totalEarned', refund: 'wallet:wallet.totalEarned', withdraw: 'wallet:wallet.withdraw' }
     const label = t(labelMap[record.type] || 'wallet:wallet.transactions')
+    return { ...cfg, label }
+  }
+
+  const maskedAmount = (value?: number) => {
+    return balanceVisible ? (value !== undefined ? formatAmount(value) : '--') : '****'
   }
 
   return (
@@ -73,24 +80,29 @@ export default function WalletIndex() {
       {/* Balance Header */}
       <View className='balance-header'>
         <View className='balance-card'>
-          <Text className='balance-label'>{t('wallet:wallet.availableBalanceLabel')}</Text>
+          <View className='balance-label-row'>
+            <Text className='balance-label'>{t('wallet:wallet.availableBalanceLabel')}</Text>
+            <Text className='eye-toggle' onClick={toggleBalanceVisibility}>
+              {balanceVisible ? '👁️' : '👁️‍🗨️'}
+            </Text>
+          </View>
           <View className='balance-amount'>
             <Text className='amount-symbol'>¥</Text>
             <Text className='amount-value'>
-              {balance ? formatAmount(balance.availableBalance) : '--'}
+              {balance ? maskedAmount(balance.availableBalance) : '--'}
             </Text>
           </View>
           <View className='balance-details'>
             <View className='detail-item'>
               <Text className='detail-label'>{t('wallet:wallet.heldBalance')}</Text>
               <Text className='detail-value'>
-                ¥{balance ? formatAmount(balance.heldBalance) : '--'}
+                ¥{balance ? maskedAmount(balance.heldBalance) : '--'}
               </Text>
             </View>
             <View className='detail-item'>
               <Text className='detail-label'>{t('wallet:wallet.totalEarned')}</Text>
               <Text className='detail-value'>
-                ¥{balance ? formatAmount(balance.totalEarned) : '--'}
+                ¥{balance ? maskedAmount(balance.totalEarned) : '--'}
               </Text>
             </View>
           </View>

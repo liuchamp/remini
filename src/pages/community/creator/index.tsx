@@ -32,21 +32,21 @@ export default function CreatorCenter() {
       <View className='stats-section'>
         <View className='stat-item'>
           <Text className='stat-value'>{referralInfo?.totalReferrals || 0}</Text>
-          <Text className='stat-label'>邀请人数</Text>
+          <Text className='stat-label'>{t('creator.totalInvited')}</Text>
         </View>
         <View className='stat-item'>
           <Text className='stat-value'>{referralInfo?.totalRewards || 0}</Text>
-          <Text className='stat-label'>累计奖励</Text>
+          <Text className='stat-label'>{t('creator.totalRewards')}</Text>
         </View>
       </View>
 
       <View className='section'>
-        <Text className='section-title'>邀请排行</Text>
+        <Text className='section-title'>{t('creator.leaderboard')}</Text>
         {referralInfo?.leaderboard.map((item) => (
           <View key={item.rank} className='leaderboard-item'>
             <Text className='rank'>#{item.rank}</Text>
             <Text className='name'>{item.name}</Text>
-            <Text className='referrals'>{item.referrals} 人</Text>
+            <Text className='referrals'>{t('creator.personCount', { count: item.referrals })}</Text>
           </View>
         ))}
       </View>

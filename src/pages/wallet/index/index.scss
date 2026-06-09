@@ -6,3 +6,15 @@
   font-size: 32px;
   color: #333;
 }
+
+.balance-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eye-toggle {
+  font-size: 28px;
+  cursor: pointer;
+  padding: 4px;
+}

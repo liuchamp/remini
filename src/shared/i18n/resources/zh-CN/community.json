@@ -32,6 +32,7 @@
     "submitting": "发布中...",
     "success": "发布成功",
     "failed": "发布失败",
+    "draftRestored": "已恢复上次编辑的草稿",
     "sensitiveWord": "内容包含敏感词，请修改"
   },
   "circle": {
@@ -62,6 +63,10 @@
     "commissionData": "佣金数据",
     "totalCommission": "累计佣金",
     "availableCommission": "可提现",
-    "monthlyEstimate": "本月预估"
+    "monthlyEstimate": "本月预估",
+    "totalInvited": "邀请人数",
+    "totalRewards": "累计奖励",
+    "leaderboard": "邀请排行",
+    "personCount": "{count} 人"
   }
 }

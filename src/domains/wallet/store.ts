@@ -21,12 +21,16 @@ interface WalletState {
   loading: boolean
   refreshing: boolean
 
+  // Balance visibility
+  balanceVisible: boolean
+
   // Actions
   loadBalance: () => Promise<void>
   loadTransactions: (refresh?: boolean) => Promise<void>
   loadPaymentAccounts: () => Promise<void>
   submitWithdraw: (amount: number, paymentAccountId: string, note?: string) => Promise<boolean>
   resetWithdraw: () => void
+  toggleBalanceVisibility: () => void
 }
 
 export const useWalletStore = create<WalletState>((set, get) => ({
@@ -39,6 +43,7 @@ export const useWalletStore = create<WalletState>((set, get) => ({
   withdrawSuccess: false,
   loading: false,
   refreshing: false,
+  balanceVisible: true,
 
   loadBalance: async () => {
     set({ refreshing: true })
@@ -97,6 +102,8 @@ export const useWalletStore = create<WalletState>((set, get) => ({
       return false
     }
   },
+
+  toggleBalanceVisibility: () => set((s) => ({ balanceVisible: !s.balanceVisible })),
 
   resetWithdraw: () => set({ withdrawSuccess: false })
 }))

@@ -1,15 +1,40 @@
-import Taro, { navigateBack, chooseImage } from '@tarojs/taro'
+import Taro, { navigateBack, chooseImage, useLoad } from '@tarojs/taro'
 import { View, Text, Textarea, Image } from '@tarojs/components'
+import { useState, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useCreateStore } from '@/domains/community/store'
 import Loading from '@/shared/components/Loading'
 import ErrorBoundary from '@/shared/components/ErrorBoundary'
 import './index.scss'
 
+const DRAFT_KEY = 'community_create_draft'
+
+interface DraftData {
+  content: string
+  images: string[]
+  savedAt: string
+}
+
+function saveDraft(content: string, images: string[]) {
+  const draft: DraftData = { content, images, savedAt: new Date().toISOString() }
+  Taro.setStorageSync(DRAFT_KEY, draft)
+}
+
+function loadDraft(): DraftData | null {
+  try {
+    const raw = Taro.getStorageSync(DRAFT_KEY)
+    return raw ? (raw as DraftData) : null
+  } catch {
+    return null
+  }
+}
+
+function clearDraft() {
+  Taro.removeStorageSync(DRAFT_KEY)
+}
+
 export default function Create() {
   const { t } = useTranslation(['community', 'common'])
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  void t
   const {
     content,
     images,
@@ -19,6 +44,34 @@ export default function Create() {
     removeImage,
     submit,
   } = useCreateStore()
+
+  const [draftRestored, setDraftRestored] = useState(false)
+
+  // Restore draft on page load
+  useLoad(() => {
+    if (!draftRestored) {
+      const draft = loadDraft()
+      if (draft && (draft.content || draft.images.length > 0)) {
+        setContent(draft.content)
+        draft.images.forEach((img) => addImage(img))
+        Taro.showToast({
+          title: t('create.draftRestored'),
+          icon: 'none',
+          duration: 2000,
+        })
+      }
+      setDraftRestored(true)
+    }
+  })
+
+  // Auto-save draft on content/image changes (debounced)
+  useEffect(() => {
+    if (!draftRestored) return
+    const timer = setTimeout(() => {
+      saveDraft(content, images)
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [content, images, draftRestored])
 
   const handleChooseImage = async () => {
     try {
@@ -38,19 +91,20 @@ export default function Create() {
 
   const handleSubmit = async () => {
     if (!content.trim()) {
-      Taro.showToast({ title: '请输入内容', icon: 'none' })
+      Taro.showToast({ title: t('create.contentRequired'), icon: 'none' })
       return
     }
 
     try {
       await submit()
-      Taro.showToast({ title: '发布成功', icon: 'success' })
+      clearDraft()
+      Taro.showToast({ title: t('create.success'), icon: 'success' })
       setTimeout(() => {
         navigateBack()
       }, 1500)
     } catch (error) {
       console.error('Failed to submit:', error)
-      Taro.showToast({ title: '发布失败', icon: 'none' })
+      Taro.showToast({ title: t('create.failed'), icon: 'none' })
     }
   }
 
@@ -59,9 +113,9 @@ export default function Create() {
       <View className='create-page'>
         <View className='header'>
           <Text className='cancel-btn' onClick={() => navigateBack()}>
-            取消
+            {t('common:action.cancel')}
           </Text>
-          <Text className='title'>发布帖子</Text>
+          <Text className='title'>{t('create.title')}</Text>
           <View
             className={`submit-btn ${submitting ? 'disabled' : ''}`}
             onClick={handleSubmit}
@@ -69,7 +123,7 @@ export default function Create() {
             {submitting ? (
               <Loading type='spinner' />
             ) : (
-              <Text className='submit-text'>发布</Text>
+              <Text className='submit-text'>{t('create.submit')}</Text>
             )}
           </View>
         </View>
@@ -77,7 +131,7 @@ export default function Create() {
         <View className='content-area'>
           <Textarea
             className='textarea'
-            placeholder='分享你的想法...'
+            placeholder={t('create.contentPlaceholder')}
             value={content}
             onInput={(e) => setContent(e.detail.value)}
             maxlength={500}
@@ -102,7 +156,7 @@ export default function Create() {
             {images.length < 9 && (
               <View className='add-image' onClick={handleChooseImage}>
                 <Text className='add-icon'>+</Text>
-                <Text className='add-text'>添加图片</Text>
+                <Text className='add-text'>{t('create.addImage')}</Text>
               </View>
             )}
           </View>
@@ -111,11 +165,11 @@ export default function Create() {
         <View className='options-section'>
           <View className='option-item'>
             <Text className='option-icon'>🔗</Text>
-            <Text className='option-text'>关联商品</Text>
+            <Text className='option-text'>{t('create.linkProduct')}</Text>
           </View>
           <View className='option-item'>
             <Text className='option-icon'>👥</Text>
-            <Text className='option-text'>选择圈子</Text>
+            <Text className='option-text'>{t('create.selectCircle')}</Text>
           </View>
         </View>
       </View>

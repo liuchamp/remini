@@ -1,11 +1,13 @@
 import { View, Text, Image } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { communityApi } from '@/domains/community/api'
 import Empty from '@/shared/components/Empty'
 import './index.scss'
 
 export default function CircleList() {
+  const { t } = useTranslation('community')
   const [circles, setCircles] = useState<Circle[]>([])
   const [loading, setLoading] = useState(false)
 
@@ -26,7 +28,7 @@ export default function CircleList() {
   return (
     <View className='circle-list-page'>
       {circles.length === 0 && !loading ? (
-        <Empty text='暂无圈子' />
+        <Empty text={t('circle.noCircles')} />
       ) : (
         <View className='circle-list'>
           {circles.map((c) => (
@@ -38,7 +40,7 @@ export default function CircleList() {
               <Image className='circle-avatar' src={c.avatar} mode='aspectFill' lazyLoad />
               <View className='circle-info'>
                 <Text className='circle-name'>{c.name}</Text>
-                <Text className='circle-members'>{c.memberCount} 成员</Text>
+                <Text className='circle-members'>{t('circle.members', { count: c.memberCount })}</Text>
               </View>
             </View>
           ))}
