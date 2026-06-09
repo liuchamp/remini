@@ -20,3 +20,13 @@ export interface AuthGuardProps {
   requiredKycTier?: 'L1' | 'L2' | 'L3'
   fallback?: ReactNode
 }
+
+export interface DeviceSession {
+  id: string
+  deviceModel: string
+  osVersion: string
+  appVersion: string
+  networkType: string
+  lastActiveAt: string
+  isCurrent: boolean
+}

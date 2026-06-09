@@ -80,7 +80,7 @@ export default defineAppConfig({
     },
     {
       root: 'pages/user',
-      pages: ['profile/index', 'settings/index']
+      pages: ['profile/index', 'settings/index', 'devices/index']
     },
     {
       root: 'pages/settings',

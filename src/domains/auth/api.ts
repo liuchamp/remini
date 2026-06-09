@@ -1,4 +1,5 @@
 import { http } from '@/shared/api/request'
+import type { DeviceSession } from './types'
 
 export interface LoginResponse {
   user: User
@@ -35,5 +36,11 @@ export const authApi = {
   },
   refresh(refreshToken: string) {
     return http.post<{ token: string; refreshToken: string }>('/auth/refresh', { refreshToken })
+  },
+  getDevices() {
+    return http.get<DeviceSession[]>('/auth/devices')
+  },
+  kickDevice(deviceId: string) {
+    return http.delete<void>(`/auth/devices/${deviceId}`)
   }
 }
