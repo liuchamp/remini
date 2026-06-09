@@ -1,5 +1,6 @@
 import { http } from '@/shared/api/request'
-import type { CheckinData, CheckinResult, PointsData, PointsRecord, Coupon } from './types'
+import type { CheckinData, CheckinResult, PointsData, PointsRecord, Coupon, ReferralInfo, CouponTemplate, CommissionData } from './types'
+export type { ReferralInfo, CouponTemplate, CommissionData, CommissionRecord, ReferralLeaderboardEntry } from './types'
 
 export const marketingApi = {
   getCheckinData: () => {
@@ -32,5 +33,21 @@ export const marketingApi = {
 
   exchangeCoupon: (couponId: string) => {
     return http.post(`/marketing/coupons/${couponId}/exchange`)
+  },
+
+  getReferralInfo() {
+    return http.get<ReferralInfo>('/marketing/referral/info')
+  },
+
+  claimCoupon(couponTemplateId: string) {
+    return http.post<void>('/marketing/coupons/claim', { couponTemplateId })
+  },
+
+  getCouponTemplates() {
+    return http.get<CouponTemplate[]>('/marketing/coupons/templates')
+  },
+
+  getCommissionData() {
+    return http.get<CommissionData>('/marketing/commission')
   },
 }

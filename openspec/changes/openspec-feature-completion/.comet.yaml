@@ -1,0 +1,17 @@
+workflow: full
+phase: build
+build_mode: subagent-driven-development
+build_pause: null
+isolation: branch
+verify_mode: null
+base_ref: 8021b3a0b62403f80915b40cad012f0ab4f04469
+design_doc: docs/superpowers/specs/2026-06-10-feature-completion-design.md
+plan: docs/superpowers/plans/2026-06-10-feature-completion.md
+verify_result: pending
+verification_report: null
+branch_status: pending
+created_at: 2026-06-10
+verified_at: null
+archived: false
+handoff_context: openspec/changes/openspec-feature-completion/.comet/handoff/design-context.json
+handoff_hash: 3ad676f4ad7b38102dd1ceb2d4641e3288086e44afb6882152a35043d2a13747

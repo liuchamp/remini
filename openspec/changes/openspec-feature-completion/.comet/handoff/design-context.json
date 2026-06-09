@@ -1,0 +1,13 @@
+{
+  "change": "openspec-feature-completion",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "3ad676f4ad7b38102dd1ceb2d4641e3288086e44afb6882152a35043d2a13747",
+  "files": [
+    { "path": "openspec/changes/openspec-feature-completion/proposal.md", "sha256": "edd7ce73abef5442dee1790cf93d428c76a96906dd271806af8c1637a9205735" },
+    { "path": "openspec/changes/openspec-feature-completion/design.md", "sha256": "ef9fd14448ee6f5bc30d1bf592919b919443607bd993317021ca71a7c180f4b1" },
+    { "path": "openspec/changes/openspec-feature-completion/tasks.md", "sha256": "4eab048119761160ccb6875f1fb1736bbf3bbb77adfe403255a3a6900a8a8e41" }
+  ]
+}

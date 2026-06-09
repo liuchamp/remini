@@ -43,3 +43,45 @@ export interface Coupon {
   usedAt?: string
   applicableProducts?: string[]
 }
+
+export interface ReferralLeaderboardEntry {
+  rank: number
+  name: string
+  avatar: string
+  referrals: number
+}
+
+export interface ReferralInfo {
+  code: string
+  link: string
+  totalReferrals: number
+  totalRewards: number
+  leaderboard: ReferralLeaderboardEntry[]
+}
+
+export interface CouponTemplate {
+  id: string
+  name: string
+  type: '满减' | '折扣' | '无门槛'
+  discount: number
+  minAmount: number
+  remaining: number
+  total: number
+  expiresAt: string
+}
+
+export interface CommissionRecord {
+  id: string
+  orderId: string
+  productName: string
+  amount: number
+  status: 'pending' | 'settled' | 'cancelled'
+  createdAt: string
+}
+
+export interface CommissionData {
+  totalCommission: number
+  availableCommission: number
+  monthlyEstimate: number
+  records: CommissionRecord[]
+}
