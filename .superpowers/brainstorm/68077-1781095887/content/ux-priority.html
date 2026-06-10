@@ -1,0 +1,78 @@
+<h2>REMX 小程序 UX 优化方向</h2>
+<p class="subtitle">基于项目分析，选择需要优先优化的领域</p>
+
+<div class="section">
+  <h3>📊 当前状态分析</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0;">
+    <div style="background: #f8f9fa; padding: 16px; border-radius: 8px;">
+      <div style="font-size: 14px; color: #666;">已有组件</div>
+      <div style="font-size: 20px; font-weight: 600; color: #00B894;">11 个共享组件</div>
+      <div style="font-size: 12px; color: #888;">Loading, Empty, Skeleton, Toast, Avatar...</div>
+    </div>
+    <div style="background: #f8f9fa; padding: 16px; border-radius: 8px;">
+      <div style="font-size: 14px; color: #666;">待优化项</div>
+      <div style="font-size: 20px; font-weight: 600; color: #FF6B35;">6 个关键领域</div>
+      <div style="font-size: 12px; color: #888;">触控、加载、导航、平台、表单、性能</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>🎯 优化方向选择</h3>
+  <p>选择 2-3 个你最想优先优化的方向：</p>
+</div>
+
+<div class="options" data-multiselect>
+  <div class="option" data-choice="touch" onclick="toggleSelect(this)">
+    <div class="letter">1</div>
+    <div class="content">
+      <h3>触控目标标准化</h3>
+      <p>确保所有可交互元素 ≥ 48px，添加触觉反馈，优化触摸体验</p>
+      <div style="font-size: 12px; color: #00B894; margin-top: 8px;">✅ 已有基础：部分组件已实现</div>
+    </div>
+  </div>
+  <div class="option" data-choice="loading" onclick="toggleSelect(this)">
+    <div class="letter">2</div>
+    <div class="content">
+      <h3>加载与空状态</h3>
+      <p>骨架屏、空状态插图、加载过渡动画</p>
+      <div style="font-size: 12px; color: #00B894; margin-top: 8px;">✅ 已有基础：Skeleton、Empty、LazyImage 组件</div>
+    </div>
+  </div>
+  <div class="option" data-choice="navigation" onclick="toggleSelect(this)">
+    <div class="letter">3</div>
+    <div class="content">
+      <h3>导航优化</h3>
+      <p>子包预加载、页面过渡、面包屑、返回顶部</p>
+      <div style="font-size: 12px; color: #FDCB6E; margin-top: 8px;">⚠️ 部分实现：preloadRule 已配置</div>
+    </div>
+  </div>
+  <div class="option" data-choice="platform" onclick="toggleSelect(this)">
+    <div class="letter">4</div>
+    <div class="content">
+      <h3>平台特性适配</h3>
+      <p>微信分享卡片、支付宝生活号、鸿蒙分布式能力</p>
+      <div style="font-size: 12px; color: #E17055; margin-top: 8px;">❌ 待实现：仅有基础分享配置</div>
+    </div>
+  </div>
+  <div class="option" data-choice="form" onclick="toggleSelect(this)">
+    <div class="letter">5</div>
+    <div class="content">
+      <h3>表单 UX 增强</h3>
+      <p>实时验证、键盘感知滚动、表单自动保存</p>
+      <div style="font-size: 12px; color: #FDCB6E; margin-top: 8px;">⚠️ 部分实现：有验证函数，无自动保存</div>
+    </div>
+  </div>
+  <div class="option" data-choice="performance" onclick="toggleSelect(this)">
+    <div class="letter">6</div>
+    <div class="content">
+      <h3>性能优化</h3>
+      <p>列表虚拟化、渐进图片加载、错误边界、React.memo</p>
+      <div style="font-size: 12px; color: #00B894; margin-top: 8px;">✅ 已有基础：LazyImage、ErrorBoundary、useInfiniteScroll</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 24px;">
+  <p style="font-size: 14px; color: #666;">点击选择你想要优先优化的方向（可多选），然后在终端告诉我你的选择。</p>
+</div>
