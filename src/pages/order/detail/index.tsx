@@ -73,6 +73,10 @@ export default function Detail() {
     }
   })
 
+  const handleGoBack = () => {
+    NavigationService.smartNavigateBack()
+  }
+
   const loadDetail = async (id: string) => {
     setLoading(true)
     try {
@@ -237,6 +241,11 @@ export default function Detail() {
   if (loading || !order) {
     return (
       <View>
+        <View className='header-bar'>
+          <View className='back-btn' onClick={handleGoBack}>
+            <Text>← 返回</Text>
+          </View>
+        </View>
         <Breadcrumb items={[
           { label: '我的', path: '/pages/profile/index' },
           { label: '订单', path: '/pages/order/list/index' },
@@ -254,6 +263,11 @@ export default function Detail() {
 
   return (
     <View>
+      <View className='header-bar'>
+        <View className='back-btn' onClick={handleGoBack}>
+          <Text>← 返回</Text>
+        </View>
+      </View>
       <Breadcrumb items={[
         { label: '我的', path: '/pages/profile/index' },
         { label: '订单', path: '/pages/order/list/index' },
