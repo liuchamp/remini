@@ -91,3 +91,79 @@ export const PlatformAPI = {
     Taro.setClipboardData({ data: text })
   }
 }
+
+export interface PlatformFeatures {
+  share: {
+    shareCard: boolean
+    shareImage: boolean
+    shareTimeline: boolean
+  }
+  favorite: {
+    addCard: boolean
+    addFavorite: boolean
+  }
+  subscription: {
+    templateMessage: boolean
+    subscribeMessage: boolean
+  }
+  payment: {
+    wechatPay: boolean
+    alipay: boolean
+  }
+  social: {
+    lifeAccount: boolean
+    creditScore: boolean
+  }
+  distributed: {
+    serviceWidget: boolean
+    distributedData: boolean
+  }
+}
+
+export function getPlatformFeatures(): PlatformFeatures {
+  // 微信小程序
+  if (process.env.TARO_ENV === 'weapp') {
+    return {
+      share: { shareCard: true, shareImage: true, shareTimeline: true },
+      favorite: { addCard: true, addFavorite: true },
+      subscription: { templateMessage: true, subscribeMessage: true },
+      payment: { wechatPay: true, alipay: false },
+      social: { lifeAccount: false, creditScore: false },
+      distributed: { serviceWidget: false, distributedData: false },
+    }
+  }
+
+  // 支付宝
+  if (process.env.TARO_ENV === 'alipay') {
+    return {
+      share: { shareCard: true, shareImage: true, shareTimeline: false },
+      favorite: { addCard: false, addFavorite: true },
+      subscription: { templateMessage: false, subscribeMessage: false },
+      payment: { wechatPay: false, alipay: true },
+      social: { lifeAccount: true, creditScore: true },
+      distributed: { serviceWidget: false, distributedData: false },
+    }
+  }
+
+  // 鸿蒙
+  if (process.env.TARO_ENV === 'harmony-hybrid') {
+    return {
+      share: { shareCard: true, shareImage: true, shareTimeline: false },
+      favorite: { addCard: false, addFavorite: true },
+      subscription: { templateMessage: false, subscribeMessage: false },
+      payment: { wechatPay: false, alipay: false },
+      social: { lifeAccount: false, creditScore: false },
+      distributed: { serviceWidget: true, distributedData: true },
+    }
+  }
+
+  // H5/其他
+  return {
+    share: { shareCard: false, shareImage: true, shareTimeline: false },
+    favorite: { addCard: false, addFavorite: true },
+    subscription: { templateMessage: false, subscribeMessage: false },
+    payment: { wechatPay: false, alipay: false },
+    social: { lifeAccount: false, creditScore: false },
+    distributed: { serviceWidget: false, distributedData: false },
+  }
+}
