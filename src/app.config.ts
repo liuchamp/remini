@@ -156,9 +156,5 @@ export default defineAppConfig({
     navigationBarBackgroundColor: '#ffffff',
     navigationBarTitleText: 'REMX',
     navigationBarTextStyle: 'black'
-  },
-  pageTransition: {
-    duration: 300,
-    timingFunction: 'ease-in-out'
   }
 })
