@@ -1,0 +1,18 @@
+@use '../../../styles' as *;
+
+.back-top {
+  position: fixed;
+  right: $spacing-xxl;
+  bottom: 100px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  @include flex-center;
+  z-index: 999;
+  transition: opacity $duration-normal ease;
+
+  &:active {
+    opacity: 0.7;
+  }
+}
