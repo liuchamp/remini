@@ -85,7 +85,7 @@ export default function Index() {
   if (loading) {
     return (
       <View className='kyc-page'>
-        <Skeleton type='detail' rows={5} />
+        <Skeleton variant='detail' count={5} />
       </View>
     )
   }

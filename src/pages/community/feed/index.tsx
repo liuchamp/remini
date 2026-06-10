@@ -80,7 +80,7 @@ export default function Feed() {
 
         <View className='feed-list'>
           {loading && posts.length === 0 ? (
-            <Skeleton type='list' rows={4} />
+            <Skeleton variant='list' count={4} />
           ) : error ? (
             <RetryButton onRetry={() => handleTabChange(activeTab)} />
           ) : posts.length > 0 ? (

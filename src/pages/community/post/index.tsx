@@ -40,7 +40,7 @@ export default function Post() {
   }
 
   if (loading) {
-    return <Skeleton type='detail' rows={4} />
+    return <Skeleton variant='detail' count={4} />
   }
 
   if (error) {

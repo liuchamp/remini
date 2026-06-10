@@ -94,7 +94,7 @@ export default function Category() {
   if (loading && products.length === 0) {
     return (
       <ScrollView className='category-page' scrollY scrollWithAnimation>
-        <Skeleton type='card' rows={4} />
+        <Skeleton variant='card' count={4} />
       </ScrollView>
     )
   }

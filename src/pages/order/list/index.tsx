@@ -175,7 +175,7 @@ export default function List() {
         lowerThreshold={100}
       >
         {loading ? (
-          <Skeleton type='list' rows={5} />
+          <Skeleton variant='list' count={5} />
         ) : error ? (
           <RetryButton onRetry={refresh} />
         ) : orders.length === 0 ? (

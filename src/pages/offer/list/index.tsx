@@ -43,7 +43,7 @@ export default function List() {
   })
 
   if (loading) {
-    return <Skeleton type='list' rows={4} />
+    return <Skeleton variant='list' count={4} />
   }
 
   if (error) {

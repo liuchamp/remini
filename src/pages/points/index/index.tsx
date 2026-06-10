@@ -39,7 +39,7 @@ export default function Points() {
   }
   
   if (loading) {
-    return <Skeleton type='card' rows={3} />
+    return <Skeleton variant='card' count={3} />
   }
 
   if (error) {
