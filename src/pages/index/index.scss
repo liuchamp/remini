@@ -1,5 +1,4 @@
-@use '../../styles/variables' as *;
-@use '../../styles/mixins' as *;
+@use '../../styles' as *;
 
 .home-page {
   display: flex;
@@ -10,6 +9,7 @@
 
 /* Search Bar */
 .search-bar {
+  @include touch-target-comfortable;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,9 +84,7 @@
 .feed-tab {
   flex: 1;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include touch-target;
   height: 80px;
 }
 
