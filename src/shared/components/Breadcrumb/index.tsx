@@ -23,7 +23,7 @@ export const Breadcrumb = ({
   }
 
   return (
-    <View className='breadcrumb'>
+    <View className='breadcrumb' role='navigation' aria-label='Breadcrumb'>
       {items.map((item, index) => (
         <View key={index} className='breadcrumb-item'>
           {index > 0 && <Text className='breadcrumb-separator'>{separator}</Text>}

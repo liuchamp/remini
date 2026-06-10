@@ -1,10 +1,12 @@
+@use '../../../styles' as *;
+
 .breadcrumb {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  padding: 16px 32px;
-  background: #f5f5f5;
-  font-size: 24px;
+  padding: $spacing-lg $spacing-xxl;
+  background: $color-bg-light;
+  font-size: $font-sm;
   
   &-item {
     display: flex;
@@ -12,20 +14,20 @@
   }
   
   &-separator {
-    margin: 0 12px;
-    color: #999;
+    margin: 0 $spacing-md;
+    color: $color-text-light;
   }
   
   &-link {
-    color: #666;
+    color: $color-text-secondary;
     
     &:active {
-      color: #ff6b35;
+      color: $color-primary;
     }
   }
   
   &-current {
-    color: #333;
+    color: $color-text;
     font-weight: 500;
   }
 }
