@@ -259,232 +259,232 @@ export default function Detail() {
         { label: '订单详情' }
       ]} />
       <View className='detail-page'>
-      <View className='detail-scroll'>
-        <View className='status-banner'>
-          <Text className='status-text'>{ORDER_STATUS_MAP[order.status] || order.status}</Text>
-          {order.status === 'pending_payment' && (
-            <Text className='status-sub'>请在24小时内完成支付，逾期自动取消</Text>
-          )}
-        </View>
+        <View className='detail-scroll'>
+          <View className='status-banner'>
+            <Text className='status-text'>{ORDER_STATUS_MAP[order.status] || order.status}</Text>
+            {order.status === 'pending_payment' && (
+              <Text className='status-sub'>请在24小时内完成支付，逾期自动取消</Text>
+            )}
+          </View>
 
-        <View className='timeline-card'>
-          {activeSteps.map((step, i) => (
-            <View key={step.key} className={`timeline-item ${step.active ? 'active' : ''} ${step.current ? 'current' : ''}`}>
-              <View className='timeline-dot'>
-                {step.current && <View className='current-dot' />}
-              </View>
-              <View className='timeline-content'>
-                <Text className='step-label'>{step.label}</Text>
-                {step.active && (order as any)[step.field] && (
-                  <Text className='step-time'>{(order as any)[step.field]}</Text>
+          <View className='timeline-card'>
+            {activeSteps.map((step, i) => (
+              <View key={step.key} className={`timeline-item ${step.active ? 'active' : ''} ${step.current ? 'current' : ''}`}>
+                <View className='timeline-dot'>
+                  {step.current && <View className='current-dot' />}
+                </View>
+                <View className='timeline-content'>
+                  <Text className='step-label'>{step.label}</Text>
+                  {step.active && (order as any)[step.field] && (
+                    <Text className='step-time'>{(order as any)[step.field]}</Text>
+                  )}
+                </View>
+                {i < activeSteps.length - 1 && (
+                  <View className={`timeline-line ${step.active && activeSteps[i + 1].active ? 'active' : ''}`} />
                 )}
               </View>
-              {i < activeSteps.length - 1 && (
-                <View className={`timeline-line ${step.active && activeSteps[i + 1].active ? 'active' : ''}`} />
-              )}
+            ))}
+          </View>
+
+          {order.address && (
+            <View className='address-card'>
+              <View className='address-header'>
+                <Text className='address-name'>{order.address.recipientName}</Text>
+                <Text className='address-phone'>{order.address.phone}</Text>
+              </View>
+              <Text className='address-detail'>
+                {order.address.province}{order.address.city}{order.address.district}{order.address.detail}
+              </Text>
             </View>
-          ))}
+          )}
+
+          <View className='product-card' onClick={() => Taro.navigateTo({ url: `/pages/product/detail/index?id=${order.productId}` })}>
+            <Image className='product-image' src={order.product.image} mode='aspectFill' />
+            <View className='product-info'>
+              <Text className='product-title' numberOfLines={2}>{order.product.title}</Text>
+              <Text className='product-price'>¥{order.finalAmount.toFixed(2)}</Text>
+            </View>
+          </View>
+
+          <View className='price-card'>
+            <View className='price-row'>
+              <Text className='price-label'>商品金额</Text>
+              <Text className='price-value'>¥{order.totalAmount.toFixed(2)}</Text>
+            </View>
+            {order.discountAmount > 0 && (
+              <View className='price-row'>
+                <Text className='price-label'>优惠减免</Text>
+                <Text className='price-value discount'>-¥{order.discountAmount.toFixed(2)}</Text>
+              </View>
+            )}
+            <View className='price-row shipping'>
+              <Text className='price-label'>运费</Text>
+              <Text className='price-value'>免运费</Text>
+            </View>
+            <View className='price-divider' />
+            <View className='price-row total'>
+              <Text className='price-label'>实付款</Text>
+              <Text className='price-value'>¥{order.finalAmount.toFixed(2)}</Text>
+            </View>
+          </View>
+
+          <View className='info-card'>
+            <View className='info-row'>
+              <Text className='info-label'>订单编号</Text>
+              <Text className='info-value' selectable>{order.orderNo}</Text>
+            </View>
+            <View className='info-row'>
+              <Text className='info-label'>下单时间</Text>
+              <Text className='info-value'>{order.createdAt}</Text>
+            </View>
+            {order.note && (
+              <View className='info-row'>
+                <Text className='info-label'>买家备注</Text>
+                <Text className='info-value'>{order.note}</Text>
+              </View>
+            )}
+          </View>
         </View>
 
-        {order.address && (
-          <View className='address-card'>
-            <View className='address-header'>
-              <Text className='address-name'>{order.address.recipientName}</Text>
-              <Text className='address-phone'>{order.address.phone}</Text>
-            </View>
-            <Text className='address-detail'>
-              {order.address.province}{order.address.city}{order.address.district}{order.address.detail}
-            </Text>
+        {btns && btns.length > 0 && (
+          <View className='bottom-bar'>
+            {btns.map((btn, i) => (
+              <View
+                key={i}
+                className={`bottom-btn ${btn.type}`}
+                onClick={btn.onClick}
+              >
+                <Text>{btn.text}</Text>
+              </View>
+            ))}
           </View>
         )}
 
-        <View className='product-card' onClick={() => Taro.navigateTo({ url: `/pages/product/detail/index?id=${order.productId}` })}>
-          <Image className='product-image' src={order.product.image} mode='aspectFill' />
-          <View className='product-info'>
-            <Text className='product-title' numberOfLines={2}>{order.product.title}</Text>
-            <Text className='product-price'>¥{order.finalAmount.toFixed(2)}</Text>
-          </View>
-        </View>
-
-        <View className='price-card'>
-          <View className='price-row'>
-            <Text className='price-label'>商品金额</Text>
-            <Text className='price-value'>¥{order.totalAmount.toFixed(2)}</Text>
-          </View>
-          {order.discountAmount > 0 && (
-            <View className='price-row'>
-              <Text className='price-label'>优惠减免</Text>
-              <Text className='price-value discount'>-¥{order.discountAmount.toFixed(2)}</Text>
-            </View>
-          )}
-          <View className='price-row shipping'>
-            <Text className='price-label'>运费</Text>
-            <Text className='price-value'>免运费</Text>
-          </View>
-          <View className='price-divider' />
-          <View className='price-row total'>
-            <Text className='price-label'>实付款</Text>
-            <Text className='price-value'>¥{order.finalAmount.toFixed(2)}</Text>
-          </View>
-        </View>
-
-        <View className='info-card'>
-          <View className='info-row'>
-            <Text className='info-label'>订单编号</Text>
-            <Text className='info-value' selectable>{order.orderNo}</Text>
-          </View>
-          <View className='info-row'>
-            <Text className='info-label'>下单时间</Text>
-            <Text className='info-value'>{order.createdAt}</Text>
-          </View>
-          {order.note && (
-            <View className='info-row'>
-              <Text className='info-label'>买家备注</Text>
-              <Text className='info-value'>{order.note}</Text>
-            </View>
-          )}
-        </View>
-      </View>
-
-      {btns && btns.length > 0 && (
-        <View className='bottom-bar'>
-          {btns.map((btn, i) => (
-            <View
-              key={i}
-              className={`bottom-btn ${btn.type}`}
-              onClick={btn.onClick}
-            >
-              <Text>{btn.text}</Text>
-            </View>
-          ))}
-        </View>
-      )}
-
-      {showShippingModal && (
-        <View className='modal-overlay' onClick={() => setShowShippingModal(false)}>
-          <View className='modal-content' onClick={(e: any) => e.stopPropagation()}>
-            <View className='modal-header'>
-              <Text className='modal-title'>确认发货</Text>
-              <View className='modal-close' onClick={() => setShowShippingModal(false)}>
-                <Text>✕</Text>
-              </View>
-            </View>
-
-            <View className='modal-body'>
-              <View className='form-section'>
-                <Text className='form-label'>物流公司</Text>
-                <ScrollView className='company-list' scrollY>
-                  {LOGISTICS_COMPANIES.map((company) => (
-                    <View
-                      key={company}
-                      className={`company-item ${selectedCompany === company ? 'selected' : ''}`}
-                      onClick={() => setSelectedCompany(company)}
-                    >
-                      <Text className='company-name'>{company}</Text>
-                      {selectedCompany === company && (
-                        <View className='company-check'>✓</View>
-                      )}
-                    </View>
-                  ))}
-                </ScrollView>
-              </View>
-
-              <View className='form-section'>
-                <Text className='form-label'>运单号</Text>
-                <View className='tracking-row'>
-                  <Input
-                    className='tracking-input'
-                    placeholder='请输入快递运单号'
-                    value={trackingNumber}
-                    onInput={(e) => setTrackingNumber(e.detail.value)}
-                  />
-                  <Text
-                    className='scan-btn'
-                    onClick={async () => {
-                      try {
-                        const res = await Taro.scanCode({ scanType: ['barCode', 'qrCode'] })
-                        if (res.result) {
-                          setTrackingNumber(res.result)
-                        }
-                      } catch {
-                        Taro.showToast({ title: '扫码取消', icon: 'none' })
-                      }
-                    }}
-                  >
-                    {t('logistics:scanCode')}
-                  </Text>
+        {showShippingModal && (
+          <View className='modal-overlay' onClick={() => setShowShippingModal(false)}>
+            <View className='modal-content' onClick={(e: any) => e.stopPropagation()}>
+              <View className='modal-header'>
+                <Text className='modal-title'>确认发货</Text>
+                <View className='modal-close' onClick={() => setShowShippingModal(false)}>
+                  <Text>✕</Text>
                 </View>
               </View>
-            </View>
 
-            <View className='modal-footer'>
-              <View
-                className={`modal-btn primary ${submitting ? 'disabled' : ''}`}
-                onClick={handleShipSubmit}
-              >
-                <Text>{submitting ? '提交中...' : '确认发货'}</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      )}
+              <View className='modal-body'>
+                <View className='form-section'>
+                  <Text className='form-label'>物流公司</Text>
+                  <ScrollView className='company-list' scrollY>
+                    {LOGISTICS_COMPANIES.map((company) => (
+                      <View
+                        key={company}
+                        className={`company-item ${selectedCompany === company ? 'selected' : ''}`}
+                        onClick={() => setSelectedCompany(company)}
+                      >
+                        <Text className='company-name'>{company}</Text>
+                        {selectedCompany === company && (
+                          <View className='company-check'>✓</View>
+                        )}
+                      </View>
+                    ))}
+                  </ScrollView>
+                </View>
 
-      {showCancelModal && (
-        <View className='modal-overlay' onClick={() => setShowCancelModal(false)}>
-          <View className='modal-content' onClick={(e: any) => e.stopPropagation()}>
-            <View className='modal-header'>
-              <Text className='modal-title'>取消订单</Text>
-              <View className='modal-close' onClick={() => setShowCancelModal(false)}>
-                <Text>✕</Text>
-              </View>
-            </View>
-
-            <View className='modal-body'>
-              <View className='form-section'>
-                <Text className='form-label'>请选择取消原因</Text>
-                <View className='reason-list'>
-                  {CANCEL_REASONS.map((reason) => (
-                    <View
-                      key={reason}
-                      className={`reason-item ${cancelReason === reason ? 'selected' : ''}`}
-                      onClick={() => {
-                        setCancelReason(reason)
-                        if (reason !== '其他原因') {
-                          setCancelCustomReason('')
+                <View className='form-section'>
+                  <Text className='form-label'>运单号</Text>
+                  <View className='tracking-row'>
+                    <Input
+                      className='tracking-input'
+                      placeholder='请输入快递运单号'
+                      value={trackingNumber}
+                      onInput={(e) => setTrackingNumber(e.detail.value)}
+                    />
+                    <Text
+                      className='scan-btn'
+                      onClick={async () => {
+                        try {
+                          const res = await Taro.scanCode({ scanType: ['barCode', 'qrCode'] })
+                          if (res.result) {
+                            setTrackingNumber(res.result)
+                          }
+                        } catch {
+                          Taro.showToast({ title: '扫码取消', icon: 'none' })
                         }
                       }}
                     >
-                      <Text className='reason-text'>{reason}</Text>
-                      {cancelReason === reason && (
-                        <View className='reason-check'>✓</View>
-                      )}
-                    </View>
-                  ))}
+                      {t('logistics:scanCode')}
+                    </Text>
+                  </View>
                 </View>
               </View>
 
-              {cancelReason === '其他原因' && (
-                <View className='form-section'>
-                  <Text className='form-label'>请填写具体原因</Text>
-                  <Input
-                    className='tracking-input'
-                    placeholder='请输入取消原因'
-                    value={cancelCustomReason}
-                    onInput={(e) => setCancelCustomReason(e.detail.value)}
-                  />
+              <View className='modal-footer'>
+                <View
+                  className={`modal-btn primary ${submitting ? 'disabled' : ''}`}
+                  onClick={handleShipSubmit}
+                >
+                  <Text>{submitting ? '提交中...' : '确认发货'}</Text>
                 </View>
-              )}
-            </View>
-
-            <View className='modal-footer'>
-              <View className='modal-btn primary' onClick={handleCancelSubmit}>
-                <Text>确认取消</Text>
               </View>
             </View>
           </View>
-        </View>
-      )}
-    </View>
+        )}
+
+        {showCancelModal && (
+          <View className='modal-overlay' onClick={() => setShowCancelModal(false)}>
+            <View className='modal-content' onClick={(e: any) => e.stopPropagation()}>
+              <View className='modal-header'>
+                <Text className='modal-title'>取消订单</Text>
+                <View className='modal-close' onClick={() => setShowCancelModal(false)}>
+                  <Text>✕</Text>
+                </View>
+              </View>
+
+              <View className='modal-body'>
+                <View className='form-section'>
+                  <Text className='form-label'>请选择取消原因</Text>
+                  <View className='reason-list'>
+                    {CANCEL_REASONS.map((reason) => (
+                      <View
+                        key={reason}
+                        className={`reason-item ${cancelReason === reason ? 'selected' : ''}`}
+                        onClick={() => {
+                          setCancelReason(reason)
+                          if (reason !== '其他原因') {
+                            setCancelCustomReason('')
+                          }
+                        }}
+                      >
+                        <Text className='reason-text'>{reason}</Text>
+                        {cancelReason === reason && (
+                          <View className='reason-check'>✓</View>
+                        )}
+                      </View>
+                    ))}
+                  </View>
+                </View>
+
+                {cancelReason === '其他原因' && (
+                  <View className='form-section'>
+                    <Text className='form-label'>请填写具体原因</Text>
+                    <Input
+                      className='tracking-input'
+                      placeholder='请输入取消原因'
+                      value={cancelCustomReason}
+                      onInput={(e) => setCancelCustomReason(e.detail.value)}
+                    />
+                  </View>
+                )}
+              </View>
+
+              <View className='modal-footer'>
+                <View className='modal-btn primary' onClick={handleCancelSubmit}>
+                  <Text>确认取消</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        )}
+      </View>
     </View>
   )
 }

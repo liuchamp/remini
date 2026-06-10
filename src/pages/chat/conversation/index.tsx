@@ -130,124 +130,124 @@ export default function Conversation() {
         { label: '聊天' }
       ]} />
       <View className='conversation-page'>
-      {isBlocked && (
-        <View className='blocked-banner'>
-          <Text className='blocked-text'>{t('blockedBanner')}</Text>
-          <Text className='blocked-undo' onClick={handleBlockUser}>{t('blockedUndo')}</Text>
-        </View>
-      )}
-
-      <View className='chat-header'>
-        <Text className='header-action' onClick={handleBlockUser}>
-          {isBlocked ? t('unblockUser') : t('blockUser')}
-        </Text>
-      </View>
-
-      <ScrollView
-        className='message-list'
-        scrollY
-        scrollWithAnimation
-        ref={scrollRef}
-      >
-        {loading && messages.length === 0 ? (
-          <View className='loading-state'>
-            <Text>{t('loading', { ns: 'common' })}</Text>
+        {isBlocked && (
+          <View className='blocked-banner'>
+            <Text className='blocked-text'>{t('blockedBanner')}</Text>
+            <Text className='blocked-undo' onClick={handleBlockUser}>{t('blockedUndo')}</Text>
           </View>
-        ) : messages.length === 0 ? (
-          <View className='empty-state'>
-            <Text>{t('noMessages')}</Text>
-          </View>
-        ) : (
-          messageGroups.map((group) => (
-            <View key={group.date}>
-              <View className='date-separator'>
-                <Text className='date-text'>{formatDateSeparator(group.date)}</Text>
-              </View>
-              {group.messages.map((msg) => {
-                const isSelf = msg.senderId === currentUserId
-                return (
-                  <View
-                    key={msg.id}
-                    className={`message-item ${isSelf ? 'self' : 'other'}`}
-                  >
-                    <View className='message-bubble'>
-                      {msg.type === 'product' && msg.product ? (
-                        <View
-                          className='product-card'
-                          onClick={() => Taro.navigateTo({ url: `/pages/product/detail/index?id=${msg.product!.id}` })}
-                        >
-                          <Image src={msg.product.image || ''} className='product-card-image' mode='aspectFill' />
-                          <View className='product-card-info'>
-                            <Text className='product-card-title'>{msg.product.title || ''}</Text>
-                            <Text className='product-card-price'>¥{msg.product.price || 0}</Text>
-                          </View>
-                        </View>
-                      ) : msg.type === 'order' && msg.order ? (
-                        <View
-                          className='order-card'
-                          onClick={() => Taro.navigateTo({ url: `/pages/order/detail/index?id=${msg.order!.id}` })}
-                        >
-                          <Text className='order-card-no'>{msg.order.orderNo || ''}</Text>
-                          <Text className='order-card-status'>{msg.order.status || ''}</Text>
-                        </View>
-                      ) : (
-                        <Text className='message-content'>{msg.content}</Text>
-                      )}
-                    </View>
-                    <View className='message-meta'>
-                      <Text className='message-time'>{formatTime(msg.createdAt)}</Text>
-                      {isSelf && msg.isRead && (
-                        <Text className='message-read-status'>
-                          {t('readTime')}{msg.readAt ? ` ${formatReadTime(msg.readAt)}` : ''}
-                        </Text>
-                      )}
-                      {isSelf && !msg.isRead && (
-                        <Text className='message-sent-status'>{t('unread')}</Text>
-                      )}
-                    </View>
-                  </View>
-                )
-              })}
-            </View>
-          ))
         )}
-      </ScrollView>
 
-      <View className='action-bar'>
-        <Text
-          className='action-button'
-          onClick={() => Taro.showToast({ title: t('common:app.comingSoon'), icon: 'none' })}
-        >
-          {t('action.sendProduct')}
-        </Text>
-        <Text
-          className='action-button'
-          onClick={() => Taro.showToast({ title: t('common:app.comingSoon'), icon: 'none' })}
-        >
-          {t('action.sendOrder')}
-        </Text>
-      </View>
+        <View className='chat-header'>
+          <Text className='header-action' onClick={handleBlockUser}>
+            {isBlocked ? t('unblockUser') : t('blockUser')}
+          </Text>
+        </View>
 
-      <View className='input-bar'>
-        <Input
-          className='message-input'
-          type='text'
-          placeholder={t('inputPlaceholder')}
-          value={inputValue}
-          onInput={handleInput}
-          confirmType='send'
-          onConfirm={handleSend}
-          disabled={isBlocked}
-        />
-        <Button
-          className='send-button'
-          onClick={handleSend}
-          disabled={!inputValue.trim() || isBlocked || blocking}
+        <ScrollView
+          className='message-list'
+          scrollY
+          scrollWithAnimation
+          ref={scrollRef}
         >
-          {t('send')}
-        </Button>
+          {loading && messages.length === 0 ? (
+            <View className='loading-state'>
+              <Text>{t('loading', { ns: 'common' })}</Text>
+            </View>
+          ) : messages.length === 0 ? (
+            <View className='empty-state'>
+              <Text>{t('noMessages')}</Text>
+            </View>
+          ) : (
+            messageGroups.map((group) => (
+              <View key={group.date}>
+                <View className='date-separator'>
+                  <Text className='date-text'>{formatDateSeparator(group.date)}</Text>
+                </View>
+                {group.messages.map((msg) => {
+                  const isSelf = msg.senderId === currentUserId
+                  return (
+                    <View
+                      key={msg.id}
+                      className={`message-item ${isSelf ? 'self' : 'other'}`}
+                    >
+                      <View className='message-bubble'>
+                        {msg.type === 'product' && msg.product ? (
+                          <View
+                            className='product-card'
+                            onClick={() => Taro.navigateTo({ url: `/pages/product/detail/index?id=${msg.product!.id}` })}
+                          >
+                            <Image src={msg.product.image || ''} className='product-card-image' mode='aspectFill' />
+                            <View className='product-card-info'>
+                              <Text className='product-card-title'>{msg.product.title || ''}</Text>
+                              <Text className='product-card-price'>¥{msg.product.price || 0}</Text>
+                            </View>
+                          </View>
+                        ) : msg.type === 'order' && msg.order ? (
+                          <View
+                            className='order-card'
+                            onClick={() => Taro.navigateTo({ url: `/pages/order/detail/index?id=${msg.order!.id}` })}
+                          >
+                            <Text className='order-card-no'>{msg.order.orderNo || ''}</Text>
+                            <Text className='order-card-status'>{msg.order.status || ''}</Text>
+                          </View>
+                        ) : (
+                          <Text className='message-content'>{msg.content}</Text>
+                        )}
+                      </View>
+                      <View className='message-meta'>
+                        <Text className='message-time'>{formatTime(msg.createdAt)}</Text>
+                        {isSelf && msg.isRead && (
+                          <Text className='message-read-status'>
+                            {t('readTime')}{msg.readAt ? ` ${formatReadTime(msg.readAt)}` : ''}
+                          </Text>
+                        )}
+                        {isSelf && !msg.isRead && (
+                          <Text className='message-sent-status'>{t('unread')}</Text>
+                        )}
+                      </View>
+                    </View>
+                  )
+                })}
+              </View>
+            ))
+          )}
+        </ScrollView>
+
+        <View className='action-bar'>
+          <Text
+            className='action-button'
+            onClick={() => Taro.showToast({ title: t('common:app.comingSoon'), icon: 'none' })}
+          >
+            {t('action.sendProduct')}
+          </Text>
+          <Text
+            className='action-button'
+            onClick={() => Taro.showToast({ title: t('common:app.comingSoon'), icon: 'none' })}
+          >
+            {t('action.sendOrder')}
+          </Text>
+        </View>
+
+        <View className='input-bar'>
+          <Input
+            className='message-input'
+            type='text'
+            placeholder={t('inputPlaceholder')}
+            value={inputValue}
+            onInput={handleInput}
+            confirmType='send'
+            onConfirm={handleSend}
+            disabled={isBlocked}
+          />
+          <Button
+            className='send-button'
+            onClick={handleSend}
+            disabled={!inputValue.trim() || isBlocked || blocking}
+          >
+            {t('send')}
+          </Button>
+        </View>
       </View>
-    </View>
     </View>
   )
 }
