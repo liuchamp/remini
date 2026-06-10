@@ -1,0 +1,23 @@
+{
+  "cardId": "service-card",
+  "cardName": "REMX 服务卡片",
+  "cardType": "service",
+  "platforms": ["harmony"],
+  "actions": [
+    {
+      "type": "navigate",
+      "label": "快速下单",
+      "url": "/pages/order/create/index"
+    },
+    {
+      "type": "navigate",
+      "label": "我的订单",
+      "url": "/pages/order/list/index"
+    },
+    {
+      "type": "navigate",
+      "label": "联系客服",
+      "url": "/pages/chat/conversation/index"
+    }
+  ]
+}
