@@ -1,0 +1,13 @@
+{
+  "change": "miniprogram-ux-phase2",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "ae091da57cbbbc86904a53de41943fc54e58f12b6e4d582d6cc887efeabd7367",
+  "files": [
+    { "path": "openspec/changes/miniprogram-ux-phase2/proposal.md", "sha256": "a5731668e8a92b6e8e6855126f8c37b32d18c3eedad87454fd9a7a8e360337f3" },
+    { "path": "openspec/changes/miniprogram-ux-phase2/design.md", "sha256": "1fdd09773d3bd66a84399faf805b9a887fbb5a3cc7681f55c17d570461417793" },
+    { "path": "openspec/changes/miniprogram-ux-phase2/tasks.md", "sha256": "5cb174ae62be951ce7da182b41727ca1f78959a0d68a42977ef153d49b6b0980" }
+  ]
+}

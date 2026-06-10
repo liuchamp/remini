@@ -1,11 +1,11 @@
 workflow: full
-phase: design
+phase: build
 build_mode: null
 build_pause: null
 isolation: null
 verify_mode: null
 base_ref: c2b6daa22a09af0282b8d34507c9ac4f62415990
-design_doc: null
+design_doc: docs/superpowers/specs/2026-06-10-miniprogram-ux-phase2-design.md
 plan: null
 verify_result: pending
 verification_report: null
@@ -13,3 +13,5 @@ branch_status: pending
 created_at: 2026-06-10
 verified_at: null
 archived: false
+handoff_context: openspec/changes/miniprogram-ux-phase2/.comet/handoff/design-context.json
+handoff_hash: ae091da57cbbbc86904a53de41943fc54e58f12b6e4d582d6cc887efeabd7367
