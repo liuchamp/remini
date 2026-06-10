@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { useChatStore } from '@/domains/chat/store'
 import { Skeleton } from '@/shared/components/Skeleton'
 import { RetryButton } from '@/shared/components/RetryButton'
-import Empty from '@/shared/components/Empty'
 import { BackTop } from '@/shared/components/BackTop'
+import { VirtualList } from '@/shared/components/VirtualList'
 import './index.scss'
 
 export default function Message() {
@@ -74,8 +74,11 @@ export default function Message() {
           <Text>{t('noMessages')}</Text>
         </View>
       ) : (
-        <View className='thread-list'>
-          {threads.map((thread) => (
+        <VirtualList
+          data={threads}
+          itemHeight={100}
+          containerHeight={600}
+          renderItem={(thread) => (
             <View
               key={thread.id}
               className='thread-item'
@@ -113,8 +116,8 @@ export default function Message() {
                 </View>
               </View>
             </View>
-          ))}
-        </View>
+          )}
+        />
       )}
       <BackTop threshold={300} />
     </View>

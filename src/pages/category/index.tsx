@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import Taro, { useRouter } from '@tarojs/taro'
 import { View, Text, ScrollView, Image } from '@tarojs/components'
 import { useTranslation } from 'react-i18next'
@@ -7,6 +7,7 @@ import { Skeleton } from '@/shared/components/Skeleton'
 import { RetryButton } from '@/shared/components/RetryButton'
 import Empty from '@/shared/components/Empty'
 import { BackTop } from '@/shared/components/BackTop'
+import { VirtualList } from '@/shared/components/VirtualList'
 import './index.scss'
 
 export default function Category() {
@@ -74,19 +75,18 @@ export default function Category() {
     loadProducts(1, true)
   }, [loadProducts])
 
-  const handleScrollToLower = useCallback(() => {
-    if (hasMore && !loadingRef.current) {
-      loadProducts(page)
-    }
-  }, [hasMore, loadProducts, page])
-
   const handleProductClick = useCallback((productId: string) => {
     Taro.navigateTo({ url: `/pages/product/detail/index?id=${productId}` })
   }, [])
 
-  const handleScroll = useCallback((e: any) => {
-    setScrollTop(e.detail.scrollTop)
-  }, [])
+  const handleVirtualScroll = useCallback((e: any) => {
+    const st = e.detail.scrollTop
+    setScrollTop(st)
+    const totalHeight = products.length * 120
+    if (st + 600 >= totalHeight - 150 && hasMore && !loadingRef.current) {
+      loadProducts(page)
+    }
+  }, [products.length, hasMore, loadProducts, page])
 
   useEffect(() => {
     if (!id) return
@@ -123,49 +123,45 @@ export default function Category() {
 
   return (
     <View className='category-page'>
-      <ScrollView
-        className='category-scroll'
-        scrollY
-        onScrollToLower={handleScrollToLower}
-        onScroll={handleScroll}
-        scrollWithAnimation
-      >
-        <View className='category-header'>
-          <Text>{t('product:category')} - {categoryName || t('common:loading')}</Text>
-        </View>
+      <View className='category-header'>
+        <Text>{t('product:category')} - {categoryName || t('common:loading')}</Text>
+      </View>
 
-        <View className='product-grid'>
-          {products.map(product => (
-            <View
-              key={product.id}
-              className='product-card'
-              onClick={() => handleProductClick(product.id)}
-            >
-              <Image
-                className='product-image'
-                src={product.images[0] || ''}
-                mode='aspectFill'
-                lazyLoad
-              />
-              <View className='product-info'>
-                <Text className='product-title'>{product.title}</Text>
-                <View className='product-price-row'>
-                  <Text className='product-price'>¥{product.price}</Text>
-                  {product.isNegotiable && (
-                    <Text className='product-tag'>{t('product:negotiable')}</Text>
-                  )}
-                </View>
+      <VirtualList
+        data={products}
+        itemHeight={120}
+        containerHeight={600}
+        renderItem={(product) => (
+          <View
+            key={product.id}
+            className='product-card'
+            onClick={() => handleProductClick(product.id)}
+          >
+            <Image
+              className='product-image'
+              src={product.images[0] || ''}
+              mode='aspectFill'
+              lazyLoad
+            />
+            <View className='product-info'>
+              <Text className='product-title'>{product.title}</Text>
+              <View className='product-price-row'>
+                <Text className='product-price'>¥{product.price}</Text>
+                {product.isNegotiable && (
+                  <Text className='product-tag'>{t('product:negotiable')}</Text>
+                )}
               </View>
             </View>
-          ))}
-        </View>
-
-        {loading && (
-          <View className='loading-text'>
-            <Text>{t('common:loading')}</Text>
           </View>
         )}
-      </ScrollView>
+        onScroll={handleVirtualScroll}
+      />
+
+      {loading && (
+        <View className='loading-text'>
+          <Text>{t('common:loading')}</Text>
+        </View>
+      )}
 
       <BackTop threshold={300} scrollTop={scrollTop} />
     </View>
