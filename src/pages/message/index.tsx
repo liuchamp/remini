@@ -6,6 +6,7 @@ import { useChatStore } from '@/domains/chat/store'
 import { Skeleton } from '@/shared/components/Skeleton'
 import { RetryButton } from '@/shared/components/RetryButton'
 import Empty from '@/shared/components/Empty'
+import { BackTop } from '@/shared/components/BackTop'
 import './index.scss'
 
 export default function Message() {
@@ -115,6 +116,7 @@ export default function Message() {
           ))}
         </View>
       )}
+      <BackTop threshold={300} />
     </View>
   )
 }

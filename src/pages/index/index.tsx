@@ -8,6 +8,7 @@ import { useLocation } from '@/shared/hooks/useLocation'
 import { Skeleton } from '@/shared/components/Skeleton'
 import { Empty } from '@/shared/components/Empty'
 import { triggerHaptic } from '@/shared/utils/haptic'
+import { BackTop } from '@/shared/components/BackTop'
 import './index.scss'
 
 type FeedTab = 'recommend' | 'nearby' | 'following'
@@ -213,6 +214,8 @@ export default function Index() {
           <View className='no-more'>{t('common:app.noMore')}</View>
         )}
       </ScrollView>
+
+      <BackTop threshold={300} />
     </View>
   )
 }

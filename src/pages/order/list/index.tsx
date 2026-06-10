@@ -7,6 +7,7 @@ import { tradeApi } from '@/domains/trade/api'
 import { Skeleton } from '@/shared/components/Skeleton'
 import { RetryButton } from '@/shared/components/RetryButton'
 import Empty from '@/shared/components/Empty'
+import { BackTop } from '@/shared/components/BackTop'
 import './index.scss'
 
 const TAB_KEYS = ['', 'pending_payment', 'paid', 'shipped', 'completed']
@@ -241,6 +242,8 @@ export default function List() {
           </View>
         )}
       </ScrollView>
+
+      <BackTop threshold={300} />
     </View>
   )
 }

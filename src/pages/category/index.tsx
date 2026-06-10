@@ -6,6 +6,7 @@ import { productApi } from '@/domains/product/api'
 import { Skeleton } from '@/shared/components/Skeleton'
 import { RetryButton } from '@/shared/components/RetryButton'
 import Empty from '@/shared/components/Empty'
+import { BackTop } from '@/shared/components/BackTop'
 import './index.scss'
 
 export default function Category() {
@@ -157,6 +158,8 @@ export default function Category() {
           <Text>{t('common:loading')}</Text>
         </View>
       )}
+
+      <BackTop threshold={300} />
     </ScrollView>
   )
 }
