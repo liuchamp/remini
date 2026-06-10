@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { tradeApi } from '@/domains/trade/api'
 import { shippingApi } from '@/domains/shipping/api'
 import Loading from '@/shared/components/Loading'
+import { Breadcrumb } from '@/shared/components/Breadcrumb'
 import './index.scss'
 
 const STATUS_STEPS: { key: string; label: string; field: string }[] = [
@@ -234,8 +235,15 @@ export default function Detail() {
 
   if (loading || !order) {
     return (
-      <View className='detail-page'>
-        <Loading type='skeleton' rows={4} />
+      <View>
+        <Breadcrumb items={[
+          { label: '我的', path: '/pages/profile/index' },
+          { label: '订单', path: '/pages/order/list/index' },
+          { label: '订单详情' }
+        ]} />
+        <View className='detail-page'>
+          <Loading type='skeleton' rows={4} />
+        </View>
       </View>
     )
   }
@@ -244,7 +252,13 @@ export default function Detail() {
   const btns = actionButtons()
 
   return (
-    <View className='detail-page'>
+    <View>
+      <Breadcrumb items={[
+        { label: '我的', path: '/pages/profile/index' },
+        { label: '订单', path: '/pages/order/list/index' },
+        { label: '订单详情' }
+      ]} />
+      <View className='detail-page'>
       <View className='detail-scroll'>
         <View className='status-banner'>
           <Text className='status-text'>{ORDER_STATUS_MAP[order.status] || order.status}</Text>
@@ -470,6 +484,7 @@ export default function Detail() {
           </View>
         </View>
       )}
+    </View>
     </View>
   )
 }

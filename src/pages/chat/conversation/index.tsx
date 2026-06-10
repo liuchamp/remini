@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { useChatStore } from '@/domains/chat/store'
 import { chatApi } from '@/domains/chat/api'
 import { useAuthStore } from '@/domains/auth/store'
+import { Breadcrumb } from '@/shared/components/Breadcrumb'
 import './index.scss'
 
 export default function Conversation() {
@@ -123,7 +124,12 @@ export default function Conversation() {
   }, [messages])
 
   return (
-    <View className='conversation-page'>
+    <View>
+      <Breadcrumb items={[
+        { label: '消息', path: '/pages/message/index' },
+        { label: '聊天' }
+      ]} />
+      <View className='conversation-page'>
       {isBlocked && (
         <View className='blocked-banner'>
           <Text className='blocked-text'>{t('blockedBanner')}</Text>
@@ -241,6 +247,7 @@ export default function Conversation() {
           {t('send')}
         </Button>
       </View>
+    </View>
     </View>
   )
 }

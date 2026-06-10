@@ -9,6 +9,7 @@ import { ShareProvider } from '@/shared/utils/share'
 import { PosterGenerator } from '@/shared/components/share/PosterGenerator'
 import Loading from '@/shared/components/Loading'
 import ErrorBoundary from '@/shared/components/ErrorBoundary'
+import { Breadcrumb } from '@/shared/components/Breadcrumb'
 import './index.scss'
 
 function Detail() {
@@ -144,7 +145,13 @@ function Detail() {
   }
 
   return (
-    <View className='detail-page'>
+    <View>
+      <Breadcrumb items={[
+        { label: '首页', path: '/pages/index/index' },
+        { label: '分类', path: '/pages/category/index' },
+        { label: '商品详情' }
+      ]} />
+      <View className='detail-page'>
       <View className='swiper-wrap'>
         {productImages.length > 0 ? (
           <Swiper
@@ -340,6 +347,7 @@ function Detail() {
         data={product}
         onClose={() => setPosterVisible(false)}
       />
+    </View>
     </View>
   )
 }
