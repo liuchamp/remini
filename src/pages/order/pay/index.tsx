@@ -63,6 +63,10 @@ export default function Pay() {
           signType: params.signType as keyof Taro.requestPayment.SignType,
           paySign: params.paySign,
         })
+      } else {
+        Taro.showToast({ title: '当前平台不支持支付', icon: 'none' })
+        setPaying(false)
+        return
       }
 
       Taro.showToast({ title: '支付成功', icon: 'success' })
