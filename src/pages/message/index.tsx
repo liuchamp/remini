@@ -65,7 +65,7 @@ export default function Message() {
   return (
     <View className='message-page'>
       {loading && threads.length === 0 ? (
-        <Skeleton type='list' rows={5} avatar />
+        <Skeleton variant='list' count={5} />
       ) : error ? (
         <RetryButton onRetry={refresh} />
       ) : threads.length === 0 ? (

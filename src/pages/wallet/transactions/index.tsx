@@ -53,7 +53,7 @@ export default function Transactions() {
   return (
     <View className='transactions-page'>
       {loading && transactions.length === 0 ? (
-        <Skeleton type='list' rows={5} />
+        <Skeleton variant='list' count={5} />
       ) : error ? (
         <RetryButton onRetry={refresh} />
       ) : transactions.length === 0 ? (

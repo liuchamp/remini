@@ -39,3 +39,26 @@ page {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+// Global touch target styles
+button,
+.taro-button,
+.taro-tabbar__item,
+.taro-view--hover {
+  @include touch-target;
+}
+
+// 确保所有可点击元素有最小 48px
+[role='button'],
+[onclick],
+.clickable {
+  @include touch-target;
+}
+
+// 列表项触控区域
+.list-item,
+.cell-item {
+  min-height: $touch-min;
+  display: flex;
+  align-items: center;
+}

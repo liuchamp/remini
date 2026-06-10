@@ -62,7 +62,7 @@ export default function CouponList() {
   }
 
   if (loading && coupons.length === 0) {
-    return <Skeleton type='card' rows={3} />
+    return <Skeleton variant='card' count={3} />
   }
 
   if (error) {

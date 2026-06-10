@@ -193,7 +193,7 @@ export default function Search() {
           </View>
           <ScrollView scrollY className='results-list'>
             {loading ? (
-              <Skeleton type='list' rows={5} />
+              <Skeleton variant='list' count={5} />
             ) : error ? (
               <RetryButton onRetry={() => performSearch(keyword, filters)} />
             ) : results.length === 0 ? (

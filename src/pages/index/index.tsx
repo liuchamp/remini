@@ -5,6 +5,9 @@ import { useTranslation } from 'react-i18next'
 import { useProductStore } from '@/domains/product/store'
 import { productApi } from '@/domains/product/api'
 import { useLocation } from '@/shared/hooks/useLocation'
+import { Skeleton } from '@/shared/components/Skeleton'
+import { Empty } from '@/shared/components/Empty'
+import { triggerHaptic } from '@/shared/utils/haptic'
 import './index.scss'
 
 type FeedTab = 'recommend' | 'nearby' | 'following'
@@ -155,40 +158,57 @@ export default function Index() {
         onScrollToLower={handleLoadMore}
         lowerThreshold={100}
       >
-        <View className='product-grid'>
-          {currentProducts.map((product) => (
-            <View
-              key={product.id}
-              className='product-card'
-              onClick={() => handleProductClick(product.id)}
-            >
-              <Image
-                src={product.images?.[0] || ''}
-                className='product-image'
-                mode='aspectFill'
-                lazyLoad
-              />
-              <View className='product-info'>
-                <Text className='product-title'>{product.title}</Text>
-                <View className='product-price-row'>
-                  <Text className='product-price'>¥{product.price}</Text>
-                  {product.isNegotiable && (
-                    <Text className='negotiable-tag'>{t('product:negotiable')}</Text>
+        {currentLoading && currentProducts.length === 0 ? (
+          <Skeleton variant='card' count={4} />
+        ) : currentProducts.length === 0 ? (
+          <Empty
+            variant='no-data'
+            action={{
+              label: '刷新',
+              onClick: () => {
+                triggerHaptic('light')
+                handleRefresh()
+              },
+            }}
+          />
+        ) : (
+          <View className='product-grid'>
+            {currentProducts.map((product) => (
+              <View
+                key={product.id}
+                className='product-card'
+                onClick={() => handleProductClick(product.id)}
+              >
+                <Image
+                  src={product.images?.[0] || ''}
+                  className='product-image'
+                  mode='aspectFill'
+                  lazyLoad
+                />
+                <View className='product-info'>
+                  <Text className='product-title'>{product.title}</Text>
+                  <View className='product-price-row'>
+                    <Text className='product-price'>¥{product.price}</Text>
+                    {product.isNegotiable && (
+                      <Text className='negotiable-tag'>{t('product:negotiable')}</Text>
+                    )}
+                  </View>
+                  {product.distance != null && (
+                    <Text className='product-distance'>
+                      {product.distance < 1
+                        ? `${Math.round(product.distance * 1000)}m`
+                        : `${product.distance.toFixed(1)}km`}
+                    </Text>
                   )}
                 </View>
-                {product.distance != null && (
-                  <Text className='product-distance'>
-                    {product.distance < 1
-                      ? `${Math.round(product.distance * 1000)}m`
-                      : `${product.distance.toFixed(1)}km`}
-                  </Text>
-                )}
               </View>
-            </View>
-          ))}
-        </View>
+            ))}
+          </View>
+        )}
 
-        {currentLoading && <View className='loading-more'>{t('common:loading')}</View>}
+        {currentLoading && currentProducts.length > 0 && (
+          <View className='loading-more'>{t('common:loading')}</View>
+        )}
         {!currentHasMore && currentProducts.length > 0 && (
           <View className='no-more'>{t('common:app.noMore')}</View>
         )}

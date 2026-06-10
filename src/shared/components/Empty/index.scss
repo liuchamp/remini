@@ -1,28 +1,50 @@
 @use '../../../styles' as *;
 
-.empty-component {
+.empty {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px $spacing-lg;
+  padding: $spacing-xxl $spacing-lg;
+  min-height: 400px;
+}
 
-  .empty-icon {
-    font-size: 80px;
-    margin-bottom: $spacing-md;
-  }
+.empty-icon {
+  font-size: 80px;
+  margin-bottom: $spacing-lg;
+}
 
-  .empty-icon-img {
-    width: 120px;
-    height: 120px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-bottom: $spacing-md;
-  }
+.empty-title {
+  font-size: $font-lg;
+  font-weight: 600;
+  color: $color-text;
+  margin-bottom: $spacing-sm;
+  text-align: center;
+}
 
-  .empty-text {
-    color: $color-text-secondary;
-    font-size: $font-md;
+.empty-description {
+  font-size: $font-sm;
+  color: $color-text-secondary;
+  text-align: center;
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+.empty-action {
+  margin-top: $spacing-xl;
+  padding: $spacing-md $spacing-xl;
+  background: $color-primary;
+  border-radius: $radius-md;
+  @include touch-target;
+  
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
   }
+}
+
+.empty-action-text {
+  color: $color-white;
+  font-size: $font-md;
+  font-weight: 500;
 }

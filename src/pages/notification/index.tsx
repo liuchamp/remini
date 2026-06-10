@@ -143,7 +143,7 @@ export default function Notification() {
         }}
       >
         {loading && notifications.length === 0 ? (
-          <Skeleton type='list' rows={5} />
+          <Skeleton variant='list' count={5} />
         ) : error ? (
           <RetryButton onRetry={refresh} />
         ) : notifications.length === 0 ? (
