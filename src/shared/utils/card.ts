@@ -1,10 +1,13 @@
 import Taro from '@tarojs/taro'
 
+interface CardInfo {
+  cardId: string
+  cardExt: string
+}
+
 export const CardService = {
-  addCard: async (cardInfo: {
-    cardId: string
-    cardExt: string
-  }) => {
+  /** 添加卡到卡包 */
+  addCard: async (cardInfo: CardInfo): Promise<boolean> => {
     try {
       await Taro.addCard({
         cardList: [{
