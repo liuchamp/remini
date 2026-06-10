@@ -49,6 +49,7 @@ export default function List() {
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const [loading, setLoading] = useState(false)
+  const [scrollTop, setScrollTop] = useState(0)
 
   const [error, setError] = useState(false)
   const statusKey = TAB_KEYS[activeTab]
@@ -174,6 +175,7 @@ export default function List() {
         scrollY
         onScrollToLower={handleScrollToLower}
         lowerThreshold={100}
+        onScroll={e => setScrollTop(e.detail.scrollTop)}
       >
         {loading ? (
           <Skeleton variant='list' count={5} />
@@ -243,7 +245,7 @@ export default function List() {
         )}
       </ScrollView>
 
-      <BackTop threshold={300} />
+      <BackTop threshold={300} scrollTop={scrollTop} />
     </View>
   )
 }

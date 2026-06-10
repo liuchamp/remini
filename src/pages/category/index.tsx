@@ -21,6 +21,7 @@ export default function Category() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const loadingRef = useRef(false)
+  const [scrollTop, setScrollTop] = useState(0)
 
   useEffect(() => {
     if (!id) return
@@ -83,6 +84,10 @@ export default function Category() {
     Taro.navigateTo({ url: `/pages/product/detail/index?id=${productId}` })
   }, [])
 
+  const handleScroll = useCallback((e: any) => {
+    setScrollTop(e.detail.scrollTop)
+  }, [])
+
   useEffect(() => {
     if (!id) return
     setProducts([])
@@ -117,49 +122,52 @@ export default function Category() {
   }
 
   return (
-    <ScrollView
-      className='category-page'
-      scrollY
-      onScrollToLower={handleScrollToLower}
-      scrollWithAnimation
-    >
-      <View className='category-header'>
-        <Text>{t('product:category')} - {categoryName || t('common:loading')}</Text>
-      </View>
+    <View className='category-page'>
+      <ScrollView
+        className='category-scroll'
+        scrollY
+        onScrollToLower={handleScrollToLower}
+        onScroll={handleScroll}
+        scrollWithAnimation
+      >
+        <View className='category-header'>
+          <Text>{t('product:category')} - {categoryName || t('common:loading')}</Text>
+        </View>
 
-      <View className='product-grid'>
-        {products.map(product => (
-          <View
-            key={product.id}
-            className='product-card'
-            onClick={() => handleProductClick(product.id)}
-          >
-            <Image
-              className='product-image'
-              src={product.images[0] || ''}
-              mode='aspectFill'
-              lazyLoad
-            />
-            <View className='product-info'>
-              <Text className='product-title'>{product.title}</Text>
-              <View className='product-price-row'>
-                <Text className='product-price'>¥{product.price}</Text>
-                {product.isNegotiable && (
-                  <Text className='product-tag'>{t('product:negotiable')}</Text>
-                )}
+        <View className='product-grid'>
+          {products.map(product => (
+            <View
+              key={product.id}
+              className='product-card'
+              onClick={() => handleProductClick(product.id)}
+            >
+              <Image
+                className='product-image'
+                src={product.images[0] || ''}
+                mode='aspectFill'
+                lazyLoad
+              />
+              <View className='product-info'>
+                <Text className='product-title'>{product.title}</Text>
+                <View className='product-price-row'>
+                  <Text className='product-price'>¥{product.price}</Text>
+                  {product.isNegotiable && (
+                    <Text className='product-tag'>{t('product:negotiable')}</Text>
+                  )}
+                </View>
               </View>
             </View>
-          </View>
-        ))}
-      </View>
-
-      {loading && (
-        <View className='loading-text'>
-          <Text>{t('common:loading')}</Text>
+          ))}
         </View>
-      )}
 
-      <BackTop threshold={300} />
-    </ScrollView>
+        {loading && (
+          <View className='loading-text'>
+            <Text>{t('common:loading')}</Text>
+          </View>
+        )}
+      </ScrollView>
+
+      <BackTop threshold={300} scrollTop={scrollTop} />
+    </View>
   )
 }

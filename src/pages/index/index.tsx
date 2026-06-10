@@ -32,6 +32,7 @@ export default function Index() {
   const [nearbyHasMore, setNearbyHasMore] = useState(true)
   const [nearbyLoading, setNearbyLoading] = useState(false)
   const [nearbyRefreshing, setNearbyRefreshing] = useState(false)
+  const [scrollTop, setScrollTop] = useState(0)
 
   useEffect(() => {
     loadRecommendations(true)
@@ -158,6 +159,7 @@ export default function Index() {
         onRefresherRefresh={handleRefresh}
         onScrollToLower={handleLoadMore}
         lowerThreshold={100}
+        onScroll={e => setScrollTop(e.detail.scrollTop)}
       >
         {currentLoading && currentProducts.length === 0 ? (
           <Skeleton variant='card' count={4} />
@@ -215,7 +217,7 @@ export default function Index() {
         )}
       </ScrollView>
 
-      <BackTop threshold={300} />
+      <BackTop threshold={300} scrollTop={scrollTop} />
     </View>
   )
 }

@@ -3,7 +3,13 @@
 
 .category-page {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-color: $color-bg;
+}
+
+.category-scroll {
+  flex: 1;
 }
 
 .category-header {

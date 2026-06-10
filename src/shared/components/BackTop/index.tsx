@@ -6,21 +6,30 @@ import './index.scss'
 interface BackTopProps {
   threshold?: number
   duration?: number
+  scrollTop?: number
 }
 
 export const BackTop = ({
   threshold = 300,
-  duration = 300
+  duration = 300,
+  scrollTop
 }: BackTopProps) => {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
+    if (scrollTop !== undefined) {
+      // Controlled mode: derive visibility from ScrollView scrollTop prop
+      setVisible(scrollTop > threshold)
+      return
+    }
+
+    // Fallback: page.onScroll for pages without ScrollView
     const page = Taro.getCurrentInstance().page
     if (!page) return
 
     const handleScroll = (e: { detail: { scrollTop: number } }) => {
-      const scrollTop = e.detail.scrollTop
-      setVisible(scrollTop > threshold)
+      const st = e.detail.scrollTop
+      setVisible(st > threshold)
     }
 
     // Note: Direct assignment to page.onScroll is a Taro-specific pattern.
@@ -30,7 +39,7 @@ export const BackTop = ({
     return () => {
       page.onScroll = undefined
     }
-  }, [threshold])
+  }, [threshold, scrollTop])
 
   const scrollToTop = () => {
     Taro.pageScrollTo({
