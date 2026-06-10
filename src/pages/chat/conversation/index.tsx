@@ -7,6 +7,7 @@ import { useChatStore } from '@/domains/chat/store'
 import { chatApi } from '@/domains/chat/api'
 import { useAuthStore } from '@/domains/auth/store'
 import { Breadcrumb } from '@/shared/components/Breadcrumb'
+import { NavigationService } from '@/shared/utils/navigation'
 import './index.scss'
 
 export default function Conversation() {
@@ -174,7 +175,7 @@ export default function Conversation() {
                         {msg.type === 'product' && msg.product ? (
                           <View
                             className='product-card'
-                            onClick={() => Taro.navigateTo({ url: `/pages/product/detail/index?id=${msg.product!.id}` })}
+                            onClick={() => NavigationService.safeNavigateTo(`/pages/product/detail/index?id=${msg.product!.id}`)}
                           >
                             <Image src={msg.product.image || ''} className='product-card-image' mode='aspectFill' />
                             <View className='product-card-info'>
@@ -185,7 +186,7 @@ export default function Conversation() {
                         ) : msg.type === 'order' && msg.order ? (
                           <View
                             className='order-card'
-                            onClick={() => Taro.navigateTo({ url: `/pages/order/detail/index?id=${msg.order!.id}` })}
+                            onClick={() => NavigationService.safeNavigateTo(`/pages/order/detail/index?id=${msg.order!.id}`)}
                           >
                             <Text className='order-card-no'>{msg.order.orderNo || ''}</Text>
                             <Text className='order-card-status'>{msg.order.status || ''}</Text>

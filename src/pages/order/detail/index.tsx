@@ -7,6 +7,7 @@ import { tradeApi } from '@/domains/trade/api'
 import { shippingApi } from '@/domains/shipping/api'
 import Loading from '@/shared/components/Loading'
 import { Breadcrumb } from '@/shared/components/Breadcrumb'
+import { NavigationService } from '@/shared/utils/navigation'
 import './index.scss'
 
 const STATUS_STEPS: { key: string; label: string; field: string }[] = [
@@ -88,7 +89,7 @@ export default function Detail() {
 
   const handlePay = () => {
     if (!order) return
-    Taro.navigateTo({ url: `/pages/order/pay/index?orderId=${order.id}` })
+    NavigationService.safeNavigateTo(`/pages/order/pay/index?orderId=${order.id}`)
   }
 
   const handleConfirm = () => {
@@ -298,7 +299,7 @@ export default function Detail() {
             </View>
           )}
 
-          <View className='product-card' onClick={() => Taro.navigateTo({ url: `/pages/product/detail/index?id=${order.productId}` })}>
+          <View className='product-card' onClick={() => NavigationService.safeNavigateTo(`/pages/product/detail/index?id=${order.productId}`)}>
             <Image className='product-image' src={order.product.image} mode='aspectFill' />
             <View className='product-info'>
               <Text className='product-title' numberOfLines={2}>{order.product.title}</Text>

@@ -6,6 +6,7 @@ import { useProductStore } from '@/domains/product/store'
 import { useAuthStore } from '@/domains/auth/store'
 import { offerApi } from '@/domains/trade/offer'
 import { ShareProvider } from '@/shared/utils/share'
+import { NavigationService } from '@/shared/utils/navigation'
 import { PosterGenerator } from '@/shared/components/share/PosterGenerator'
 import Loading from '@/shared/components/Loading'
 import ErrorBoundary from '@/shared/components/ErrorBoundary'
@@ -49,7 +50,7 @@ function Detail() {
 
   const handleFavorite = useCallback(async () => {
     if (!isLoggedIn) {
-      Taro.navigateTo({ url: '/pages/auth/login/index' })
+      NavigationService.safeNavigateTo('/pages/auth/login/index')
       return
     }
     if (!id || favoriting) return
@@ -63,10 +64,10 @@ function Detail() {
 
   const handleBuyNow = useCallback(async () => {
     if (!isLoggedIn) {
-      Taro.navigateTo({ url: '/pages/auth/login/index' })
+      NavigationService.safeNavigateTo('/pages/auth/login/index')
       return
     }
-    Taro.navigateTo({ url: `/pages/order/create/index?productId=${id}` })
+    NavigationService.safeNavigateTo(`/pages/order/create/index?productId=${id}`)
   }, [id, isLoggedIn])
 
   const handleSubmitOffer = useCallback(async () => {
@@ -102,11 +103,11 @@ function Detail() {
 
   const handleChat = useCallback(() => {
     if (!isLoggedIn) {
-      Taro.navigateTo({ url: '/pages/auth/login/index' })
+      NavigationService.safeNavigateTo('/pages/auth/login/index')
       return
     }
     if (currentProduct?.seller?.id) {
-      Taro.navigateTo({ url: `/pages/chat/conversation/index?userId=${currentProduct.seller.id}&productId=${id}` })
+      NavigationService.safeNavigateTo(`/pages/chat/conversation/index?userId=${currentProduct.seller.id}&productId=${id}`)
     }
   }, [id, currentProduct, isLoggedIn])
 
@@ -295,7 +296,7 @@ function Detail() {
                 className='offer-btn'
                 onClick={() => {
                   if (!isLoggedIn) {
-                    Taro.navigateTo({ url: '/pages/auth/login/index' })
+                    NavigationService.safeNavigateTo('/pages/auth/login/index')
                     return
                   }
                   setShowOfferPanel(true)
