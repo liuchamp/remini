@@ -5,16 +5,22 @@
 ### 1. 导航增强模块
 
 #### 1.1 页面过渡动画
-**方案**: 使用 Taro 的 `pageTransition` 配置 + CSS 动画
+**方案**: 使用 Taro 生命周期 hooks + CSS transitions 实现页面过渡动画
+
+> ⚠️ Taro 4.x 不支持 `pageTransition` 配置项（无类型定义、无运行时处理）。页面过渡需通过 Taro 生命周期 hooks（`useDidShow`、`useDidHide`）配合 CSS transitions 手动实现。
 
 ```typescript
-// app.config.ts
-export default defineAppConfig({
-  pageTransition: {
-    duration: 300,
-    timingFunction: 'ease-in-out'
-  }
-})
+// shared/hooks/usePageTransition.ts
+export const usePageTransition = () => {
+  useDidShow(() => {
+    // 页面显示时触发进入动画
+    document.body.classList.add('page-enter');
+  });
+  useDidHide(() => {
+    // 页面隐藏时触发退出动画
+    document.body.classList.remove('page-enter');
+  });
+};
 ```
 
 **动画类型**:
@@ -355,7 +361,7 @@ export default defineConfig({
 
 | 模块 | 技术方案 | 理由 |
 |------|----------|------|
-| 页面过渡 | Taro pageTransition + CSS | 原生支持，性能好 |
+| 页面过渡 | Taro 生命周期 hooks + CSS transitions | 手动实现，灵活可控 |
 | 返回顶部 | 自定义组件 | 轻量，可控 |
 | 面包屑 | 自定义组件 | 灵活，符合小程序习惯 |
 | 列表虚拟化 | react-virtualized | 成熟稳定，社区支持 |
