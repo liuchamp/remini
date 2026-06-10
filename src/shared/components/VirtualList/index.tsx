@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { ScrollView, View } from '@tarojs/components'
 import './index.scss'
 
