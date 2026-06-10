@@ -1,35 +1,165 @@
+@use '../../../styles' as *;
+
 .skeleton {
-  padding: 24px 32px;
-  background: #fff;
-  
-  &-card, &-list, &-detail {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  &-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: #f0f0f0;
-    margin-bottom: 24px;
-  }
-  
-  &-row {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  width: 100%;
+}
+
+.skeleton-animated {
+  .skeleton-line,
+  .skeleton-card-image,
+  .skeleton-avatar,
+  .skeleton-avatar-large,
+  .skeleton-detail-image,
+  .skeleton-product-swiper,
+  .skeleton-stat {
+    background: linear-gradient(
+      90deg,
+      $color-bg 25%,
+      $color-bg-light 50%,
+      $color-bg 75%
+    );
     background-size: 200% 100%;
-    border-radius: 4px;
     animation: skeleton-loading 1.5s infinite;
-  }
-  
-  &-base {
-    background: #f5f5f5;
-    border-radius: 8px;
-    margin-top: 24px;
   }
 }
 
 @keyframes skeleton-loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-line {
+  height: 28px;
+  border-radius: $radius-sm;
+  margin-bottom: $spacing-sm;
+}
+
+.skeleton-line-title {
+  width: 60%;
+  height: 32px;
+}
+
+.skeleton-line-subtitle {
+  width: 80%;
+  height: 24px;
+}
+
+.skeleton-line-price {
+  width: 40%;
+  height: 36px;
+}
+
+.skeleton-line-button {
+  width: 20%;
+  height: 40px;
+  border-radius: $radius-md;
+}
+
+.skeleton-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.skeleton-avatar-large {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+// Card variant
+.skeleton-card {
+  background: $color-white;
+  border-radius: $radius-md;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+}
+
+.skeleton-card-image {
+  width: 100%;
+  height: 300px;
+}
+
+.skeleton-card-content {
+  padding: $spacing-md;
+}
+
+.skeleton-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: $spacing-md;
+}
+
+// List variant
+.skeleton-list-item {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md;
+  gap: $spacing-md;
+  background: $color-white;
+}
+
+.skeleton-list-content {
+  flex: 1;
+}
+
+// Detail variant
+.skeleton-detail {
+  background: $color-white;
+}
+
+.skeleton-detail-image {
+  width: 100%;
+  height: 600px;
+}
+
+.skeleton-detail-info {
+  padding: $spacing-lg;
+}
+
+// Profile variant
+.skeleton-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-xl;
+  background: $color-white;
+}
+
+.skeleton-profile-info {
+  margin-top: $spacing-lg;
+  text-align: center;
+}
+
+.skeleton-profile-stats {
+  display: flex;
+  gap: $spacing-xl;
+  margin-top: $spacing-lg;
+}
+
+.skeleton-stat {
+  width: 100px;
+  height: 60px;
+  border-radius: $radius-sm;
+}
+
+// Product variant
+.skeleton-product {
+  background: $color-white;
+}
+
+.skeleton-product-swiper {
+  width: 100%;
+  height: 600px;
+}
+
+.skeleton-product-info {
+  padding: $spacing-lg;
 }
