@@ -1,0 +1,23 @@
+.virtual-list {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  &__phantom {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+  }
+
+  &__content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+  }
+
+  &__item {
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+}

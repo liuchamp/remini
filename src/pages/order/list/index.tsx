@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { View, Text, Image, ScrollView } from '@tarojs/components'
+import { View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useLoad } from '@tarojs/taro'
 import { useTranslation } from 'react-i18next'
@@ -7,6 +7,8 @@ import { tradeApi } from '@/domains/trade/api'
 import { Skeleton } from '@/shared/components/Skeleton'
 import { RetryButton } from '@/shared/components/RetryButton'
 import Empty from '@/shared/components/Empty'
+import { BackTop } from '@/shared/components/BackTop'
+import { VirtualList } from '@/shared/components/VirtualList'
 import './index.scss'
 
 const TAB_KEYS = ['', 'pending_payment', 'paid', 'shipped', 'completed']
@@ -48,6 +50,7 @@ export default function List() {
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const [loading, setLoading] = useState(false)
+  const [scrollTop, setScrollTop] = useState(0)
 
   const [error, setError] = useState(false)
   const statusKey = TAB_KEYS[activeTab]
@@ -92,11 +95,14 @@ export default function List() {
     setTimeout(() => fetchOrders(1, true), 0)
   }
 
-  const handleScrollToLower = () => {
-    if (hasMore && !loading) {
+  const handleScroll = useCallback((e: any) => {
+    const st = e.detail.scrollTop
+    setScrollTop(st)
+    const totalHeight = orders.length * 180
+    if (st + 600 >= totalHeight - 150 && hasMore && !loading) {
       fetchOrders(page + 1, false)
     }
-  }
+  }, [orders.length, hasMore, loading, fetchOrders, page])
 
   const handleOrderClick = (id: string) => {
     Taro.navigateTo({ url: `/pages/order/detail/index?id=${id}` })
@@ -168,79 +174,82 @@ export default function List() {
         ))}
       </View>
 
-      <ScrollView
-        className='order-scroll'
-        scrollY
-        onScrollToLower={handleScrollToLower}
-        lowerThreshold={100}
-      >
-        {loading ? (
-          <Skeleton variant='list' count={5} />
-        ) : error ? (
-          <RetryButton onRetry={refresh} />
-        ) : orders.length === 0 ? (
-          <Empty text={t('common:empty.list')} />
-        ) : (
-          orders.map(order => (
-            <View
-              key={order.id}
-              className='order-card'
-              onClick={() => handleOrderClick(order.id)}
-            >
-              <View className='order-header'>
-                <Text className='order-no'>{t('trade:orderNo')}{order.orderNo}</Text>
-                <Text className='order-status' style={{ color: STATUS_COLORS[order.status] || '#999' }}>
-                  {t(STATUS_KEY_MAP[order.status] || 'trade:orderStatus.' + order.status)}
-                </Text>
-              </View>
-
-              <View className='order-body'>
-                <Image
-                  className='product-image'
-                  src={order.product.image}
-                  mode='aspectFill'
-                  lazyLoad
-                />
-                <View className='product-info'>
-                  <Text className='product-title' numberOfLines={2}>
-                    {order.product.title}
-                  </Text>
-                  <Text className='product-price'>
-                    <Text className='price-symbol'>¥</Text>
-                    {order.finalAmount.toFixed(2)}
+      {loading && orders.length === 0 ? (
+        <Skeleton variant='list' count={5} />
+      ) : error ? (
+        <RetryButton onRetry={refresh} />
+      ) : orders.length === 0 ? (
+        <Empty text={t('common:empty.list')} />
+      ) : (
+        <>
+          <VirtualList
+            data={orders}
+            itemHeight={180}
+            containerHeight={600}
+            renderItem={(order) => (
+              <View
+                key={order.id}
+                className='order-card'
+                onClick={() => handleOrderClick(order.id)}
+              >
+                <View className='order-header'>
+                  <Text className='order-no'>{t('trade:orderNo')}{order.orderNo}</Text>
+                  <Text className='order-status' style={{ color: STATUS_COLORS[order.status] || '#999' }}>
+                    {t(STATUS_KEY_MAP[order.status] || 'trade:orderStatus.' + order.status)}
                   </Text>
                 </View>
-              </View>
 
-              {actionButtons(order).length > 0 && (
-                <View className='order-actions'>
-                  {actionButtons(order).map((btn, i) => (
-                    <View
-                      key={i}
-                      className={`action-btn ${btn.type}`}
-                      onClick={btn.onClick}
-                    >
-                      <Text>{btn.text}</Text>
-                    </View>
-                  ))}
+                <View className='order-body'>
+                  <Image
+                    className='product-image'
+                    src={order.product.image}
+                    mode='aspectFill'
+                    lazyLoad
+                  />
+                  <View className='product-info'>
+                    <Text className='product-title' numberOfLines={2}>
+                      {order.product.title}
+                    </Text>
+                    <Text className='product-price'>
+                      <Text className='price-symbol'>¥</Text>
+                      {order.finalAmount.toFixed(2)}
+                    </Text>
+                  </View>
                 </View>
-              )}
+
+                {actionButtons(order).length > 0 && (
+                  <View className='order-actions'>
+                    {actionButtons(order).map((btn, i) => (
+                      <View
+                        key={i}
+                        className={`action-btn ${btn.type}`}
+                        onClick={btn.onClick}
+                      >
+                        <Text>{btn.text}</Text>
+                      </View>
+                    ))}
+                  </View>
+                )}
+              </View>
+            )}
+            onScroll={handleScroll}
+          />
+
+          {loading && (
+            <View className='loading-more'>
+              <Text>{t('common:loading')}</Text>
             </View>
-          )
-        ))}
+          )}
 
-        {loading && (
-          <View className='loading-more'>
-            <Text>{t('common:loading')}</Text>
-          </View>
-        )}
+          {!hasMore && orders.length > 0 && (
+            <View className='no-more'>
+              <Text>{t('common:app.noMore')}</Text>
+            </View>
+          )}
+        </>
+      )}
 
-        {!hasMore && orders.length > 0 && (
-          <View className='no-more'>
-            <Text>{t('common:app.noMore')}</Text>
-          </View>
-        )}
-      </ScrollView>
+      <BackTop threshold={300} scrollTop={scrollTop} />
     </View>
   )
 }

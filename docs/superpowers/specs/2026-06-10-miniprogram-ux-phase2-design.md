@@ -46,16 +46,20 @@ REMX 是基于 Taro 4.2 + React 18 的跨平台二手交易小程序。第一阶
 ### 3.1 导航增强模块
 
 #### 3.1.1 页面过渡动画
-**方案**: Taro pageTransition + CSS 动画
+**方案**: Taro 生命周期 hooks + CSS transitions 手动实现
+
+> ⚠️ Taro 4.x 不支持 `pageTransition` 配置项（无类型定义、无运行时处理）。需通过 `useDidShow`/`useDidHide` hooks 配合 CSS transitions 手动实现。
 
 ```typescript
-// app.config.ts
-export default defineAppConfig({
-  pageTransition: {
-    duration: 300,
-    timingFunction: 'ease-in-out'
-  }
-})
+// shared/hooks/usePageTransition.ts
+export const usePageTransition = () => {
+  useDidShow(() => {
+    document.body.classList.add('page-enter');
+  });
+  useDidHide(() => {
+    document.body.classList.remove('page-enter');
+  });
+};
 ```
 
 **动画类型**:
@@ -430,7 +434,7 @@ NavigationService.safeNavigateTo()
     ↓
 跳转/返回
     ↓
-页面过渡动画 (pageTransition)
+页面过渡动画 (CSS transitions)
     ↓
 目标页面渲染
 ```
@@ -467,7 +471,7 @@ VirtualList 组件
 
 | 模块 | 技术方案 | 理由 |
 |------|----------|------|
-| 页面过渡 | Taro pageTransition + CSS | 原生支持，性能好 |
+| 页面过渡 | Taro 生命周期 hooks + CSS transitions | 手动实现，灵活可控 |
 | 返回顶部 | 自定义组件 | 轻量，可控 |
 | 面包屑 | 自定义组件 | 灵活，符合小程序习惯 |
 | 列表虚拟化 | react-virtualized | 成熟稳定，社区支持 |

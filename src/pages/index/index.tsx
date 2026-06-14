@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { View, Text, ScrollView, Image } from '@tarojs/components'
+import { View, Text, Image } from '@tarojs/components'
 import { useEffect, useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useProductStore } from '@/domains/product/store'
@@ -8,6 +8,8 @@ import { useLocation } from '@/shared/hooks/useLocation'
 import { Skeleton } from '@/shared/components/Skeleton'
 import { Empty } from '@/shared/components/Empty'
 import { triggerHaptic } from '@/shared/utils/haptic'
+import { BackTop } from '@/shared/components/BackTop'
+import { VirtualList } from '@/shared/components/VirtualList'
 import './index.scss'
 
 type FeedTab = 'recommend' | 'nearby' | 'following'
@@ -19,7 +21,6 @@ export default function Index() {
     recommendHasMore,
     categories,
     loading,
-    refreshing,
     loadRecommendations,
     loadCategories
   } = useProductStore()
@@ -30,7 +31,7 @@ export default function Index() {
   const [nearbyPage, setNearbyPage] = useState(1)
   const [nearbyHasMore, setNearbyHasMore] = useState(true)
   const [nearbyLoading, setNearbyLoading] = useState(false)
-  const [nearbyRefreshing, setNearbyRefreshing] = useState(false)
+  const [scrollTop, setScrollTop] = useState(0)
 
   useEffect(() => {
     loadRecommendations(true)
@@ -59,7 +60,6 @@ export default function Index() {
       /* silent */
     } finally {
       setNearbyLoading(false)
-      setNearbyRefreshing(false)
     }
   }, [nearbyPage, nearbyProducts, getLocation])
 
@@ -105,7 +105,18 @@ export default function Index() {
   const currentProducts = activeTab === 'nearby' ? nearbyProducts : recommendProducts
   const currentHasMore = activeTab === 'nearby' ? nearbyHasMore : recommendHasMore
   const currentLoading = activeTab === 'nearby' ? nearbyLoading : loading
-  const currentRefreshing = activeTab === 'nearby' ? nearbyRefreshing : refreshing
+
+  const LIST_ITEM_HEIGHT = 200
+  const LIST_CONTAINER_HEIGHT = 600
+
+  const handleScroll = useCallback((e: any) => {
+    const st = e.detail.scrollTop
+    setScrollTop(st)
+    const totalHeight = currentProducts.length * LIST_ITEM_HEIGHT
+    if (st + LIST_CONTAINER_HEIGHT >= totalHeight - 150 && !currentLoading && currentHasMore) {
+      handleLoadMore()
+    }
+  }, [currentProducts.length, currentLoading, currentHasMore, handleLoadMore])
 
   return (
     <View className='home-page'>
@@ -149,70 +160,68 @@ export default function Index() {
         ))}
       </View>
 
-      <ScrollView
-        className='product-feed'
-        scrollY
-        refresherEnabled
-        refresherTriggered={currentRefreshing}
-        onRefresherRefresh={handleRefresh}
-        onScrollToLower={handleLoadMore}
-        lowerThreshold={100}
-      >
-        {currentLoading && currentProducts.length === 0 ? (
-          <Skeleton variant='card' count={4} />
-        ) : currentProducts.length === 0 ? (
-          <Empty
-            variant='no-data'
-            action={{
-              label: '刷新',
-              onClick: () => {
-                triggerHaptic('light')
-                handleRefresh()
-              },
-            }}
-          />
-        ) : (
-          <View className='product-grid'>
-            {currentProducts.map((product) => (
+      {currentLoading && currentProducts.length === 0 ? (
+        <Skeleton variant='card' count={4} />
+      ) : currentProducts.length === 0 ? (
+        <Empty
+          variant='no-data'
+          action={{
+            label: '刷新',
+            onClick: () => {
+              triggerHaptic('light')
+              handleRefresh()
+            },
+          }}
+        />
+      ) : (
+        <>
+          <VirtualList
+            data={currentProducts}
+            itemHeight={LIST_ITEM_HEIGHT}
+            containerHeight={LIST_CONTAINER_HEIGHT}
+            renderItem={(item) => (
               <View
-                key={product.id}
+                key={item.id}
                 className='product-card'
-                onClick={() => handleProductClick(product.id)}
+                onClick={() => handleProductClick(item.id)}
               >
                 <Image
-                  src={product.images?.[0] || ''}
+                  src={item.images?.[0] || ''}
                   className='product-image'
                   mode='aspectFill'
                   lazyLoad
                 />
                 <View className='product-info'>
-                  <Text className='product-title'>{product.title}</Text>
+                  <Text className='product-title'>{item.title}</Text>
                   <View className='product-price-row'>
-                    <Text className='product-price'>¥{product.price}</Text>
-                    {product.isNegotiable && (
+                    <Text className='product-price'>¥{item.price}</Text>
+                    {item.isNegotiable && (
                       <Text className='negotiable-tag'>{t('product:negotiable')}</Text>
                     )}
                   </View>
-                  {product.distance != null && (
+                  {item.distance != null && (
                     <Text className='product-distance'>
-                      {product.distance < 1
-                        ? `${Math.round(product.distance * 1000)}m`
-                        : `${product.distance.toFixed(1)}km`}
+                      {item.distance < 1
+                        ? `${Math.round(item.distance * 1000)}m`
+                        : `${item.distance.toFixed(1)}km`}
                     </Text>
                   )}
                 </View>
               </View>
-            ))}
-          </View>
-        )}
+            )}
+            onScroll={handleScroll}
+          />
 
-        {currentLoading && currentProducts.length > 0 && (
-          <View className='loading-more'>{t('common:loading')}</View>
-        )}
-        {!currentHasMore && currentProducts.length > 0 && (
-          <View className='no-more'>{t('common:app.noMore')}</View>
-        )}
-      </ScrollView>
+          {currentLoading && currentProducts.length > 0 && (
+            <View className='loading-more'>{t('common:loading')}</View>
+          )}
+          {!currentHasMore && currentProducts.length > 0 && (
+            <View className='no-more'>{t('common:app.noMore')}</View>
+          )}
+        </>
+      )}
+
+      <BackTop threshold={300} scrollTop={scrollTop} />
     </View>
   )
 }

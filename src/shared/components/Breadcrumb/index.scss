@@ -1,0 +1,33 @@
+@use '../../../styles' as *;
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: $spacing-lg $spacing-xxl;
+  background: $color-bg-light;
+  font-size: $font-sm;
+  
+  &-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  &-separator {
+    margin: 0 $spacing-md;
+    color: $color-text-light;
+  }
+  
+  &-link {
+    color: $color-text-secondary;
+    
+    &:active {
+      color: $color-primary;
+    }
+  }
+  
+  &-current {
+    color: $color-text;
+    font-weight: 500;
+  }
+}

@@ -3,7 +3,7 @@
 ## Phase 3: 导航优化 (Week 1)
 
 ### 3.1 页面过渡动画
-- [ ] 3.1.1 配置 app.config.ts 的 pageTransition
+- [ ] 3.1.1 创建 usePageTransition hook（Taro 生命周期 + CSS transitions）
 - [ ] 3.1.2 创建页面过渡 CSS 动画
 - [ ] 3.1.3 测试不同页面类型的过渡效果
 - [ ] 3.1.4 优化动画性能（避免卡顿）

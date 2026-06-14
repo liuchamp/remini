@@ -4,6 +4,7 @@ import Taro from '@tarojs/taro'
 import { useLoad, useRouter } from '@tarojs/taro'
 import { useTranslation } from 'react-i18next'
 import { tradeApi } from '@/domains/trade/api'
+import { isAlipay, isWeapp } from '@/shared/utils/platform'
 import './index.scss'
 
 export default function Pay() {
@@ -49,14 +50,25 @@ export default function Pay() {
         setPaying(false)
         return
       }
-      const params = res.data as { timeStamp: string; nonceStr: string; package: string; signType: string; paySign: string }
-      await Taro.requestPayment({
-        timeStamp: params.timeStamp,
-        nonceStr: params.nonceStr,
-        package: params.package,
-        signType: params.signType as keyof Taro.requestPayment.SignType,
-        paySign: params.paySign,
-      })
+
+      if (isAlipay) {
+        const params = res.data as { tradeNO: string }
+        await Taro.tradePay({ tradeNO: params.tradeNO })
+      } else if (isWeapp) {
+        const params = res.data as { timeStamp: string; nonceStr: string; package: string; signType: string; paySign: string }
+        await Taro.requestPayment({
+          timeStamp: params.timeStamp,
+          nonceStr: params.nonceStr,
+          package: params.package,
+          signType: params.signType as keyof Taro.requestPayment.SignType,
+          paySign: params.paySign,
+        })
+      } else {
+        Taro.showToast({ title: '当前平台不支持支付', icon: 'none' })
+        setPaying(false)
+        return
+      }
+
       Taro.showToast({ title: '支付成功', icon: 'success' })
       setTimeout(() => {
         Taro.redirectTo({ url: `/pages/order/detail/index?id=${order.id}` })
@@ -114,12 +126,25 @@ export default function Pay() {
         <View className='pay-method-card'>
           <Text className='section-title'>支付方式</Text>
           <View className='pay-method-item selected'>
-            <Image
-              className='pay-icon'
-              src='https://res.wx.qq.com/op_res/BkQmhxYMoGCAovjuVdJCbw8oagq7e3Ff3Cv3KLgz3dCRfLoBICzO3_No3wVXpr0g'
-              mode='aspectFit'
-            />
-            <Text className='pay-method-label'>微信支付</Text>
+            {isAlipay ? (
+              <>
+                <Image
+                  className='pay-icon'
+                  src='https://img.alicdn.com/tfs/TB1gVWnX2b2gK0jSZK9XXaEwFXa-48-48.png'
+                  mode='aspectFit'
+                />
+                <Text className='pay-method-label'>支付宝</Text>
+              </>
+            ) : (
+              <>
+                <Image
+                  className='pay-icon'
+                  src='https://res.wx.qq.com/op_res/BkQmhxYMoGCAovjuVdJCbw8oagq7e3Ff3Cv3KLgz3dCRfLoBICzO3_No3wVXpr0g'
+                  mode='aspectFit'
+                />
+                <Text className='pay-method-label'>微信支付</Text>
+              </>
+            )}
             <Text className='pay-check'>✓</Text>
           </View>
         </View>

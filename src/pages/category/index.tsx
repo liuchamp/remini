@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import Taro, { useRouter } from '@tarojs/taro'
 import { View, Text, ScrollView, Image } from '@tarojs/components'
 import { useTranslation } from 'react-i18next'
@@ -6,6 +6,8 @@ import { productApi } from '@/domains/product/api'
 import { Skeleton } from '@/shared/components/Skeleton'
 import { RetryButton } from '@/shared/components/RetryButton'
 import Empty from '@/shared/components/Empty'
+import { BackTop } from '@/shared/components/BackTop'
+import { VirtualList } from '@/shared/components/VirtualList'
 import './index.scss'
 
 export default function Category() {
@@ -20,6 +22,7 @@ export default function Category() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const loadingRef = useRef(false)
+  const [scrollTop, setScrollTop] = useState(0)
 
   useEffect(() => {
     if (!id) return
@@ -72,15 +75,18 @@ export default function Category() {
     loadProducts(1, true)
   }, [loadProducts])
 
-  const handleScrollToLower = useCallback(() => {
-    if (hasMore && !loadingRef.current) {
-      loadProducts(page)
-    }
-  }, [hasMore, loadProducts, page])
-
   const handleProductClick = useCallback((productId: string) => {
     Taro.navigateTo({ url: `/pages/product/detail/index?id=${productId}` })
   }, [])
+
+  const handleVirtualScroll = useCallback((e: any) => {
+    const st = e.detail.scrollTop
+    setScrollTop(st)
+    const totalHeight = products.length * 120
+    if (st + 600 >= totalHeight - 150 && hasMore && !loadingRef.current) {
+      loadProducts(page)
+    }
+  }, [products.length, hasMore, loadProducts, page])
 
   useEffect(() => {
     if (!id) return
@@ -116,18 +122,16 @@ export default function Category() {
   }
 
   return (
-    <ScrollView
-      className='category-page'
-      scrollY
-      onScrollToLower={handleScrollToLower}
-      scrollWithAnimation
-    >
+    <View className='category-page'>
       <View className='category-header'>
         <Text>{t('product:category')} - {categoryName || t('common:loading')}</Text>
       </View>
 
-      <View className='product-grid'>
-        {products.map(product => (
+      <VirtualList
+        data={products}
+        itemHeight={120}
+        containerHeight={600}
+        renderItem={(product) => (
           <View
             key={product.id}
             className='product-card'
@@ -149,14 +153,17 @@ export default function Category() {
               </View>
             </View>
           </View>
-        ))}
-      </View>
+        )}
+        onScroll={handleVirtualScroll}
+      />
 
       {loading && (
         <View className='loading-text'>
           <Text>{t('common:loading')}</Text>
         </View>
       )}
-    </ScrollView>
+
+      <BackTop threshold={300} scrollTop={scrollTop} />
+    </View>
   )
 }
