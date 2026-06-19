@@ -1,5 +1,5 @@
 export interface AdminDashboardData {
-  totalUsers: number;
-  activeDisputes: number;
-  pendingWithdrawals: number;
+  totalUsers: number
+  activeDisputes: number
+  pendingWithdrawals: number
 }

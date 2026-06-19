@@ -1,7 +1,11 @@
 export interface ChatMessage {
-  id: string;
-  conversationId: string;
-  senderId: string;
-  content: string;
-  timestamp: number;
+  id: string
+  senderId: string
+  content: string
+  type: 'text' | 'image' | 'product' | 'order' | 'system'
+  isRead: boolean
+  readAt?: string
+  createdAt: string
+  product?: ProductBrief
+  order?: Order
 }

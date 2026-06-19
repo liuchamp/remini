@@ -1,8 +1,11 @@
 export interface Address {
-  id: string;
-  name: string;
-  phone: string;
-  region: string;
-  detail: string;
-  isDefault: boolean;
+  id: string
+  recipientName: string
+  phone: string
+  province: string
+  city: string
+  district: string
+  detail: string
+  tag?: string
+  isDefault: boolean
 }
