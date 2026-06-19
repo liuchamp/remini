@@ -11,7 +11,7 @@
           "variant": "medium"
         }
       ],
-      "model": "opencode/deepseek-v4-flash-free"
+      "model": "sensenova/deepseek-v4-flash"
     },
     "explore": {
       "fallback_models": [
@@ -22,7 +22,7 @@
           "model": "opencode/mimo-v2.5-free"
         }
       ],
-      "model": "opencode/nemotron-3-ultra-free"
+      "model": "sensenova/sensenova-6.7-flash-lite"
     },
     "hephaestus": {
       "fallback_models": [
@@ -35,7 +35,7 @@
           "variant": "medium"
         }
       ],
-      "model": "opencode/deepseek-v4-flash-free",
+      "model": "sensenova/deepseek-v4-flash",
       "variant": "medium"
     },
     "librarian": {
@@ -47,7 +47,7 @@
           "model": "opencode/gpt-5.4-nano"
         }
       ],
-      "model": "opencode/nemotron-3-ultra-free"
+      "model": "sensenova/sensenova-6.7-flash-lite"
     },
     "metis": {
       "fallback_models": [
@@ -60,7 +60,7 @@
           "variant": "high"
         }
       ],
-      "model": "opencode/deepseek-v4-flash-free"
+      "model": "sensenova/deepseek-v4-flash"
     },
     "momus": {
       "fallback_models": [
@@ -85,7 +85,7 @@
           "variant": "high"
         }
       ],
-      "model": "opencode/deepseek-v4-flash-free",
+      "model": "sensenova/deepseek-v4-flash",
       "variant": "xhigh"
     },
     "multimodal-looker": {
@@ -99,7 +99,7 @@
           "variant": "medium"
         }
       ],
-      "model": "opencode/deepseek-v4-flash-free",
+      "model": "sensenova/deepseek-v4-flash",
       "variant": "medium"
     },
     "oracle": {
@@ -125,29 +125,29 @@
           "variant": "max"
         }
       ],
-      "model": "opencode/nemotron-3-ultra-free",
+      "model": "sensenova/deepseek-v4-flash",
       "variant": "high"
     },
     "prometheus": {
       "fallback_models": [
         {
-          "model": "deepseek/deepseek-v4-flash",
-          "variant": "max"
-        },
-        {
           "model": "opencode/deepseek-v4-flash-free",
           "variant": "high"
+        },
+        {
+          "model": "deepseek/deepseek-v4-pro",
+          "variant": "max"
         },
         {
           "model": "google/gemini-3.1-pro-preview"
         }
       ],
-      "model": "opencode/nemotron-3-ultra-free",
+      "model": "deepseek/deepseek-v4-pro",
       "variant": "max"
     },
     "sisyphus": {
       "fallback_models": [
-          {
+        {
           "model": "opencode/nemotron-3-ultra-free",
           "variant": "medium"
         },
@@ -155,12 +155,11 @@
           "model": "openrouter/openrouter/owl-alpha",
           "variant": "max"
         },
-      
         {
           "model": "opencode/big-pickle"
         }
       ],
-      "model": "opencode/mimo-v2.5-free",
+      "model": "sensenova/deepseek-v4-flash",
       "variant": "max"
     },
     "sisyphus-junior": {
@@ -177,174 +176,170 @@
           "model": "opencode/big-pickle"
         }
       ],
-      "model": "opencode/nemotron-3-ultra-free"
-    }
-  },
-  "categories": {
-    "artistry": {
-      "fallback_models": [
-        {
-          "model": "openrouter/openrouter/owl-alpha",
-          "variant": "high"
-        },
-        {
-          "model": "opencode/gemini-3.1-pro",
-          "variant": "high"
-        },
-        {
-          "model": "deepseek/deepseek-v4-pro",
-          "variant": "max"
-        },
-        {
-          "model": "openrouter/openrouter/owl-alpha",
-          "variant": "max"
-        },
-        {
+      "model": "sensenova/deepseek-v4-flash"
+    },
+    "categories": {
+      "artistry": {
+        "fallback_models": [
+          {
+            "model": "openrouter/openrouter/owl-alpha",
+            "variant": "max"
+          },
+          {
+            "model": "opencode/gemini-3.1-pro",
+            "variant": "high"
+          },
+          {
+            "model": "deepseek/deepseek-v4-pro",
+            "variant": "max"
+          },
+          {
             "model": "google/gemini-3.1-pro-preview",
-      "variant": "high"
-        },
-        {
-          "model": "opencode/deepseek-v4-flash-free"
-        }
-      ],
-      "model": "opencode/mimo-v2.5-free",
-      "variant": "high"
-    },
-    "deep": {
-      "fallback_models": [
-        {
-          "model": "openrouter/openrouter/owl-alpha",
-          "variant": "max"
-        },
-        {
-          "model": "opencode/deepseek-v4-flash-free",
-          "variant": "medium"
-        },
-        {
-          "model": "deepseek/deepseek-v4-pro",
-          "variant": "max"
-        },
-        {
-          "model": "google/gemini-3.1-pro-preview",
-          "variant": "high"
-        },
-        {
-          "model": "opencode/gemini-3.1-pro",
-          "variant": "high"
-        }
-      ],
-      "model": "opencode/deepseek-v4-flash-free",
-      "variant": "medium"
-    },
-    "quick": {
-      "fallback_models": [
-        {
-          "model": "opencode/deepseek-v4-flash-free",
-          "variant": "medium"
-        },
-        {
-          "model": "opencode/nemotron-3-ultra-free"
-        },
-        {
-          "model": "google/gemini-3-flash-preview"
-        }
-      ],
-      "model": "opencode/mimo-v2.5-free"
-    },
-    "ultrabrain": {
-      "fallback_models": [
-        {
-          "model": "openrouter/openrouter/owl-alpha",
-          "variant": "max"
-        },
-        {
-          "model": "opencode/deepseek-v4-flash-free",
-          "variant": "xhigh"
-        },
-        {
-          "model": "google/gemini-3.1-pro-preview",
-          "variant": "high"
-        },
-        {
-          "model": "opencode/gemini-3.1-pro",
-          "variant": "high"
-        },
-        {
-          "model": "deepseek/deepseek-v4-pro",
-          "variant": "max"
-        }
-      ],
-      "model": "opencode/nemotron-3-ultra-free",
-      "variant": "xhigh"
-    },
-    "unspecified-high": {
-      "fallback_models": [
-        {
-          "model": "openrouter/openrouter/owl-alpha",
-          "variant": "max"
-        },
-        {
-          "model": "opencode/deepseek-v4-flash-free",
-          "variant": "high"
-        },
-        {
-          "model": "zai-coding-plan/glm-5"
-        },
-        {
-          "model": "opencode/glm-5"
-        },
-        {
-          "model": "kimi-for-coding/k2p5"
-        },
-        {
-          "model": "opencode/kimi-k2.5"
-        }
-      ],
-      "model": "deepseek/deepseek-v4-flash",
-      "variant": "max"
-    },
-    "unspecified-low": {
-      "fallback_models": [
-        {
-          "model": "google/gemini-3-flash-preview"
-        },
-        {
-          "model": "opencode/gemini-3-flash"
-        },
-        {
-          "model": "opencode/mimo-v2.5-free"
-        }
-      ],
-      "model": "opencode/nemotron-3-ultra-free"
-    },
-    "visual-engineering": {
-      "fallback_models": [
-        {
-          "model": "openrouter/openrouter/owl-alpha",
-          "variant": "max"
-        },
-        {
-          "model": "opencode/deepseek-v4-flash-free",
-          "variant": "medium"
-        },
-        {
-          "model": "deepseek/deepseek-v4-pro",
-          "variant": "max"
-        }
-      ],
-      "model": "opencode/deepseek-v4-flash-free",
-      "variant": "high"
-    },
-    "writing": {
-      "fallback_models": [
-        {
-          "model": "opencode/gemini-3-flash"
-        },
-        {
-          "model": "deepseek/deepseek-v4-flash"
-        }
-      ],
-      "model": "opencode/mimo-v2.5-free"
+            "variant": "high"
+          },
+          {
+            "model": "opencode/deepseek-v4-flash-free"
+          }
+        ],
+        "model": "opencode/mimo-v2.5-free",
+        "variant": "high"
+      },
+      "deep": {
+        "fallback_models": [
+          {
+            "model": "openrouter/openrouter/owl-alpha",
+            "variant": "max"
+          },
+          {
+            "model": "opencode/deepseek-v4-flash-free",
+            "variant": "medium"
+          },
+          {
+            "model": "deepseek/deepseek-v4-pro",
+            "variant": "max"
+          },
+          {
+            "model": "google/gemini-3.1-pro-preview",
+            "variant": "high"
+          },
+          {
+            "model": "opencode/gemini-3.1-pro",
+            "variant": "high"
+          }
+        ],
+        "model": "sensenova/deepseek-v4-flash",
+        "variant": "high"
+      },
+      "quick": {
+        "fallback_models": [
+          {
+            "model": "opencode/deepseek-v4-flash-free",
+            "variant": "medium"
+          },
+          {
+            "model": "sensenova/sensenova-6.7-flash-lite"
+          },
+          {
+            "model": "google/gemini-3-flash-preview"
+          }
+        ],
+        "model": "opencode/mimo-v2.5-free"
+      },
+      "ultrabrain": {
+        "fallback_models": [
+          {
+            "model": "openrouter/openrouter/owl-alpha",
+            "variant": "max"
+          },
+          {
+            "model": "opencode/deepseek-v4-flash-free",
+            "variant": "xhigh"
+          },
+          {
+            "model": "google/gemini-3.1-pro-preview",
+            "variant": "high"
+          },
+          {
+            "model": "opencode/gemini-3.1-pro",
+            "variant": "high"
+          },
+          {
+            "model": "deepseek/deepseek-v4-pro",
+            "variant": "max"
+          }
+        ],
+        "model": "deepseek/deepseek-v4-flash",
+        "variant": "xhigh"
+      },
+      "unspecified-high": {
+        "fallback_models": [
+          {
+            "model": "openrouter/openrouter/owl-alpha",
+            "variant": "max"
+          },
+          {
+            "model": "opencode/deepseek-v4-flash-free",
+            "variant": "high"
+          },
+          {
+            "model": "zai-coding-plan/glm-5"
+          },
+          {
+            "model": "opencode/glm-5"
+          },
+          {
+            "model": "kimi-for-coding/k2p5"
+          },
+          {
+            "model": "opencode/kimi-k2.5"
+          }
+        ],
+        "model": "deepseek/deepseek-v4-pro",
+        "variant": "max"
+      },
+      "unspecified-low": {
+        "fallback_models": [
+          {
+            "model": "google/gemini-3-flash-preview"
+          },
+          {
+            "model": "opencode/gemini-3-flash"
+          },
+          {
+            "model": "opencode/mimo-v2.5-free"
+          }
+        ],
+        "model": "sensenova/deepseek-v4-flash"
+      },
+      "visual-engineering": {
+        "fallback_models": [
+          {
+            "model": "openrouter/openrouter/owl-alpha",
+            "variant": "max"
+          },
+          {
+            "model": "opencode/deepseek-v4-flash-free",
+            "variant": "medium"
+          },
+          {
+            "model": "deepseek/deepseek-v4-pro",
+            "variant": "max"
+          }
+        ],
+        "model": "sensenova/deepseek-v4-flash",
+        "variant": "high"
+      },
+      "writing": {
+        "fallback_models": [
+          {
+            "model": "opencode/gemini-3-flash"
+          },
+          {
+            "model": "deepseek/deepseek-v4-flash"
+          }
+        ],
+        "model": "opencode/mimo-v2.5-free"
+      }
     }
   }
 }
