@@ -3,3 +3,5 @@ version: v1
 plugins:
   - name: typescript-http
     out: src/shared/api2/generated
+    opt: split=flat
+    strategy: all
