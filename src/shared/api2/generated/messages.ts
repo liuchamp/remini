@@ -4,6 +4,15 @@
 // deno-lint-ignore-file
 
 
+export type AcceptOfferRequest = {
+  id: number | undefined;
+};
+
+export type AcceptOfferResponse = {
+  offer: Offer | undefined;
+  order: Order | undefined;
+};
+
 export type ActivateCampaignRequest = {
   id: number | undefined;
 };
@@ -32,6 +41,64 @@ export type AddPointsRequest = {
 export type AddPointsResponse = {
   account: PointsAccount | undefined;
   transaction: PointsTransaction | undefined;
+};
+
+export type Address = {
+  id: number | undefined;
+  userId: number | undefined;
+  label: string | undefined;
+  recipient: string | undefined;
+  phone: string | undefined;
+  province: string | undefined;
+  city: string | undefined;
+  district: string | undefined;
+  detail: string | undefined;
+  isDefault: boolean | undefined;
+  createdAt: string | undefined;
+  updatedAt: string | undefined;
+};
+
+export type AdminUser = {
+  id: number | undefined;
+  username: string | undefined;
+  phone: string | undefined;
+  email: string | undefined;
+  role: string | undefined;
+  status: string | undefined;
+  trustScore: number | undefined;
+  createdAt: string | undefined;
+};
+
+export type AdminWithdraw = {
+  id: number | undefined;
+  userId: number | undefined;
+  amount: number | undefined;
+  status: string | undefined;
+  paymentAccount: string | undefined;
+  note: string | undefined;
+  createdAt: string | undefined;
+};
+
+export type AppendReviewRequest = {
+  orderId: number | undefined;
+  content: string | undefined;
+  images: string[] | undefined;
+};
+
+export type AppendReviewResponse = {
+  review: Review | undefined;
+};
+
+export type ApplyCreatorCertificationRequest = {
+  realName: string | undefined;
+  idNumber: string | undefined;
+  proofUrl: string | undefined;
+  description: string | undefined;
+};
+
+export type ApplyCreatorCertificationResponse = {
+  applicationId: number | undefined;
+  status: string | undefined;
 };
 
 export type ApproveProductRequest = {
@@ -111,6 +178,15 @@ export type BindReferralResponse = {
   success: boolean | undefined;
 };
 
+export type BlockUserRequest = {
+  userId: number | undefined;
+  reason: string | undefined;
+};
+
+export type BlockUserResponse = {
+  success: boolean | undefined;
+};
+
 // Campaign
 export type Campaign = {
   id: number | undefined;
@@ -140,6 +216,13 @@ export type CancelOrderResponse = {
   order: Order | undefined;
 };
 
+export type Category = {
+  id: number | undefined;
+  name: string | undefined;
+  parentId: number | undefined;
+  sortOrder: number | undefined;
+};
+
 export type CategoryAffinity = {
   category: string | undefined;
   score: number | undefined;
@@ -161,6 +244,22 @@ export type CheckRouteResponse = {
   allowed: boolean | undefined;
 };
 
+export type CheckinDay = {
+  date: string | undefined;
+  checked: boolean | undefined;
+  points: number | undefined;
+};
+
+export type CheckinRequest = {
+};
+
+export type CheckinResponse = {
+  success: boolean | undefined;
+  pointsAwarded: number | undefined;
+  continuousDays: number | undefined;
+  account: PointsAccount | undefined;
+};
+
 export type Circle = {
   id: number | undefined;
   name: string | undefined;
@@ -178,6 +277,25 @@ export type CircleMember = {
   joinedAt: string | undefined;
 };
 
+export type ClaimCouponRequest = {
+  couponTemplateId: number | undefined;
+};
+
+export type ClaimCouponResponse = {
+  coupon: Coupon | undefined;
+};
+
+export type Code2SessionRequest = {
+  platform: string | undefined;
+  code: string | undefined;
+};
+
+export type Code2SessionResponse = {
+  openid: string | undefined;
+  unionid: string | undefined;
+  sessionKey: string | undefined;
+};
+
 export type Comment = {
   id: number | undefined;
   postId: number | undefined;
@@ -185,6 +303,17 @@ export type Comment = {
   content: string | undefined;
   createdAt: string | undefined;
   updatedAt: string | undefined;
+  parentId: number | undefined;
+  likeCount: number | undefined;
+  liked: boolean | undefined;
+};
+
+export type CommissionRecord = {
+  id: number | undefined;
+  orderId: number | undefined;
+  amount: number | undefined;
+  status: string | undefined;
+  createdAt: string | undefined;
 };
 
 export type CompleteOrderRequest = {
@@ -207,6 +336,18 @@ export type Conversation = {
   participantB: number | undefined;
   lastMessage: Message | undefined;
   createdAt: string | undefined;
+  unreadCount: number | undefined;
+  pinned: boolean | undefined;
+  pinnedAt: string | undefined;
+};
+
+export type CounterOfferRequest = {
+  id: number | undefined;
+  amount: number | undefined;
+};
+
+export type CounterOfferResponse = {
+  offer: Offer | undefined;
 };
 
 export type Coupon = {
@@ -229,6 +370,21 @@ export type CouponTemplate = {
   totalStock: number | undefined;
   remainingStock: number | undefined;
   expiresAt: string | undefined;
+};
+
+export type CreateAddressRequest = {
+  label: string | undefined;
+  recipient: string | undefined;
+  phone: string | undefined;
+  province: string | undefined;
+  city: string | undefined;
+  district: string | undefined;
+  detail: string | undefined;
+  isDefault: boolean | undefined;
+};
+
+export type CreateAddressResponse = {
+  address: Address | undefined;
 };
 
 export type CreateAuditRequest = {
@@ -266,6 +422,7 @@ export type CreateCommentRequest = {
   postId: number | undefined;
   authorId: number | undefined;
   content: string | undefined;
+  parentId: number | undefined;
 };
 
 export type CreateCommentResponse = {
@@ -283,6 +440,16 @@ export type CreateCouponTemplateRequest = {
 
 export type CreateCouponTemplateResponse = {
   template: CouponTemplate | undefined;
+};
+
+export type CreateOfferRequest = {
+  productId: number | undefined;
+  amount: number | undefined;
+  message: string | undefined;
+};
+
+export type CreateOfferResponse = {
+  offer: Offer | undefined;
 };
 
 export type CreateOrderRequest = {
@@ -324,10 +491,30 @@ export type CreateProductRequest = {
   price: number | undefined;
   stock: number | undefined;
   category: string | undefined;
+  title: string | undefined;
+  categoryId: number | undefined;
+  images: string[] | undefined;
+  condition: string | undefined;
+  isNegotiable: boolean | undefined;
+  pricingModel: string | undefined;
 };
 
 export type CreateProductResponse = {
   product: Product | undefined;
+};
+
+export type CreateReviewRequest = {
+  orderId: number | undefined;
+  rating: number | undefined;
+  content: string | undefined;
+  images: string[] | undefined;
+  productId: number | undefined;
+  sellerId: number | undefined;
+  buyerId: number | undefined;
+};
+
+export type CreateReviewResponse = {
+  review: Review | undefined;
 };
 
 export type CreateShipmentRequest = {
@@ -379,11 +566,27 @@ export type DeactivateCampaignResponse = {
   campaign: Campaign | undefined;
 };
 
+export type DeleteAddressRequest = {
+  id: number | undefined;
+};
+
+export type DeleteAddressResponse = {
+  success: boolean | undefined;
+};
+
 export type DeleteCommentRequest = {
   id: number | undefined;
 };
 
 export type DeleteCommentResponse = {
+};
+
+export type DeleteConversationRequest = {
+  id: number | undefined;
+};
+
+export type DeleteConversationResponse = {
+  success: boolean | undefined;
 };
 
 export type DeletePaymentMethodRequest = {
@@ -398,6 +601,25 @@ export type DeleteProductRequest = {
 };
 
 export type DeleteProductResponse = {
+};
+
+export type Device = {
+  id: string | undefined;
+  name: string | undefined;
+  platform: string | undefined;
+  clientType: string | undefined;
+  deviceFingerprint: string | undefined;
+  lastActiveAt: string | undefined;
+  current: boolean | undefined;
+};
+
+export type Dispute = {
+  id: number | undefined;
+  orderId: number | undefined;
+  raisedBy: number | undefined;
+  reason: string | undefined;
+  status: string | undefined;
+  createdAt: string | undefined;
 };
 
 export type EvaluateRiskRequest = {
@@ -418,6 +640,14 @@ export type Event = {
   data: string | undefined;
   source: string | undefined;
   createdAt: string | undefined;
+};
+
+export type ExchangeCouponRequest = {
+  couponTemplateId: number | undefined;
+};
+
+export type ExchangeCouponResponse = {
+  coupon: Coupon | undefined;
 };
 
 // Follow
@@ -445,6 +675,14 @@ export type GenerateReportRequest = {
 export type GenerateReportResponse = {
   reportId: string | undefined;
   summary: string | undefined;
+};
+
+export type GetAddressRequest = {
+  id: number | undefined;
+};
+
+export type GetAddressResponse = {
+  address: Address | undefined;
 };
 
 export type GetBalanceRequest = {
@@ -484,12 +722,32 @@ export type GetCampaignStatsResponse = {
   usersReached: number | undefined;
 };
 
+export type GetCheckinDataRequest = {
+};
+
+export type GetCheckinDataResponse = {
+  checkedToday: boolean | undefined;
+  continuousDays: number | undefined;
+  todayPoints: number | undefined;
+  calendar: CheckinDay[] | undefined;
+};
+
 export type GetCircleRequest = {
   id: number | undefined;
 };
 
 export type GetCircleResponse = {
   circle: Circle | undefined;
+};
+
+export type GetCommissionDataRequest = {
+};
+
+export type GetCommissionDataResponse = {
+  availableAmount: number | undefined;
+  pendingAmount: number | undefined;
+  settledAmount: number | undefined;
+  records: CommissionRecord[] | undefined;
 };
 
 export type GetConversationRequest = {
@@ -521,6 +779,17 @@ export type GetEventsResponse = {
   total: number | undefined;
 };
 
+export type GetFeedRequest = {
+  page: number | undefined;
+  pageSize: number | undefined;
+  circleId: number | undefined;
+};
+
+export type GetFeedResponse = {
+  posts: Post[] | undefined;
+  total: number | undefined;
+};
+
 export type GetHomeRecommendationsRequest = {
   userId: number | undefined;
   limit: number | undefined;
@@ -528,6 +797,29 @@ export type GetHomeRecommendationsRequest = {
 
 export type GetHomeRecommendationsResponse = {
   recommendations: ProductRecommendation[] | undefined;
+};
+
+export type GetKYCStatusRequest = {
+};
+
+export type GetKYCStatusResponse = {
+  status: KYCStatus | undefined;
+};
+
+export type GetNotificationRequest = {
+  id: number | undefined;
+};
+
+export type GetNotificationResponse = {
+  notification: Notification | undefined;
+};
+
+export type GetOfferRequest = {
+  id: number | undefined;
+};
+
+export type GetOfferResponse = {
+  offer: Offer | undefined;
 };
 
 export type GetOrderRequest = {
@@ -598,12 +890,41 @@ export type GetRecommendationExplanationResponse = {
   contributingFactors: ContributingFactor[] | undefined;
 };
 
+export type GetReferralInfoRequest = {
+};
+
+export type GetReferralInfoResponse = {
+  referral: ReferralCode | undefined;
+  invitedUsers: number | undefined;
+  pointsEarned: number | undefined;
+  commissionEarned: number | undefined;
+};
+
 export type GetRiskProfileRequest = {
   userId: number | undefined;
 };
 
 export type GetRiskProfileResponse = {
   profile: RiskProfile | undefined;
+};
+
+export type GetSellerStatsRequest = {
+};
+
+export type GetSellerStatsResponse = {
+  activeProducts: number | undefined;
+  soldProducts: number | undefined;
+  pendingProducts: number | undefined;
+  totalOrders: number | undefined;
+  totalRevenue: number | undefined;
+};
+
+export type GetShipmentByOrderRequest = {
+  orderId: number | undefined;
+};
+
+export type GetShipmentByOrderResponse = {
+  shipment: Shipment | undefined;
 };
 
 export type GetShipmentRequest = {
@@ -638,6 +959,13 @@ export type GetTrendingRequest = {
 
 export type GetTrendingResponse = {
   items: TrendingItem[] | undefined;
+};
+
+export type GetUnreadCountRequest = {
+};
+
+export type GetUnreadCountResponse = {
+  count: number | undefined;
 };
 
 export type GetUserProfileRequest = {
@@ -688,12 +1016,48 @@ export type JoinCircleResponse = {
   member: CircleMember | undefined;
 };
 
+export type KYCStatus = {
+  status: string | undefined;
+  tier: string | undefined;
+  phoneVerified: boolean | undefined;
+  identityVerified: boolean | undefined;
+  livenessVerified: boolean | undefined;
+  rejectReason: string | undefined;
+  updatedAt: string | undefined;
+};
+
+export type KickDeviceRequest = {
+  deviceId: string | undefined;
+};
+
+export type KickDeviceResponse = {
+  success: boolean | undefined;
+};
+
 export type LeaveCircleRequest = {
   circleId: number | undefined;
   userId: number | undefined;
 };
 
 export type LeaveCircleResponse = {
+};
+
+export type ListAddressesRequest = {
+};
+
+export type ListAddressesResponse = {
+  addresses: Address[] | undefined;
+};
+
+export type ListAdminWithdrawsRequest = {
+  page: number | undefined;
+  pageSize: number | undefined;
+  status: string | undefined;
+};
+
+export type ListAdminWithdrawsResponse = {
+  withdraws: AdminWithdraw[] | undefined;
+  total: number | undefined;
 };
 
 export type ListAuditsRequest = {
@@ -720,6 +1084,13 @@ export type ListCampaignsRequest = {
 export type ListCampaignsResponse = {
   campaigns: Campaign[] | undefined;
   total: number | undefined;
+};
+
+export type ListCategoriesRequest = {
+};
+
+export type ListCategoriesResponse = {
+  categories: Category[] | undefined;
 };
 
 export type ListCircleMembersRequest = {
@@ -776,6 +1147,35 @@ export type ListConversationsResponse = {
   total: number | undefined;
 };
 
+export type ListCouponTemplatesRequest = {
+  page: number | undefined;
+  pageSize: number | undefined;
+  scene: string | undefined;
+};
+
+export type ListCouponTemplatesResponse = {
+  templates: CouponTemplate[] | undefined;
+  total: number | undefined;
+};
+
+export type ListDevicesRequest = {
+};
+
+export type ListDevicesResponse = {
+  devices: Device[] | undefined;
+};
+
+export type ListDisputesRequest = {
+  page: number | undefined;
+  pageSize: number | undefined;
+  status: string | undefined;
+};
+
+export type ListDisputesResponse = {
+  disputes: Dispute[] | undefined;
+  total: number | undefined;
+};
+
 export type ListEventsRequest = {
   topic: string | undefined;
   page: number | undefined;
@@ -784,6 +1184,16 @@ export type ListEventsRequest = {
 
 export type ListEventsResponse = {
   events: Event[] | undefined;
+  total: number | undefined;
+};
+
+export type ListFavoriteProductsRequest = {
+  page: number | undefined;
+  pageSize: number | undefined;
+};
+
+export type ListFavoriteProductsResponse = {
+  products: Product[] | undefined;
   total: number | undefined;
 };
 
@@ -852,6 +1262,18 @@ export type ListNotificationsResponse = {
   total: number | undefined;
 };
 
+export type ListOffersRequest = {
+  productId: number | undefined;
+  status: string | undefined;
+  page: number | undefined;
+  pageSize: number | undefined;
+};
+
+export type ListOffersResponse = {
+  offers: Offer[] | undefined;
+  total: number | undefined;
+};
+
 export type ListOrdersRequest = {
   page: number | undefined;
   pageSize: number | undefined;
@@ -879,6 +1301,27 @@ export type ListPaymentsRequest = {
 
 export type ListPaymentsResponse = {
   transactions: PaymentTransaction[] | undefined;
+  total: number | undefined;
+};
+
+export type ListPendingProductsRequest = {
+  page: number | undefined;
+  pageSize: number | undefined;
+};
+
+export type ListPendingProductsResponse = {
+  products: PendingProduct[] | undefined;
+  total: number | undefined;
+};
+
+export type ListPointsRecordsRequest = {
+  page: number | undefined;
+  pageSize: number | undefined;
+  type: string | undefined;
+};
+
+export type ListPointsRecordsResponse = {
+  records: PointsTransaction[] | undefined;
   total: number | undefined;
 };
 
@@ -964,6 +1407,42 @@ export type ListUserCouponsResponse = {
   coupons: Coupon[] | undefined;
 };
 
+export type ListUserProductsRequest = {
+  userId: number | undefined;
+  page: number | undefined;
+  pageSize: number | undefined;
+};
+
+export type ListUserProductsResponse = {
+  products: Product[] | undefined;
+  total: number | undefined;
+};
+
+export type ListUserReviewsRequest = {
+  userId: number | undefined;
+  asSeller: boolean | undefined;
+  page: number | undefined;
+  pageSize: number | undefined;
+};
+
+export type ListUserReviewsResponse = {
+  reviews: Review[] | undefined;
+  total: number | undefined;
+};
+
+export type ListUsersRequest = {
+  page: number | undefined;
+  pageSize: number | undefined;
+  keyword: string | undefined;
+  status: string | undefined;
+  role: string | undefined;
+};
+
+export type ListUsersResponse = {
+  users: AdminUser[] | undefined;
+  total: number | undefined;
+};
+
 export type ListWithdrawsRequest = {
   userId: number | undefined;
   page: number | undefined;
@@ -981,6 +1460,19 @@ export type LockUserRequest = {
   reason: string | undefined;
 };
 
+export type LoginByPhoneRequest = {
+  phone: string | undefined;
+  code: string | undefined;
+  deviceFingerprint: string | undefined;
+};
+
+export type LoginByPhoneResponse = {
+  user: User | undefined;
+  token: string | undefined;
+  refreshToken: string | undefined;
+  expiresIn: number | undefined;
+};
+
 export type LoginRequest = {
   username: string | undefined;
   password: string | undefined;
@@ -989,6 +1481,15 @@ export type LoginRequest = {
 export type LoginResponse = {
   user: User | undefined;
   token: string | undefined;
+};
+
+export type LogoutRequest = {
+  refreshToken: string | undefined;
+  deviceId: string | undefined;
+};
+
+export type LogoutResponse = {
+  success: boolean | undefined;
 };
 
 export type ManageRulesRequest = {
@@ -1016,6 +1517,14 @@ export type MarkAllReadResponse = {
   success: boolean | undefined;
 };
 
+export type MarkConversationReadRequest = {
+  threadId: number | undefined;
+};
+
+export type MarkConversationReadResponse = {
+  success: boolean | undefined;
+};
+
 export type MarkReadRequest = {
   id: number | undefined;
 };
@@ -1030,6 +1539,8 @@ export type Message = {
   senderId: number | undefined;
   content: string | undefined;
   createdAt: string | undefined;
+  isRead: boolean | undefined;
+  readAt: string | undefined;
 };
 
 export type Notification = {
@@ -1040,6 +1551,38 @@ export type Notification = {
   type: string | undefined;
   isRead: boolean | undefined;
   createdAt: string | undefined;
+  targetType: string | undefined;
+  targetId: number | undefined;
+  metadata: string | undefined;
+};
+
+export type OCRIDCardRequest = {
+  imageUrl: string | undefined;
+  side: string | undefined;
+};
+
+export type OCRIDCardResponse = {
+  name: string | undefined;
+  idNumber: string | undefined;
+  address: string | undefined;
+  birthDate: string | undefined;
+  gender: string | undefined;
+  authority: string | undefined;
+  validFrom: string | undefined;
+  validTo: string | undefined;
+};
+
+export type Offer = {
+  id: number | undefined;
+  productId: number | undefined;
+  buyerId: number | undefined;
+  sellerId: number | undefined;
+  amount: number | undefined;
+  message: string | undefined;
+  status: string | undefined;
+  parentOfferId: number | undefined;
+  createdAt: string | undefined;
+  updatedAt: string | undefined;
 };
 
 export type Order = {
@@ -1086,6 +1629,25 @@ export type PaymentTransaction = {
   createdAt: string | undefined;
 };
 
+export type PendingProduct = {
+  id: number | undefined;
+  title: string | undefined;
+  ownerId: number | undefined;
+  price: number | undefined;
+  category: string | undefined;
+  status: string | undefined;
+  createdAt: string | undefined;
+};
+
+export type PinConversationRequest = {
+  id: number | undefined;
+  pinned: boolean | undefined;
+};
+
+export type PinConversationResponse = {
+  conversation: Conversation | undefined;
+};
+
 export type PointsAccount = {
   id: number | undefined;
   userId: number | undefined;
@@ -1111,6 +1673,10 @@ export type Post = {
   status: string | undefined;
   createdAt: string | undefined;
   updatedAt: string | undefined;
+  likeCount: number | undefined;
+  commentCount: number | undefined;
+  liked: boolean | undefined;
+  collected: boolean | undefined;
 };
 
 export type PreferenceItem = {
@@ -1135,6 +1701,14 @@ export type Product = {
   status: string | undefined;
   createdAt: string | undefined;
   updatedAt: string | undefined;
+  title: string | undefined;
+  ownerId: number | undefined;
+  images: string[] | undefined;
+  condition: string | undefined;
+  isNegotiable: boolean | undefined;
+  pricingModel: string | undefined;
+  isFavorited: boolean | undefined;
+  favoriteCount: number | undefined;
 };
 
 export type ProductRecommendation = {
@@ -1192,6 +1766,27 @@ export type RefreshRecommendationsResponse = {
   success: boolean | undefined;
 };
 
+export type RefreshTokenRequest = {
+  refreshToken: string | undefined;
+};
+
+export type RefreshTokenResponse = {
+  token: string | undefined;
+  refreshToken: string | undefined;
+  expiresIn: number | undefined;
+};
+
+export type Refund = {
+  id: number | undefined;
+  orderId: number | undefined;
+  requesterId: number | undefined;
+  reason: string | undefined;
+  status: string | undefined;
+  amount: number | undefined;
+  createdAt: string | undefined;
+  updatedAt: string | undefined;
+};
+
 export type RegisterRequest = {
   username: string | undefined;
   email: string | undefined;
@@ -1211,10 +1806,31 @@ export type ReindexAllResponse = {
   indexedCount: number | undefined;
 };
 
+export type RejectOfferRequest = {
+  id: number | undefined;
+  reason: string | undefined;
+};
+
+export type RejectOfferResponse = {
+  offer: Offer | undefined;
+};
+
 export type RejectProductRequest = {
   adminId: number | undefined;
   productId: number | undefined;
   reason: string | undefined;
+};
+
+export type RejectWithdrawRequest = {
+  adminId: number | undefined;
+  withdrawId: number | undefined;
+  reason: string | undefined;
+  id: number | undefined;
+};
+
+export type RejectWithdrawResponse = {
+  audit: AuditLog | undefined;
+  withdraw: WithdrawRequest | undefined;
 };
 
 export type RemoveCampaignRuleRequest = {
@@ -1242,9 +1858,20 @@ export type ReportEventResponse = {
   event: RiskEvent | undefined;
 };
 
+export type RequestRefundRequest = {
+  orderId: number | undefined;
+  reason: string | undefined;
+};
+
+export type RequestRefundResponse = {
+  refund: Refund | undefined;
+};
+
 export type RequestWithdrawRequest = {
   userId: number | undefined;
   amount: number | undefined;
+  paymentAccountId: number | undefined;
+  note: string | undefined;
 };
 
 export type RequestWithdrawResponse = {
@@ -1256,6 +1883,23 @@ export type ResolveDisputeRequest = {
   disputeId: number | undefined;
   decision: string | undefined;
   reason: string | undefined;
+};
+
+export type Review = {
+  id: number | undefined;
+  orderId: number | undefined;
+  productId: number | undefined;
+  sellerId: number | undefined;
+  buyerId: number | undefined;
+  rating: number | undefined;
+  content: string | undefined;
+  images: string[] | undefined;
+  appendContent: string | undefined;
+  appendImages: string[] | undefined;
+  reply: string | undefined;
+  status: string | undefined;
+  createdAt: string | undefined;
+  updatedAt: string | undefined;
 };
 
 export type RiskEvent = {
@@ -1345,6 +1989,22 @@ export type SearchSynonym = {
   createdAt: string | undefined;
 };
 
+export type SendAuthCodeRequest = {
+  phone: string | undefined;
+};
+
+export type SendAuthCodeResponse = {
+  success: boolean | undefined;
+};
+
+export type SendKYCPhoneCodeRequest = {
+  phone: string | undefined;
+};
+
+export type SendKYCPhoneCodeResponse = {
+  success: boolean | undefined;
+};
+
 export type SendMessageRequest = {
   conversationId: number | undefined;
   senderId: number | undefined;
@@ -1364,6 +2024,23 @@ export type SendNotificationRequest = {
 
 export type SendNotificationResponse = {
   notification: Notification | undefined;
+};
+
+export type SendReadReceiptRequest = {
+  threadId: number | undefined;
+  messageIds: number[] | undefined;
+};
+
+export type SendReadReceiptResponse = {
+  success: boolean | undefined;
+};
+
+export type SetDefaultAddressRequest = {
+  id: number | undefined;
+};
+
+export type SetDefaultAddressResponse = {
+  address: Address | undefined;
 };
 
 export type SetDefaultPaymentMethodRequest = {
@@ -1413,6 +2090,35 @@ export type SpendPointsResponse = {
   transaction: PointsTransaction | undefined;
 };
 
+export type StartLivenessRequest = {
+};
+
+export type StartLivenessResponse = {
+  sessionId: string | undefined;
+  verifyUrl: string | undefined;
+  expiresAt: string | undefined;
+};
+
+export type SubmitIdentityRequest = {
+  realName: string | undefined;
+  idNumber: string | undefined;
+  frontImageUrl: string | undefined;
+  backImageUrl: string | undefined;
+};
+
+export type SubmitIdentityResponse = {
+  status: KYCStatus | undefined;
+};
+
+export type SubmitLivenessRequest = {
+  sessionId: string | undefined;
+  resultToken: string | undefined;
+};
+
+export type SubmitLivenessResponse = {
+  status: KYCStatus | undefined;
+};
+
 export type SubscribeRequest = {
   topic: string | undefined;
   endpoint: string | undefined;
@@ -1442,6 +2148,15 @@ export type TagPreference = {
   weight: number | undefined;
 };
 
+export type ToggleCommentLikeRequest = {
+  commentId: number | undefined;
+};
+
+export type ToggleCommentLikeResponse = {
+  active: boolean | undefined;
+  likeCount: number | undefined;
+};
+
 // Favorite
 export type ToggleFavoriteRequest = {
   userId: number | undefined;
@@ -1461,6 +2176,15 @@ export type ToggleLikeRequest = {
 export type ToggleLikeResponse = {
   active: boolean | undefined;
   likeCount: number | undefined;
+};
+
+export type ToggleProductFavoriteRequest = {
+  productId: number | undefined;
+};
+
+export type ToggleProductFavoriteResponse = {
+  active: boolean | undefined;
+  favoriteCount: number | undefined;
 };
 
 export type TrackBehaviorRequest = {
@@ -1499,6 +2223,14 @@ export type TrendingItem = {
   frequency: number | undefined;
 };
 
+export type UnblockUserRequest = {
+  userId: number | undefined;
+};
+
+export type UnblockUserResponse = {
+  success: boolean | undefined;
+};
+
 export type UnfollowUserRequest = {
   followerId: number | undefined;
   followeeId: number | undefined;
@@ -1512,6 +2244,22 @@ export type UnlockUserRequest = {
   adminId: number | undefined;
   userId: number | undefined;
   reason: string | undefined;
+};
+
+export type UpdateAddressRequest = {
+  id: number | undefined;
+  label: string | undefined;
+  recipient: string | undefined;
+  phone: string | undefined;
+  province: string | undefined;
+  city: string | undefined;
+  district: string | undefined;
+  detail: string | undefined;
+  isDefault: boolean | undefined;
+};
+
+export type UpdateAddressResponse = {
+  address: Address | undefined;
 };
 
 export type UpdateCampaignRequest = {
@@ -1533,6 +2281,25 @@ export type UpdatePreferencesRequest = {
 
 export type UpdatePreferencesResponse = {
   success: boolean | undefined;
+};
+
+export type UpdateProductRequest = {
+  id: number | undefined;
+  title: string | undefined;
+  name: string | undefined;
+  description: string | undefined;
+  price: number | undefined;
+  stock: number | undefined;
+  category: string | undefined;
+  categoryId: number | undefined;
+  images: string[] | undefined;
+  condition: string | undefined;
+  isNegotiable: boolean | undefined;
+  pricingModel: string | undefined;
+};
+
+export type UpdateProductResponse = {
+  product: Product | undefined;
 };
 
 export type UpdateStatusRequest = {
@@ -1591,6 +2358,27 @@ export type User = {
   role: string | undefined;
   trustScore: number | undefined;
   createdAt: string | undefined;
+  phone: string | undefined;
+  nickname: string | undefined;
+  bio: string | undefined;
+  kycTier: string | undefined;
+};
+
+export type VerifyKYCPhoneRequest = {
+  phone: string | undefined;
+  code: string | undefined;
+};
+
+export type VerifyKYCPhoneResponse = {
+  status: KYCStatus | undefined;
+};
+
+export type VerifyTokenRequest = {
+};
+
+export type VerifyTokenResponse = {
+  valid: boolean | undefined;
+  user: User | undefined;
 };
 
 export type ViewRecord = {
@@ -1600,12 +2388,23 @@ export type ViewRecord = {
   createdAt: string | undefined;
 };
 
+export type WithdrawOfferRequest = {
+  id: number | undefined;
+};
+
+export type WithdrawOfferResponse = {
+  offer: Offer | undefined;
+};
+
 export type WithdrawRequest = {
   id: number | undefined;
   userId: number | undefined;
   amount: number | undefined;
   status: string | undefined;
   createdAt: string | undefined;
+  paymentAccountId: number | undefined;
+  note: string | undefined;
+  rejectReason: string | undefined;
 };
 
 

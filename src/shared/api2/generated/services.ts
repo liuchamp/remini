@@ -3,7 +3,7 @@
 // @ts-nocheck
 // deno-lint-ignore-file
 
-import type { ActivateCampaignRequest, ActivateCampaignResponse, AddCampaignRuleRequest, AddCampaignRuleResponse, AddPointsRequest, AddPointsResponse, ApproveProductRequest, ApproveWithdrawRequest, ApproveWithdrawResponse, AuditLog, BatchIssueCouponRequest, BatchIssueCouponResponse, BatchRecommendationsRequest, BatchRecommendationsResponse, BindPaymentMethodRequest, BindPaymentMethodResponse, BindReferralRequest, BindReferralResponse, CancelOrderRequest, CancelOrderResponse, ChangeUserRoleRequest, CheckRouteRequest, CheckRouteResponse, CompleteOrderRequest, CompleteOrderResponse, CreateAuditRequest, CreateCampaignRequest, CreateCampaignResponse, CreateCircleRequest, CreateCircleResponse, CreateCommentRequest, CreateCommentResponse, CreateCouponTemplateRequest, CreateCouponTemplateResponse, CreateOrderRequest, CreateOrderResponse, CreatePaymentRequest, CreatePaymentResponse, CreatePostRequest, CreatePostResponse, CreateProductRequest, CreateProductResponse, CreateShipmentRequest, CreateShipmentResponse, CreateSynonymGroupRequest, CreateSynonymGroupResponse, CreateTransactionRequest, CreateTransactionResponse, DashboardSummaryRequest, DashboardSummaryResponse, DeactivateCampaignRequest, DeactivateCampaignResponse, DeleteCommentRequest, DeleteCommentResponse, DeletePaymentMethodRequest, DeletePaymentMethodResponse, DeleteProductRequest, DeleteProductResponse, EvaluateRiskRequest, EvaluateRiskResponse, FollowUserRequest, FollowUserResponse, GenerateReferralCodeRequest, GenerateReferralCodeResponse, GenerateReportRequest, GenerateReportResponse, GetBalanceRequest, GetBalanceResponse, GetCampaignRequest, GetCampaignResponse, GetCampaignRulesRequest, GetCampaignRulesResponse, GetCampaignStatsRequest, GetCampaignStatsResponse, GetCircleRequest, GetCircleResponse, GetConversationRequest, GetConversationResponse, GetCouponStatsRequest, GetCouponStatsResponse, GetEventsRequest, GetEventsResponse, GetHomeRecommendationsRequest, GetHomeRecommendationsResponse, GetOrderRequest, GetOrderResponse, GetPaymentRequest, GetPaymentResponse, GetPointsRequest, GetPointsResponse, GetPostRequest, GetPostResponse, GetPreferencesRequest, GetPreferencesResponse, GetProductRecommendationsRequest, GetProductRecommendationsResponse, GetProductRequest, GetProductResponse, GetRecommendationExplanationRequest, GetRecommendationExplanationResponse, GetRiskProfileRequest, GetRiskProfileResponse, GetShipmentRequest, GetShipmentResponse, GetSuggestionsRequest, GetSuggestionsResponse, GetTrendingProductsRequest, GetTrendingProductsResponse, GetTrendingRequest, GetTrendingResponse, GetUserProfileRequest, GetUserProfileResponse, GetUserRequest, GetUserResponse, HandleCallbackRequest, HandleCallbackResponse, IssueCouponRequest, IssueCouponResponse, JoinCircleRequest, JoinCircleResponse, LeaveCircleRequest, LeaveCircleResponse, ListAuditsRequest, ListAuditsResponse, ListByTargetRequest, ListCampaignsRequest, ListCampaignsResponse, ListCircleMembersRequest, ListCircleMembersResponse, ListCirclePostsRequest, ListCirclePostsResponse, ListCirclesRequest, ListCirclesResponse, ListCommentsRequest, ListCommentsResponse, ListConversationsRequest, ListConversationsResponse, ListEventsRequest, ListEventsResponse, ListFolloweesRequest, ListFolloweesResponse, ListFollowersRequest, ListFollowersResponse, ListMessagesRequest, ListMessagesResponse, ListMyOrdersRequest, ListMyOrdersResponse, ListMyProductsRequest, ListMyProductsResponse, ListNotificationsRequest, ListNotificationsResponse, ListOrdersRequest, ListOrdersResponse, ListPaymentMethodsRequest, ListPaymentMethodsResponse, ListPaymentsRequest, ListPaymentsResponse, ListPostsRequest, ListPostsResponse, ListProductsRequest, ListProductsResponse, ListReportsRequest, ListReportsResponse, ListShipmentsRequest, ListShipmentsResponse, ListSynonymGroupsRequest, ListSynonymGroupsResponse, ListSynonymsRequest, ListSynonymsResponse, ListTransactionsRequest, ListTransactionsResponse, ListUserCouponsRequest, ListUserCouponsResponse, ListWithdrawsRequest, ListWithdrawsResponse, LockUserRequest, LoginRequest, LoginResponse, ManageRulesRequest, ManageRulesResponse, ManageSynonymsRequest, ManageSynonymsResponse, MarkAllReadRequest, MarkAllReadResponse, MarkReadRequest, MarkReadResponse, PayOrderRequest, PayOrderResponse, PublishRequest, PublishResponse, RaiseDisputeRequest, RaiseDisputeResponse, RecordCommissionRequest, RecordCommissionResponse, RefreshRecommendationsRequest, RefreshRecommendationsResponse, RegisterRequest, RegisterResponse, ReindexAllRequest, ReindexAllResponse, RejectProductRequest, RemoveCampaignRuleRequest, RemoveCampaignRuleResponse, RemoveOverrideRequest, ReportEventRequest, ReportEventResponse, RequestWithdrawRequest, RequestWithdrawResponse, ResolveDisputeRequest, RiskOverrideRequest, SearchDocumentsRequest, SearchDocumentsResponse, SearchProductsRequest, SearchProductsResponse, SendMessageRequest, SendMessageResponse, SendNotificationRequest, SendNotificationResponse, SetDefaultPaymentMethodRequest, SetDefaultPaymentMethodResponse, SettleRevenueRequest, SettleRevenueResponse, ShipOrderRequest, ShipOrderResponse, SpendPointsRequest, SpendPointsResponse, SubscribeRequest, SubscribeResponse, SyncIndexRequest, SyncIndexResponse, ToggleFavoriteRequest, ToggleFavoriteResponse, ToggleLikeRequest, ToggleLikeResponse, TrackBehaviorRequest, TrackBehaviorResponse, TransferCircleOwnershipRequest, TransferCircleOwnershipResponse, UnfollowUserRequest, UnfollowUserResponse, UnlockUserRequest, UpdateCampaignRequest, UpdateCampaignResponse, UpdatePreferencesRequest, UpdatePreferencesResponse, UpdateStatusRequest, UpdateStatusResponse, UpdateStockRequest, UpdateStockResponse, UpdateTrackingRequest, UpdateTrackingResponse, UpdateTrustScoreRequest, UpdateTrustScoreResponse, UseCouponRequest, UseCouponResponse } from "./messages";
+import type { AcceptOfferRequest, AcceptOfferResponse, ActivateCampaignRequest, ActivateCampaignResponse, AddCampaignRuleRequest, AddCampaignRuleResponse, AddPointsRequest, AddPointsResponse, AppendReviewRequest, AppendReviewResponse, ApplyCreatorCertificationRequest, ApplyCreatorCertificationResponse, ApproveProductRequest, ApproveWithdrawRequest, ApproveWithdrawResponse, AuditLog, BatchIssueCouponRequest, BatchIssueCouponResponse, BatchRecommendationsRequest, BatchRecommendationsResponse, BindPaymentMethodRequest, BindPaymentMethodResponse, BindReferralRequest, BindReferralResponse, BlockUserRequest, BlockUserResponse, CancelOrderRequest, CancelOrderResponse, ChangeUserRoleRequest, CheckRouteRequest, CheckRouteResponse, CheckinRequest, CheckinResponse, ClaimCouponRequest, ClaimCouponResponse, Code2SessionRequest, Code2SessionResponse, CompleteOrderRequest, CompleteOrderResponse, CounterOfferRequest, CounterOfferResponse, CreateAddressRequest, CreateAddressResponse, CreateAuditRequest, CreateCampaignRequest, CreateCampaignResponse, CreateCircleRequest, CreateCircleResponse, CreateCommentRequest, CreateCommentResponse, CreateCouponTemplateRequest, CreateCouponTemplateResponse, CreateOfferRequest, CreateOfferResponse, CreateOrderRequest, CreateOrderResponse, CreatePaymentRequest, CreatePaymentResponse, CreatePostRequest, CreatePostResponse, CreateProductRequest, CreateProductResponse, CreateReviewRequest, CreateReviewResponse, CreateShipmentRequest, CreateShipmentResponse, CreateSynonymGroupRequest, CreateSynonymGroupResponse, CreateTransactionRequest, CreateTransactionResponse, DashboardSummaryRequest, DashboardSummaryResponse, DeactivateCampaignRequest, DeactivateCampaignResponse, DeleteAddressRequest, DeleteAddressResponse, DeleteCommentRequest, DeleteCommentResponse, DeleteConversationRequest, DeleteConversationResponse, DeletePaymentMethodRequest, DeletePaymentMethodResponse, DeleteProductRequest, DeleteProductResponse, EvaluateRiskRequest, EvaluateRiskResponse, ExchangeCouponRequest, ExchangeCouponResponse, FollowUserRequest, FollowUserResponse, GenerateReferralCodeRequest, GenerateReferralCodeResponse, GenerateReportRequest, GenerateReportResponse, GetAddressRequest, GetAddressResponse, GetBalanceRequest, GetBalanceResponse, GetCampaignRequest, GetCampaignResponse, GetCampaignRulesRequest, GetCampaignRulesResponse, GetCampaignStatsRequest, GetCampaignStatsResponse, GetCheckinDataRequest, GetCheckinDataResponse, GetCircleRequest, GetCircleResponse, GetCommissionDataRequest, GetCommissionDataResponse, GetConversationRequest, GetConversationResponse, GetCouponStatsRequest, GetCouponStatsResponse, GetEventsRequest, GetEventsResponse, GetFeedRequest, GetFeedResponse, GetHomeRecommendationsRequest, GetHomeRecommendationsResponse, GetKYCStatusRequest, GetKYCStatusResponse, GetNotificationRequest, GetNotificationResponse, GetOfferRequest, GetOfferResponse, GetOrderRequest, GetOrderResponse, GetPaymentRequest, GetPaymentResponse, GetPointsRequest, GetPointsResponse, GetPostRequest, GetPostResponse, GetPreferencesRequest, GetPreferencesResponse, GetProductRecommendationsRequest, GetProductRecommendationsResponse, GetProductRequest, GetProductResponse, GetRecommendationExplanationRequest, GetRecommendationExplanationResponse, GetReferralInfoRequest, GetReferralInfoResponse, GetRiskProfileRequest, GetRiskProfileResponse, GetSellerStatsRequest, GetSellerStatsResponse, GetShipmentByOrderRequest, GetShipmentByOrderResponse, GetShipmentRequest, GetShipmentResponse, GetSuggestionsRequest, GetSuggestionsResponse, GetTrendingProductsRequest, GetTrendingProductsResponse, GetTrendingRequest, GetTrendingResponse, GetUnreadCountRequest, GetUnreadCountResponse, GetUserProfileRequest, GetUserProfileResponse, GetUserRequest, GetUserResponse, HandleCallbackRequest, HandleCallbackResponse, IssueCouponRequest, IssueCouponResponse, JoinCircleRequest, JoinCircleResponse, KickDeviceRequest, KickDeviceResponse, LeaveCircleRequest, LeaveCircleResponse, ListAddressesRequest, ListAddressesResponse, ListAdminWithdrawsRequest, ListAdminWithdrawsResponse, ListAuditsRequest, ListAuditsResponse, ListByTargetRequest, ListCampaignsRequest, ListCampaignsResponse, ListCategoriesRequest, ListCategoriesResponse, ListCircleMembersRequest, ListCircleMembersResponse, ListCirclePostsRequest, ListCirclePostsResponse, ListCirclesRequest, ListCirclesResponse, ListCommentsRequest, ListCommentsResponse, ListConversationsRequest, ListConversationsResponse, ListCouponTemplatesRequest, ListCouponTemplatesResponse, ListDevicesRequest, ListDevicesResponse, ListDisputesRequest, ListDisputesResponse, ListEventsRequest, ListEventsResponse, ListFavoriteProductsRequest, ListFavoriteProductsResponse, ListFolloweesRequest, ListFolloweesResponse, ListFollowersRequest, ListFollowersResponse, ListMessagesRequest, ListMessagesResponse, ListMyOrdersRequest, ListMyOrdersResponse, ListMyProductsRequest, ListMyProductsResponse, ListNotificationsRequest, ListNotificationsResponse, ListOffersRequest, ListOffersResponse, ListOrdersRequest, ListOrdersResponse, ListPaymentMethodsRequest, ListPaymentMethodsResponse, ListPaymentsRequest, ListPaymentsResponse, ListPendingProductsRequest, ListPendingProductsResponse, ListPointsRecordsRequest, ListPointsRecordsResponse, ListPostsRequest, ListPostsResponse, ListProductsRequest, ListProductsResponse, ListReportsRequest, ListReportsResponse, ListShipmentsRequest, ListShipmentsResponse, ListSynonymGroupsRequest, ListSynonymGroupsResponse, ListSynonymsRequest, ListSynonymsResponse, ListTransactionsRequest, ListTransactionsResponse, ListUserCouponsRequest, ListUserCouponsResponse, ListUserProductsRequest, ListUserProductsResponse, ListUserReviewsRequest, ListUserReviewsResponse, ListUsersRequest, ListUsersResponse, ListWithdrawsRequest, ListWithdrawsResponse, LockUserRequest, LoginByPhoneRequest, LoginByPhoneResponse, LoginRequest, LoginResponse, LogoutRequest, LogoutResponse, ManageRulesRequest, ManageRulesResponse, ManageSynonymsRequest, ManageSynonymsResponse, MarkAllReadRequest, MarkAllReadResponse, MarkConversationReadRequest, MarkConversationReadResponse, MarkReadRequest, MarkReadResponse, OCRIDCardRequest, OCRIDCardResponse, PayOrderRequest, PayOrderResponse, PinConversationRequest, PinConversationResponse, PublishRequest, PublishResponse, RaiseDisputeRequest, RaiseDisputeResponse, RecordCommissionRequest, RecordCommissionResponse, RefreshRecommendationsRequest, RefreshRecommendationsResponse, RefreshTokenRequest, RefreshTokenResponse, RegisterRequest, RegisterResponse, ReindexAllRequest, ReindexAllResponse, RejectOfferRequest, RejectOfferResponse, RejectProductRequest, RejectWithdrawRequest, RejectWithdrawResponse, RemoveCampaignRuleRequest, RemoveCampaignRuleResponse, RemoveOverrideRequest, ReportEventRequest, ReportEventResponse, RequestRefundRequest, RequestRefundResponse, RequestWithdrawRequest, RequestWithdrawResponse, ResolveDisputeRequest, RiskOverrideRequest, SearchDocumentsRequest, SearchDocumentsResponse, SearchProductsRequest, SearchProductsResponse, SendAuthCodeRequest, SendAuthCodeResponse, SendKYCPhoneCodeRequest, SendKYCPhoneCodeResponse, SendMessageRequest, SendMessageResponse, SendNotificationRequest, SendNotificationResponse, SendReadReceiptRequest, SendReadReceiptResponse, SetDefaultAddressRequest, SetDefaultAddressResponse, SetDefaultPaymentMethodRequest, SetDefaultPaymentMethodResponse, SettleRevenueRequest, SettleRevenueResponse, ShipOrderRequest, ShipOrderResponse, SpendPointsRequest, SpendPointsResponse, StartLivenessRequest, StartLivenessResponse, SubmitIdentityRequest, SubmitIdentityResponse, SubmitLivenessRequest, SubmitLivenessResponse, SubscribeRequest, SubscribeResponse, SyncIndexRequest, SyncIndexResponse, ToggleCommentLikeRequest, ToggleCommentLikeResponse, ToggleFavoriteRequest, ToggleFavoriteResponse, ToggleLikeRequest, ToggleLikeResponse, ToggleProductFavoriteRequest, ToggleProductFavoriteResponse, TrackBehaviorRequest, TrackBehaviorResponse, TransferCircleOwnershipRequest, TransferCircleOwnershipResponse, UnblockUserRequest, UnblockUserResponse, UnfollowUserRequest, UnfollowUserResponse, UnlockUserRequest, UpdateAddressRequest, UpdateAddressResponse, UpdateCampaignRequest, UpdateCampaignResponse, UpdatePreferencesRequest, UpdatePreferencesResponse, UpdateProductRequest, UpdateProductResponse, UpdateStatusRequest, UpdateStatusResponse, UpdateStockRequest, UpdateStockResponse, UpdateTrackingRequest, UpdateTrackingResponse, UpdateTrustScoreRequest, UpdateTrustScoreResponse, UseCouponRequest, UseCouponResponse, VerifyKYCPhoneRequest, VerifyKYCPhoneResponse, VerifyTokenRequest, VerifyTokenResponse, WithdrawOfferRequest, WithdrawOfferResponse } from "./messages";
 
 export interface AdminService {
   // Audit
@@ -24,6 +24,11 @@ export interface AdminService {
   // Risk management
   RiskOverride(request: RiskOverrideRequest): Promise<AuditLog>;
   RemoveRiskOverride(request: RemoveOverrideRequest): Promise<AuditLog>;
+  ListUsers(request: ListUsersRequest): Promise<ListUsersResponse>;
+  ListPendingProducts(request: ListPendingProductsRequest): Promise<ListPendingProductsResponse>;
+  ListAdminWithdraws(request: ListAdminWithdrawsRequest): Promise<ListAdminWithdrawsResponse>;
+  RejectWithdraw(request: RejectWithdrawRequest): Promise<RejectWithdrawResponse>;
+  ListDisputes(request: ListDisputesRequest): Promise<ListDisputesResponse>;
 }
 
 type RequestType = {
@@ -254,6 +259,133 @@ export function createAdminServiceClient(
         method: "RemoveRiskOverride",
       }) as Promise<AuditLog>;
     },
+    ListUsers(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/admin/users`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      if (request.page !== undefined && request.page !== null) {
+        queryParams.push(`page=${encodeURIComponent(request.page.toString())}`)
+      }
+      if (request.pageSize !== undefined && request.pageSize !== null) {
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
+      }
+      if (request.keyword !== undefined && request.keyword !== null) {
+        queryParams.push(`keyword=${encodeURIComponent(request.keyword.toString())}`)
+      }
+      if (request.status !== undefined && request.status !== null) {
+        queryParams.push(`status=${encodeURIComponent(request.status.toString())}`)
+      }
+      if (request.role !== undefined && request.role !== null) {
+        queryParams.push(`role=${encodeURIComponent(request.role.toString())}`)
+      }
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "AdminService",
+        method: "ListUsers",
+      }) as Promise<ListUsersResponse>;
+    },
+    ListPendingProducts(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/admin/products/pending`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      if (request.page !== undefined && request.page !== null) {
+        queryParams.push(`page=${encodeURIComponent(request.page.toString())}`)
+      }
+      if (request.pageSize !== undefined && request.pageSize !== null) {
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
+      }
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "AdminService",
+        method: "ListPendingProducts",
+      }) as Promise<ListPendingProductsResponse>;
+    },
+    ListAdminWithdraws(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/admin/withdrawals`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      if (request.page !== undefined && request.page !== null) {
+        queryParams.push(`page=${encodeURIComponent(request.page.toString())}`)
+      }
+      if (request.pageSize !== undefined && request.pageSize !== null) {
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
+      }
+      if (request.status !== undefined && request.status !== null) {
+        queryParams.push(`status=${encodeURIComponent(request.status.toString())}`)
+      }
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "AdminService",
+        method: "ListAdminWithdraws",
+      }) as Promise<ListAdminWithdrawsResponse>;
+    },
+    RejectWithdraw(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.withdrawId) {
+        throw new Error("missing required field request.withdraw_id");
+      }
+      const path = `api/v1/admin/withdrawals/${encodeURIComponent(request.withdrawId)}/reject`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "AdminService",
+        method: "RejectWithdraw",
+      }) as Promise<RejectWithdrawResponse>;
+    },
+    ListDisputes(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/admin/disputes`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      if (request.page !== undefined && request.page !== null) {
+        queryParams.push(`page=${encodeURIComponent(request.page.toString())}`)
+      }
+      if (request.pageSize !== undefined && request.pageSize !== null) {
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
+      }
+      if (request.status !== undefined && request.status !== null) {
+        queryParams.push(`status=${encodeURIComponent(request.status.toString())}`)
+      }
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "AdminService",
+        method: "ListDisputes",
+      }) as Promise<ListDisputesResponse>;
+    },
   };
 }
 export interface CommunityService {
@@ -261,6 +393,7 @@ export interface CommunityService {
   CreatePost(request: CreatePostRequest): Promise<CreatePostResponse>;
   GetPost(request: GetPostRequest): Promise<GetPostResponse>;
   ListPosts(request: ListPostsRequest): Promise<ListPostsResponse>;
+  GetFeed(request: GetFeedRequest): Promise<GetFeedResponse>;
   // Circles
   CreateCircle(request: CreateCircleRequest): Promise<CreateCircleResponse>;
   GetCircle(request: GetCircleRequest): Promise<GetCircleResponse>;
@@ -268,6 +401,7 @@ export interface CommunityService {
   ListCirclePosts(request: ListCirclePostsRequest): Promise<ListCirclePostsResponse>;
   // Social interaction: likes
   ToggleLike(request: ToggleLikeRequest): Promise<ToggleLikeResponse>;
+  ToggleCommentLike(request: ToggleCommentLikeRequest): Promise<ToggleCommentLikeResponse>;
   // Social interaction: favorites
   ToggleFavorite(request: ToggleFavoriteRequest): Promise<ToggleFavoriteResponse>;
   // Social interaction: follows
@@ -284,6 +418,7 @@ export interface CommunityService {
   LeaveCircle(request: LeaveCircleRequest): Promise<LeaveCircleResponse>;
   ListCircleMembers(request: ListCircleMembersRequest): Promise<ListCircleMembersResponse>;
   TransferCircleOwnership(request: TransferCircleOwnershipRequest): Promise<TransferCircleOwnershipResponse>;
+  ApplyCreatorCertification(request: ApplyCreatorCertificationRequest): Promise<ApplyCreatorCertificationResponse>;
 }
 
 export function createCommunityServiceClient(
@@ -349,6 +484,32 @@ export function createCommunityServiceClient(
         service: "CommunityService",
         method: "ListPosts",
       }) as Promise<ListPostsResponse>;
+    },
+    GetFeed(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/community/feed`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      if (request.page !== undefined && request.page !== null) {
+        queryParams.push(`page=${encodeURIComponent(request.page.toString())}`)
+      }
+      if (request.pageSize !== undefined && request.pageSize !== null) {
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
+      }
+      if (request.circleId !== undefined && request.circleId !== null) {
+        queryParams.push(`circleId=${encodeURIComponent(request.circleId.toString())}`)
+      }
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "CommunityService",
+        method: "GetFeed",
+      }) as Promise<GetFeedResponse>;
     },
     CreateCircle(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       const path = `api/v1/circles`; // eslint-disable-line quotes
@@ -452,6 +613,26 @@ export function createCommunityServiceClient(
         service: "CommunityService",
         method: "ToggleLike",
       }) as Promise<ToggleLikeResponse>;
+    },
+    ToggleCommentLike(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.commentId) {
+        throw new Error("missing required field request.comment_id");
+      }
+      const path = `api/v1/community/comments/${encodeURIComponent(request.commentId)}/like`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "CommunityService",
+        method: "ToggleCommentLike",
+      }) as Promise<ToggleCommentLikeResponse>;
     },
     ToggleFavorite(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       const path = `api/v1/favorites/toggle`; // eslint-disable-line quotes
@@ -705,6 +886,23 @@ export function createCommunityServiceClient(
         method: "TransferCircleOwnership",
       }) as Promise<TransferCircleOwnershipResponse>;
     },
+    ApplyCreatorCertification(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/community/creator/certification`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "CommunityService",
+        method: "ApplyCreatorCertification",
+      }) as Promise<ApplyCreatorCertificationResponse>;
+    },
   };
 }
 export interface EventBusService {
@@ -937,6 +1135,24 @@ export interface IdentityService {
   Login(request: LoginRequest): Promise<LoginResponse>;
   GetUser(request: GetUserRequest): Promise<GetUserResponse>;
   UpdateTrustScore(request: UpdateTrustScoreRequest): Promise<UpdateTrustScoreResponse>;
+  Code2Session(request: Code2SessionRequest): Promise<Code2SessionResponse>;
+  SendAuthCode(request: SendAuthCodeRequest): Promise<SendAuthCodeResponse>;
+  LoginByPhone(request: LoginByPhoneRequest): Promise<LoginByPhoneResponse>;
+  VerifyToken(request: VerifyTokenRequest): Promise<VerifyTokenResponse>;
+  RefreshToken(request: RefreshTokenRequest): Promise<RefreshTokenResponse>;
+  Logout(request: LogoutRequest): Promise<LogoutResponse>;
+  ListDevices(request: ListDevicesRequest): Promise<ListDevicesResponse>;
+  KickDevice(request: KickDeviceRequest): Promise<KickDeviceResponse>;
+  GetKYCStatus(request: GetKYCStatusRequest): Promise<GetKYCStatusResponse>;
+  SendKYCPhoneCode(request: SendKYCPhoneCodeRequest): Promise<SendKYCPhoneCodeResponse>;
+  VerifyKYCPhone(request: VerifyKYCPhoneRequest): Promise<VerifyKYCPhoneResponse>;
+  OCRIDCard(request: OCRIDCardRequest): Promise<OCRIDCardResponse>;
+  SubmitIdentity(request: SubmitIdentityRequest): Promise<SubmitIdentityResponse>;
+  StartLiveness(request: StartLivenessRequest): Promise<StartLivenessResponse>;
+  SubmitLiveness(request: SubmitLivenessRequest): Promise<SubmitLivenessResponse>;
+  CreateReview(request: CreateReviewRequest): Promise<CreateReviewResponse>;
+  AppendReview(request: AppendReviewRequest): Promise<AppendReviewResponse>;
+  ListUserReviews(request: ListUserReviewsRequest): Promise<ListUserReviewsResponse>;
 }
 
 export function createIdentityServiceClient(
@@ -1017,6 +1233,333 @@ export function createIdentityServiceClient(
         method: "UpdateTrustScore",
       }) as Promise<UpdateTrustScoreResponse>;
     },
+    Code2Session(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/auth/code2session`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "Code2Session",
+      }) as Promise<Code2SessionResponse>;
+    },
+    SendAuthCode(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/auth/send-code`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "SendAuthCode",
+      }) as Promise<SendAuthCodeResponse>;
+    },
+    LoginByPhone(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/auth/login-by-phone`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "LoginByPhone",
+      }) as Promise<LoginByPhoneResponse>;
+    },
+    VerifyToken(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/auth/verify`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "VerifyToken",
+      }) as Promise<VerifyTokenResponse>;
+    },
+    RefreshToken(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/auth/refresh`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "RefreshToken",
+      }) as Promise<RefreshTokenResponse>;
+    },
+    Logout(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/auth/logout`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "Logout",
+      }) as Promise<LogoutResponse>;
+    },
+    ListDevices(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/auth/devices`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "ListDevices",
+      }) as Promise<ListDevicesResponse>;
+    },
+    KickDevice(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.deviceId) {
+        throw new Error("missing required field request.device_id");
+      }
+      const path = `api/v1/auth/devices/${encodeURIComponent(request.deviceId)}`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "DELETE",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "KickDevice",
+      }) as Promise<KickDeviceResponse>;
+    },
+    GetKYCStatus(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/kyc/status`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "GetKYCStatus",
+      }) as Promise<GetKYCStatusResponse>;
+    },
+    SendKYCPhoneCode(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/kyc/phone/send`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "SendKYCPhoneCode",
+      }) as Promise<SendKYCPhoneCodeResponse>;
+    },
+    VerifyKYCPhone(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/kyc/phone/verify`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "VerifyKYCPhone",
+      }) as Promise<VerifyKYCPhoneResponse>;
+    },
+    OCRIDCard(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/kyc/identity/ocr`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "OCRIDCard",
+      }) as Promise<OCRIDCardResponse>;
+    },
+    SubmitIdentity(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/kyc/identity/submit`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "SubmitIdentity",
+      }) as Promise<SubmitIdentityResponse>;
+    },
+    StartLiveness(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/kyc/liveness/start`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "StartLiveness",
+      }) as Promise<StartLivenessResponse>;
+    },
+    SubmitLiveness(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/kyc/liveness/submit`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "SubmitLiveness",
+      }) as Promise<SubmitLivenessResponse>;
+    },
+    CreateReview(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.orderId) {
+        throw new Error("missing required field request.order_id");
+      }
+      const path = `api/v1/orders/${encodeURIComponent(request.orderId)}/review`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "CreateReview",
+      }) as Promise<CreateReviewResponse>;
+    },
+    AppendReview(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.orderId) {
+        throw new Error("missing required field request.order_id");
+      }
+      const path = `api/v1/orders/${encodeURIComponent(request.orderId)}/review/append`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "AppendReview",
+      }) as Promise<AppendReviewResponse>;
+    },
+    ListUserReviews(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.userId) {
+        throw new Error("missing required field request.user_id");
+      }
+      const path = `api/v1/users/${encodeURIComponent(request.userId)}/reviews`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      if (request.asSeller !== undefined && request.asSeller !== null) {
+        queryParams.push(`asSeller=${encodeURIComponent(request.asSeller.toString())}`)
+      }
+      if (request.page !== undefined && request.page !== null) {
+        queryParams.push(`page=${encodeURIComponent(request.page.toString())}`)
+      }
+      if (request.pageSize !== undefined && request.pageSize !== null) {
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
+      }
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "IdentityService",
+        method: "ListUserReviews",
+      }) as Promise<ListUserReviewsResponse>;
+    },
   };
 }
 export interface LogisticsService {
@@ -1024,6 +1567,13 @@ export interface LogisticsService {
   GetShipment(request: GetShipmentRequest): Promise<GetShipmentResponse>;
   ListShipments(request: ListShipmentsRequest): Promise<ListShipmentsResponse>;
   UpdateTracking(request: UpdateTrackingRequest): Promise<UpdateTrackingResponse>;
+  GetShipmentByOrder(request: GetShipmentByOrderRequest): Promise<GetShipmentByOrderResponse>;
+  CreateAddress(request: CreateAddressRequest): Promise<CreateAddressResponse>;
+  GetAddress(request: GetAddressRequest): Promise<GetAddressResponse>;
+  ListAddresses(request: ListAddressesRequest): Promise<ListAddressesResponse>;
+  UpdateAddress(request: UpdateAddressRequest): Promise<UpdateAddressResponse>;
+  DeleteAddress(request: DeleteAddressRequest): Promise<DeleteAddressResponse>;
+  SetDefaultAddress(request: SetDefaultAddressRequest): Promise<SetDefaultAddressResponse>;
 }
 
 export function createLogisticsServiceClient(
@@ -1113,6 +1663,140 @@ export function createLogisticsServiceClient(
         method: "UpdateTracking",
       }) as Promise<UpdateTrackingResponse>;
     },
+    GetShipmentByOrder(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.orderId) {
+        throw new Error("missing required field request.order_id");
+      }
+      const path = `api/v1/shipping/${encodeURIComponent(request.orderId)}`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "LogisticsService",
+        method: "GetShipmentByOrder",
+      }) as Promise<GetShipmentByOrderResponse>;
+    },
+    CreateAddress(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/addresses`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "LogisticsService",
+        method: "CreateAddress",
+      }) as Promise<CreateAddressResponse>;
+    },
+    GetAddress(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.id) {
+        throw new Error("missing required field request.id");
+      }
+      const path = `api/v1/addresses/${encodeURIComponent(request.id)}`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "LogisticsService",
+        method: "GetAddress",
+      }) as Promise<GetAddressResponse>;
+    },
+    ListAddresses(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/addresses`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "LogisticsService",
+        method: "ListAddresses",
+      }) as Promise<ListAddressesResponse>;
+    },
+    UpdateAddress(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.id) {
+        throw new Error("missing required field request.id");
+      }
+      const path = `api/v1/addresses/${encodeURIComponent(request.id)}`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "PUT",
+        body,
+      }, {
+        service: "LogisticsService",
+        method: "UpdateAddress",
+      }) as Promise<UpdateAddressResponse>;
+    },
+    DeleteAddress(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.id) {
+        throw new Error("missing required field request.id");
+      }
+      const path = `api/v1/addresses/${encodeURIComponent(request.id)}`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "DELETE",
+        body,
+      }, {
+        service: "LogisticsService",
+        method: "DeleteAddress",
+      }) as Promise<DeleteAddressResponse>;
+    },
+    SetDefaultAddress(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.id) {
+        throw new Error("missing required field request.id");
+      }
+      const path = `api/v1/addresses/${encodeURIComponent(request.id)}/default`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "PUT",
+        body,
+      }, {
+        service: "LogisticsService",
+        method: "SetDefaultAddress",
+      }) as Promise<SetDefaultAddressResponse>;
+    },
   };
 }
 export interface MarketingService {
@@ -1141,6 +1825,14 @@ export interface MarketingService {
   // Statistics
   GetCampaignStats(request: GetCampaignStatsRequest): Promise<GetCampaignStatsResponse>;
   GetCouponStats(request: GetCouponStatsRequest): Promise<GetCouponStatsResponse>;
+  GetCheckinData(request: GetCheckinDataRequest): Promise<GetCheckinDataResponse>;
+  Checkin(request: CheckinRequest): Promise<CheckinResponse>;
+  ListPointsRecords(request: ListPointsRecordsRequest): Promise<ListPointsRecordsResponse>;
+  ExchangeCoupon(request: ExchangeCouponRequest): Promise<ExchangeCouponResponse>;
+  ClaimCoupon(request: ClaimCouponRequest): Promise<ClaimCouponResponse>;
+  ListCouponTemplates(request: ListCouponTemplatesRequest): Promise<ListCouponTemplatesResponse>;
+  GetReferralInfo(request: GetReferralInfoRequest): Promise<GetReferralInfoResponse>;
+  GetCommissionData(request: GetCommissionDataRequest): Promise<GetCommissionDataResponse>;
 }
 
 export function createMarketingServiceClient(
@@ -1549,6 +2241,163 @@ export function createMarketingServiceClient(
         method: "GetCouponStats",
       }) as Promise<GetCouponStatsResponse>;
     },
+    GetCheckinData(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/marketing/checkin`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "MarketingService",
+        method: "GetCheckinData",
+      }) as Promise<GetCheckinDataResponse>;
+    },
+    Checkin(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/marketing/checkin`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "MarketingService",
+        method: "Checkin",
+      }) as Promise<CheckinResponse>;
+    },
+    ListPointsRecords(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/marketing/points/records`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      if (request.page !== undefined && request.page !== null) {
+        queryParams.push(`page=${encodeURIComponent(request.page.toString())}`)
+      }
+      if (request.pageSize !== undefined && request.pageSize !== null) {
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
+      }
+      if (request.type !== undefined && request.type !== null) {
+        queryParams.push(`type=${encodeURIComponent(request.type.toString())}`)
+      }
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "MarketingService",
+        method: "ListPointsRecords",
+      }) as Promise<ListPointsRecordsResponse>;
+    },
+    ExchangeCoupon(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.couponTemplateId) {
+        throw new Error("missing required field request.coupon_template_id");
+      }
+      const path = `api/v1/marketing/coupons/${encodeURIComponent(request.couponTemplateId)}/exchange`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "MarketingService",
+        method: "ExchangeCoupon",
+      }) as Promise<ExchangeCouponResponse>;
+    },
+    ClaimCoupon(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/marketing/coupons/claim`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "MarketingService",
+        method: "ClaimCoupon",
+      }) as Promise<ClaimCouponResponse>;
+    },
+    ListCouponTemplates(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/marketing/coupons/templates`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      if (request.page !== undefined && request.page !== null) {
+        queryParams.push(`page=${encodeURIComponent(request.page.toString())}`)
+      }
+      if (request.pageSize !== undefined && request.pageSize !== null) {
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
+      }
+      if (request.scene !== undefined && request.scene !== null) {
+        queryParams.push(`scene=${encodeURIComponent(request.scene.toString())}`)
+      }
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "MarketingService",
+        method: "ListCouponTemplates",
+      }) as Promise<ListCouponTemplatesResponse>;
+    },
+    GetReferralInfo(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/marketing/referral/info`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "MarketingService",
+        method: "GetReferralInfo",
+      }) as Promise<GetReferralInfoResponse>;
+    },
+    GetCommissionData(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/marketing/commission`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "MarketingService",
+        method: "GetCommissionData",
+      }) as Promise<GetCommissionDataResponse>;
+    },
   };
 }
 export interface MessagingService {
@@ -1556,6 +2405,12 @@ export interface MessagingService {
   GetConversation(request: GetConversationRequest): Promise<GetConversationResponse>;
   ListConversations(request: ListConversationsRequest): Promise<ListConversationsResponse>;
   ListMessages(request: ListMessagesRequest): Promise<ListMessagesResponse>;
+  MarkConversationRead(request: MarkConversationReadRequest): Promise<MarkConversationReadResponse>;
+  SendReadReceipt(request: SendReadReceiptRequest): Promise<SendReadReceiptResponse>;
+  DeleteConversation(request: DeleteConversationRequest): Promise<DeleteConversationResponse>;
+  PinConversation(request: PinConversationRequest): Promise<PinConversationResponse>;
+  BlockUser(request: BlockUserRequest): Promise<BlockUserResponse>;
+  UnblockUser(request: UnblockUserRequest): Promise<UnblockUserResponse>;
 }
 
 export function createMessagingServiceClient(
@@ -1651,6 +2506,120 @@ export function createMessagingServiceClient(
         method: "ListMessages",
       }) as Promise<ListMessagesResponse>;
     },
+    MarkConversationRead(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.threadId) {
+        throw new Error("missing required field request.thread_id");
+      }
+      const path = `api/v1/threads/${encodeURIComponent(request.threadId)}/read`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "MessagingService",
+        method: "MarkConversationRead",
+      }) as Promise<MarkConversationReadResponse>;
+    },
+    SendReadReceipt(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.threadId) {
+        throw new Error("missing required field request.thread_id");
+      }
+      const path = `api/v1/threads/${encodeURIComponent(request.threadId)}/read-receipt`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "MessagingService",
+        method: "SendReadReceipt",
+      }) as Promise<SendReadReceiptResponse>;
+    },
+    DeleteConversation(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.id) {
+        throw new Error("missing required field request.id");
+      }
+      const path = `api/v1/threads/${encodeURIComponent(request.id)}`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "DELETE",
+        body,
+      }, {
+        service: "MessagingService",
+        method: "DeleteConversation",
+      }) as Promise<DeleteConversationResponse>;
+    },
+    PinConversation(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.id) {
+        throw new Error("missing required field request.id");
+      }
+      const path = `api/v1/threads/${encodeURIComponent(request.id)}/pin`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "MessagingService",
+        method: "PinConversation",
+      }) as Promise<PinConversationResponse>;
+    },
+    BlockUser(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/blocks`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "MessagingService",
+        method: "BlockUser",
+      }) as Promise<BlockUserResponse>;
+    },
+    UnblockUser(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/blocks`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "DELETE",
+        body,
+      }, {
+        service: "MessagingService",
+        method: "UnblockUser",
+      }) as Promise<UnblockUserResponse>;
+    },
   };
 }
 export interface NotificationService {
@@ -1660,6 +2629,8 @@ export interface NotificationService {
   MarkAllRead(request: MarkAllReadRequest): Promise<MarkAllReadResponse>;
   UpdatePreferences(request: UpdatePreferencesRequest): Promise<UpdatePreferencesResponse>;
   GetPreferences(request: GetPreferencesRequest): Promise<GetPreferencesResponse>;
+  GetNotification(request: GetNotificationRequest): Promise<GetNotificationResponse>;
+  GetUnreadCount(request: GetUnreadCountRequest): Promise<GetUnreadCountResponse>;
 }
 
 export function createNotificationServiceClient(
@@ -1786,6 +2757,43 @@ export function createNotificationServiceClient(
         method: "GetPreferences",
       }) as Promise<GetPreferencesResponse>;
     },
+    GetNotification(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.id) {
+        throw new Error("missing required field request.id");
+      }
+      const path = `api/v1/notifications/${encodeURIComponent(request.id)}`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "NotificationService",
+        method: "GetNotification",
+      }) as Promise<GetNotificationResponse>;
+    },
+    GetUnreadCount(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/notifications/unread-count`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "NotificationService",
+        method: "GetUnreadCount",
+      }) as Promise<GetUnreadCountResponse>;
+    },
   };
 }
 export interface PaymentService {
@@ -1795,6 +2803,7 @@ export interface PaymentService {
   HandleCallback(request: HandleCallbackRequest): Promise<HandleCallbackResponse>;
   RequestWithdraw(request: RequestWithdrawRequest): Promise<RequestWithdrawResponse>;
   ApproveWithdraw(request: ApproveWithdrawRequest): Promise<ApproveWithdrawResponse>;
+  RejectWithdraw(request: RejectWithdrawRequest): Promise<RejectWithdrawResponse>;
   ListWithdraws(request: ListWithdrawsRequest): Promise<ListWithdrawsResponse>;
   BindPaymentMethod(request: BindPaymentMethodRequest): Promise<BindPaymentMethodResponse>;
   ListPaymentMethods(request: ListPaymentMethodsRequest): Promise<ListPaymentMethodsResponse>;
@@ -1923,6 +2932,26 @@ export function createPaymentServiceClient(
         method: "ApproveWithdraw",
       }) as Promise<ApproveWithdrawResponse>;
     },
+    RejectWithdraw(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.id) {
+        throw new Error("missing required field request.id");
+      }
+      const path = `api/v1/withdraws/${encodeURIComponent(request.id)}/reject`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "PaymentService",
+        method: "RejectWithdraw",
+      }) as Promise<RejectWithdrawResponse>;
+    },
     ListWithdraws(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       const path = `api/v1/withdraws`; // eslint-disable-line quotes
       const body = null;
@@ -2040,6 +3069,12 @@ export interface ProductService {
   ListMyProducts(request: ListMyProductsRequest): Promise<ListMyProductsResponse>;
   SearchProducts(request: SearchProductsRequest): Promise<SearchProductsResponse>;
   DeleteProduct(request: DeleteProductRequest): Promise<DeleteProductResponse>;
+  UpdateProduct(request: UpdateProductRequest): Promise<UpdateProductResponse>;
+  ListCategories(request: ListCategoriesRequest): Promise<ListCategoriesResponse>;
+  ToggleProductFavorite(request: ToggleProductFavoriteRequest): Promise<ToggleProductFavoriteResponse>;
+  ListFavoriteProducts(request: ListFavoriteProductsRequest): Promise<ListFavoriteProductsResponse>;
+  ListUserProducts(request: ListUserProductsRequest): Promise<ListUserProductsResponse>;
+  GetSellerStats(request: GetSellerStatsRequest): Promise<GetSellerStatsResponse>;
 }
 
 export function createProductServiceClient(
@@ -2217,6 +3252,129 @@ export function createProductServiceClient(
         service: "ProductService",
         method: "DeleteProduct",
       }) as Promise<DeleteProductResponse>;
+    },
+    UpdateProduct(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.id) {
+        throw new Error("missing required field request.id");
+      }
+      const path = `api/v1/products/${encodeURIComponent(request.id)}`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "PUT",
+        body,
+      }, {
+        service: "ProductService",
+        method: "UpdateProduct",
+      }) as Promise<UpdateProductResponse>;
+    },
+    ListCategories(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/categories`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "ProductService",
+        method: "ListCategories",
+      }) as Promise<ListCategoriesResponse>;
+    },
+    ToggleProductFavorite(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.productId) {
+        throw new Error("missing required field request.product_id");
+      }
+      const path = `api/v1/products/${encodeURIComponent(request.productId)}/favorite`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "ProductService",
+        method: "ToggleProductFavorite",
+      }) as Promise<ToggleProductFavoriteResponse>;
+    },
+    ListFavoriteProducts(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/user/favorites`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      if (request.page !== undefined && request.page !== null) {
+        queryParams.push(`page=${encodeURIComponent(request.page.toString())}`)
+      }
+      if (request.pageSize !== undefined && request.pageSize !== null) {
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
+      }
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "ProductService",
+        method: "ListFavoriteProducts",
+      }) as Promise<ListFavoriteProductsResponse>;
+    },
+    ListUserProducts(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.userId) {
+        throw new Error("missing required field request.user_id");
+      }
+      const path = `api/v1/users/${encodeURIComponent(request.userId)}/products`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      if (request.page !== undefined && request.page !== null) {
+        queryParams.push(`page=${encodeURIComponent(request.page.toString())}`)
+      }
+      if (request.pageSize !== undefined && request.pageSize !== null) {
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
+      }
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "ProductService",
+        method: "ListUserProducts",
+      }) as Promise<ListUserProductsResponse>;
+    },
+    GetSellerStats(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/seller/stats`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "ProductService",
+        method: "GetSellerStats",
+      }) as Promise<GetSellerStatsResponse>;
     },
   };
 }
@@ -2793,6 +3951,14 @@ export interface TradingService {
   CompleteOrder(request: CompleteOrderRequest): Promise<CompleteOrderResponse>;
   CancelOrder(request: CancelOrderRequest): Promise<CancelOrderResponse>;
   RaiseDispute(request: RaiseDisputeRequest): Promise<RaiseDisputeResponse>;
+  RequestRefund(request: RequestRefundRequest): Promise<RequestRefundResponse>;
+  CreateOffer(request: CreateOfferRequest): Promise<CreateOfferResponse>;
+  ListOffers(request: ListOffersRequest): Promise<ListOffersResponse>;
+  GetOffer(request: GetOfferRequest): Promise<GetOfferResponse>;
+  AcceptOffer(request: AcceptOfferRequest): Promise<AcceptOfferResponse>;
+  RejectOffer(request: RejectOfferRequest): Promise<RejectOfferResponse>;
+  CounterOffer(request: CounterOfferRequest): Promise<CounterOfferResponse>;
+  WithdrawOffer(request: WithdrawOfferRequest): Promise<WithdrawOfferResponse>;
 }
 
 export function createTradingServiceClient(
@@ -2984,6 +4150,172 @@ export function createTradingServiceClient(
         service: "TradingService",
         method: "RaiseDispute",
       }) as Promise<RaiseDisputeResponse>;
+    },
+    RequestRefund(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.orderId) {
+        throw new Error("missing required field request.order_id");
+      }
+      const path = `api/v1/orders/${encodeURIComponent(request.orderId)}/refund`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "TradingService",
+        method: "RequestRefund",
+      }) as Promise<RequestRefundResponse>;
+    },
+    CreateOffer(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/offers`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "TradingService",
+        method: "CreateOffer",
+      }) as Promise<CreateOfferResponse>;
+    },
+    ListOffers(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      const path = `api/v1/offers`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      if (request.productId !== undefined && request.productId !== null) {
+        queryParams.push(`productId=${encodeURIComponent(request.productId.toString())}`)
+      }
+      if (request.status !== undefined && request.status !== null) {
+        queryParams.push(`status=${encodeURIComponent(request.status.toString())}`)
+      }
+      if (request.page !== undefined && request.page !== null) {
+        queryParams.push(`page=${encodeURIComponent(request.page.toString())}`)
+      }
+      if (request.pageSize !== undefined && request.pageSize !== null) {
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
+      }
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "TradingService",
+        method: "ListOffers",
+      }) as Promise<ListOffersResponse>;
+    },
+    GetOffer(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.id) {
+        throw new Error("missing required field request.id");
+      }
+      const path = `api/v1/offers/${encodeURIComponent(request.id)}`; // eslint-disable-line quotes
+      const body = null;
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "GET",
+        body,
+      }, {
+        service: "TradingService",
+        method: "GetOffer",
+      }) as Promise<GetOfferResponse>;
+    },
+    AcceptOffer(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.id) {
+        throw new Error("missing required field request.id");
+      }
+      const path = `api/v1/offers/${encodeURIComponent(request.id)}/accept`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "TradingService",
+        method: "AcceptOffer",
+      }) as Promise<AcceptOfferResponse>;
+    },
+    RejectOffer(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.id) {
+        throw new Error("missing required field request.id");
+      }
+      const path = `api/v1/offers/${encodeURIComponent(request.id)}/reject`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "TradingService",
+        method: "RejectOffer",
+      }) as Promise<RejectOfferResponse>;
+    },
+    CounterOffer(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.id) {
+        throw new Error("missing required field request.id");
+      }
+      const path = `api/v1/offers/${encodeURIComponent(request.id)}/counter`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "TradingService",
+        method: "CounterOffer",
+      }) as Promise<CounterOfferResponse>;
+    },
+    WithdrawOffer(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      if (!request.id) {
+        throw new Error("missing required field request.id");
+      }
+      const path = `api/v1/offers/${encodeURIComponent(request.id)}/withdraw`; // eslint-disable-line quotes
+      const body = JSON.stringify(request);
+      const queryParams: string[] = [];
+      let uri = path;
+      if (queryParams.length > 0) {
+        uri += `?${queryParams.join("&")}`
+      }
+      return handler({
+        path: uri,
+        method: "POST",
+        body,
+      }, {
+        service: "TradingService",
+        method: "WithdrawOffer",
+      }) as Promise<WithdrawOfferResponse>;
     },
   };
 }
